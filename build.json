@@ -1,12 +1,12 @@
 {
   "out_dir": "/home/user/knowledge-foundry/site",
   "base_url": "/knowledge-foundry",
-  "generated_at": "2026-09-18T19:17:08+00:00",
-  "pages": 65,
+  "generated_at": "2026-09-18T19:27:39+00:00",
+  "pages": 66,
   "knowledge_areas": [
     "kb-001-battery-failure",
     "kb-002-industrial-fire-explosion"
   ],
-  "bytes_written": 2762425,
+  "bytes_written": 2790226,
   "warnings": []
 }

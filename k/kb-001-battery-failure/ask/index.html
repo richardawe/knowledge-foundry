@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Inline, so a static host never logs a 404 for a favicon that does not exist. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ctext y=%2713%27 font-size=%2714%27%3E%F0%9F%94%8E%3C/text%3E%3C/svg%3E">
 <title>Try to break Lithium-Ion Battery Failure Intelligence</title>
 <style>
   :root {
@@ -70,7 +72,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:27</span>
   </div>
 </header>
 <main class="wrap">
@@ -88,18 +90,44 @@
   where it is wrong. Answers you can falsify are the point.
 </p>
 
-<div class="banner">
-  <strong>This is a published snapshot.</strong>
-  Asking a new question runs hybrid retrieval and a local model, which a static
-  page cannot do. Every question the system has actually been asked — with the
-  evidence behind each answer — is in the
-  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">transcript</a>.
-  To ask your own, run it locally against Ollama:
-  <pre>git clone https://github.com/richardawe/knowledge-foundry
+<div id="ask-app" data-knowledge-area="kb-001-battery-failure" data-api-base="http://localhost:8000">
+  <p id="ask-status" class="small muted">Looking for a running instance…</p>
+
+  <form id="ask-form" hidden>
+    <textarea id="ask-question" rows="3"
+      placeholder="e.g. What watt-hour limit applies to a spare lithium-ion battery in cabin baggage?"></textarea>
+    <p><button id="ask-submit" type="submit">Ask</button></p>
+  </form>
+
+  <div id="ask-offline" class="banner" hidden>
+    <strong>Nothing is answering yet.</strong>
+    This page is the interface; the engine runs where your knowledge and your
+    model are. Start it on the machine with Ollama, then reload:
+    <pre>git clone https://github.com/richardawe/knowledge-foundry
 cd knowledge-foundry &amp;&amp; pip install -e ".[dev,web]"
-ollama serve &amp;            # llama3.1:8b
-make build &amp;&amp; make serve   # http://127.0.0.1:8000</pre>
+ollama serve &amp;                  # llama3.1:8b
+make build &amp;&amp; make serve         # http://localhost:8000</pre>
+    Meanwhile, every question the system has already been asked — with the
+    evidence behind each answer, and the ones it got wrong — is in the
+    <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">transcript</a>.
+  </div>
+
+  <div id="ask-output"></div>
+
+  <details class="small muted" style="margin-top:22px">
+    <summary>Point this page at a different instance</summary>
+    <p>
+      Anything speaking this project's ask API: another machine on your network,
+      or a tunnelled HTTPS endpoint so readers who are not running it themselves
+      can use it too. Shareable as <code>?api=&lt;url&gt;</code>.
+    </p>
+    <form id="ask-endpoint-form">
+      <p><input type="text" id="ask-endpoint" placeholder="http://localhost:8000"></p>
+      <p><button type="submit">Connect</button></p>
+    </form>
+  </details>
 </div>
+<script src="/knowledge-foundry/assets/ask.js" defer></script>
 
 </main>
 <footer class="wrap small muted">
