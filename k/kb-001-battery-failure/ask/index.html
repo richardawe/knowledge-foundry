@@ -72,7 +72,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:47</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T20:09</span>
   </div>
 </header>
 <main class="wrap">
@@ -90,8 +90,12 @@
   where it is wrong. Answers you can falsify are the point.
 </p>
 
-<div id="ask-app" data-knowledge-area="kb-001-battery-failure" data-api-base="http://localhost:8000">
+<div id="ask-app"
+     data-knowledge-area="kb-001-battery-failure"
+     data-api-base="http://localhost:8000"
+     data-transcript="/knowledge-foundry/api/knowledge/kb-001-battery-failure.transcript.json">
   <p id="ask-status" class="small muted">Looking for a running instance…</p>
+  <p id="ask-mode" class="small muted" hidden></p>
 
   <form id="ask-form" hidden>
     <textarea id="ask-question" rows="3"
