@@ -72,7 +72,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T20:09</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T20:40</span>
   </div>
 </header>
 <main class="wrap">
@@ -97,8 +97,8 @@
   </div>
 </div>
 <p class="muted small" style="margin-top:8px">
-  Last evaluated 2026-09-18T18:02:14+00:00.
-  Corpus last refreshed 2026-09-18T18:01:14+00:00.
+  Last evaluated 2026-09-18T20:40:56+00:00.
+  Corpus last refreshed 2026-09-18T20:40:34+00:00.
 </p>
 
 <div class="banner">
@@ -148,13 +148,13 @@
 
 <h2>Evaluation</h2>
 <p>
-  <strong>76 / 103</strong>
-  questions passed (74%).
+  <strong>74 / 103</strong>
+  questions passed (72%).
 <span class="pass">Gate: PASS</span>
 </p>
 <table>
   <tr><th>Question type</th><th>Passed</th><th>Rate</th></tr>
-  <tr><td>factual</td><td>25 / 36</td><td>69%</td></tr>
+  <tr><td>factual</td><td>23 / 36</td><td>64%</td></tr>
   <tr><td>citation</td><td>4 / 5</td><td>80%</td></tr>
   <tr><td>multi_document</td><td>3 / 5</td><td>60%</td></tr>
   <tr><td>reasoning</td><td>4 / 5</td><td>80%</td></tr>
@@ -173,52 +173,30 @@
   <tr><th>Metric</th><th>Value</th></tr>
   <tr><td>retrieval_precision</td><td>0.452</td></tr>
   <tr><td>retrieval_recall</td><td>0.964</td></tr>
-  <tr><td>answer_correctness</td><td>0.822</td></tr>
+  <tr><td>answer_correctness</td><td>0.807</td></tr>
   <tr><td>citation_validity</td><td>0.992</td></tr>
-  <tr><td>citation_relevance</td><td>0.767</td></tr>
-  <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
-  <tr><td>hallucination_rate</td><td>0.000</td></tr>
-  <tr><td>abstention_correctness</td><td>0.787</td></tr>
+  <tr><td>citation_relevance</td><td>0.756</td></tr>
+  <tr><td>unsupported_claim_rate</td><td>0.039</td></tr>
+  <tr><td>hallucination_rate</td><td>0.039</td></tr>
+  <tr><td>abstention_correctness</td><td>0.750</td></tr>
   <tr><td>source_coverage</td><td>0.586</td></tr>
-  <tr><td>contradiction_rate</td><td>0.019</td></tr>
-  <tr><td>corpus_freshness_days</td><td>0.001</td></tr>
-  <tr><td>regression_rate</td><td>0.000</td></tr>
+  <tr><td>contradiction_rate</td><td>0.010</td></tr>
+  <tr><td>corpus_freshness_days</td><td>0.000</td></tr>
 </table>
-<p class="small"><a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Every question, including the 27 it fails →</a></p>
+<p class="small"><a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Every question, including the 29 it fails →</a></p>
 
 <h2>Adversarial testing</h2>
-<p>
-  64 generated attacks, survival rate
-  <strong>92%</strong>
-  (5 breaks).
-</p>
-<table>
-  <tr><th>Failure mode</th><th>Times triggered</th></tr>
-  <tr><td>hallucinated</td><td>0</td></tr>
-  <tr><td>irrelevant_citation</td><td>1</td></tr>
-  <tr><td>misread_source</td><td>0</td></tr>
-  <tr><td>unsupported_deduction</td><td>0</td></tr>
-  <tr><td>missed_uncertainty</td><td>5</td></tr>
-</table>
-<h3>What broke it</h3>
-<table>
-  <tr><th>Question</th><th>Failure</th></tr>
-  <tr><td>How many iec62619 failures will occur globally next year?</td><td class="fail small">irrelevant_citation, missed_uncertainty</td></tr>
-  <tr><td>What is the exact threshold for smoke evolution for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
-  <tr><td>What will the rules on liquid electrolyte be in 2030?</td><td class="fail small">missed_uncertainty</td></tr>
-  <tr><td>What is the exact threshold for polyolefin separator for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
-  <tr><td>What is the exact threshold for vent for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
-</table>
+<p class="muted">No red-team run recorded yet.</p>
 
 <h2>Updates</h2>
 <table>
   <tr><th>Version</th><th>Published</th><th>Sources</th><th>Passages</th><th>Evaluation</th></tr>
   <tr>
     <td><code>v0.1.0</code></td>
-    <td class="small">2026-09-18T18:02</td>
+    <td class="small">2026-09-18T20:40</td>
     <td>34</td>
     <td>1267</td>
-    <td>76 / 103
+    <td>74 / 103
 <span class="pass">PASS</span></td>
   </tr>
   <tr>
