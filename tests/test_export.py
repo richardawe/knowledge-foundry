@@ -83,7 +83,8 @@ def test_static_ask_page_explains_how_to_ask_for_real(site):
     out, _report = site
     html = (out / "k/kb-test-widgets/ask/index.html").read_text()
     assert "ollama" in html.lower()
-    assert "make serve" in html
+    assert "./start.sh" in html, "the banner must give the one command that fixes it"
+    assert "git clone" in html
     assert "transcript" in html.lower()
 
 
