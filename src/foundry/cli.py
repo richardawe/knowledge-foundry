@@ -257,8 +257,13 @@ def cmd_worker(args) -> int:
         state = "ok" if response.ok and response.text.strip() else f"FAILED: {response.error}"
         print(f"  {ka_id} {request['question_id'] or request['id']}: {state}")
 
+    # Never anonymous. A queued answer becomes the specialist's published answer,
+    # so the record has to say which machine produced it -- an unattributed reply
+    # is one nobody can trace back when it turns out to be wrong.
+    import socket
+
     summary = worker(
-        manifests, limit=args.limit, worker_name=args.name or "",
+        manifests, limit=args.limit, worker_name=args.name or socket.gethostname(),
         on_progress=None if args.json else progress,
     )
     if args.json:

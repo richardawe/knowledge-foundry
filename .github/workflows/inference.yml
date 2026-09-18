@@ -40,8 +40,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: var
-          key: foundry-var-${{ github.run_id }}
-          restore-keys: foundry-var-
+          key: foundry-var-v2-${{ github.run_id }}
+          restore-keys: foundry-var-v2-
 
       # The corpus has to exist to validate against. A cache hit makes this
       # quick; a cold runner rebuilds from the source register.
