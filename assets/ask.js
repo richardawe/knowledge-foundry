@@ -71,15 +71,85 @@
         esc(area) + "</code>. Build it there first: <code>make build KA=" + esc(area) + "</code>.");
       return;
     }
-    setStatus("pass", "Connected to <code>" + esc(base) +
-      "</code> — questions are answered live by that instance.");
+    var version = info && info.version ? " (v" + esc(info.version) + ")" : "";
+    setStatus("pass", "Connected to <code>" + esc(base) + "</code>" + version +
+      " — questions are answered live by that instance.");
     formEl.hidden = false;
     offlineEl.hidden = true;
   }
 
   function showOffline(reason) {
+    var tried = candidates().map(function (c) { return "<code>" + esc(c) + "</code>"; });
     setStatus("muted",
-      "No instance reachable at <code>" + esc(base) + "</code> (" + esc(reason) + ").");
+      "No instance reachable (" + esc(reason) + "). Tried " + tried.join(", ") + ".");
+    formEl.hidden = true;
+    offlineEl.hidden = false;
+  }
+
+  // Ports the project realistically listens on: `make serve`, a common
+  // alternative, and the Hugging Face Spaces default.
+  var CANDIDATE_PORTS = [8000, 8080, 7860];
+
+  function candidates() {
+    var list = [base];
+    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(base)) {
+      var host = base.replace(/:\d+$/, "");
+      CANDIDATE_PORTS.forEach(function (port) {
+        var candidate = host + ":" + port;
+        if (list.indexOf(candidate) === -1) list.push(candidate);
+      });
+    }
+    return list;
+  }
+
+  function withTimeout(ms) {
+    var controller = new AbortController();
+    setTimeout(function () { controller.abort(); }, ms);
+    return controller.signal;
+  }
+
+  /*
+   * A browser cannot distinguish "nothing is listening" from "something is
+   * listening but rejected the cross-origin request" — both surface as the
+   * same opaque TypeError. So when the normal request fails, probe again with
+   * mode:"no-cors": that resolves whenever *anything* answered, and rejects
+   * only when nothing did. The difference tells the reader whether to start
+   * the server or to update it.
+   */
+  function probeOne(candidate) {
+    return fetch(candidate + "/healthz", { signal: withTimeout(3500) })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (info) { return { state: "ok", base: candidate, info: info }; })
+      .catch(function () {
+        return fetch(candidate + "/healthz", { mode: "no-cors", signal: withTimeout(3500) })
+          .then(function () { return { state: "blocked", base: candidate }; })
+          .catch(function () { return { state: "absent", base: candidate }; });
+      });
+  }
+
+  function isInsecureLocal(candidate) {
+    return window.location.protocol === "https:" && candidate.indexOf("http://") === 0;
+  }
+
+  function showBlocked(candidate) {
+    var safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+    var message =
+      "An instance is answering at <code>" + esc(candidate) + "</code>, but this page " +
+      "cannot read its replies.";
+    if (safari && isInsecureLocal(candidate)) {
+      message += " Safari blocks an HTTPS page from calling <code>http://localhost</code>. " +
+        "Open the instance directly instead — it serves this same page: " +
+        '<a href="' + esc(candidate) + "/k/" + esc(area) + '/ask">' +
+        esc(candidate) + "/k/" + esc(area) + "/ask</a>.";
+    } else {
+      message += " That usually means it is running a build from before " +
+        "cross-origin support was added. Update and restart it:" +
+        "<br><code>git pull &amp;&amp; make serve</code>";
+    }
+    setStatus("hold", message);
     formEl.hidden = true;
     offlineEl.hidden = false;
   }
@@ -87,19 +157,20 @@
   function probe() {
     setStatus("muted", "Looking for an instance at <code>" + esc(base) + "</code>…");
     if (endpointEl) endpointEl.value = base;
-    var controller = new AbortController();
-    var timer = setTimeout(function () { controller.abort(); }, 4000);
-    fetch(base + "/healthz", { signal: controller.signal })
-      .then(function (r) {
-        clearTimeout(timer);
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      })
-      .then(showConnected)
-      .catch(function (err) {
-        clearTimeout(timer);
-        showOffline(err && err.name === "AbortError" ? "timed out" : "not running");
-      });
+
+    Promise.all(candidates().map(probeOne)).then(function (results) {
+      var ok = results.filter(function (r) { return r.state === "ok"; })[0];
+      if (ok) {
+        base = ok.base;
+        store(STORAGE_KEY, base);
+        if (endpointEl) endpointEl.value = base;
+        showConnected(ok.info);
+        return;
+      }
+      var blocked = results.filter(function (r) { return r.state === "blocked"; })[0];
+      if (blocked) { showBlocked(blocked.base); return; }
+      showOffline("nothing is listening");
+    });
   }
 
   function renderSources(sources) {

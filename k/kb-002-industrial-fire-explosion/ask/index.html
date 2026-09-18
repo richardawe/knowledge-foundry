@@ -72,7 +72,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:27</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:33</span>
   </div>
 </header>
 <main class="wrap">
@@ -102,14 +102,22 @@
   <div id="ask-offline" class="banner" hidden>
     <strong>Nothing is answering yet.</strong>
     This page is the interface; the engine runs where your knowledge and your
-    model are. Start it on the machine with Ollama, then reload:
+    model are.
     <pre>git clone https://github.com/richardawe/knowledge-foundry
 cd knowledge-foundry &amp;&amp; pip install -e ".[dev,web]"
 ollama serve &amp;                  # llama3.1:8b
 make build &amp;&amp; make serve         # http://localhost:8000</pre>
-    Meanwhile, every question the system has already been asked — with the
-    evidence behind each answer, and the ones it got wrong — is in the
-    <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">transcript</a>.
+    <p>
+      Already running it? Your instance serves this same page itself, on its own
+      origin — no cross-origin call, nothing for a browser to block:
+      <br><strong><a href="http://localhost:8000/k/kb-002-industrial-fire-explosion/ask">http://localhost:8000/k/kb-002-industrial-fire-explosion/ask</a></strong>
+      <br>That route works everywhere, including Safari.
+    </p>
+    <p class="small">
+      Meanwhile, every question the system has already been asked — with the
+      evidence behind each answer, and the ones it got wrong — is in the
+      <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">transcript</a>.
+    </p>
   </div>
 
   <div id="ask-output"></div>
