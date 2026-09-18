@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knowledge-foundry"
+version = "0.1.0"
+description = "A factory for evidence-backed specialist knowledge systems"
+requires-python = ">=3.10"
+# The core loop deliberately depends on nothing but the standard library
+# plus a YAML parser. Everything else is an opt-in extra (see IMPLEMENTATION_PLAN.md §1).
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+web = ["Jinja2>=3.1"]
+pdf = ["pypdf>=4.0"]
+fast = ["numpy>=1.24"]
+anthropic = ["anthropic>=0.40"]
+openai = ["openai>=1.0"]
+sentence-transformers = ["sentence-transformers>=3.0"]
+dev = ["pytest>=8.0", "numpy>=1.24", "Jinja2>=3.1"]
+
+[project.scripts]
+foundry = "foundry.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["error::DeprecationWarning"]
