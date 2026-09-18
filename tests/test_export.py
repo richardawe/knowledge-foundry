@@ -386,3 +386,28 @@ def test_offline_banner_offers_the_same_origin_route(site):
     html = (out / "k/kb-test-widgets/ask/index.html").read_text()
     assert "http://localhost:8000/k/kb-test-widgets/ask" in html
     assert "Safari" in html
+
+
+def test_offline_banner_distinguishes_ollama_from_this_server(site):
+    """Conflating the two is how someone ends up staring at 'nothing is listening'.
+
+    Ollama on :11434 and this application on :8000 are separate processes. A
+    machine can be running Ollama for other work and still have nothing
+    serving here.
+    """
+    out, _report = site
+    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
+    assert "11434" in html and "8000" in html
+    assert "start.sh" in html
+
+
+def test_the_bootstrap_script_is_shipped_and_executable():
+    import os
+
+    script = Path(__file__).resolve().parents[1] / "start.sh"
+    assert script.is_file(), "start.sh is referenced by the published page"
+    assert os.access(script, os.X_OK), "start.sh must be executable from a fresh clone"
+    body = script.read_text()
+    # It must survive being run twice.
+    assert "already installed" in body
+    assert "foundry.cli serve" in body

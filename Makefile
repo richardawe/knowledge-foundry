@@ -7,10 +7,15 @@ PY ?= python3
 PORT ?= 8000
 
 .PHONY: help install test build ingest index eval redteam publish rollback \
-        serve stats site deploy nightly nightly-site doctor ollama-check clean clean-all
+        serve stats site deploy nightly nightly-site doctor ollama-check up clean clean-all
+
+# One command from a fresh clone to a working ask box.
+up:
+	./start.sh
 
 help:
 	@echo "Knowledge Foundry"
+	@echo "  make up          install, build if needed, and serve — start here"
 	@echo "  make install     install the package with dev extras"
 	@echo "  make test        run the test suite"
 	@echo "  make build       ingest + index + cut a draft version  (KA=$(KA))"
