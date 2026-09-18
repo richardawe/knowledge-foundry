@@ -166,6 +166,27 @@ def test_the_worker_never_falls_back_to_the_keyless_provider(built, tmp_path, mo
     assert recorded["error"]
 
 
+def test_the_worker_refuses_the_runners_provider_override(built, tmp_path, monkeypatch):
+    """CI exports FOUNDRY_LLM_PROVIDER. A worker machine inheriting it must stop.
+
+    Silently honouring it is the worst outcome available: the queue fills with
+    corpus-extracted replies that apply() then validates, scores and publishes
+    as though a model had produced them.
+    """
+    from foundry.llm import KeylessProviderRefused
+
+    manifest, store = built
+    manifest.specialist.llm_provider = "ollama"
+    plan(manifest, store, root=tmp_path)
+    monkeypatch.setenv("FOUNDRY_LLM_PROVIDER", "local_extractive")
+
+    with pytest.raises(KeylessProviderRefused) as caught:
+        worker([manifest], root=tmp_path)
+
+    assert "FOUNDRY_LLM_PROVIDER" in str(caught.value)
+    assert not list((queue_root(manifest.id, tmp_path) / "responses").glob("req_*.json"))
+
+
 # -- applying -----------------------------------------------------------
 
 

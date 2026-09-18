@@ -40,11 +40,28 @@ def get_provider(provider: str = "local_extractive", model: str | None = None):
     )
 
 
+class KeylessProviderRefused(RuntimeError):
+    """Raised when a keyless provider is asked to stand in for a real model."""
+
+
 # Providers that reach the network and can therefore be unavailable.
 REMOTE_PROVIDERS = frozenset({"ollama", "openai_compatible", "anthropic"})
 
+# Providers that need no key, no daemon and no network. They cannot fail, which
+# is exactly why nothing may quietly substitute them for a model.
+KEYLESS_PROVIDERS = frozenset({"local_extractive", "scripted"})
 
-def provider_for(manifest: Manifest, allow_fallback: bool = True):
+
+def provider_name_for(manifest: Manifest) -> tuple[str, str]:
+    """The provider and model this process will actually use, after overrides."""
+    cfg = manifest.specialist
+    return (
+        os.environ.get("FOUNDRY_LLM_PROVIDER", "").strip() or cfg.llm_provider,
+        os.environ.get("FOUNDRY_LLM_MODEL", "").strip() or cfg.llm_model,
+    )
+
+
+def provider_for(manifest: Manifest, allow_fallback: bool = True, require_model: bool = False):
     """Build the knowledge area's provider, wrapped so an outage degrades rather than breaks.
 
     A knowledge area pointing at a local Ollama should keep working -- with a
@@ -56,8 +73,14 @@ def provider_for(manifest: Manifest, allow_fallback: bool = True):
     # An environment override, for machines that cannot run the knowledge
     # area's chosen model. A CI runner has no Ollama, and saying so up front is
     # better than a hundred connection failures that each look like an outage.
-    name = os.environ.get("FOUNDRY_LLM_PROVIDER", "").strip() or cfg.llm_provider
-    model = os.environ.get("FOUNDRY_LLM_MODEL", "").strip() or cfg.llm_model
+    name, model = provider_name_for(manifest)
+    if require_model and name in KEYLESS_PROVIDERS:
+        raise KeylessProviderRefused(
+            f"{name!r} answers from the corpus without calling a model, so it cannot "
+            "fill the inference queue -- its replies would be indistinguishable from "
+            f"{cfg.llm_provider!r}'s once applied. Unset FOUNDRY_LLM_PROVIDER on the "
+            "machine running the worker, or point it at a real model."
+        )
     provider = get_provider(name, model)
     if allow_fallback and cfg.llm_fallback and name in REMOTE_PROVIDERS:
         return FallbackProvider(provider)
@@ -67,6 +90,8 @@ def provider_for(manifest: Manifest, allow_fallback: bool = True):
 __all__ = [
     "ABSTENTION",
     "FallbackProvider",
+    "KEYLESS_PROVIDERS",
+    "KeylessProviderRefused",
     "REMOTE_PROVIDERS",
     "GenerationContext",
     "LLMProvider",
@@ -75,4 +100,5 @@ __all__ = [
     "ScriptedProvider",
     "get_provider",
     "provider_for",
+    "provider_name_for",
 ]

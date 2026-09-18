@@ -142,6 +142,26 @@ def _write_yaml(path: Path, data) -> None:
     path.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")
 
 
+# The environment chooses the model in production: a CI runner exports
+# FOUNDRY_LLM_PROVIDER because it has no Ollama. That must not reach in here --
+# a test asserting "an unreachable Ollama falls back" tests nothing if the
+# runner has already swapped Ollama out. Tests state the provider they mean.
+_AMBIENT_VARS = (
+    "FOUNDRY_LLM_PROVIDER",
+    "FOUNDRY_LLM_MODEL",
+    "FOUNDRY_OLLAMA_HOST",
+    "OLLAMA_HOST",
+    "FOUNDRY_ROOT",
+    "FOUNDRY_VAR",
+)
+
+
+@pytest.fixture(autouse=True)
+def _no_ambient_config(monkeypatch):
+    for name in _AMBIENT_VARS:
+        monkeypatch.delenv(name, raising=False)
+
+
 @pytest.fixture
 def ka_dir(tmp_path: Path, monkeypatch) -> Path:
     """A complete synthetic knowledge area, with FOUNDRY_ROOT/VAR pointed at tmp."""

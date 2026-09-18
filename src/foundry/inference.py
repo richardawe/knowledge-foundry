@@ -412,10 +412,13 @@ def worker(
             summary["by_area"][manifest.id] = 0
             continue
 
-        # Unwrapped on purpose: a worker that silently answers with the keyless
-        # extractive provider would fill the queue with replies that look like
-        # the model's. If the model is unreachable, that is an error to report.
-        model = provider or provider_for(manifest, allow_fallback=False)
+        # Unwrapped and model-only on purpose: a worker that answered with the
+        # keyless extractive provider -- by falling back, or because the machine
+        # exports the CI runner's FOUNDRY_LLM_PROVIDER -- would fill the queue
+        # with replies that are indistinguishable from the model's once applied.
+        # If the model is unreachable, that is an error to report, not to paper
+        # over with an answer nobody asked a model for.
+        model = provider or provider_for(manifest, allow_fallback=False, require_model=True)
 
         answered = 0
         for request in queued:
