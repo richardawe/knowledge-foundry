@@ -292,14 +292,21 @@ This is a working MVP, not a finished product.
   selects and cites. It cannot hallucinate, which makes it a useful control, but
   its prose is stitched rather than written. Point the manifest at a hosted model
   and the evaluation suite will tell you whether that is worth paying for.
-* KA-001 currently passes **73 of its 100** evaluation questions. The failures
-  are published on the evidence page rather than hidden, and most are generation
-  failures rather than retrieval failures — retrieval recall is 0.95.
+* KA-001 currently passes **76 of its 103** evaluation questions, KA-002 20 of 27.
+  The failures are published on the evidence page rather than hidden, and most are
+  generation failures rather than retrieval failures — retrieval recall is 0.96.
 * The scope gate is lexical and misses paraphrased out-of-domain questions; the
   sufficiency gate catches most of what it misses. This is measured, not assumed.
 * The grounding checker is lexical. It catches fabricated numbers and quotations
   reliably and will miss a paraphrase that changes meaning while keeping the
   vocabulary.
+* **Nothing measures completeness.** Every metric asks whether what was said is
+  supported. None asks whether what was left out changes the meaning. A worked
+  example: asked for the aircraft-cabin watt-hour limit, the specialist cites the
+  FAA correctly, scores 100% citation-valid and 100% grounded, and drops the words
+  "with airline approval" from a passage it had open — so it reports that two
+  101–160 Wh spares are permitted without saying the carrier must consent. That
+  answer is published. Closing this is the next design decision, not a bug fix.
 
 That list is the product working as intended. The claim is not that the system is
 smart — it is that you can see what it knows, where that came from, how it is
