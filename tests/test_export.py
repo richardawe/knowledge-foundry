@@ -359,3 +359,30 @@ def test_static_ask_page_still_explains_the_offline_case(site):
     html = (out / "k/kb-test-widgets/ask/index.html").read_text()
     assert "Nothing is answering yet" in html
     assert "transcript" in html.lower()
+
+
+def test_the_client_diagnoses_why_a_connection_failed(site):
+    """"Nothing is listening" and "listening but blocked" need different fixes."""
+    out, _report = site
+    source = (out / "assets/ask.js").read_text()
+
+    # The no-cors second probe is what separates the two cases.
+    assert 'mode: "no-cors"' in source
+    assert "nothing is listening" in source
+    assert "git pull" in source
+    # And it knows about the one browser that blocks http://localhost from HTTPS.
+    assert "safari" in source.lower()
+
+
+def test_the_client_tries_the_ports_the_project_actually_uses(site):
+    out, _report = site
+    source = (out / "assets/ask.js").read_text()
+    assert "8000" in source and "8080" in source
+
+
+def test_offline_banner_offers_the_same_origin_route(site):
+    """The local instance serves this page itself -- no CORS, nothing to block."""
+    out, _report = site
+    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
+    assert "http://localhost:8000/k/kb-test-widgets/ask" in html
+    assert "Safari" in html

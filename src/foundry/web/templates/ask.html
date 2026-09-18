@@ -22,14 +22,22 @@
   <div id="ask-offline" class="banner" hidden>
     <strong>Nothing is answering yet.</strong>
     This page is the interface; the engine runs where your knowledge and your
-    model are. Start it on the machine with Ollama, then reload:
+    model are.
     <pre>git clone https://github.com/richardawe/knowledge-foundry
 cd knowledge-foundry &amp;&amp; pip install -e ".[dev,web]"
 ollama serve &amp;                  # llama3.1:8b
 make build &amp;&amp; make serve         # http://localhost:8000</pre>
-    Meanwhile, every question the system has already been asked — with the
-    evidence behind each answer, and the ones it got wrong — is in the
-    <a href="{{ url('/k/' ~ manifest.id ~ '/transcript/') }}">transcript</a>.
+    <p>
+      Already running it? Your instance serves this same page itself, on its own
+      origin — no cross-origin call, nothing for a browser to block:
+      <br><strong><a href="http://localhost:8000/k/{{ manifest.id }}/ask">http://localhost:8000/k/{{ manifest.id }}/ask</a></strong>
+      <br>That route works everywhere, including Safari.
+    </p>
+    <p class="small">
+      Meanwhile, every question the system has already been asked — with the
+      evidence behind each answer, and the ones it got wrong — is in the
+      <a href="{{ url('/k/' ~ manifest.id ~ '/transcript/') }}">transcript</a>.
+    </p>
   </div>
 
   <div id="ask-output"></div>

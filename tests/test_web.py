@@ -311,6 +311,19 @@ def test_healthz_reports_which_knowledge_areas_are_served(router):
     assert json.loads(payload)["knowledge_areas"] == ["kb-test-widgets"]
 
 
+def test_healthz_advertises_the_build_and_its_cors_support(router):
+    """A browser cannot see why a cross-origin call failed; this is how it finds out.
+
+    An instance predating cross-origin support answers /healthz but the reply is
+    unreadable from another origin -- indistinguishable, in the browser, from
+    nothing listening at all. These fields let the page say which it is.
+    """
+    _status, _ct, payload = _get(router, "/healthz")
+    data = json.loads(payload)
+    assert data["cors"] is True
+    assert data["version"]
+
+
 def test_api_routes_allow_cross_origin_calls():
     """A published static page is a different origin from the instance it calls."""
     from foundry.web.app import cors_headers

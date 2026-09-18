@@ -342,9 +342,19 @@ class Router:
         if not parts:
             return self.index(tenant)
         if parts == ["healthz"]:
-            return 200, "application/json", json.dumps(
-                {"ok": True, "knowledge_areas": sorted(self.registry.manifests)}
-            ).encode()
+            # The client uses `cors` and `version` to tell a healthy instance
+            # from one running a build that predates cross-origin support --
+            # a distinction that is otherwise invisible in the browser, because
+            # a CORS rejection and an unreachable host both surface as the same
+            # opaque network error.
+            from .. import __version__
+
+            return 200, "application/json", json.dumps({
+                "ok": True,
+                "version": __version__,
+                "cors": True,
+                "knowledge_areas": sorted(self.registry.manifests),
+            }).encode()
         if parts[0] == "assets" and len(parts) == 2:
             asset = STATIC_DIR / parts[1]
             if asset.is_file() and asset.parent == STATIC_DIR:
@@ -484,9 +494,17 @@ def build_server(host: str = "127.0.0.1", port: int = 8000) -> ThreadingHTTPServ
 
 def serve(host: str = "127.0.0.1", port: int = 8000) -> None:
     server = build_server(host, port)
-    print(f"Knowledge Foundry serving on http://{host}:{port}")
-    print("  evidence pages:  /k/<knowledge-area>")
-    print("  ask API:         POST /knowledge/<knowledge-area>/ask")
+    shown = "localhost" if host in ("127.0.0.1", "0.0.0.0") else host
+    print(f"Knowledge Foundry serving on http://{shown}:{port}")
+    print()
+    print("  Ask here (same origin, always works):")
+    for ka_id in sorted(Registry.load().manifests):
+        print(f"    http://{shown}:{port}/k/{ka_id}/ask")
+    print()
+    print(f"  The published page at any origin will also find this instance at")
+    print(f"  http://localhost:{port} — reload it and the ask box goes live.")
+    print()
+    print(f"  API: POST http://{shown}:{port}/knowledge/<knowledge-area>/ask")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
