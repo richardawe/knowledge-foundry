@@ -1,11 +1,11 @@
 {
   "version": "v0.1.0",
-  "published_at": "2026-09-18T20:45:34+00:00",
-  "created_at": "2026-09-18T20:40:50+00:00",
+  "published_at": "2026-09-18T20:55:12+00:00",
+  "created_at": "2026-09-18T20:53:59+00:00",
   "manifest_sha": "271a67dbb81b3ae1",
-  "corpus_sha": "2b8c94d13a5d5e3f",
+  "corpus_sha": "0eb180961b65a3e6",
   "index_sha": "cf3509f994833a76",
-  "notes": "apply 35392677519",
+  "notes": "apply 35393760900",
   "stats": {
     "sources": 13,
     "documents": 11,
@@ -17,23 +17,23 @@
     "indexed_sources": 11
   },
   "evaluation": {
-    "run_id": "run_530a90356fe7792f",
+    "run_id": "run_df21eda6337183c9",
     "passed": true,
-    "total": 27,
+    "total": 30,
     "passed_count": 20,
-    "pass_rate": 0.741,
+    "pass_rate": 0.667,
     "metrics": {
       "retrieval_precision": 0.4778,
       "retrieval_recall": 0.9111,
-      "answer_correctness": 0.8095,
+      "answer_correctness": 0.7391,
       "citation_validity": 1.0,
       "citation_relevance": 0.6167,
       "unsupported_claim_rate": 0.0,
       "hallucination_rate": 0.0,
-      "abstention_correctness": 0.7273,
-      "source_coverage": 0.7273,
+      "abstention_correctness": 0.72,
+      "source_coverage": 0.8182,
       "contradiction_rate": 0.0,
-      "corpus_freshness_days": 0.0033
+      "corpus_freshness_days": 0.0009
     },
     "by_type": {
       "factual": {
@@ -62,9 +62,9 @@
         "rate": 1.0
       },
       "unanswerable": {
-        "total": 4,
+        "total": 5,
         "passed": 3,
-        "rate": 0.75
+        "rate": 0.6
       },
       "out_of_scope": {
         "total": 2,
@@ -77,7 +77,7 @@
         "rate": 1.0
       },
       "temporal": {
-        "total": 1,
+        "total": 3,
         "passed": 0,
         "rate": 0.0
       }
