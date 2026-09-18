@@ -63,17 +63,27 @@ def test_nojekyll_is_written(site):
 
 
 def test_static_pages_offer_no_dead_forms(site):
-    """A control that cannot work is worse than no control."""
+    """A control that cannot work is worse than no control.
+
+    The ask form is the exception and is not dead: it posts to a running
+    instance over the API, and the client hides it until one answers. The
+    challenge form has no such route, so it stays absent.
+    """
     out, _report = site
-    for path in ("k/kb-test-widgets/ask/index.html", "k/kb-test-widgets/challenges/index.html"):
-        assert "<form" not in (out / path).read_text(), path
+    challenges = (out / "k/kb-test-widgets/challenges/index.html").read_text()
+    assert "<form" not in challenges
+
+    ask = (out / "k/kb-test-widgets/ask/index.html").read_text()
+    assert 'method="post"' not in ask, "a static page cannot submit a form to itself"
+    assert 'id="ask-form" hidden' in ask, "the ask form stays hidden until an instance answers"
 
 
 def test_static_ask_page_explains_how_to_ask_for_real(site):
+    """When nothing is answering, say how to start it -- and where the answers are."""
     out, _report = site
     html = (out / "k/kb-test-widgets/ask/index.html").read_text()
-    assert "published snapshot" in html
     assert "ollama" in html.lower()
+    assert "make serve" in html
     assert "transcript" in html.lower()
 
 
@@ -310,3 +320,42 @@ def test_deploy_replaces_stale_pages(tmp_path):
         cwd=remote, capture_output=True, text=True, check=True,
     ).stdout.split()
     assert "old-area.html" not in listing
+
+
+# -- the published ask box ----------------------------------------------
+
+
+def test_export_ships_the_ask_client(site):
+    out, _report = site
+    asset = out / "assets/ask.js"
+    assert asset.is_file()
+    # It calls the API; it does not reimplement retrieval.
+    source = asset.read_text()
+    assert "/knowledge/" in source and "/healthz" in source
+    for forbidden in ("bm25", "cosine", "tokenize"):
+        assert forbidden not in source.lower(), "the client must not reimplement retrieval"
+
+
+def test_static_ask_page_mounts_the_client(site):
+    out, _report = site
+    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
+    assert 'id="ask-app"' in html
+    assert 'data-knowledge-area="kb-test-widgets"' in html
+    assert "assets/ask.js" in html
+
+
+def test_ask_endpoint_is_configurable_at_export(built, tmp_path):
+    """So the box can point at a tunnel, not only at localhost."""
+    manifest, _store = built
+    out = tmp_path / "site"
+    export_site(out, knowledge_areas=[manifest.id], api_base="https://kf.example.dev")
+
+    html = (out / f"k/{manifest.id}/ask/index.html").read_text()
+    assert 'data-api-base="https://kf.example.dev"' in html
+
+
+def test_static_ask_page_still_explains_the_offline_case(site):
+    out, _report = site
+    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
+    assert "Nothing is answering yet" in html
+    assert "transcript" in html.lower()

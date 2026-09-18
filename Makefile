@@ -21,6 +21,7 @@ help:
 	@echo "  make nightly     build + eval + redteam + publish (the §12 health check)"
 	@echo "  make site        render the public site into ./site"
 	@echo "  make deploy      render and publish ./site to the gh-pages branch"
+	@echo "                   (API_BASE=<url> sets the instance its ask box calls)"
 	@echo "  make nightly-site  nightly, then deploy the evidence pages"
 	@echo "  make ollama-check  confirm the local model endpoint is reachable"
 	@echo "  make serve       serve the public evidence pages on :$(PORT)"
@@ -74,12 +75,16 @@ nightly:
 # at /<repo>/, so that is the default; set BASE_URL= for a user/apex domain.
 BASE_URL ?= /knowledge-foundry
 SITE ?= site
+# The instance the published ask box calls. localhost works for anyone running
+# the project themselves; point it at a tunnelled HTTPS endpoint to make the
+# box work for readers who are not.
+API_BASE ?= http://localhost:8000
 
 site:
-	$(PY) -m foundry.cli export $(SITE) --base-url $(BASE_URL)
+	$(PY) -m foundry.cli export $(SITE) --base-url $(BASE_URL) --api-base $(API_BASE)
 
 deploy:
-	$(PY) -m foundry.cli deploy --site $(SITE) --base-url $(BASE_URL)
+	$(PY) -m foundry.cli deploy --site $(SITE) --base-url $(BASE_URL) --api-base $(API_BASE)
 
 # --- local model -------------------------------------------------------
 # Every model call goes through Ollama at localhost:11434. This is a check,

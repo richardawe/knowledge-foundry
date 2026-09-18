@@ -33,6 +33,7 @@ class ExportReport:
     out_dir: str
     base_url: str
     generated_at: str
+    api_base: str = ""
     pages: int = 0
     knowledge_areas: list[str] = field(default_factory=list)
     bytes_written: int = 0
@@ -54,6 +55,7 @@ class ExportReport:
             f"exported {self.pages} pages ({self.bytes_written / 1024:.0f} KiB) "
             f"to {self.out_dir}",
             f"  base URL: {self.base_url or '/'}",
+            f"  ask endpoint: {self.api_base}",
             f"  knowledge areas: {', '.join(self.knowledge_areas) or 'none'}",
         ]
         for warning in self.warnings:
@@ -66,9 +68,16 @@ def export_site(
     base_url: str = "",
     knowledge_areas: list[str] | None = None,
     clean: bool = True,
+    api_base: str = "http://localhost:8000",
 ) -> ExportReport:
-    """Render the whole site to ``out_dir``."""
-    from .web.app import Registry, Router
+    """Render the whole site to ``out_dir``.
+
+    ``api_base`` is the instance the published ask box calls. It defaults to the
+    address ``make serve`` uses, so a reader running the project locally gets a
+    working ask box with no configuration. Point it at a tunnelled HTTPS
+    endpoint to make the box work for readers who are not running anything.
+    """
+    from .web.app import STATIC_DIR, Registry, Router
 
     out = Path(out_dir)
     if clean and out.exists():
@@ -81,6 +90,7 @@ def export_site(
         out_dir=str(out.resolve()),
         base_url=base_url,
         generated_at=_dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds"),
+        api_base=api_base,
     )
 
     for ka_id in wanted:
@@ -92,6 +102,7 @@ def export_site(
     router = Router(registry=Registry(manifests=manifests), base_url=base_url, static=True)
     # Every rendered page carries the snapshot timestamp in its header.
     router.env.globals["generated_at"] = report.generated_at
+    router.env.globals["api_base"] = api_base
 
     def write(rel_path: str, payload: bytes) -> None:
         target = out / rel_path
@@ -111,6 +122,12 @@ def export_site(
     # beginning with an underscore. This opts out.
     write(".nojekyll", b"")
     render("/", "index.html")
+
+    # The ask client. It calls the live API rather than reimplementing anything,
+    # so the published page cannot drift from the system it describes.
+    for asset in sorted(STATIC_DIR.glob("*")):
+        if asset.is_file():
+            write(f"assets/{asset.name}", asset.read_bytes())
 
     for ka_id in manifests:
         base = f"k/{ka_id}"

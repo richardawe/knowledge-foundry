@@ -38,8 +38,34 @@ evaluation results, the red-team findings, the version history, and a
 actually gave — failures included. It is rendered from the same templates the
 live server uses, so the snapshot cannot drift from the system.
 
-Asking a *new* question runs hybrid retrieval and a local model, which a static
-page cannot do. For that, run it locally (below).
+**The ask box on that page works.** It is the interface; the engine runs where
+your knowledge and your model are. Start the project on the machine with Ollama
+and the published page connects to it and answers live — retrieval, the gates,
+generation and grounding validation all run in that instance, over its API. The
+page reimplements nothing, so it cannot drift from the system it describes.
+
+```bash
+make serve          # on the machine with Ollama
+```
+
+Then reload the published page: it detects the instance, shows
+*"Connected to http://localhost:8000"*, and the box goes live. With nothing
+running it says so and points at the transcript instead of offering a dead form.
+
+To let other people use it, expose your instance over HTTPS (a Cloudflare
+Tunnel, say) and publish with that address baked in:
+
+```bash
+make deploy API_BASE=https://kf.example.dev
+```
+
+Readers can also point the page anywhere themselves — the endpoint is editable
+on the page and shareable as `?api=<url>`.
+
+> **Browser note.** Chrome and Firefox allow an HTTPS page to call
+> `http://localhost`. Safari is stricter and may block it — use Chrome or
+> Firefox, run a tunnelled HTTPS endpoint, or just open the local instance
+> directly at `http://localhost:8000`, which serves the same pages.
 
 ## Quick start
 

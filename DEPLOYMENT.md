@@ -92,6 +92,34 @@ Then once, in the repository: **Settings → Pages → Source: Deploy from a
 branch → `gh-pages` / `(root)`**. The site appears at
 `https://<owner>.github.io/<repo>/` within a minute of the push.
 
+### Making the published ask box work
+
+The exported page carries an ask client that calls a running instance over the
+JSON API. It resolves the endpoint in this order: `?api=` in the URL, then what
+the reader last chose, then the address baked in at export (`API_BASE`), then
+`http://localhost:8000`.
+
+* **For yourself**: run `make serve` on the machine with Ollama. The published
+  page finds it and answers live.
+* **For everyone**: expose that instance over HTTPS and bake the address in:
+
+  ```bash
+  make deploy API_BASE=https://kf.example.dev
+  ```
+
+  A Cloudflare Tunnel (`cloudflared tunnel --url http://localhost:8000`) is the
+  cheapest way; the Mac has to be awake and serving.
+
+Cross-origin calls need CORS, which the server sets on the read/ask API only —
+never on the routes that write a challenge, so a page you did not open cannot
+record anything against your knowledge base. The default allows any origin,
+because the server binds to 127.0.0.1 and serves public knowledge-base content.
+Narrow it when the instance is exposed beyond localhost:
+
+```bash
+export FOUNDRY_CORS_ORIGINS=https://richardawe.github.io
+```
+
 `BASE_URL` must match how Pages serves the repo. A *project* site is served
 from `/<repo>/`, which is the default here. For a user site or a custom domain,
 use `make site BASE_URL=` and `make deploy BASE_URL=`.

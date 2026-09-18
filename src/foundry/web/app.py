@@ -39,7 +39,47 @@ from ..specialist import Specialist
 from ..storage import Store
 
 TEMPLATE_DIR = Path(__file__).parent / "templates"
+STATIC_DIR = Path(__file__).parent / "static"
 MAX_BODY_BYTES = 64 * 1024
+
+# Routes a browser on another origin may call. Deliberately the read/ask API
+# only: the HTML form POSTs that write challenges are never cross-origin, so a
+# page you did not open cannot record anything against your knowledge base.
+_CORS_SAFE_PREFIXES = ("/api/", "/knowledge/", "/healthz")
+
+
+def cors_origins() -> list[str]:
+    """Origins allowed to call the JSON API from a browser.
+
+    A published evidence page is static, so its ask box has to reach a running
+    instance somewhere -- normally the reader's own machine. That is a
+    cross-origin request, which needs this.
+
+    The default is permissive because the server binds to 127.0.0.1 and serves
+    only public knowledge-base content: there is nothing here that a hostile
+    page could read that it could not fetch from the sources directly. Narrow
+    it with FOUNDRY_CORS_ORIGINS when the instance is exposed beyond localhost.
+    """
+    raw = os.environ.get("FOUNDRY_CORS_ORIGINS", "*")
+    return [o.strip() for o in raw.split(",") if o.strip()]
+
+
+def cors_headers(origin: str | None, path: str) -> list[tuple[str, str]]:
+    if not any(path.startswith(prefix) for prefix in _CORS_SAFE_PREFIXES):
+        return []
+    allowed = cors_origins()
+    if "*" in allowed:
+        value = "*"
+    elif origin and origin in allowed:
+        value = origin
+    else:
+        return []
+    return [
+        ("Access-Control-Allow-Origin", value),
+        ("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
+        ("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Foundry-Token"),
+        ("Access-Control-Max-Age", "600"),
+    ]
 
 
 def _tenant_tokens() -> dict[str, str]:
@@ -302,7 +342,15 @@ class Router:
         if not parts:
             return self.index(tenant)
         if parts == ["healthz"]:
-            return 200, "application/json", json.dumps({"ok": True}).encode()
+            return 200, "application/json", json.dumps(
+                {"ok": True, "knowledge_areas": sorted(self.registry.manifests)}
+            ).encode()
+        if parts[0] == "assets" and len(parts) == 2:
+            asset = STATIC_DIR / parts[1]
+            if asset.is_file() and asset.parent == STATIC_DIR:
+                kind = "text/javascript" if asset.suffix == ".js" else "text/plain"
+                return 200, f"{kind}; charset=utf-8", asset.read_bytes()
+            return self.not_found()
 
         # JSON API
         if parts[0] == "api":
@@ -354,10 +402,13 @@ class Handler(BaseHTTPRequestHandler):
         token = token or self.headers.get("X-Foundry-Token", "").strip()
         return tokens.get(token)
 
-    def _respond(self, status: int, content_type: str, payload: bytes) -> None:
+    def _respond(self, status: int, content_type: str, payload: bytes,
+                 path: str = "") -> None:
         self.send_response(status)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(payload)))
+        for header, value in cors_headers(self.headers.get("Origin"), path):
+            self.send_header(header, value)
         # A knowledge system that can be framed can be misattributed.
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
@@ -373,7 +424,8 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length") or 0)
             if length > MAX_BODY_BYTES:
                 self._respond(413, "application/json",
-                              json.dumps({"error": "request body too large"}).encode())
+                              json.dumps({"error": "request body too large"}).encode(),
+                              path=parsed.path)
                 return
             raw = self.rfile.read(length) if length else b""
             content_type = (self.headers.get("Content-Type") or "").split(";")[0].strip()
@@ -382,7 +434,8 @@ class Handler(BaseHTTPRequestHandler):
                     body = json.loads(raw.decode("utf-8") or "{}")
                 except json.JSONDecodeError:
                     self._respond(400, "application/json",
-                                  json.dumps({"error": "invalid JSON body"}).encode())
+                                  json.dumps({"error": "invalid JSON body"}).encode(),
+                                  path=parsed.path)
                     return
             else:
                 body = {
@@ -396,9 +449,20 @@ class Handler(BaseHTTPRequestHandler):
         except Exception:  # pragma: no cover - defensive
             traceback.print_exc()
             self._respond(500, "application/json",
-                          json.dumps({"error": "internal error"}).encode())
+                          json.dumps({"error": "internal error"}).encode(),
+                          path=parsed.path)
             return
-        self._respond(status, content_type, payload)
+        self._respond(status, content_type, payload, path=parsed.path)
+
+    def do_OPTIONS(self) -> None:
+        """CORS preflight, which a cross-origin JSON POST always sends first."""
+        parsed = urllib.parse.urlsplit(self.path)
+        headers = cors_headers(self.headers.get("Origin"), parsed.path)
+        self.send_response(204 if headers else 405)
+        for header, value in headers:
+            self.send_header(header, value)
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def do_GET(self) -> None:
         self._dispatch("GET")

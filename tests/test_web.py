@@ -299,3 +299,52 @@ def test_the_whole_loop_is_visible_on_one_page(built):
     assert page["redteam"]["total"] > 0
     assert page["updates"] and page["updates"][0]["version"] == version.version
     assert page["version"]["published"] == version.version
+
+
+# -- cross-origin ask (the published page calling a local instance) -----
+
+
+def test_healthz_reports_which_knowledge_areas_are_served(router):
+    """The ask client uses this to tell "not running" from "running the wrong build"."""
+    status, _ct, payload = _get(router, "/healthz")
+    assert status == 200
+    assert json.loads(payload)["knowledge_areas"] == ["kb-test-widgets"]
+
+
+def test_api_routes_allow_cross_origin_calls():
+    """A published static page is a different origin from the instance it calls."""
+    from foundry.web.app import cors_headers
+
+    headers = dict(cors_headers("https://example.github.io", "/knowledge/kb-x/ask"))
+    assert headers["Access-Control-Allow-Origin"] == "*"
+    assert "POST" in headers["Access-Control-Allow-Methods"]
+
+
+def test_write_routes_stay_same_origin():
+    """A page you did not open must not be able to record a challenge for you."""
+    from foundry.web.app import cors_headers
+
+    assert cors_headers("https://evil.example", "/k/kb-x/challenges") == []
+    assert cors_headers("https://evil.example", "/k/kb-x/ask") == []
+
+
+def test_cors_origins_can_be_narrowed(monkeypatch):
+    from foundry.web.app import cors_headers
+
+    monkeypatch.setenv("FOUNDRY_CORS_ORIGINS", "https://richardawe.github.io")
+    allowed = dict(cors_headers("https://richardawe.github.io", "/api/knowledge"))
+    assert allowed["Access-Control-Allow-Origin"] == "https://richardawe.github.io"
+    assert cors_headers("https://somewhere.else", "/api/knowledge") == []
+
+
+def test_ask_client_asset_is_served(router):
+    status, content_type, payload = _get(router, "/assets/ask.js")
+    assert status == 200
+    assert "javascript" in content_type
+    assert "knowledge/" in payload
+
+
+def test_asset_route_rejects_path_traversal(router):
+    """An asset path is a filename, never a way out of the asset directory."""
+    for path in ("/assets/../app.py", "/assets/nope.js"):
+        assert _get(router, path)[0] == 404

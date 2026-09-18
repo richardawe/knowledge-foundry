@@ -235,6 +235,7 @@ def cmd_export(args) -> int:
         args.out,
         base_url=args.base_url or "",
         knowledge_areas=args.knowledge_area.split(",") if args.knowledge_area else None,
+        api_base=args.api_base,
     )
     if args.json:
         _emit(report.as_dict(), True)
@@ -254,6 +255,7 @@ def cmd_deploy(args) -> int:
             site,
             base_url=args.base_url or "",
             knowledge_areas=args.knowledge_area.split(",") if args.knowledge_area else None,
+            api_base=args.api_base,
         )
         print(report.render())
     try:
@@ -349,6 +351,8 @@ def build_parser() -> argparse.ArgumentParser:
     export.add_argument("out", help="output directory, e.g. ./site")
     export.add_argument("--base-url", help="path prefix for a project site, e.g. /knowledge-foundry")
     export.add_argument("--knowledge-area", help="comma-separated ids; default is all")
+    export.add_argument("--api-base", default="http://localhost:8000",
+                        help="instance the published ask box calls (default: http://localhost:8000)")
     export.add_argument("--strict", action="store_true", help="exit non-zero on any warning")
     export.add_argument("--json", action="store_true")
     export.set_defaults(func=cmd_export)
@@ -360,6 +364,8 @@ def build_parser() -> argparse.ArgumentParser:
     deploy.add_argument("--remote", default="origin")
     deploy.add_argument("--base-url", help="path prefix for a project site")
     deploy.add_argument("--knowledge-area", help="comma-separated ids; default is all")
+    deploy.add_argument("--api-base", default="http://localhost:8000",
+                        help="instance the published ask box calls")
     deploy.add_argument("--message", help="commit message")
     deploy.add_argument("--skip-export", action="store_true", help="publish an existing build")
     deploy.add_argument("--no-push", action="store_true", help="commit locally without pushing")

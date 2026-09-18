@@ -10,18 +10,44 @@
 </p>
 
 {% if static %}
-<div class="banner">
-  <strong>This is a published snapshot.</strong>
-  Asking a new question runs hybrid retrieval and a local model, which a static
-  page cannot do. Every question the system has actually been asked — with the
-  evidence behind each answer — is in the
-  <a href="{{ url('/k/' ~ manifest.id ~ '/transcript/') }}">transcript</a>.
-  To ask your own, run it locally against Ollama:
-  <pre>git clone https://github.com/richardawe/knowledge-foundry
+<div id="ask-app" data-knowledge-area="{{ manifest.id }}" data-api-base="{{ api_base }}">
+  <p id="ask-status" class="small muted">Looking for a running instance…</p>
+
+  <form id="ask-form" hidden>
+    <textarea id="ask-question" rows="3"
+      placeholder="e.g. What watt-hour limit applies to a spare lithium-ion battery in cabin baggage?"></textarea>
+    <p><button id="ask-submit" type="submit">Ask</button></p>
+  </form>
+
+  <div id="ask-offline" class="banner" hidden>
+    <strong>Nothing is answering yet.</strong>
+    This page is the interface; the engine runs where your knowledge and your
+    model are. Start it on the machine with Ollama, then reload:
+    <pre>git clone https://github.com/richardawe/knowledge-foundry
 cd knowledge-foundry &amp;&amp; pip install -e ".[dev,web]"
-ollama serve &amp;            # llama3.1:8b
-make build &amp;&amp; make serve   # http://127.0.0.1:8000</pre>
+ollama serve &amp;                  # llama3.1:8b
+make build &amp;&amp; make serve         # http://localhost:8000</pre>
+    Meanwhile, every question the system has already been asked — with the
+    evidence behind each answer, and the ones it got wrong — is in the
+    <a href="{{ url('/k/' ~ manifest.id ~ '/transcript/') }}">transcript</a>.
+  </div>
+
+  <div id="ask-output"></div>
+
+  <details class="small muted" style="margin-top:22px">
+    <summary>Point this page at a different instance</summary>
+    <p>
+      Anything speaking this project's ask API: another machine on your network,
+      or a tunnelled HTTPS endpoint so readers who are not running it themselves
+      can use it too. Shareable as <code>?api=&lt;url&gt;</code>.
+    </p>
+    <form id="ask-endpoint-form">
+      <p><input type="text" id="ask-endpoint" placeholder="http://localhost:8000"></p>
+      <p><button type="submit">Connect</button></p>
+    </form>
+  </details>
 </div>
+<script src="{{ url('/assets/ask.js') }}" defer></script>
 {% else %}
 <form method="post" action="{{ url('/k/' ~ manifest.id ~ '/ask/') }}">
   <textarea name="question" rows="3" placeholder="e.g. What watt-hour limit applies to a spare lithium-ion battery in cabin baggage?">{{ question }}</textarea>
