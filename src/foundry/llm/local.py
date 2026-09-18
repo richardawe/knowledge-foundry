@@ -228,3 +228,44 @@ class ScriptedProvider:
         text = self.responses[min(self._index, len(self.responses) - 1)]
         self._index += 1
         return LLMResponse(text=text, provider=self.name, model=self.model)
+
+
+class FallbackProvider:
+    """Try a primary provider, fall back to a secondary, and say so.
+
+    The knowledge areas here name Ollama as their provider, because that is
+    where production inference is meant to run. But the test suite, CI and any
+    machine without Ollama must still be able to answer, evaluate and publish --
+    §4 of the brief is explicit that the knowledge layer, not a particular
+    model, is the asset.
+
+    The fallback is never silent. It is written into the response's provider
+    field, so an evaluation run that quietly used the weaker model is still
+    identifiable afterwards from the stored answer.
+    """
+
+    name = "fallback"
+
+    def __init__(self, primary, secondary=None) -> None:
+        self.primary = primary
+        self.secondary = secondary or LocalExtractiveProvider()
+        self.model = getattr(primary, "model", "")
+        self.fell_back = False
+
+    def complete(self, system: str, user: str, *, context=None, temperature: float = 0.0,
+                 max_tokens: int = 1200) -> LLMResponse:
+        response = self.primary.complete(
+            system, user, context=context, temperature=temperature, max_tokens=max_tokens
+        )
+        if response.ok and response.text.strip():
+            self.fell_back = False
+            return response
+
+        reason = response.error or "returned an empty completion"
+        fallback = self.secondary.complete(
+            system, user, context=context, temperature=temperature, max_tokens=max_tokens
+        )
+        self.fell_back = True
+        fallback.provider = f"{self.secondary.name} (fell back from {self.primary.name})"
+        fallback.model = f"{getattr(self.secondary, 'model', '')} [{reason}]"
+        return fallback

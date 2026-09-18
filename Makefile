@@ -7,7 +7,7 @@ PY ?= python3
 PORT ?= 8000
 
 .PHONY: help install test build ingest index eval redteam publish rollback \
-        serve stats nightly clean clean-all
+        serve stats site deploy nightly nightly-site ollama-check clean clean-all
 
 help:
 	@echo "Knowledge Foundry"
@@ -19,6 +19,10 @@ help:
 	@echo "  make publish     publish the build if the gate allows it"
 	@echo "  make rollback    repoint at the previous published version"
 	@echo "  make nightly     build + eval + redteam + publish (the §12 health check)"
+	@echo "  make site        render the public site into ./site"
+	@echo "  make deploy      render and publish ./site to the gh-pages branch"
+	@echo "  make nightly-site  nightly, then deploy the evidence pages"
+	@echo "  make ollama-check  confirm the local model endpoint is reachable"
 	@echo "  make serve       serve the public evidence pages on :$(PORT)"
 	@echo "  make stats       print the knowledge area report as JSON"
 	@echo ""
@@ -64,6 +68,31 @@ nightly:
 	-$(PY) -m foundry.cli eval $(KA)
 	$(PY) -m foundry.cli redteam $(KA) --count 48 --promote
 	$(PY) -m foundry.cli version $(KA) publish
+
+# --- public site -------------------------------------------------------
+# BASE_URL must match how GitHub Pages serves the repo. A project site lives
+# at /<repo>/, so that is the default; set BASE_URL= for a user/apex domain.
+BASE_URL ?= /knowledge-foundry
+SITE ?= site
+
+site:
+	$(PY) -m foundry.cli export $(SITE) --base-url $(BASE_URL)
+
+deploy:
+	$(PY) -m foundry.cli deploy --site $(SITE) --base-url $(BASE_URL)
+
+# --- local model -------------------------------------------------------
+# Every model call goes through Ollama at localhost:11434. This is a check,
+# not a requirement: without it the system answers with the keyless local
+# provider and records that it fell back.
+ollama-check:
+	@curl -fsS http://localhost:11434/api/tags >/dev/null 2>&1 \
+		&& echo "ollama: reachable — $$(curl -fsS http://localhost:11434/api/tags | $(PY) -c 'import json,sys; print(", ".join(m["name"] for m in json.load(sys.stdin).get("models", [])) or "no models pulled")')" \
+		|| echo "ollama: NOT reachable at localhost:11434 — answers will fall back to the local extractive provider"
+
+# The full Mac-side loop: rebuild the knowledge, test it, publish the version,
+# then publish the evidence pages. This is what the launchd agent runs.
+nightly-site: nightly deploy
 
 clean:
 	find . -name __pycache__ -type d -prune -exec rm -rf {} + 2>/dev/null || true

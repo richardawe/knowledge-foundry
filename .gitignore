@@ -6,3 +6,7 @@ __pycache__/
 .venv/
 build/
 dist/
+
+# Static site build output
+site/
+.gh-pages-worktree/

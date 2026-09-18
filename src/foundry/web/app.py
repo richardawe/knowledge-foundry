@@ -32,7 +32,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from .. import paths
-from ..evidence import knowledge_area_report, source_detail
+from ..evidence import knowledge_area_report, source_detail, transcript
 from ..feedback import add_challenge, list_challenges
 from ..manifest import Manifest, list_knowledge_areas
 from ..specialist import Specialist
@@ -88,7 +88,14 @@ class Registry:
         return tenant is not None and tenant == manifest.tenant
 
 
-def _environment():
+def _environment(base_url: str = "", static: bool = False):
+    """Build the template environment.
+
+    ``base_url`` prefixes every internal link, which is what lets the same
+    templates render both a live site at ``/`` and a GitHub Pages project site
+    at ``/knowledge-foundry/``. ``static`` hides the forms that need a POST
+    endpoint, so an exported page never offers a control that cannot work.
+    """
     try:
         from jinja2 import Environment, FileSystemLoader, select_autoescape
     except ImportError as exc:  # pragma: no cover
@@ -103,15 +110,25 @@ def _environment():
     )
     env.filters["pct"] = lambda v: "-" if v is None else f"{float(v) * 100:.0f}%"
     env.filters["num"] = lambda v: "-" if v is None else f"{float(v):.3f}"
+    prefix = base_url.rstrip("/")
+    env.globals["url"] = lambda path: f"{prefix}{path}"
+    env.globals["static"] = static
     return env
 
 
 class Router:
     """Request handling, kept separate from the HTTP plumbing so it is testable."""
 
-    def __init__(self, registry: Registry | None = None) -> None:
+    def __init__(
+        self,
+        registry: Registry | None = None,
+        base_url: str = "",
+        static: bool = False,
+    ) -> None:
         self.registry = registry or Registry.load()
-        self.env = _environment()
+        self.base_url = base_url
+        self.static = static
+        self.env = _environment(base_url=base_url, static=static)
 
     # -- helpers ---------------------------------------------------------
 
@@ -183,6 +200,16 @@ class Router:
             report = knowledge_area_report(manifest, store)
         return 200, "text/html; charset=utf-8", self.render(
             "evaluation.html", manifest=manifest, report=report
+        )
+
+    def transcript(self, ka_id: str, tenant: str | None) -> tuple[int, str, bytes]:
+        manifest = self._resolve(ka_id, tenant)
+        if manifest is None:
+            return self.not_found()
+        with self._open(manifest) as store:
+            data = transcript(store)
+        return 200, "text/html; charset=utf-8", self.render(
+            "transcript.html", manifest=manifest, transcript=data
         )
 
     def challenges(self, ka_id: str, tenant: str | None) -> tuple[int, str, bytes]:
@@ -301,6 +328,8 @@ class Router:
                 return self.source(ka_id, rest[1], tenant)
             if rest == ["evaluation"]:
                 return self.evaluation(ka_id, tenant)
+            if rest == ["transcript"]:
+                return self.transcript(ka_id, tenant)
             if rest == ["challenges"]:
                 if method == "POST":
                     return self.submit_challenge(ka_id, body, tenant)

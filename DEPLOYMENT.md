@@ -79,30 +79,88 @@ It builds, evaluates, red-teams, promotes new failures into the regression
 suite, and publishes **only if nothing regressed**. A held build leaves the
 previous published version serving.
 
+## GitHub Pages
+
+The evidence pages are static, so they host for nothing:
+
+```bash
+make site      # renders ./site with BASE_URL=/knowledge-foundry
+make deploy    # worktree checkout of gh-pages, copy, commit, push
+```
+
+Then once, in the repository: **Settings → Pages → Source: Deploy from a
+branch → `gh-pages` / `(root)`**. The site appears at
+`https://<owner>.github.io/<repo>/` within a minute of the push.
+
+`BASE_URL` must match how Pages serves the repo. A *project* site is served
+from `/<repo>/`, which is the default here. For a user site or a custom domain,
+use `make site BASE_URL=` and `make deploy BASE_URL=`.
+
+The deploy uses a **git worktree**, the same mechanism as the sibling
+`localtest` project: the branch you are working on is never touched, and the
+`gh-pages` contents are replaced wholesale each time so a page from an earlier
+build can never linger looking current. Authentication prefers a configured
+credential helper (the macOS keychain already has one) and only embeds
+`GITHUB_TOKEN` when there is none, which is the case on a bare CI runner.
+
+### Running it from launchd
+
+`com.knowledgefoundry.agent.plist` runs the whole loop nightly on the Mac where
+Ollama lives — build, evaluate, red team, publish or hold, then deploy the
+evidence pages:
+
+```bash
+cp com.knowledgefoundry.agent.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.knowledgefoundry.agent.plist
+launchctl start com.knowledgefoundry.agent      # run it now, to test
+```
+
+It expects the repository at `~/knowledge-foundry` and Ollama already running.
+Logs land in `/tmp/knowledge-foundry.*.log`. To remove it:
+
+```bash
+launchctl unload ~/Library/LaunchAgents/com.knowledgefoundry.agent.plist
+```
+
 ## Choosing models
 
 Defaults are keyless and local, so nothing below is required.
+
+Both knowledge areas ship pointing at a local Ollama:
 
 ```yaml
 # knowledge_areas/<id>/manifest.yaml
 specialist:
   llm:
-    provider: anthropic            # or openai_compatible, or local_extractive
-    model: claude-sonnet-5
+    provider: openai_compatible    # Ollama's OpenAI-compatible endpoint
+    model: llama3.1:8b
+    fallback: true                 # degrade to the keyless local provider, and say so
 retrieval:
   semantic:
-    provider: sentence_transformers  # or lsa (default), tfidf, openai_compatible
+    provider: lsa                  # or openai_compatible (nomic-embed-text), sentence_transformers
 ```
+
+To use Ollama for embeddings too:
+
+```bash
+ollama pull nomic-embed-text
+```
+
+then set `retrieval.semantic.provider: openai_compatible` and rebuild the
+index. The LSA default needs no model and works offline, so this is an
+experiment to run, not an upgrade to assume.
 
 Secrets come from the environment, never the manifest, so a knowledge area stays
 publishable as plain text:
 
 ```bash
-export ANTHROPIC_API_KEY=...
-# or point at anything OpenAI-compatible, including a local Ollama:
+# Ollama on the same machine needs no configuration at all -- it is the default.
+# Point elsewhere (another host, vLLM, a hosted API) with:
 export FOUNDRY_LLM_BASE_URL=http://localhost:11434/v1
 export FOUNDRY_LLM_API_KEY=not-needed
 export FOUNDRY_EMBED_BASE_URL=http://localhost:11434/v1
+# Or switch provider entirely:
+export ANTHROPIC_API_KEY=...
 ```
 
 Change one line, rebuild, and **run the evaluation suite**. That comparison is

@@ -14,7 +14,7 @@
   {% for row in rows %}
   <tr>
     <td>
-      <a href="/k/{{ row.manifest.id }}"><strong>{{ row.manifest.name }}</strong></a><br>
+      <a href="{{ url('/k/' ~ row.manifest.id ~ '/') }}"><strong>{{ row.manifest.name }}</strong></a><br>
       <span class="muted small">{{ row.manifest.domain }}</span>
     </td>
     <td><code>{{ row.version }}</code></td>

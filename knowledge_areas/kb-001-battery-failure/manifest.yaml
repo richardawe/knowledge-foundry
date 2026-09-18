@@ -93,7 +93,15 @@ retrieval:
 specialist:
   prompt: prompts/system.md
   llm:
-    provider: local_extractive   # keyless default; set FOUNDRY_LLM_* and switch to use a hosted model
+    # Production inference runs on the local Ollama (llama3.1:8b) at
+    # http://localhost:11434/v1, which is the provider's default base URL.
+    # Override with FOUNDRY_LLM_BASE_URL to point elsewhere.
+    provider: openai_compatible
+    model: llama3.1:8b
+    # On a machine with no Ollama, answer with the keyless local provider and
+    # record that it happened, rather than failing the build. Set to false to
+    # make an unreachable model a hard error.
+    fallback: true
     temperature: 0.0
     max_tokens: 1200
   sufficiency:

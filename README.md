@@ -26,6 +26,21 @@ KA-002 exists to prove the point of the whole project: it was built by adding a
 directory of YAML and Markdown, with **no changes under `src/foundry/`**. A test
 enforces that (`tests/test_factory.py`).
 
+## Public evidence pages
+
+The read-only surface is published as static HTML to GitHub Pages:
+
+**https://richardawe.github.io/knowledge-foundry/**
+
+That includes every stored passage, the full source register with licences, the
+evaluation results, the red-team findings, the version history, and a
+**transcript** of every question the system has been asked with the answer it
+actually gave — failures included. It is rendered from the same templates the
+live server uses, so the snapshot cannot drift from the system.
+
+Asking a *new* question runs hybrid retrieval and a local model, which a static
+page cannot do. For that, run it locally (below).
+
 ## Quick start
 
 ```bash
@@ -35,8 +50,29 @@ make build          # fetch sources, extract, chunk, index, cut a draft version
 make eval           # run the evaluation suites and apply the threshold gate
 make redteam        # generate adversarial questions; promote failures to tests
 make publish        # publish only if nothing regressed against the last release
-make serve          # public evidence pages on http://127.0.0.1:8000
+make serve          # ask box + API on http://127.0.0.1:8000
+
+make site           # render the public site into ./site
+make deploy         # publish ./site to the gh-pages branch
 ```
+
+## Inference runs on your machine
+
+Both knowledge areas call a local **Ollama** (`llama3.1:8b`) at
+`http://localhost:11434/v1` — its OpenAI-compatible endpoint. Nothing is sent
+to a hosted API and inference costs nothing.
+
+```bash
+ollama serve &
+ollama pull llama3.1:8b
+make ollama-check        # confirms the endpoint and lists pulled models
+```
+
+Where Ollama is not running — CI, a fresh clone, a container — the system
+answers with the keyless local provider instead and **records that it fell
+back** in the stored answer, so an evaluation run that used the weaker model
+stays identifiable afterwards. Set `specialist.llm.fallback: false` in a
+manifest to make an unreachable model a hard failure instead.
 
 Ask it something:
 

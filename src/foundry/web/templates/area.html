@@ -26,7 +26,7 @@
   <strong>Don't trust it. Test it.</strong>
   This page exists so you can judge the system rather than take its word.
   Every failing question is listed below, not hidden.
-  <a href="/k/{{ manifest.id }}/ask">Try to break it →</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/ask/') }}">Try to break it →</a>
 </div>
 
 <h2>About</h2>
@@ -52,7 +52,7 @@
   <tr><td>{{ kind }}</td><td>{{ n }}</td><td>{{ report.coverage.chunks_by_type.get(kind, 0) }}</td></tr>
   {% endfor %}
 </table>
-<p class="small"><a href="/k/{{ manifest.id }}/sources">Full source register, with licences and retrieval dates →</a></p>
+<p class="small"><a href="{{ url('/k/' ~ manifest.id ~ '/sources/') }}">Full source register, with licences and retrieval dates →</a></p>
 
 <h2>Coverage</h2>
 <p class="small muted">
@@ -91,7 +91,7 @@
   <tr><td>{{ name }}</td><td>{{ value | num }}</td></tr>
   {% endfor %}
 </table>
-<p class="small"><a href="/k/{{ manifest.id }}/evaluation">Every question, including the {{ report.evaluation.failures | length }} it fails →</a></p>
+<p class="small"><a href="{{ url('/k/' ~ manifest.id ~ '/evaluation/') }}">Every question, including the {{ report.evaluation.failures | length }} it fails →</a></p>
 {% else %}
 <p class="muted">No evaluation has been run yet.</p>
 {% endif %}
@@ -171,7 +171,7 @@
 <h2>Challenges</h2>
 <p>
   {{ report.challenges.total }} submitted.
-  <a href="/k/{{ manifest.id }}/challenges">Read them, or submit one →</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/challenges/') }}">Read them, or submit one →</a>
 </p>
 <p class="small muted">
   Review status: <strong>{{ report.governance.review_status }}</strong>,

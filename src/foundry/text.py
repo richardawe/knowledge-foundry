@@ -28,7 +28,67 @@ STOPWORDS = frozenset(
 )
 
 _WORD_RE = re.compile(r"[A-Za-z][A-Za-z0-9\-/+']*|\d+(?:[.,]\d+)*")
-_NUMBER_RE = re.compile(r"(?<![\w.])(\d+(?:[.,]\d+)?)\s*(%|°C|°F|C|K|V|A|Ah|Wh|kWh|MWh|kW|MW|W|mm|cm|m|km|kg|g|s|min|h|bar|kPa|MPa|psi|ppm)?", re.IGNORECASE)
+# A number, optionally followed by a unit written as a symbol ("100 Wh"), as a
+# word ("100 watt hours"), or not at all ("10 fatalities").
+_NUMBER_RE = re.compile(
+    r"(?<![\w.])(\d+(?:[.,]\d+)?)\s*"
+    r"(°\s?[CF]|µ?[A-Za-z]+(?:[- ][A-Za-z]+)?)?"
+)
+
+# Unit spellings that mean the same quantity, mapped to one canonical form.
+#
+# This table exists because of a real bug: the previous pattern matched unit
+# symbols without a trailing word boundary, so "100 watt hours" yielded "100w"
+# (the W of "watt") while "100 Wh" yielded "100wh". The grounding checker then
+# read a correct answer as a fabricated number and withheld it -- the worst
+# direction for that check to fail in. Units are now resolved by whole token,
+# and spelled-out forms resolve to the same key as their symbol.
+_UNIT_ALIASES = {
+    "%": "%", "percent": "%", "pct": "%",
+    "c": "°c", "°c": "°c", "degc": "°c", "celsius": "°c",
+    "degrees celsius": "°c", "degree celsius": "°c", "deg c": "°c",
+    "f": "°f", "°f": "°f", "fahrenheit": "°f", "degrees fahrenheit": "°f",
+    "k": "k", "kelvin": "k",
+    "v": "v", "volt": "v", "volts": "v",
+    "a": "a", "amp": "a", "amps": "a", "ampere": "a", "amperes": "a",
+    "ah": "ah", "amp hour": "ah", "amp hours": "ah",
+    "ampere hour": "ah", "ampere hours": "ah",
+    "wh": "wh", "watt hour": "wh", "watt hours": "wh", "watt-hour": "wh",
+    "watt-hours": "wh", "watthour": "wh", "watthours": "wh",
+    "kwh": "kwh", "kilowatt hour": "kwh", "kilowatt hours": "kwh",
+    "mwh": "mwh", "megawatt hour": "mwh", "megawatt hours": "mwh",
+    "w": "w", "watt": "w", "watts": "w",
+    "kw": "kw", "kilowatt": "kw", "kilowatts": "kw",
+    "mw": "mw", "megawatt": "mw", "megawatts": "mw",
+    "mm": "mm", "millimetre": "mm", "millimetres": "mm",
+    "millimeter": "mm", "millimeters": "mm",
+    "cm": "cm", "centimetre": "cm", "centimetres": "cm",
+    "m": "m", "metre": "m", "metres": "m", "meter": "m", "meters": "m",
+    "km": "km", "kilometre": "km", "kilometres": "km",
+    "kg": "kg", "kilogram": "kg", "kilograms": "kg",
+    "g": "g", "gram": "g", "grams": "g", "gramme": "g", "grammes": "g",
+    "mg": "mg", "milligram": "mg", "milligrams": "mg",
+    "s": "s", "sec": "s", "second": "s", "seconds": "s",
+    "min": "min", "minute": "min", "minutes": "min",
+    "h": "h", "hr": "h", "hour": "h", "hours": "h",
+    "bar": "bar", "kpa": "kpa", "mpa": "mpa", "pa": "pa",
+    "psi": "psi", "ppm": "ppm", "ppb": "ppb",
+    "µm": "µm", "micron": "µm", "microns": "µm", "micrometre": "µm",
+}
+
+
+def _canonical_unit(raw: str | None) -> str:
+    """Resolve a unit spelling to its canonical key, or "" if it is not a unit."""
+    if not raw:
+        return ""
+    cleaned = re.sub(r"\s+", " ", raw.strip().lower()).replace("° ", "°")
+    if cleaned in _UNIT_ALIASES:
+        return _UNIT_ALIASES[cleaned]
+    # The pattern captures up to two words so compounds like "watt hours" and
+    # "degrees celsius" resolve. When the second word is just the next word of
+    # the sentence ("grams of", "m between"), fall back to the first token.
+    first = cleaned.split(" ")[0].split("-")[0]
+    return _UNIT_ALIASES.get(first, "")
 _SENTENCE_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z\[\"'(])")
 _QUOTED_RE = re.compile(r'"([^"]{4,120})"')
 
@@ -152,7 +212,7 @@ def numbers_with_units(text: str) -> set[str]:
             numeric = float(value)
         except ValueError:
             continue
-        unit = (match.group(2) or "").lower()
+        unit = _canonical_unit(match.group(2))
         # Render integers without a trailing .0 so "80" and "80.0" agree.
         rendered = str(int(numeric)) if numeric.is_integer() else str(numeric)
         found.add(f"{rendered}{unit}")

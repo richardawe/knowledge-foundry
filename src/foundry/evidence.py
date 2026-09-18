@@ -183,6 +183,73 @@ def knowledge_area_report(manifest: Manifest, store: Store) -> dict:
     }
 
 
+def transcript(store: Store, run_id: str | None = None) -> dict:
+    """Every evaluated question with the answer the system actually gave.
+
+    This is the public "ask" surface for a published snapshot. A static page
+    cannot run retrieval and a local model, but it can show exactly what the
+    system said when it was asked -- including the questions it got wrong,
+    which is the part that makes the page worth reading (§16, §25).
+    """
+    run_id = run_id or store.get_meta("last_eval_run")
+    if not run_id:
+        return {"run_id": None, "version": None, "entries": [],
+                "passed": 0, "failed": 0, "abstained": 0, "provider": None}
+
+    run = store.conn.execute("SELECT * FROM eval_runs WHERE id = ?", (run_id,)).fetchone()
+    rows = store.conn.execute(
+        "SELECT * FROM eval_results WHERE run_id = ? ORDER BY question_id", (run_id,)
+    ).fetchall()
+
+    entries = []
+    providers: set[str] = set()
+    abstained = 0
+    for row in rows:
+        try:
+            answer = json.loads(row["answer"] or "{}")
+        except json.JSONDecodeError:
+            answer = {}
+        try:
+            grades = json.loads(row["scores"] or "[]")
+        except json.JSONDecodeError:
+            grades = []
+
+        status = answer.get("status", "unknown")
+        if status in ("insufficient_evidence", "out_of_scope", "ambiguous", "unsupported"):
+            abstained += 1
+        llm = answer.get("llm") or {}
+        if llm.get("provider"):
+            providers.add(str(llm["provider"]))
+
+        entries.append({
+            "id": row["question_id"],
+            "type": row["qtype"],
+            "question": row["question"],
+            "passed": bool(row["passed"]),
+            "status": status,
+            "confidence": answer.get("confidence", "none"),
+            "citation_validity": answer.get("citation_validity", 1.0),
+            "grounded_ratio": answer.get("grounded_ratio", 1.0),
+            "answer": answer.get("answer", ""),
+            "unsupported_claims": answer.get("unsupported_claims", []),
+            "cited": [s for s in answer.get("sources", []) if s.get("cited")],
+            "failed_graders": [
+                g.get("detail") or g.get("kind", "")
+                for g in grades if not g.get("passed")
+            ],
+        })
+
+    return {
+        "run_id": run_id,
+        "version": run["version"] if run else None,
+        "provider": ", ".join(sorted(providers)) if providers else None,
+        "entries": entries,
+        "passed": sum(1 for e in entries if e["passed"]),
+        "failed": sum(1 for e in entries if not e["passed"]),
+        "abstained": abstained,
+    }
+
+
 def source_detail(store: Store, source_id: str) -> dict | None:
     """One source with its stored passages -- the source viewer (§22)."""
     row = store.get_source(source_id)

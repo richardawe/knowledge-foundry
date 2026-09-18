@@ -228,6 +228,46 @@ def cmd_stats(args) -> int:
     return 0
 
 
+def cmd_export(args) -> int:
+    from .export import export_site
+
+    report = export_site(
+        args.out,
+        base_url=args.base_url or "",
+        knowledge_areas=args.knowledge_area.split(",") if args.knowledge_area else None,
+    )
+    if args.json:
+        _emit(report.as_dict(), True)
+    else:
+        print(report.render())
+    return 1 if args.strict and report.warnings else 0
+
+
+def cmd_deploy(args) -> int:
+    """Export and publish to the deploy branch, reusing the git-worktree pattern."""
+    from .deploy import DeployError, deploy_pages
+    from .export import export_site
+
+    site = args.site
+    if not args.skip_export:
+        report = export_site(
+            site,
+            base_url=args.base_url or "",
+            knowledge_areas=args.knowledge_area.split(",") if args.knowledge_area else None,
+        )
+        print(report.render())
+    try:
+        result = deploy_pages(
+            site, repo_dir=args.repo, branch=args.branch,
+            remote=args.remote, message=args.message, push=not args.no_push,
+        )
+    except DeployError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    print(result.render())
+    return 0
+
+
 def cmd_serve(args) -> int:
     from .web import serve
 
@@ -304,6 +344,27 @@ def build_parser() -> argparse.ArgumentParser:
 
     stats = add_ka(sub.add_parser("stats", help="knowledge area statistics"))
     stats.set_defaults(func=cmd_stats)
+
+    export = sub.add_parser("export", help="render the public site as static HTML")
+    export.add_argument("out", help="output directory, e.g. ./site")
+    export.add_argument("--base-url", help="path prefix for a project site, e.g. /knowledge-foundry")
+    export.add_argument("--knowledge-area", help="comma-separated ids; default is all")
+    export.add_argument("--strict", action="store_true", help="exit non-zero on any warning")
+    export.add_argument("--json", action="store_true")
+    export.set_defaults(func=cmd_export)
+
+    deploy = sub.add_parser("deploy", help="export and publish to the gh-pages branch")
+    deploy.add_argument("--site", default="site", help="build directory (default: site)")
+    deploy.add_argument("--repo", default=".", help="repository to deploy from")
+    deploy.add_argument("--branch", default="gh-pages")
+    deploy.add_argument("--remote", default="origin")
+    deploy.add_argument("--base-url", help="path prefix for a project site")
+    deploy.add_argument("--knowledge-area", help="comma-separated ids; default is all")
+    deploy.add_argument("--message", help="commit message")
+    deploy.add_argument("--skip-export", action="store_true", help="publish an existing build")
+    deploy.add_argument("--no-push", action="store_true", help="commit locally without pushing")
+    deploy.add_argument("--json", action="store_true")
+    deploy.set_defaults(func=cmd_deploy)
 
     serve = sub.add_parser("serve", help="serve the public evidence pages and ask API")
     serve.add_argument("--host", default="127.0.0.1")

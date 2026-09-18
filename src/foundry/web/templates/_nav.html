@@ -1,7 +1,8 @@
 <nav class="tabs">
-  <a href="/k/{{ manifest.id }}">Evidence</a>
-  <a href="/k/{{ manifest.id }}/ask">Try to break it</a>
-  <a href="/k/{{ manifest.id }}/sources">Sources</a>
-  <a href="/k/{{ manifest.id }}/evaluation">Evaluation</a>
-  <a href="/k/{{ manifest.id }}/challenges">Challenges</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/') }}">Evidence</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/ask/') }}">Try to break it</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/sources/') }}">Sources</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/evaluation/') }}">Evaluation</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/transcript/') }}">Transcript</a>
+  <a href="{{ url('/k/' ~ manifest.id ~ '/challenges/') }}">Challenges</a>
 </nav>

@@ -151,6 +151,9 @@ class SpecialistConfig:
     prompt_path: str = "prompts/system.md"
     llm_provider: str = "local_extractive"
     llm_model: str | None = None
+    # When the named provider is unreachable, answer with the local provider
+    # and record that it happened, rather than failing the whole run.
+    llm_fallback: bool = True
     temperature: float = 0.0
     max_tokens: int = 1200
     # Sufficiency gate: below this, the agent abstains rather than guesses.
@@ -173,6 +176,7 @@ class SpecialistConfig:
             prompt_path=data.get("prompt", "prompts/system.md"),
             llm_provider=llm.get("provider", "local_extractive"),
             llm_model=llm.get("model"),
+            llm_fallback=bool(llm.get("fallback", True)),
             temperature=float(llm.get("temperature", 0.0)),
             max_tokens=int(llm.get("max_tokens", 1200)),
             min_evidence_score=float(suff.get("min_evidence_score", 0.10)),

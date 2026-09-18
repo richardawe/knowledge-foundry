@@ -68,8 +68,11 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <strong><a href="/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <strong><a href="{{ url('/') }}" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
+{% if static and generated_at %}
+    <span class="tag" style="margin-left:auto">snapshot · {{ generated_at[:16] }}</span>
+{% endif %}
   </div>
 </header>
 <main class="wrap">

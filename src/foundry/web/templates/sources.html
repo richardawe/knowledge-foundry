@@ -13,7 +13,7 @@
   {% for source in report.sources %}
   <tr>
     <td>
-      <a href="/k/{{ manifest.id }}/source/{{ source.id }}"><strong>{{ source.title }}</strong></a><br>
+      <a href="{{ url('/k/' ~ manifest.id ~ '/source/' ~ source.id ~ '/') }}"><strong>{{ source.title }}</strong></a><br>
       <span class="muted small">{{ source.publisher }}</span>
       {% if not source.mirrored %} <span class="tag">pointer</span>{% endif %}
       {% if source.status == 'failed' %} <span class="tag fail">failed</span>{% endif %}

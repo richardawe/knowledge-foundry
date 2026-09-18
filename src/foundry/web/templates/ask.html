@@ -9,10 +9,25 @@
   where it is wrong. Answers you can falsify are the point.
 </p>
 
-<form method="post" action="/k/{{ manifest.id }}/ask">
+{% if static %}
+<div class="banner">
+  <strong>This is a published snapshot.</strong>
+  Asking a new question runs hybrid retrieval and a local model, which a static
+  page cannot do. Every question the system has actually been asked — with the
+  evidence behind each answer — is in the
+  <a href="{{ url('/k/' ~ manifest.id ~ '/transcript/') }}">transcript</a>.
+  To ask your own, run it locally against Ollama:
+  <pre>git clone https://github.com/richardawe/knowledge-foundry
+cd knowledge-foundry &amp;&amp; pip install -e ".[dev,web]"
+ollama serve &amp;            # llama3.1:8b
+make build &amp;&amp; make serve   # http://127.0.0.1:8000</pre>
+</div>
+{% else %}
+<form method="post" action="{{ url('/k/' ~ manifest.id ~ '/ask/') }}">
   <textarea name="question" rows="3" placeholder="e.g. What watt-hour limit applies to a spare lithium-ion battery in cabin baggage?">{{ question }}</textarea>
   <p><button type="submit">Ask</button></p>
 </form>
+{% endif %}
 
 {% if answer %}
 <h2>Answer</h2>
@@ -59,7 +74,7 @@
   <tr>
     <td>[{{ source.rank }}]{% if source.cited %} <span class="tag">cited</span>{% endif %}</td>
     <td class="small">
-      <a href="/k/{{ manifest.id }}/source/{{ source.source_id }}">{{ source.source_title }}</a><br>
+      <a href="{{ url('/k/' ~ manifest.id ~ '/source/' ~ source.source_id ~ '/') }}">{{ source.source_title }}</a><br>
       <span class="muted">{{ source.publisher }}{% if source.published_at %} · {{ source.published_at }}{% endif %}
       · authority {{ source.authority }}/5</span><br>
       {% if source.uri %}<a class="muted" href="{{ source.uri }}" rel="nofollow noopener">{{ source.uri }}</a>{% endif %}
@@ -75,12 +90,13 @@
 <ul class="tight small">{% for item in answer.limitations %}<li>{{ item }}</li>{% endfor %}</ul>
 {% endif %}
 
+{% if not static %}
 <h2>Found a problem?</h2>
 <p class="small muted">
   Wrong answer, wrong source, missing knowledge, or a figure without its conditions —
   all of it is useful. Accepted challenges become permanent test cases.
 </p>
-<form method="post" action="/k/{{ manifest.id }}/challenges">
+<form method="post" action="{{ url('/k/' ~ manifest.id ~ '/challenges/') }}">
   <input type="hidden" name="question" value="{{ question }}">
   <input type="hidden" name="system_answer" value="{{ answer.answer }}">
   <p><input type="text" name="problem" placeholder="What is wrong with this answer?"></p>
@@ -88,5 +104,6 @@
   <p><input type="text" name="by" placeholder="Your name or affiliation (optional)"></p>
   <p><button type="submit">Submit challenge</button></p>
 </form>
+{% endif %}
 {% endif %}
 {% endblock %}

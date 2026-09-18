@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.knowledgefoundry.agent</string>
+
+    <!-- The nightly health check from PROJECT_INITIATION.md §12:
+         build -> evaluate -> red team -> regression gate -> publish or hold,
+         then export the evidence pages and push them to gh-pages.
+
+         It runs here, on the Mac, because that is where Ollama lives: every
+         model call goes to http://localhost:11434 and costs nothing. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-lc</string>
+        <string>cd "$HOME/knowledge-foundry" &amp;&amp; make nightly-site</string>
+    </array>
+
+    <!-- 03:20 daily. Ollama must be running; `ollama serve` as a login item,
+         or the Ollama.app, covers that. If the Mac is asleep when the
+         interval fires, launchd runs the job once on wake — it does not
+         replay missed intervals. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>3</integer>
+        <key>Minute</key>
+        <integer>20</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/knowledge-foundry.stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/knowledge-foundry.stderr.log</string>
+
+    <!-- Homebrew Python, git and ollama on PATH. -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>FOUNDRY_LLM_BASE_URL</key>
+        <string>http://localhost:11434/v1</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
+</dict>
+</plist>
