@@ -10,8 +10,12 @@
 </p>
 
 {% if static %}
-<div id="ask-app" data-knowledge-area="{{ manifest.id }}" data-api-base="{{ api_base }}">
+<div id="ask-app"
+     data-knowledge-area="{{ manifest.id }}"
+     data-api-base="{{ api_base }}"
+     data-transcript="{{ url('/api/knowledge/' ~ manifest.id ~ '.transcript.json') }}">
   <p id="ask-status" class="small muted">Looking for a running instance…</p>
+  <p id="ask-mode" class="small muted" hidden></p>
 
   <form id="ask-form" hidden>
     <textarea id="ask-question" rows="3"

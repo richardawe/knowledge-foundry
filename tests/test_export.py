@@ -330,11 +330,30 @@ def test_export_ships_the_ask_client(site):
     out, _report = site
     asset = out / "assets/ask.js"
     assert asset.is_file()
-    # It calls the API; it does not reimplement retrieval.
     source = asset.read_text()
     assert "/knowledge/" in source and "/healthz" in source
-    for forbidden in ("bm25", "cosine", "tokenize"):
-        assert forbidden not in source.lower(), "the client must not reimplement retrieval"
+
+
+def test_the_client_never_retrieves_over_the_corpus(site):
+    """The invariant that keeps the published page honest.
+
+    The client does two things: it calls a live instance's API, and — when
+    none answers — it matches a typed question against the ~100 RECORDED
+    QUESTIONS in the transcript. Neither involves the corpus: the 1,267
+    passages are never downloaded and nothing is scored against them, so the
+    page cannot produce an answer the real pipeline has not already produced.
+
+    Scoring recorded *questions* is not scoring passages, which is why a
+    rarity weighting appears here and no vector or BM25 machinery does.
+    """
+    out, _report = site
+    source = (out / "assets/ask.js").read_text().lower()
+
+    for forbidden in ("bm25", "cosine", "embedding", "chunks_fts"):
+        assert forbidden not in source, "the client must not retrieve over the corpus"
+    # The only two data sources it may read.
+    assert "transcript.json" in source
+    assert "/knowledge/" in source
 
 
 def test_static_ask_page_mounts_the_client(site):
@@ -412,3 +431,65 @@ def test_the_bootstrap_script_is_shipped_and_executable():
     # It must survive being run twice.
     assert "already installed" in body
     assert "foundry.cli serve" in body
+
+
+# -- recorded answers, when nothing is running --------------------------
+
+
+def test_transcript_index_is_exported(site):
+    """The data behind the offline ask box."""
+    out, _report = site
+    index = out / "api/knowledge/kb-test-widgets.transcript.json"
+    assert index.is_file()
+
+    data = json.loads(index.read_text())
+    assert data["run_id"]
+    assert data["entries"]
+    entry = data["entries"][0]
+    for key in ("id", "question", "answer", "status", "passed", "cited"):
+        assert key in entry
+
+
+def test_transcript_index_carries_the_evidence_not_just_the_answer(built, tmp_path):
+    """An answer without its evidence is the thing this project exists to avoid."""
+    manifest, store = built
+    run_evaluation(manifest, store, persist=True)
+    out = tmp_path / "site"
+    export_site(out, knowledge_areas=[manifest.id])
+
+    data = json.loads((out / f"api/knowledge/{manifest.id}.transcript.json").read_text())
+    answered = [e for e in data["entries"] if e["cited"]]
+    assert answered, "at least one recorded answer should cite something"
+    source = answered[0]["cited"][0]
+    for key in ("source_title", "publisher", "uri", "authority", "text"):
+        assert key in source
+
+
+def test_transcript_index_records_which_answers_failed(site):
+    """So the page can say so rather than presenting a failure as an answer."""
+    out, _report = site
+    data = json.loads((out / "api/knowledge/kb-test-widgets.transcript.json").read_text())
+    assert any(e["passed"] is False for e in data["entries"]) or all(
+        e["passed"] for e in data["entries"]
+    )
+    assert all(isinstance(e["passed"], bool) for e in data["entries"])
+
+
+def test_the_client_searches_recorded_answers_when_nothing_answers(site):
+    out, _report = site
+    source = (out / "assets/ask.js").read_text()
+
+    assert "loadTranscript" in source
+    assert "searchRecorded" in source
+    assert "Recorded answer, not a live one" in source
+    # It must refuse to force a match on an unrelated question.
+    assert "Not asked yet" in source
+    # And it must say when a recorded answer failed its own test.
+    assert "fails its own evaluation" in source
+
+
+def test_the_ask_page_points_the_client_at_its_transcript(site):
+    out, _report = site
+    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
+    assert "data-transcript=" in html
+    assert "kb-test-widgets.transcript.json" in html

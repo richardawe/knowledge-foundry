@@ -38,8 +38,22 @@ evaluation results, the red-team findings, the version history, and a
 actually gave — failures included. It is rendered from the same templates the
 live server uses, so the snapshot cannot drift from the system.
 
-**The ask box on that page works.** It is the interface; the engine runs where
-your knowledge and your model are. Start the project on the machine with Ollama
+**The ask box on that page works, with or without anything running.**
+
+With **nothing running**, it searches the 103 answers the system has already
+given — published as static JSON by the machine that produced them — and shows
+the closest one with its real evidence, badged as recorded rather than live. If
+that recorded answer failed its own evaluation, the page says so. If nothing is
+close enough, it says that too rather than forcing a match. This is the same
+shape as the sibling `localtest` project: the model runs on the Mac, the
+results are published as files.
+
+It never retrieves over the corpus in the browser — the 1,267 passages are
+never downloaded. It matches your question against recorded *questions*, so it
+cannot produce an answer the real pipeline has not already produced.
+
+With an **instance running**, it switches to live answers automatically. It is
+the interface; the engine runs where your knowledge and your model are. Start the project on the machine with Ollama
 and the published page connects to it and answers live — retrieval, the gates,
 generation and grounding validation all run in that instance, over its API. The
 page reimplements nothing, so it cannot drift from the system it describes.
