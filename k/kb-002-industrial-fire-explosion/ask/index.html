@@ -72,7 +72,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:42</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:47</span>
   </div>
 </header>
 <main class="wrap">
@@ -102,11 +102,17 @@
   <div id="ask-offline" class="banner" hidden>
     <strong>Nothing is answering yet.</strong>
     This page is the interface; the engine runs where your knowledge and your
-    model are.
+    model are. One command, from nothing:
     <pre>git clone https://github.com/richardawe/knowledge-foundry
-cd knowledge-foundry &amp;&amp; pip install -e ".[dev,web]"
-ollama serve &amp;                  # llama3.1:8b
-make build &amp;&amp; make serve         # http://localhost:8000</pre>
+cd knowledge-foundry &amp;&amp; ./start.sh</pre>
+    <p class="small">
+      <strong>Two processes are involved, and they are easy to confuse.</strong>
+      <code>ollama</code> is the model, on port 11434 — shared with anything
+      else you run through it. <code>foundry serve</code> is this application,
+      on port 8000; it <em>uses</em> Ollama but is not Ollama. A running Ollama
+      does not mean this is running, which is what the message above is
+      reporting. <code>./start.sh</code> starts the second one.
+    </p>
     <p>
       Already running it? Your instance serves this same page itself, on its own
       origin — no cross-origin call, nothing for a browser to block:
