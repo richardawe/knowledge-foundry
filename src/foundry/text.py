@@ -48,34 +48,43 @@ def tokenize(text: str) -> list[str]:
 
 
 def stem(token: str) -> str:
-    """Strip the handful of English suffixes that matter for term matching.
+    """Reduce a token to a form that different inflections agree on.
 
-    Not a linguistics project: a compact, symmetric suffix stripper covering
-    plurals and the two commonest verb forms. It exists because "venting" and
-    "vents" must match -- without it, a question phrased in the gerund misses a
-    passage phrased in the present tense, and the grounding checker reports a
-    supported sentence as unsupported.
+    Not a linguistics project, and not Porter: a compact suffix stripper chosen
+    so that the forms this domain actually mixes converge on one key --
 
-    It is applied to both sides of every comparison, so its errors are
-    consistent rather than biased. FTS5 does the equivalent internally with its
-    porter tokenizer; this keeps the Python-side comparisons in step with it.
+        gas / gases            -> gas
+        vent / vents / venting -> vent
+        charge / charging      -> charg
+        battery / batteries    -> battery
+
+    The final bare-"e" strip is what makes plurals converge. Without it
+    "gases" reduces to "gase" while "gas" stays "gas", and a question about
+    vent gases retrieves nothing about vent gas -- which is precisely the bug
+    this replaced.
+
+    It over-stems slightly ("fire" -> "fir"). That costs a little precision and
+    buys a lot of recall, and it is applied to both sides of every comparison,
+    so its errors are consistent rather than biased.
     """
     if not token or not token[0].isalpha():
         return token
     if len(token) > 4 and token.endswith("ies"):
         return token[:-3] + "y"
     if len(token) > 4 and token.endswith("sses"):
-        return token[:-2]
-    if len(token) > 5 and token.endswith("ing"):
+        token = token[:-2]
+    elif len(token) > 5 and token.endswith("ing"):
         stripped = token[:-3]
-        # "running" -> "run", but "string" is left alone by the length guard.
+        # "running" -> "run"; the length guard keeps "string" intact.
         if len(stripped) > 2 and stripped[-1] == stripped[-2]:
             stripped = stripped[:-1]
-        return stripped
-    if len(token) > 4 and token.endswith("ed"):
-        return token[:-2]
-    if len(token) > 3 and token.endswith("s") and not token.endswith(("ss", "us", "is")):
-        return token[:-1]
+        token = stripped
+    elif len(token) > 4 and token.endswith("ed"):
+        token = token[:-2]
+    elif len(token) > 3 and token.endswith("s") and not token.endswith(("ss", "us", "is")):
+        token = token[:-1]
+    if len(token) > 3 and token.endswith("e"):
+        token = token[:-1]
     return token
 
 

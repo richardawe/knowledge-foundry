@@ -1,0 +1,370 @@
+# Source register for Knowledge Area #001.
+#
+# Every entry carries the provenance PROJECT_INITIATION.md §7 requires: URI,
+# publisher, dates, document authority and -- critically -- a licence.
+#
+# `mirrored: false` marks a POINTER source: its content is never stored or
+# quoted, only its existence, publisher and URI. That is how copyrighted
+# standards are handled. See governance.known_limitations in manifest.yaml.
+#
+# authority: 5 primary regulator / accident investigator
+#            4 government research, standards body, peer-reviewable academic
+#            3 industry guidance
+#            2 encyclopaedia / tertiary reference
+
+defaults:
+  refresh_days: 90
+  licence: unspecified
+
+sources:
+
+  # ---------------------------------------------------------------- regulatory
+  - id: eu-battery-regulation-2023-1542
+    uri: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32023R1542
+    title: "Regulation (EU) 2023/1542 concerning batteries and waste batteries"
+    publisher: European Union (EUR-Lex)
+    source_type: regulatory
+    authority: 5
+    published_at: "2023-07-28"
+    doc_version: CELEX:32023R1542
+    licence: "© European Union 1998-2026. Reuse authorised under Commission Decision 2011/833/EU"
+    refresh_days: 180
+    tags: [eu, regulation, safety, waste, carbon-footprint]
+
+  - id: opss-ebike-statutory-guidelines
+    uri: https://www.gov.uk/guidance/statutory-guidelines-on-lithium-ion-battery-safety-for-e-bikes
+    title: "Statutory guidelines on lithium-ion battery safety for e-bikes"
+    publisher: Office for Product Safety and Standards (UK)
+    source_type: regulatory
+    authority: 5
+    published_at: "2024-12-12"
+    licence: "Open Government Licence v3.0"
+    tags: [uk, e-bike, statutory, charging, product-safety]
+
+  - id: ea-waste-batteries-storage
+    uri: https://www.gov.uk/guidance/waste-batteries-appropriate-measures-for-permitted-facilities/4-waste-storage-and-handling-appropriate-measures
+    title: "Waste batteries: appropriate measures - waste storage and handling"
+    publisher: Environment Agency (UK)
+    source_type: regulatory
+    authority: 5
+    published_at: "2026-05-21"
+    licence: "Open Government Licence v3.0"
+    tags: [uk, waste, storage, fire-prevention, permitted-facilities]
+
+  - id: ea-waste-batteries-treatment
+    uri: https://www.gov.uk/guidance/waste-batteries-appropriate-measures-for-permitted-facilities/5-waste-treatment-appropriate-measures
+    title: "Waste batteries: appropriate measures - waste treatment"
+    publisher: Environment Agency (UK)
+    source_type: regulatory
+    authority: 5
+    published_at: "2026-05-21"
+    licence: "Open Government Licence v3.0"
+    tags: [uk, waste, treatment, recycling]
+
+  - id: govuk-eu-batteries-northern-ireland
+    uri: https://www.gov.uk/guidance/eu-batteries-regulations-in-northern-ireland
+    title: "EU Batteries Regulations in Northern Ireland"
+    publisher: Department for Business and Trade (UK)
+    source_type: regulatory
+    authority: 5
+    published_at: "2026-07-17"
+    licence: "Open Government Licence v3.0"
+    tags: [uk, northern-ireland, eu, compliance]
+
+  - id: faa-packsafe-lithium-batteries
+    uri: https://www.faa.gov/hazmat/packsafe/lithium-batteries
+    title: "PackSafe: lithium batteries in air travel"
+    publisher: Federal Aviation Administration (US)
+    source_type: regulatory
+    authority: 5
+    published_at: "2024-01-01"
+    licence: "US Government work - public domain"
+    tags: [aviation, transport, watt-hour, carry-on]
+
+  # ------------------------------------------- government research & incidents
+  - id: opss-plev-battery-safety-research
+    uri: https://www.gov.uk/government/publications/personal-light-electric-vehicle-plev-battery-safety-research
+    title: "Personal light electric vehicle (PLEV) battery safety research"
+    publisher: Office for Product Safety and Standards (UK)
+    source_type: investigation
+    authority: 5
+    published_at: "2025-01-29"
+    licence: "Open Government Licence v3.0"
+    tags: [uk, plev, e-bike, e-scooter, research]
+
+  - id: beis-second-life-batteries-bess
+    uri: https://www.gov.uk/government/publications/safety-of-second-life-batteries-in-battery-energy-storage-systems
+    title: "Safety of second life batteries in battery energy storage systems"
+    publisher: Department for Business, Energy and Industrial Strategy (UK)
+    source_type: investigation
+    authority: 4
+    published_at: "2023-01-31"
+    licence: "Open Government Licence v3.0"
+    tags: [bess, second-life, grid-storage]
+
+  - id: beis-domestic-bess
+    uri: https://www.gov.uk/government/publications/domestic-battery-energy-storage-systems
+    title: "Domestic battery energy storage systems"
+    publisher: Department for Business, Energy and Industrial Strategy (UK)
+    source_type: investigation
+    authority: 4
+    published_at: "2020-10-02"
+    licence: "Open Government Licence v3.0"
+    tags: [bess, domestic, installation]
+
+  - id: hv-battery-accident-investigation-risk
+    uri: https://www.gov.uk/government/publications/high-voltage-battery-systems-risk-to-accident-investigation-activities
+    title: "High voltage battery systems: risk to accident investigation activities"
+    publisher: UK Government (accident investigation branches)
+    source_type: investigation
+    authority: 5
+    published_at: "2026-09-11"
+    licence: "Open Government Licence v3.0"
+    tags: [accident-investigation, high-voltage, responder-safety]
+
+  - id: psr-xgo-ebike-battery-2407-0018
+    uri: https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-x-go-e-bike-lithium-ion-battery-bullet-2407-0018
+    title: "Product Safety Report: X-Go E-Bike Lithium-Ion Battery (Bullet) (2407-0018)"
+    publisher: Office for Product Safety and Standards (UK)
+    source_type: investigation
+    authority: 5
+    published_at: "2025-01-15"
+    licence: "Open Government Licence v3.0"
+    refresh_days: 365
+    tags: [product-safety, e-bike, enforcement, incident]
+
+  - id: psr-windgoo-b20-2410-0113
+    uri: https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-windgoo-b20-electric-bike-2410-0113
+    title: "Product Safety Report: Windgoo B20 Electric Bike (2410-0113)"
+    publisher: Office for Product Safety and Standards (UK)
+    source_type: investigation
+    authority: 5
+    published_at: "2024-11-20"
+    licence: "Open Government Licence v3.0"
+    refresh_days: 365
+    tags: [product-safety, e-bike, enforcement, incident]
+
+  # ------------------------------------------------------------------ industry
+  - id: opss-buy-safe-be-safe
+    uri: https://www.gov.uk/guidance/buy-safe-be-safe-avoid-e-bike-and-e-scooter-fires
+    title: "Buy Safe, Be Safe: avoid e-bike and e-scooter fires"
+    publisher: Office for Product Safety and Standards (UK)
+    source_type: industry
+    authority: 4
+    published_at: "2024-10-23"
+    licence: "Open Government Licence v3.0"
+    tags: [uk, consumer, e-bike, charging-practice]
+
+  - id: ul-9540a-test-method-overview
+    uri: https://www.ul.com/services/ul-9540a-test-method
+    title: "UL 9540A test method for battery energy storage systems (overview)"
+    publisher: UL Solutions
+    source_type: industry
+    authority: 4
+    published_at: "2024-01-01"
+    licence: "© UL Solutions - public web page; indexed for citation and short quotation only"
+    tags: [ul-9540a, test-method, bess, fire-propagation]
+
+  # ------------------------------------------------------------------ academic
+  - id: arxiv-2010-13519
+    uri: https://arxiv.org/abs/2010.13519
+    title: "Li-ion Battery Fault Detection in Large Packs Using Force and Gas Sensors"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2020-10-26"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [detection, gas-sensor, force-sensor, pack]
+
+  - id: arxiv-2506-13577
+    uri: https://arxiv.org/html/2506.13577v1
+    title: "BattBee: equivalent circuit modelling and early detection of thermal runaway triggered by internal short circuits"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2025-06-16"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [internal-short-circuit, early-detection, modelling]
+
+  - id: arxiv-2412-16367
+    uri: https://arxiv.org/abs/2412.16367
+    title: "A layered swarm optimization method for fitting battery thermal runaway models to accelerating rate calorimetry data"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2024-12-20"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [arc, calorimetry, kinetics, modelling]
+
+  - id: arxiv-2408-11984
+    uri: https://arxiv.org/abs/2408.11984
+    title: "Chemical reaction neural networks for fitting accelerating rate calorimetry data"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2024-08-21"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [arc, calorimetry, kinetics]
+
+  - id: arxiv-2510-23910
+    uri: https://arxiv.org/html/2510.23910v1
+    title: "Dynamical modelling of temperature and smoke evolution in a thermal-runaway event of a large-format lithium-ion battery in a mine tunnel"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2025-10-27"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [smoke, confined-space, fds, simulation]
+
+  - id: arxiv-2604-20175
+    uri: https://arxiv.org/abs/2604.20175
+    title: "Physics-enhanced deep learning for proactive thermal runaway forecasting in Li-ion batteries"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2026-04-01"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [forecasting, machine-learning, early-warning]
+
+  - id: arxiv-2607-18860
+    uri: https://arxiv.org/html/2607.18860v1
+    title: "Regime-aware physics-guided early warning of lithium-ion battery thermal runaway using thermo-mechanical signals"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2026-07-01"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [early-warning, mechanical-abuse, thermo-mechanical]
+
+  - id: arxiv-2608-20383
+    uri: https://arxiv.org/html/2608.20383v1
+    title: "Infrared hotspot-guided early warning of lithium-ion battery thermal runaway under mechanical abuse"
+    publisher: arXiv
+    source_type: academic
+    authority: 4
+    published_at: "2026-08-01"
+    licence: "arXiv non-exclusive licence to distribute; see paper for author licence"
+    refresh_days: 365
+    tags: [infrared, early-warning, mechanical-abuse]
+
+  # ----------------------------------------------------------------- reference
+  - id: wikipedia-thermal-runaway
+    uri: https://en.wikipedia.org/wiki/Thermal_runaway
+    title: "Thermal runaway"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [mechanism, tertiary]
+
+  - id: wikipedia-lithium-ion-battery
+    uri: https://en.wikipedia.org/wiki/Lithium-ion_battery
+    title: "Lithium-ion battery"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [chemistry, tertiary]
+
+  - id: wikipedia-battery-management-system
+    uri: https://en.wikipedia.org/wiki/Battery_management_system
+    title: "Battery management system"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [bms, control, tertiary]
+
+  - id: wikipedia-grid-energy-storage
+    uri: https://en.wikipedia.org/wiki/Grid_energy_storage
+    title: "Grid energy storage"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [bess, grid, tertiary]
+
+  - id: wikipedia-separator
+    uri: https://en.wikipedia.org/wiki/Separator_(electricity)
+    title: "Separator (electricity)"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [separator, shutdown, tertiary]
+
+  - id: wikipedia-ev-battery
+    uri: https://en.wikipedia.org/wiki/Electric_vehicle_battery
+    title: "Electric vehicle battery"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [ev, pack, tertiary]
+
+  - id: wikipedia-lfp
+    uri: https://en.wikipedia.org/wiki/Lithium_iron_phosphate_battery
+    title: "Lithium iron phosphate battery"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [lfp, chemistry, tertiary]
+
+  # ------------------------------------------------------- POINTERS (not stored)
+  # Copyrighted standards. The system knows these exist and are relevant, and
+  # can point at them, but it cannot and does not quote their clauses.
+  - id: pointer-nfpa-855
+    uri: https://www.nfpa.org/codes-and-standards/nfpa-855-standard-development/855
+    title: "NFPA 855: Standard for the Installation of Stationary Energy Storage Systems"
+    publisher: National Fire Protection Association
+    source_type: standard
+    authority: 5
+    mirrored: false
+    licence: "© NFPA - copyrighted standard, not redistributable"
+    notes: "Governs ESS installation: separation, fire detection, suppression, explosion control."
+
+  - id: pointer-ul-9540a
+    uri: https://www.shopulstandards.com/ProductDetail.aspx?UniqueKey=35734
+    title: "UL 9540A: Test Method for Evaluating Thermal Runaway Fire Propagation in Battery Energy Storage Systems"
+    publisher: UL Standards & Engagement
+    source_type: standard
+    authority: 5
+    mirrored: false
+    licence: "© UL Standards & Engagement - copyrighted standard, not redistributable"
+    notes: "Four-level test method: cell, module, unit, installation."
+
+  - id: pointer-iec-62619
+    uri: https://webstore.iec.ch/publication/64073
+    title: "IEC 62619: Safety requirements for secondary lithium cells and batteries for industrial applications"
+    publisher: International Electrotechnical Commission
+    source_type: standard
+    authority: 5
+    mirrored: false
+    licence: "© IEC - copyrighted standard, not redistributable"
+
+  - id: pointer-un-38-3
+    uri: https://unece.org/transport/dangerous-goods/un-manual-tests-and-criteria-rev8-amend1-files
+    title: "UN Manual of Tests and Criteria, sub-section 38.3 (lithium battery transport tests)"
+    publisher: United Nations Economic Commission for Europe
+    source_type: standard
+    authority: 5
+    mirrored: false
+    licence: "© United Nations - not redistributable in full"
+    notes: "T1-T8 transport qualification tests required before shipment."
+
+  - id: pointer-unece-r100
+    uri: https://unece.org/transport/vehicle-regulations-wp29/standards/addenda-1958-agreement-regulations-81-100
+    title: "UNECE Regulation No. 100: electric power train vehicle safety"
+    publisher: United Nations Economic Commission for Europe
+    source_type: standard
+    authority: 5
+    mirrored: false
+    licence: "© United Nations - not redistributable in full"

@@ -83,7 +83,11 @@ def fetch_http(uri: str, timeout: int = DEFAULT_TIMEOUT, respect_robots: bool = 
         uri,
         headers={
             "User-Agent": USER_AGENT,
-            "Accept": "text/html,application/pdf,text/plain;q=0.9,*/*;q=0.5",
+            # Deliberately permissive. A weighted Accept list gets 406 from
+            # some content APIs (arXiv's, among others) that would happily have
+            # served the document -- and a source we cannot fetch is a source
+            # the knowledge area silently does not have.
+            "Accept": "*/*",
             "Accept-Language": "en",
         },
     )

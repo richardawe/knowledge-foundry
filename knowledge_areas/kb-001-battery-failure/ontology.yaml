@@ -1,0 +1,193 @@
+# Domain ontology for Knowledge Area #001.
+#
+# Entity -> relationship -> entity (PROJECT_INITIATION.md §8), stored as a
+# triples table rather than a graph database (§23). Its job in retrieval is
+# query expansion with domain structure: asked "what detects thermal runaway",
+# the graph retriever walks `detected_by` and searches for terms the question
+# never contained.
+#
+# Aliases matter as much as names. They are how a practitioner's vocabulary
+# ("TR", "venting event", "off-gassing") reaches the same node.
+
+entities:
+  # ---- artefacts
+  - {id: lithium_ion_cell, name: Lithium-ion cell, kind: artefact, aliases: [li-ion cell, lithium cell, cell, lithium-ion battery cell]}
+  - {id: battery_module, name: Battery module, kind: artefact, aliases: [module]}
+  - {id: battery_pack, name: Battery pack, kind: artefact, aliases: [pack, battery system]}
+  - {id: bess, name: Battery energy storage system, kind: artefact, aliases: [BESS, energy storage system, ESS, grid storage, stationary storage]}
+  - {id: ev_battery, name: Electric vehicle battery, kind: artefact, aliases: [EV battery, traction battery, high voltage battery]}
+  - {id: ebike_battery, name: E-bike battery, kind: artefact, aliases: [e-bike battery, e-scooter battery, PLEV battery, personal light electric vehicle battery]}
+  - {id: separator, name: Separator, kind: component, aliases: [polyolefin separator, polyethylene separator, shutdown separator]}
+  - {id: electrolyte, name: Electrolyte, kind: component, aliases: [liquid electrolyte, carbonate electrolyte]}
+  - {id: cathode, name: Cathode, kind: component, aliases: [positive electrode]}
+  - {id: anode, name: Anode, kind: component, aliases: [negative electrode, graphite anode]}
+  - {id: sei_layer, name: Solid electrolyte interphase, kind: component, aliases: [SEI, SEI layer, passivation layer]}
+  - {id: cell_vent, name: Cell vent, kind: component, aliases: [vent, burst disc, pressure relief]}
+  - {id: bms, name: Battery management system, kind: control, aliases: [BMS, battery management]}
+  - {id: charger, name: Charger, kind: artefact, aliases: [battery charger, charging equipment]}
+
+  # ---- chemistries
+  - {id: nmc, name: NMC, kind: chemistry, aliases: [nickel manganese cobalt, lithium nickel manganese cobalt oxide, NCM]}
+  - {id: lfp, name: LFP, kind: chemistry, aliases: [lithium iron phosphate, LiFePO4]}
+  - {id: lco, name: LCO, kind: chemistry, aliases: [lithium cobalt oxide]}
+  - {id: nca, name: NCA, kind: chemistry, aliases: [nickel cobalt aluminium]}
+
+  # ---- failure modes
+  - {id: thermal_runaway, name: Thermal runaway, kind: failure_mode, aliases: [TR, runaway, thermal runaway event, self-heating runaway]}
+  - {id: thermal_runaway_propagation, name: Thermal runaway propagation, kind: failure_mode, aliases: [propagation, cell-to-cell propagation, cascading failure]}
+  - {id: internal_short_circuit, name: Internal short circuit, kind: failure_mode, aliases: [ISC, internal short]}
+  - {id: external_short_circuit, name: External short circuit, kind: failure_mode, aliases: [external short]}
+  - {id: overcharge, name: Overcharge, kind: failure_mode, aliases: [overcharging, over-charge]}
+  - {id: over_discharge, name: Over-discharge, kind: failure_mode, aliases: [overdischarge, deep discharge]}
+  - {id: lithium_plating, name: Lithium plating, kind: failure_mode, aliases: [plating, lithium metal deposition]}
+  - {id: dendrite_growth, name: Dendrite growth, kind: failure_mode, aliases: [dendrites, lithium dendrite]}
+  - {id: separator_shutdown, name: Separator shutdown and melt, kind: failure_mode, aliases: [separator melt, shutdown, separator failure]}
+  - {id: venting, name: Venting, kind: failure_mode, aliases: [cell venting, off-gassing, gas release, venting event]}
+  - {id: deflagration, name: Deflagration, kind: failure_mode, aliases: [gas explosion, explosion, vapour cloud explosion]}
+  - {id: jet_fire, name: Jet fire, kind: failure_mode, aliases: [flame jet, torching]}
+  - {id: cell_swelling, name: Cell swelling, kind: failure_mode, aliases: [swelling, bulging, gas generation swelling]}
+  - {id: reignition, name: Reignition, kind: failure_mode, aliases: [re-ignition, delayed reignition, flare-up]}
+
+  # ---- causes
+  - {id: mechanical_abuse, name: Mechanical abuse, kind: cause, aliases: [crush, penetration, nail penetration, impact damage]}
+  - {id: thermal_abuse, name: Thermal abuse, kind: cause, aliases: [external heating, overtemperature, elevated temperature]}
+  - {id: electrical_abuse, name: Electrical abuse, kind: cause, aliases: [abusive charging, incompatible charger]}
+  - {id: manufacturing_defect, name: Manufacturing defect, kind: cause, aliases: [latent defect, particle contamination, contamination]}
+  - {id: ageing, name: Ageing and degradation, kind: cause, aliases: [degradation, capacity fade, state of health, end of life]}
+  - {id: water_ingress, name: Water ingress, kind: cause, aliases: [immersion, moisture ingress, submersion]}
+
+  # ---- signals
+  - {id: temperature_anomaly, name: Temperature anomaly, kind: signal, aliases: [temperature rise, thermal gradient, hotspot]}
+  - {id: voltage_drop, name: Voltage drop, kind: signal, aliases: [voltage collapse, sudden voltage decline]}
+  - {id: gas_evolution, name: Gas evolution, kind: signal, aliases: [off-gas, vent gas, gas emission, early gas]}
+  - {id: smoke, name: Smoke, kind: signal, aliases: [smoke evolution, visible smoke]}
+  - {id: pressure_rise, name: Internal pressure rise, kind: signal, aliases: [pressure build-up, internal pressure]}
+  - {id: infrared_hotspot, name: Infrared hotspot, kind: signal, aliases: [IR hotspot, thermal imaging signature]}
+  - {id: force_signal, name: Expansion force signal, kind: signal, aliases: [force sensor, strain, mechanical deformation]}
+
+  # ---- vent gas species
+  - {id: carbon_monoxide, name: Carbon monoxide, kind: substance, aliases: [CO]}
+  - {id: carbon_dioxide, name: Carbon dioxide, kind: substance, aliases: [CO2]}
+  - {id: hydrogen, name: Hydrogen, kind: substance, aliases: [H2]}
+  - {id: hydrogen_fluoride, name: Hydrogen fluoride, kind: substance, aliases: [HF, hydrofluoric acid]}
+  - {id: electrolyte_vapour, name: Electrolyte vapour, kind: substance, aliases: [electrolyte vapor, solvent vapour, DMC vapour]}
+
+  # ---- controls
+  - {id: off_gas_detection, name: Off-gas detection, kind: control, aliases: [gas detection, gas sensing, early gas detection, semiconductor gas sensor]}
+  - {id: thermal_monitoring, name: Thermal monitoring, kind: control, aliases: [thermocouple, temperature sensing, thermal sensor]}
+  - {id: thermal_barrier, name: Thermal barrier, kind: control, aliases: [inter-cell barrier, insulation barrier, fire barrier]}
+  - {id: deflagration_venting, name: Deflagration venting, kind: control, aliases: [explosion venting, explosion control, pressure relief venting]}
+  - {id: water_suppression, name: Water suppression, kind: control, aliases: [sprinkler, water application, deluge, cooling with water]}
+  - {id: separation_distance, name: Separation distance, kind: control, aliases: [spacing, separation, siting distance]}
+  - {id: charging_practice, name: Safe charging practice, kind: control, aliases: [charging guidance, unattended charging, correct charger]}
+  - {id: state_of_charge_limit, name: State of charge limit, kind: control, aliases: [SoC limit, state of charge, storage state of charge]}
+
+  # ---- governance
+  - {id: nfpa_855, name: NFPA 855, kind: standard, aliases: [NFPA855]}
+  - {id: ul_9540a, name: UL 9540A, kind: standard, aliases: [UL9540A, 9540A]}
+  - {id: iec_62619, name: IEC 62619, kind: standard, aliases: [IEC62619]}
+  - {id: un_38_3, name: UN 38.3, kind: standard, aliases: [UN38.3, UN transport test, Manual of Tests and Criteria]}
+  - {id: unece_r100, name: UNECE R100, kind: standard, aliases: [ECE R100, Regulation No. 100]}
+  - {id: eu_battery_regulation, name: EU Battery Regulation, kind: regulation, aliases: ["2023/1542", batteries regulation, EU batteries regulation]}
+  - {id: opss_ebike_guidelines, name: OPSS e-bike battery safety guidelines, kind: regulation, aliases: [statutory guidelines, e-bike guidelines]}
+
+relationships:
+  # susceptibility
+  - {subject: lithium_ion_cell, predicate: susceptible_to, object: thermal_runaway}
+  - {subject: lithium_ion_cell, predicate: susceptible_to, object: internal_short_circuit}
+  - {subject: lithium_ion_cell, predicate: susceptible_to, object: lithium_plating}
+  - {subject: lithium_ion_cell, predicate: susceptible_to, object: cell_swelling}
+  - {subject: battery_pack, predicate: susceptible_to, object: thermal_runaway_propagation}
+  - {subject: bess, predicate: susceptible_to, object: thermal_runaway_propagation}
+  - {subject: bess, predicate: susceptible_to, object: deflagration}
+  - {subject: ev_battery, predicate: susceptible_to, object: thermal_runaway}
+  - {subject: ebike_battery, predicate: susceptible_to, object: thermal_runaway}
+  - {subject: ebike_battery, predicate: susceptible_to, object: reignition}
+
+  # causation chain
+  - {subject: thermal_runaway, predicate: triggered_by, object: internal_short_circuit}
+  - {subject: thermal_runaway, predicate: triggered_by, object: mechanical_abuse}
+  - {subject: thermal_runaway, predicate: triggered_by, object: thermal_abuse}
+  - {subject: thermal_runaway, predicate: triggered_by, object: overcharge}
+  - {subject: thermal_runaway, predicate: triggered_by, object: external_short_circuit}
+  - {subject: internal_short_circuit, predicate: triggered_by, object: dendrite_growth}
+  - {subject: internal_short_circuit, predicate: triggered_by, object: manufacturing_defect}
+  - {subject: internal_short_circuit, predicate: triggered_by, object: separator_shutdown}
+  - {subject: dendrite_growth, predicate: triggered_by, object: lithium_plating}
+  - {subject: lithium_plating, predicate: triggered_by, object: overcharge}
+  - {subject: lithium_plating, predicate: triggered_by, object: ageing}
+  - {subject: overcharge, predicate: triggered_by, object: electrical_abuse}
+  - {subject: electrical_abuse, predicate: triggered_by, object: charger}
+  - {subject: external_short_circuit, predicate: triggered_by, object: water_ingress}
+
+  # consequence chain
+  - {subject: sei_layer, predicate: precedes, object: thermal_runaway}
+  - {subject: thermal_runaway, predicate: leads_to, object: venting}
+  - {subject: thermal_runaway, predicate: leads_to, object: jet_fire}
+  - {subject: thermal_runaway, predicate: leads_to, object: thermal_runaway_propagation}
+  - {subject: venting, predicate: leads_to, object: deflagration}
+  - {subject: venting, predicate: releases, object: carbon_monoxide}
+  - {subject: venting, predicate: releases, object: carbon_dioxide}
+  - {subject: venting, predicate: releases, object: hydrogen}
+  - {subject: venting, predicate: releases, object: hydrogen_fluoride}
+  - {subject: venting, predicate: releases, object: electrolyte_vapour}
+  - {subject: venting, predicate: occurs_through, object: cell_vent}
+  - {subject: cell_swelling, predicate: precedes, object: venting}
+  - {subject: thermal_runaway, predicate: leads_to, object: reignition}
+  - {subject: separator_shutdown, predicate: occurs_in, object: separator}
+
+  # detection
+  - {subject: thermal_runaway, predicate: detected_by, object: off_gas_detection}
+  - {subject: thermal_runaway, predicate: detected_by, object: thermal_monitoring}
+  - {subject: thermal_runaway, predicate: detected_by, object: infrared_hotspot}
+  - {subject: thermal_runaway, predicate: detected_by, object: force_signal}
+  - {subject: internal_short_circuit, predicate: detected_by, object: voltage_drop}
+  - {subject: venting, predicate: detected_by, object: gas_evolution}
+  - {subject: venting, predicate: detected_by, object: smoke}
+  - {subject: gas_evolution, predicate: precedes, object: temperature_anomaly}
+  - {subject: gas_evolution, predicate: precedes, object: voltage_drop}
+  - {subject: off_gas_detection, predicate: senses, object: carbon_monoxide}
+  - {subject: off_gas_detection, predicate: senses, object: hydrogen}
+  - {subject: off_gas_detection, predicate: senses, object: electrolyte_vapour}
+  - {subject: thermal_monitoring, predicate: senses, object: temperature_anomaly}
+  - {subject: bms, predicate: monitors, object: voltage_drop}
+  - {subject: bms, predicate: monitors, object: temperature_anomaly}
+  - {subject: pressure_rise, predicate: precedes, object: venting}
+
+  # mitigation
+  - {subject: thermal_runaway_propagation, predicate: mitigated_by, object: thermal_barrier}
+  - {subject: thermal_runaway_propagation, predicate: mitigated_by, object: separation_distance}
+  - {subject: thermal_runaway_propagation, predicate: mitigated_by, object: water_suppression}
+  - {subject: deflagration, predicate: mitigated_by, object: deflagration_venting}
+  - {subject: thermal_runaway, predicate: mitigated_by, object: bms}
+  - {subject: thermal_runaway, predicate: mitigated_by, object: water_suppression}
+  - {subject: overcharge, predicate: mitigated_by, object: bms}
+  - {subject: overcharge, predicate: mitigated_by, object: charging_practice}
+  - {subject: ebike_battery, predicate: mitigated_by, object: charging_practice}
+  - {subject: ageing, predicate: mitigated_by, object: state_of_charge_limit}
+
+  # governance
+  - {subject: bess, predicate: governed_by, object: nfpa_855}
+  - {subject: bess, predicate: tested_by, object: ul_9540a}
+  - {subject: thermal_runaway_propagation, predicate: tested_by, object: ul_9540a}
+  - {subject: battery_pack, predicate: governed_by, object: iec_62619}
+  - {subject: lithium_ion_cell, predicate: tested_by, object: un_38_3}
+  - {subject: ev_battery, predicate: governed_by, object: unece_r100}
+  - {subject: lithium_ion_cell, predicate: governed_by, object: eu_battery_regulation}
+  - {subject: ebike_battery, predicate: governed_by, object: opss_ebike_guidelines}
+
+  # composition and chemistry
+  - {subject: separator, predicate: part_of, object: lithium_ion_cell}
+  - {subject: electrolyte, predicate: part_of, object: lithium_ion_cell}
+  - {subject: cathode, predicate: part_of, object: lithium_ion_cell}
+  - {subject: anode, predicate: part_of, object: lithium_ion_cell}
+  - {subject: sei_layer, predicate: part_of, object: anode}
+  - {subject: cell_vent, predicate: part_of, object: lithium_ion_cell}
+  - {subject: lithium_ion_cell, predicate: part_of, object: battery_module}
+  - {subject: battery_module, predicate: part_of, object: battery_pack}
+  - {subject: battery_pack, predicate: part_of, object: bess}
+  - {subject: lithium_ion_cell, predicate: has_chemistry, object: nmc}
+  - {subject: lithium_ion_cell, predicate: has_chemistry, object: lfp}
+  - {subject: lithium_ion_cell, predicate: has_chemistry, object: lco}
+  - {subject: lithium_ion_cell, predicate: has_chemistry, object: nca}
+  - {subject: bms, predicate: part_of, object: battery_pack}

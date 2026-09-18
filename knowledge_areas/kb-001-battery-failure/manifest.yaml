@@ -1,0 +1,145 @@
+# Knowledge Area #001 -- see DOMAIN_SELECTION.md for why this domain was chosen.
+knowledge_area:
+  id: kb-001-battery-failure
+  name: Lithium-Ion Battery Failure Intelligence
+  description: >-
+    An evidence-backed specialist system covering lithium-ion cell and system
+    failure: failure mechanisms, thermal runaway initiation and propagation,
+    vent-gas composition, early detection, suppression and cooling, battery
+    energy storage and electric-vehicle incident precedent, and the
+    transport, storage, installation and waste rules that govern them.
+    Every answer is traceable to a stored source with a URI, publisher and
+    retrieval date, and is machine-checked for unsupported claims before it is
+    returned.
+  domain: battery safety engineering
+  version: v0.1.0
+  owner: knowledge-foundry
+  created: 2026-09-18
+  last_updated: 2026-09-18
+  visibility: public
+  tenant: public
+
+# The scope gate refuses questions that clearly match an out-of-scope topic
+# before retrieval runs. It is lexical, so it only catches what it is told
+# about; the evidence-sufficiency gate catches the rest.
+scope:
+  in_scope:
+    - lithium-ion cell and battery failure mechanisms
+    - thermal runaway onset initiation and propagation
+    - internal and external short circuit
+    - lithium plating and dendrite growth
+    - separator failure and shutdown behaviour
+    - vent gas composition and off-gassing
+    - early detection of cell failure
+    - fire suppression and cooling of battery fires
+    - battery energy storage system fire safety
+    - electric vehicle and e-bike battery fires
+    - battery transport storage and installation rules
+    - waste battery handling and treatment
+    - battery safety standards and regulation
+    - battery incident and product safety reports
+  out_of_scope:
+    - medical diagnosis treatment or clinical advice
+    - legal advice or litigation strategy
+    - tax accounting and financial advice
+    - share prices company valuation and investment advice
+    - battery manufacturing cost economics and pricing forecasts
+    - political opinion and elections
+    - software programming help unrelated to batteries
+    - personal relationship advice
+
+sources:
+  register: sources.yaml
+
+knowledge_model:
+  ontology: ontology.yaml
+
+retrieval:
+  top_k: 8
+  candidate_k: 60
+  chunk:
+    target_chars: 1200
+    overlap_chars: 150
+    min_chars: 200
+  keyword:
+    enabled: true
+  semantic:
+    enabled: true
+    provider: lsa        # swap for sentence_transformers once evaluation shows it earns its cost
+    dim: 192
+  structured:
+    enabled: true
+  graph:
+    enabled: true
+    max_hops: 2
+  fusion:
+    k: 60
+    weights:
+      keyword: 1.0
+      semantic: 0.9
+      structured: 0.6
+      graph: 0.5
+  rerank:
+    # Regulators and investigation bodies should outrank encyclopaedia entries
+    # on a tie. This is the only place authority is applied.
+    authority_weight: 0.25
+    recency_half_life_days: 1460
+
+specialist:
+  prompt: prompts/system.md
+  llm:
+    provider: local_extractive   # keyless default; set FOUNDRY_LLM_* and switch to use a hosted model
+    temperature: 0.0
+    max_tokens: 1200
+  sufficiency:
+    min_evidence_score: 0.012
+    min_chunks: 2
+  grounding:
+    min_sentence_support: 0.34
+    max_unsupported_ratio: 0.34
+
+evaluation:
+  suites:
+    - evaluation/core.yaml
+    - evaluation/adversarial.yaml
+    - evaluation/regression_from_redteam.yaml
+  thresholds:
+    answer_correctness: 0.55
+    citation_validity: 0.95
+    unsupported_claim_rate: 0.20
+    abstention_correctness: 0.70
+  tolerances:
+    default: 0.02
+    citation_validity: 0.0     # citation validity must never regress at all
+
+governance:
+  review_status: draft
+  confidence: low
+  reviewers: []
+  disclaimer: >-
+    This is an evidence-retrieval system, not a basis-of-design authority. It
+    does not replace a competent fire engineer, a dangerous-goods adviser or
+    the governing standard. Verify every figure against the cited primary
+    source before relying on it for a safety decision.
+  known_limitations:
+    - >-
+      The full texts of NFPA 855, UL 9540A, IEC 62619, UN 38.3 and UNECE R100
+      are copyrighted and are NOT stored. They are registered as pointers only:
+      the system can tell you a standard exists and is relevant, and cite
+      secondary sources that describe it, but it cannot quote its clauses.
+    - >-
+      Thermal-runaway onset temperatures, vent-gas composition and propagation
+      behaviour vary substantially with cell chemistry, format, state of charge
+      and ageing. Any single figure should be read as specific to the test
+      conditions of the source that reports it.
+    - >-
+      Academic coverage is drawn from open-access preprints. It is neither a
+      systematic review nor peer-reviewed at the point of ingestion, and recent
+      preprints may be superseded.
+    - >-
+      Coverage is strongest for UK and EU regulation and weakest for US state
+      fire codes, Chinese GB standards and Japanese regulation.
+    - >-
+      Encyclopaedia sources (authority 2) are included for coverage and
+      vocabulary. They are deliberately outranked by regulators and
+      investigation bodies, but they are still cited where nothing better exists.

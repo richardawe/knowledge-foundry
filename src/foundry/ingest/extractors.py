@@ -112,7 +112,11 @@ def extract_html(content: bytes) -> Extracted:
         if stripped and seen[stripped] > 2 and len(stripped) < 60 and not stripped.startswith("#"):
             continue
         kept.append(line)
-    return Extracted(title=parser.title.strip(), text=normalise("\n".join(kept)), extractor="html")
+    return Extracted(
+        title=parser.title.strip(),
+        text=drop_bibliography(normalise("\n".join(kept))),
+        extractor="html",
+    )
 
 
 def extract_pdf(content: bytes) -> Extracted:
@@ -174,6 +178,28 @@ def extract_json(content: bytes) -> Extracted:
 
     walk(data)
     return Extracted(title="", text=normalise("\n".join(lines)), extractor="json")
+
+
+# Headings that begin a bibliography. Everything after one of these, when it
+# appears late in a document, is citation metadata rather than knowledge: it
+# retrieves well (it is dense with domain terms) and answers badly (it is not
+# prose). Papers are the main offender, and they are a core source type here.
+_BIBLIOGRAPHY_RE = re.compile(
+    r"^#{1,6}\s*(references|bibliography|works cited|literature cited)\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def drop_bibliography(text: str, min_position: float = 0.55) -> str:
+    """Truncate at a bibliography heading that appears late in the document.
+
+    The position guard matters: a paper whose second section is a literature
+    review must not be truncated at its own heading.
+    """
+    for match in _BIBLIOGRAPHY_RE.finditer(text):
+        if match.start() / max(1, len(text)) >= min_position:
+            return text[: match.start()].rstrip()
+    return text
 
 
 _EXTRACTORS = {

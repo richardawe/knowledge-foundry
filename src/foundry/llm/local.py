@@ -24,6 +24,7 @@ is for, and what the evaluation suite measures.
 from __future__ import annotations
 
 import math
+import re
 
 from ..text import content_terms, numbers_with_units, sentences
 from .base import GenerationContext, LLMResponse
@@ -37,6 +38,38 @@ _NUMERIC_CUES = ("what temperature", "how hot", "how many", "how much", "how lon
                  "what pressure", "at what", "how often", "what is the limit", "threshold")
 _REQUIREMENT_CUES = ("must", "shall", "required", "permitted", "allowed", "mandatory",
                      "obligation", "compliant", "legal")
+
+# Fragments that retrieve well and answer badly: figure captions, table
+# headers, navigation, marketing strap-lines and residual bibliography entries.
+_NON_PROSE_RE = re.compile(
+    r"(journal of|proceedings of|\bvol\.|\bpp\.|\bdoi:|et al\.,|\bissn\b|\bisbn\b|"
+    r"^fig\.|^figure \d|^table \d|^appendix\b|^abstract$|^\s*\[\d+\])",
+    re.IGNORECASE,
+)
+
+
+def looks_like_prose(sentence: str) -> bool:
+    """A cheap shape test for "is this a statement, or is it furniture?"
+
+    The extractive provider can only be as good as the sentences it is allowed
+    to choose from. Without this filter it happily answers "What does UL 9540A
+    test?" with the page's own heading, which is true, cited and useless.
+    """
+    sentence = sentence.strip()
+    if len(sentence) < 40 or not sentence.endswith((".", "?", "!")):
+        return False
+    words = sentence.split()
+    if len(words) < 7:
+        return False
+    if not (sentence[0].isupper() or sentence[0].isdigit()):
+        return False
+    if _NON_PROSE_RE.search(sentence):
+        return False
+    # Title Case Like This Is A Heading, not a sentence.
+    alpha = [w for w in words if w[:1].isalpha()]
+    if alpha and sum(1 for w in alpha if w[0].isupper()) / len(alpha) > 0.6:
+        return False
+    return True
 
 
 class LocalExtractiveProvider:
@@ -121,7 +154,7 @@ class LocalExtractiveProvider:
         for item in context.evidence:
             for position, sentence in enumerate(sentences(item.text)):
                 sentence = sentence.strip()
-                if len(sentence) < 25:
+                if not looks_like_prose(sentence):
                     continue
                 score = self._score_sentence(sentence, question_terms, context.question, weights)
                 if score >= self.min_score:
