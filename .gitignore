@@ -10,3 +10,6 @@ dist/
 # Static site build output
 site/
 .gh-pages-worktree/
+
+# Local virtualenv created by start.sh
+.venv/

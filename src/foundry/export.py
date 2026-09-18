@@ -63,6 +63,49 @@ class ExportReport:
         return "\n".join(lines)
 
 
+def _transcript_index(ka_id: str, max_passage_chars: int = 420) -> bytes:
+    """Recorded questions and answers, trimmed to something a page can download."""
+    from .evidence import transcript
+
+    with Store(ka_id) as store:
+        data = transcript(store)
+
+    entries = []
+    for entry in data["entries"]:
+        entries.append({
+            "id": entry["id"],
+            "type": entry["type"],
+            "question": entry["question"],
+            "answer": entry["answer"],
+            "status": entry["status"],
+            "confidence": entry["confidence"],
+            "passed": entry["passed"],
+            "citation_validity": entry["citation_validity"],
+            "grounded_ratio": entry["grounded_ratio"],
+            "cited": [
+                {
+                    "rank": s.get("rank"),
+                    "source_id": s.get("source_id"),
+                    "source_title": s.get("source_title"),
+                    "publisher": s.get("publisher"),
+                    "published_at": s.get("published_at"),
+                    "authority": s.get("authority"),
+                    "uri": s.get("uri"),
+                    "section": s.get("section"),
+                    "text": (s.get("text") or "")[:max_passage_chars],
+                }
+                for s in entry["cited"]
+            ],
+        })
+    return json.dumps({
+        "knowledge_area": ka_id,
+        "run_id": data["run_id"],
+        "version": data["version"],
+        "provider": data["provider"],
+        "entries": entries,
+    }, default=str).encode("utf-8")
+
+
 def export_site(
     out_dir: Path | str,
     base_url: str = "",
@@ -144,6 +187,14 @@ def export_site(
         status, _ct, payload = router.handle("GET", f"/api/knowledge/{ka_id}", {}, {}, None)
         if status == 200:
             write(f"api/knowledge/{ka_id}.json", payload)
+
+        # A compact index of recorded answers. With no engine reachable the ask
+        # box searches this instead of being inert: a visitor still gets a real
+        # answer with its real evidence, clearly badged as recorded rather than
+        # live. It is a lookup over published results, not a second
+        # implementation of retrieval -- nothing here can answer a question the
+        # system has not already been asked.
+        write(f"api/knowledge/{ka_id}.transcript.json", _transcript_index(ka_id))
 
         report.knowledge_areas.append(ka_id)
 

@@ -28,17 +28,29 @@ if ! command -v "$PY" >/dev/null 2>&1; then
 fi
 version=$("$PY" -c 'import sys; print("%d.%d" % sys.version_info[:2])')
 note "python $version at $(command -v "$PY")"
+note "(override with: PY=/opt/homebrew/bin/python3.12 ./start.sh)"
 "$PY" - <<'EOF' || { echo "  Python 3.10+ is required."; exit 1; }
 import sys
 raise SystemExit(0 if sys.version_info >= (3, 10) else 1)
 EOF
 
 say "2/4  Installing"
+# Always into a virtualenv. Homebrew and system Pythons are marked
+# externally-managed (PEP 668), so a plain `pip install -e .` against them
+# fails outright -- which is the first wall anyone hits on a Mac. A venv
+# sidesteps it and leaves the system Python untouched.
+VENV=".venv"
+if [ ! -x "$VENV/bin/python" ]; then
+  note "creating $VENV"
+  "$PY" -m venv "$VENV"
+fi
+PY="$PWD/$VENV/bin/python"
 if "$PY" -c 'import foundry, jinja2' >/dev/null 2>&1; then
-  note "already installed"
+  note "already installed in $VENV"
 else
+  "$PY" -m pip install -q --upgrade pip
   "$PY" -m pip install -q -e ".[dev,web]"
-  note "installed knowledge-foundry with web extras"
+  note "installed knowledge-foundry into $VENV"
 fi
 
 say "3/4  Checking the model and the corpus"
