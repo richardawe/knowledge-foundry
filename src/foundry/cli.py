@@ -39,6 +39,10 @@ def _emit(payload: dict, as_json: bool) -> None:
 
 def cmd_list(args) -> int:
     ids = list_knowledge_areas()
+    if getattr(args, "ids", False):
+        for ka_id in ids:
+            print(ka_id)
+        return 0
     if not ids:
         print("no knowledge areas found in", paths.knowledge_areas_dir())
         return 0
@@ -228,6 +232,88 @@ def cmd_stats(args) -> int:
     return 0
 
 
+def cmd_plan(args) -> int:
+    """Queue prompts for the questions that need a model."""
+    from .inference import plan
+
+    manifest = _load(args.knowledge_area)
+    with _store(manifest) as store:
+        report = plan(manifest, store, force=args.force)
+    if args.json:
+        _emit(report.as_dict(), True)
+    else:
+        print(report.render())
+    return 0
+
+
+def cmd_worker(args) -> int:
+    """Answer queued prompts with the local model. The only command that calls one."""
+    from .inference import queue_status, worker
+
+    ids = args.knowledge_area.split(",") if args.knowledge_area else list_knowledge_areas()
+    manifests = [_load(ka) for ka in ids]
+
+    def progress(ka_id, request, response):
+        state = "ok" if response.ok and response.text.strip() else f"FAILED: {response.error}"
+        print(f"  {ka_id} {request['question_id'] or request['id']}: {state}")
+
+    summary = worker(
+        manifests, limit=args.limit, worker_name=args.name or "",
+        on_progress=None if args.json else progress,
+    )
+    if args.json:
+        _emit(summary, True)
+    else:
+        print(f"answered {summary['answered']}, failed {summary['failed']}")
+        for error in summary["errors"][:10]:
+            print(f"  {error['id']}: {error['error']}")
+        for ka in ids:
+            status = queue_status(ka)
+            print(f"  {ka}: {status['pending']} still pending")
+    return 1 if summary["failed"] and args.strict else 0
+
+
+def cmd_apply(args) -> int:
+    """Validate and score queued replies, then re-run the evaluation with them."""
+    from .evaluation import run_evaluation
+    from .inference import AnsweredFromQueue, apply
+
+    manifest = _load(args.knowledge_area)
+    with _store(manifest) as store:
+        report, answers = apply(manifest, store)
+        print(report.render())
+        if not answers and not args.always_evaluate:
+            print("  nothing to apply; evaluation not re-run")
+            return 0
+
+        from .specialist import Specialist
+
+        serving = AnsweredFromQueue(Specialist(manifest, store), answers)
+        evaluation = run_evaluation(manifest, store, specialist=serving)
+        print(
+            f"  evaluation used {serving.served} queued answer(s), "
+            f"{serving.fell_through} answered locally"
+        )
+        print(evaluation.render())
+    return 0 if evaluation.passed else 1
+
+
+def cmd_queue(args) -> int:
+    from .inference import queue_status
+
+    ids = args.knowledge_area.split(",") if args.knowledge_area else list_knowledge_areas()
+    rows = [queue_status(ka) for ka in ids]
+    if args.json:
+        _emit({"queues": rows}, True)
+    else:
+        for row in rows:
+            print(
+                f"{row['knowledge_area']:<34} requests={row['requests']:<5} "
+                f"responses={row['responses']:<5} pending={row['pending']}"
+            )
+    return 0
+
+
 def cmd_export(args) -> int:
     from .export import export_site
 
@@ -301,7 +387,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    sub.add_parser("list", help="list knowledge areas").set_defaults(func=cmd_list)
+    listing = sub.add_parser("list", help="list knowledge areas")
+    listing.add_argument("--ids", action="store_true",
+                         help="print bare ids, one per line, for scripts")
+    listing.set_defaults(func=cmd_list)
 
     def add_ka(p):
         p.add_argument("knowledge_area", help="knowledge area id or path")
@@ -360,6 +449,28 @@ def build_parser() -> argparse.ArgumentParser:
 
     stats = add_ka(sub.add_parser("stats", help="knowledge area statistics"))
     stats.set_defaults(func=cmd_stats)
+
+    plan = add_ka(sub.add_parser("plan", help="queue prompts for questions that need a model"))
+    plan.add_argument("--force", action="store_true", help="re-queue even if already answered")
+    plan.set_defaults(func=cmd_plan)
+
+    worker = sub.add_parser("worker", help="answer queued prompts with the local model")
+    worker.add_argument("--knowledge-area", help="comma-separated ids; default is all")
+    worker.add_argument("--limit", type=int, default=None, help="answer at most this many")
+    worker.add_argument("--name", help="label recorded against the answers")
+    worker.add_argument("--strict", action="store_true", help="exit non-zero if any call failed")
+    worker.add_argument("--json", action="store_true")
+    worker.set_defaults(func=cmd_worker)
+
+    apply_cmd = add_ka(sub.add_parser("apply", help="score queued replies and re-run evaluation"))
+    apply_cmd.add_argument("--always-evaluate", action="store_true",
+                           help="re-run evaluation even when the queue is empty")
+    apply_cmd.set_defaults(func=cmd_apply)
+
+    queue = sub.add_parser("queue", help="show the inference queue")
+    queue.add_argument("--knowledge-area", help="comma-separated ids; default is all")
+    queue.add_argument("--json", action="store_true")
+    queue.set_defaults(func=cmd_queue)
 
     export = sub.add_parser("export", help="render the public site as static HTML")
     export.add_argument("out", help="output directory, e.g. ./site")

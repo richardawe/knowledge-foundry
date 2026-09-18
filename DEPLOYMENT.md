@@ -131,24 +131,55 @@ build can never linger looking current. Authentication prefers a configured
 credential helper (the macOS keychain already has one) and only embeds
 `GITHUB_TOKEN` when there is none, which is the case on a bare CI runner.
 
-### Running it from launchd
+### The Mac only answers prompts
 
-`com.knowledgefoundry.agent.plist` runs the whole loop nightly on the Mac where
-Ollama lives — build, evaluate, red team, publish or hold, then deploy the
-evidence pages:
-
-```bash
-cp com.knowledgefoundry.agent.plist ~/Library/LaunchAgents/
-launchctl load ~/Library/LaunchAgents/com.knowledgefoundry.agent.plist
-launchctl start com.knowledgefoundry.agent      # run it now, to test
-```
-
-It expects the repository at `~/knowledge-foundry` and Ollama already running.
-Logs land in `/tmp/knowledge-foundry.*.log`. To remove it:
+GitHub Actions runs the pipeline on a schedule and queues the prompts that need
+a model. The Mac's only job is to answer them:
 
 ```bash
-launchctl unload ~/Library/LaunchAgents/com.knowledgefoundry.agent.plist
+cp com.knowledgefoundry.worker.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.knowledgefoundry.worker.plist
+launchctl start com.knowledgefoundry.worker      # run it now, to test
 ```
+
+It expects the repository at `~/knowledge-foundry` and Ollama running, fires
+three times a day, and exits in seconds when the queue is empty — which is most
+runs, because the queue only grows when the corpus or the question set changes.
+Logs land in `/tmp/knowledge-foundry-worker.*.log`.
+
+By hand:
+
+```bash
+make queue     # what is waiting
+make worker    # answer it, push the replies back
+```
+
+Actions then validates and scores those replies and republishes the site. If
+the Mac is off for a week, nothing breaks: the site keeps serving the last
+published build, and the queue waits.
+
+To remove the agent:
+
+```bash
+launchctl unload ~/Library/LaunchAgents/com.knowledgefoundry.worker.plist
+```
+
+### What runs where, and why
+
+| | GitHub Actions | the Mac |
+|---|---|---|
+| Ingestion, chunking, indexing | yes | no |
+| Retrieval and the gates | yes | no |
+| Prompt assembly | yes | no |
+| **The model call** | **no** | **yes** |
+| Validation, grounding, scoring | yes | no |
+| Versioning, the publish gate | yes | no |
+| Red team, site export and deploy | yes | no |
+
+A runner has no GPU and no Ollama, so generation there would be slow, weak or
+both. The Mac has the model but should not be a dependency for anything else —
+its being asleep must not stop the corpus rebuilding or the site publishing.
+Splitting at the model call is the only cut that satisfies both.
 
 ## Choosing models
 

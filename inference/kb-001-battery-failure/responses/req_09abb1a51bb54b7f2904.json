@@ -1,0 +1,14 @@
+{
+  "completion_tokens": 48,
+  "created_at": "2026-09-18T20:35:30+00:00",
+  "error": null,
+  "id": "req_09abb1a51bb54b7f2904",
+  "model": "llama3.1:8b",
+  "prompt_sha": "a4e46452f37d725c7fafa3c7d73260c8efc91efc92ca5ac32841f7d9c22761e5",
+  "prompt_tokens": 2100,
+  "provider": "ollama",
+  "question_id": "bf-fact-022",
+  "stop_reason": "stop",
+  "text": "ANSWER\nLithium ion (rechargeable) batteries are limited to a rating of 100 watt hours (Wh) per battery. [1]\n\nREASONING\nStated directly in the cited FAA passage.",
+  "worker": ""
+}

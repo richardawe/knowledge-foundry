@@ -7,7 +7,8 @@ PY ?= python3
 PORT ?= 8000
 
 .PHONY: help install test build ingest index eval redteam publish rollback \
-        serve stats site deploy nightly nightly-site doctor ollama-check up clean clean-all
+        serve stats site deploy nightly nightly-site doctor ollama-check up \
+        worker queue plan apply clean clean-all
 
 # One command from a fresh clone to a working ask box.
 up:
@@ -23,7 +24,9 @@ help:
 	@echo "  make redteam     run adversarial evaluation, promoting failures"
 	@echo "  make publish     publish the build if the gate allows it"
 	@echo "  make rollback    repoint at the previous published version"
-	@echo "  make nightly     build + eval + redteam + publish (the §12 health check)"
+	@echo "  make nightly     build + eval + redteam + publish + queue prompts"
+	@echo "  make worker      answer queued prompts with the local model (needs Ollama)"
+	@echo "  make queue       show what is waiting for a model"
 	@echo "  make site        render the public site into ./site"
 	@echo "  make deploy      render and publish ./site to the gh-pages branch"
 	@echo "                   (API_BASE=<url> sets the instance its ask box calls)"
@@ -67,13 +70,31 @@ stats:
 serve:
 	$(PY) -m foundry.cli serve --host 0.0.0.0 --port $(PORT)
 
-# The nightly health check from §12. `eval` is allowed to fail so that the
-# red team and the publish gate still run and record why the build was held.
+# The nightly health check from section 12. GitHub Actions runs this on a
+# schedule; the target exists so it can be run by hand too. `eval` is allowed
+# to fail so the red team and the publish gate still run and record why the
+# build was held.
 nightly:
 	$(PY) -m foundry.cli build $(KA)
 	-$(PY) -m foundry.cli eval $(KA)
 	$(PY) -m foundry.cli redteam $(KA) --count 48 --promote
 	$(PY) -m foundry.cli version $(KA) publish
+	$(PY) -m foundry.cli plan $(KA)
+
+# --- the model half ----------------------------------------------------
+# Only these touch a model, and only on a machine that has one. Actions queues
+# the prompts; this answers them and pushes the replies back for scoring.
+worker:
+	./worker.sh
+
+queue:
+	$(PY) -m foundry.cli queue
+
+plan:
+	$(PY) -m foundry.cli plan $(KA)
+
+apply:
+	$(PY) -m foundry.cli apply $(KA)
 
 # --- public site -------------------------------------------------------
 # BASE_URL must match how GitHub Pages serves the repo. A project site lives

@@ -1,0 +1,72 @@
+name: apply model answers
+
+# The other half of the split. When the machine with Ollama pushes replies into
+# inference/*/responses/, this validates and scores them here -- grounding,
+# citation resolution, numeric fidelity -- and republishes the site.
+#
+# Validation deliberately does NOT run on the worker: a machine that generates
+# an answer should not also be the one that marks it.
+
+on:
+  push:
+    paths:
+      - "inference/*/responses/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: foundry-pipeline
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    # Skip the commit this workflow's own deploy step creates.
+    if: github.actor != 'knowledge-foundry-bot'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev,web,pdf]"
+
+      - name: Restore previous build
+        uses: actions/cache@v4
+        with:
+          path: var
+          key: foundry-var-${{ github.run_id }}
+          restore-keys: foundry-var-
+
+      # The corpus has to exist to validate against. A cache hit makes this
+      # quick; a cold runner rebuilds from the source register.
+      - name: Ensure the corpus is built
+        run: |
+          for ka in $(python -m foundry.cli list --ids); do
+            python -m foundry.cli build "$ka" --notes "apply ${{ github.run_id }}"
+          done
+
+      - name: Apply and score the model's answers
+        run: |
+          for ka in $(python -m foundry.cli list --ids); do
+            echo "::group::$ka"
+            python -m foundry.cli apply "$ka" || true
+            python -m foundry.cli version "$ka" publish || true
+            echo "::endgroup::"
+          done
+
+      - name: Publish the evidence pages
+        run: python -m foundry.cli deploy --base-url /${{ github.event.repository.name }}
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports-after-inference
+          path: var/*/reports/
+          if-no-files-found: warn

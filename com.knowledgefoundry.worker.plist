@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.knowledgefoundry.worker</string>
+
+    <!-- Answers the prompts GitHub Actions has queued, using the local Ollama,
+         and pushes the replies back. Actions does everything else: ingestion,
+         retrieval, validation, scoring, versioning and publishing.
+
+         This agent is small and idempotent. If the Mac is asleep the work
+         simply waits in the queue; nothing is lost and nothing is stale,
+         because a reply is rejected if the corpus moved underneath it. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-lc</string>
+        <string>cd "$HOME/knowledge-foundry" &amp;&amp; ./worker.sh</string>
+    </array>
+
+    <!-- Every two hours. The queue only grows when the corpus or the question
+         set changes, so most runs find nothing to do and exit in seconds. -->
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Hour</key><integer>13</integer><key>Minute</key><integer>10</integer></dict>
+        <dict><key>Hour</key><integer>19</integer><key>Minute</key><integer>10</integer></dict>
+    </array>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/knowledge-foundry-worker.stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/knowledge-foundry-worker.stderr.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>OLLAMA_HOST</key>
+        <string>http://localhost:11434</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
+</dict>
+</plist>

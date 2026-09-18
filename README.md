@@ -156,6 +156,49 @@ curl -s localhost:8000/knowledge/kb-001-battery-failure/ask \
 }
 ```
 
+## Where each part runs
+
+Answering splits cleanly in two, and the two halves run in different places.
+
+```
+GitHub Actions  (all the Python)            your Mac  (only the model)
+──────────────────────────────              ────────────────────────────
+ingest -> chunk -> index
+retrieve -> gates -> build prompts
+  write inference/<ka>/requests/*  ──────▶
+                                            worker.sh: read prompts,
+                                            call Ollama, write responses/*
+                                 ◀──────
+validate: citations resolve, claims
+grounded, numbers present
+score, version, publish or hold
+export and deploy the evidence pages
+```
+
+**Actions does everything deterministic**: ingestion, retrieval, the gates,
+validation, grounding, scoring, versioning, the red team, the site. It runs on
+a schedule, needs no model, and produces a complete publishable site on its own
+using the keyless extractive provider.
+
+**Your Mac does only the model call.** `worker.sh` reads the queued prompts,
+calls Ollama, and pushes the replies back. It performs no retrieval, applies no
+gates and scores nothing — a machine that generates an answer must not be the
+one that marks it.
+
+The transport is the repository itself: a queue of files, pushed and pulled like
+any other change. No server, no tunnel, no open port. If the Mac is asleep the
+work simply waits.
+
+A reply is only accepted if the prompt it answered still hashes to the prompt
+the corpus produces now. If the corpus moved in between, the model answered
+against different evidence than we would validate it against, and the stale
+reply is discarded rather than scored.
+
+```bash
+# on the Mac, once Ollama is running
+./worker.sh          # or: make worker
+```
+
 ## How it works
 
 ```

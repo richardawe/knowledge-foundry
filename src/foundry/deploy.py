@@ -58,9 +58,23 @@ def remote_url(repo_dir: Path, remote: str = "origin") -> str:
 
 
 def authenticated_url(repo_dir: Path, url: str) -> str:
-    """Use the credential helper when there is one; embed a token only if not."""
+    """Prefer credentials git already has; embed a token only as a last resort.
+
+    Two ways git may already be able to push, and both must be recognised or we
+    would needlessly bake a token into a URL:
+
+    * a credential helper (the macOS keychain, say);
+    * an ``http.<url>.extraheader`` carrying an authorization header, which is
+      how ``actions/checkout`` authenticates a runner.
+    """
     helper = _run(["git", "config", "credential.helper"], cwd=repo_dir, check=False)
     if helper.stdout.strip():
+        return url
+    extraheader = _run(
+        ["git", "config", "--get-regexp", r"http\..*\.extraheader"],
+        cwd=repo_dir, check=False,
+    )
+    if extraheader.stdout.strip():
         return url
     token = os.environ.get("GITHUB_TOKEN", "")
     if token and url.startswith("https://github.com/"):

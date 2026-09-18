@@ -23,9 +23,10 @@ from __future__ import annotations
 
 import re
 import time
+from dataclasses import dataclass, field
 from typing import Sequence
 
-from ..llm import GenerationContext, provider_for
+from ..llm import GenerationContext, LLMResponse, provider_for
 from ..manifest import Manifest
 from ..retrieval import HybridRetriever, load_embedder
 from ..retrieval.base import Evidence
@@ -46,6 +47,30 @@ from .answer import (
     Answer,
 )
 from .validation import detect_contradictions, validate_answer
+
+@dataclass
+class Prepared:
+    """Everything the model needs, and everything needed to judge its reply.
+
+    Serialisable on purpose: the prompt can be handed to a model somewhere
+    else entirely, and the evidence travels with it so the reply is validated
+    against exactly the passages it was shown.
+    """
+
+    question: str
+    knowledge_area: str
+    answer: Answer | None = None            # set when a gate ended the turn
+    system: str = ""
+    user: str = ""
+    evidence: list[Evidence] = field(default_factory=list)
+    retrieval: dict = field(default_factory=dict)
+    temperature: float = 0.0
+    max_tokens: int = 1200
+
+    @property
+    def needs_model(self) -> bool:
+        return self.answer is None
+
 
 INSUFFICIENT_TEXT = (
     "The evidence in this knowledge area does not establish an answer to this "
@@ -217,38 +242,44 @@ class Specialist:
             out.append(record)
         return out
 
-    # -- main entry point ------------------------------------------------
+    # -- the two halves of answering -------------------------------------
+    #
+    # Everything except the model call is deterministic Python over the
+    # knowledge area: retrieval, the gates, prompt assembly, then validation,
+    # grounding and scoring. Only one step in the middle needs a model.
+    #
+    # `prepare` runs the first half and either finishes the turn on a gate or
+    # hands back the prompt. `judge` runs the second half over whatever the
+    # model returned. `ask` is the two joined together, which is what a live
+    # server does.
+    #
+    # Splitting them is what lets the deterministic half run where the corpus
+    # is and the model call run where the model is, without either pretending
+    # to be the other.
 
-    def ask(self, question: str, top_k: int | None = None) -> Answer:
-        started = time.monotonic()
-        version = self.store.get_meta("current_version", "unversioned")
-        evaluation_status = self.store.get_meta("evaluation_status", "unknown")
-
-        def finish(answer: Answer) -> Answer:
+    def _finish(self, answer: Answer, started: float | None = None) -> Answer:
+        if started is not None:
             answer.elapsed_ms = int((time.monotonic() - started) * 1000)
-            answer.knowledge_version = version
-            answer.evaluation_status = evaluation_status
-            return answer
+        answer.knowledge_version = self.store.get_meta("current_version", "unversioned")
+        answer.evaluation_status = self.store.get_meta("evaluation_status", "unknown")
+        return answer
 
+    def prepare(self, question: str, top_k: int | None = None) -> "Prepared":
+        """Retrieve, run the gates, and build the prompt. No model is called."""
         question = (question or "").strip()
+        area = self.manifest.id
+
         if not question:
-            return finish(
-                Answer(
-                    question=question,
-                    knowledge_area=self.manifest.id,
-                    status=ERROR,
-                    answer="No question was provided.",
-                )
-            )
+            return Prepared(question=question, knowledge_area=area, answer=self._finish(
+                Answer(question=question, knowledge_area=area, status=ERROR,
+                       answer="No question was provided.")))
 
         # Gate 1 -- scope.
         in_scope, in_score, out_score = self.scope_check(question)
         if not in_scope:
-            return finish(
+            return Prepared(question=question, knowledge_area=area, answer=self._finish(
                 Answer(
-                    question=question,
-                    knowledge_area=self.manifest.id,
-                    status=OUT_OF_SCOPE,
+                    question=question, knowledge_area=area, status=OUT_OF_SCOPE,
                     answer=OUT_OF_SCOPE_TEMPLATE.format(
                         name=self.manifest.name,
                         in_scope="; ".join(self.manifest.scope.in_scope) or "see the manifest",
@@ -256,81 +287,87 @@ class Specialist:
                     confidence=CONFIDENCE_NONE,
                     limitations=self._limitations([], _EmptyValidation(), OUT_OF_SCOPE),
                     retrieval={"scope_in": round(in_score, 3), "scope_out": round(out_score, 3)},
-                )
-            )
+                )))
 
         retrieval = self.retriever.retrieve(question, top_k=top_k)
         evidence = retrieval.evidence
 
-        # Gate 3 -- specificity. Runs before sufficiency so that an
-        # under-specified question is named as such rather than reported as a
-        # gap in the corpus, which would send someone looking for sources that
-        # would not have helped.
+        # Gate 2 -- specificity. Before sufficiency, so an under-specified
+        # question is named as such rather than reported as a gap in the
+        # corpus, which would send someone looking for sources that would not
+        # have helped.
         specific, reason = self.specific_enough(question, evidence)
         if not specific:
-            return finish(
-                Answer(
-                    question=question,
-                    knowledge_area=self.manifest.id,
-                    status=AMBIGUOUS,
-                    answer=AMBIGUOUS_TEMPLATE.format(reason=reason),
-                    confidence=CONFIDENCE_NONE,
-                    sources=self._sources_block(evidence, set()),
-                    limitations=self._limitations(evidence, _EmptyValidation(), AMBIGUOUS),
-                    retrieval={
-                        "top_score": round(retrieval.top_score, 4),
-                        "evidence_count": len(evidence),
-                        "ambiguity_reason": reason,
-                    },
-                )
-            )
+            return Prepared(question=question, knowledge_area=area, evidence=evidence,
+                            answer=self._finish(Answer(
+                                question=question, knowledge_area=area, status=AMBIGUOUS,
+                                answer=AMBIGUOUS_TEMPLATE.format(reason=reason),
+                                confidence=CONFIDENCE_NONE,
+                                sources=self._sources_block(evidence, set()),
+                                limitations=self._limitations(evidence, _EmptyValidation(), AMBIGUOUS),
+                                retrieval={
+                                    "top_score": round(retrieval.top_score, 4),
+                                    "evidence_count": len(evidence),
+                                    "ambiguity_reason": reason,
+                                },
+                            )))
 
-        # Gate 2 -- sufficiency.
+        # Gate 3 -- sufficiency.
         if not self.sufficient(evidence, retrieval.top_score):
-            return finish(
-                Answer(
-                    question=question,
-                    knowledge_area=self.manifest.id,
-                    status=INSUFFICIENT_EVIDENCE,
-                    answer=INSUFFICIENT_TEXT,
-                    confidence=CONFIDENCE_NONE,
-                    sources=self._sources_block(evidence, set()),
-                    limitations=self._limitations(evidence, _EmptyValidation(), INSUFFICIENT_EVIDENCE),
-                    retrieval={
-                        "top_score": round(retrieval.top_score, 4),
-                        "evidence_count": len(evidence),
-                        "threshold": self.manifest.specialist.min_evidence_score,
-                        "per_retriever": retrieval.per_retriever,
-                    },
-                )
-            )
+            return Prepared(question=question, knowledge_area=area, evidence=evidence,
+                            answer=self._finish(Answer(
+                                question=question, knowledge_area=area,
+                                status=INSUFFICIENT_EVIDENCE, answer=INSUFFICIENT_TEXT,
+                                confidence=CONFIDENCE_NONE,
+                                sources=self._sources_block(evidence, set()),
+                                limitations=self._limitations(
+                                    evidence, _EmptyValidation(), INSUFFICIENT_EVIDENCE),
+                                retrieval={
+                                    "top_score": round(retrieval.top_score, 4),
+                                    "evidence_count": len(evidence),
+                                    "threshold": self.manifest.specialist.min_evidence_score,
+                                    "per_retriever": retrieval.per_retriever,
+                                },
+                            )))
 
-        system = self._system_prompt
-        user = prompts.build_user_prompt(question, evidence)
-        response = self.provider.complete(
-            system,
-            user,
-            context=GenerationContext(
-                question=question, evidence=evidence, knowledge_area=self.manifest.id
-            ),
+        return Prepared(
+            question=question,
+            knowledge_area=area,
+            system=self._system_prompt,
+            user=prompts.build_user_prompt(question, evidence),
+            evidence=list(evidence),
+            retrieval={
+                "top_score": round(retrieval.top_score, 4),
+                "evidence_count": len(evidence),
+                "per_retriever": retrieval.per_retriever,
+                "filters": retrieval.filters,
+            },
             temperature=self.manifest.specialist.temperature,
             max_tokens=self.manifest.specialist.max_tokens,
         )
+
+    def judge(self, prepared: "Prepared", response: LLMResponse,
+              started: float | None = None) -> Answer:
+        """Validate and score a model's reply against the evidence it was given.
+
+        This is the half that does not trust the model, and it runs wherever
+        the corpus is -- never alongside the model, so a broken or hostile
+        generation step cannot also mark its own work.
+        """
+        area = prepared.knowledge_area
+        evidence = prepared.evidence
+
         if not response.ok:
-            return finish(
-                Answer(
-                    question=question,
-                    knowledge_area=self.manifest.id,
-                    status=ERROR,
-                    answer=f"The language model could not be reached: {response.error}",
-                    sources=self._sources_block(evidence, set()),
-                    llm=response.as_dict(),
-                )
-            )
+            return self._finish(Answer(
+                question=prepared.question, knowledge_area=area, status=ERROR,
+                answer=f"The language model could not be reached: {response.error}",
+                sources=self._sources_block(evidence, set()),
+                llm=response.as_dict(),
+            ), started)
 
         answer_text, reasoning = _split_sections(response.text)
 
-        # Gate 3 -- grounding, which can withhold a fluent answer.
+        # Gate 4 -- grounding, which can withhold a fluent answer.
         validation = validate_answer(
             answer_text + ("\n" + reasoning if reasoning else ""),
             evidence,
@@ -344,43 +381,54 @@ class Specialist:
         )
 
         if model_abstained:
-            status = INSUFFICIENT_EVIDENCE
-            body = answer_text
+            status, body = INSUFFICIENT_EVIDENCE, answer_text
         elif too_unsupported:
-            status = UNSUPPORTED
-            body = UNSUPPORTED_TEXT
+            status, body = UNSUPPORTED, UNSUPPORTED_TEXT
         else:
-            status = ANSWERED
-            body = answer_text
+            status, body = ANSWERED, answer_text
 
         confidence, score = self._confidence(evidence, validation, contradictions)
         if status != ANSWERED:
             confidence, score = CONFIDENCE_NONE, 0.0
 
-        return finish(
-            Answer(
-                question=question,
-                knowledge_area=self.manifest.id,
-                status=status,
-                answer=body,
-                reasoning=reasoning if status == ANSWERED else "",
-                sources=self._sources_block(evidence, validation.cited_ranks),
-                confidence=confidence,
-                confidence_score=score,
-                limitations=self._limitations(evidence, validation, status),
-                contradictions=contradictions,
-                unsupported_claims=[s.as_dict() for s in validation.unsupported],
-                citation_validity=validation.citation_validity,
-                grounded_ratio=validation.grounded_ratio,
-                retrieval={
-                    "top_score": round(retrieval.top_score, 4),
-                    "evidence_count": len(evidence),
-                    "per_retriever": retrieval.per_retriever,
-                    "filters": retrieval.filters,
-                },
-                llm=response.as_dict(),
-            )
+        return self._finish(Answer(
+            question=prepared.question,
+            knowledge_area=area,
+            status=status,
+            answer=body,
+            reasoning=reasoning if status == ANSWERED else "",
+            sources=self._sources_block(evidence, validation.cited_ranks),
+            confidence=confidence,
+            confidence_score=score,
+            limitations=self._limitations(evidence, validation, status),
+            contradictions=contradictions,
+            unsupported_claims=[s.as_dict() for s in validation.unsupported],
+            citation_validity=validation.citation_validity,
+            grounded_ratio=validation.grounded_ratio,
+            retrieval=prepared.retrieval,
+            llm=response.as_dict(),
+        ), started)
+
+    def ask(self, question: str, top_k: int | None = None) -> Answer:
+        """Prepare, call the model, judge. What a live server does."""
+        started = time.monotonic()
+        prepared = self.prepare(question, top_k=top_k)
+        if prepared.answer is not None:
+            prepared.answer.elapsed_ms = int((time.monotonic() - started) * 1000)
+            return prepared.answer
+
+        response = self.provider.complete(
+            prepared.system,
+            prepared.user,
+            context=GenerationContext(
+                question=prepared.question,
+                evidence=prepared.evidence,
+                knowledge_area=prepared.knowledge_area,
+            ),
+            temperature=prepared.temperature,
+            max_tokens=prepared.max_tokens,
         )
+        return self.judge(prepared, response, started=started)
 
 
 class _EmptyValidation:

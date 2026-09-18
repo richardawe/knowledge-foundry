@@ -493,3 +493,22 @@ def test_the_ask_page_points_the_client_at_its_transcript(site):
     html = (out / "k/kb-test-widgets/ask/index.html").read_text()
     assert "data-transcript=" in html
     assert "kb-test-widgets.transcript.json" in html
+
+
+def test_checkout_style_credentials_are_recognised(tmp_path, monkeypatch):
+    """actions/checkout authenticates with an extraheader, not a helper.
+
+    Without recognising it, every CI deploy would bake GITHUB_TOKEN into a URL
+    that ends up in the git remote and the process table.
+    """
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    subprocess.run(["git", "init", "--quiet"], cwd=repo, check=True)
+    subprocess.run(
+        ["git", "config", "http.https://github.com/.extraheader", "AUTHORIZATION: basic xxx"],
+        cwd=repo, check=True,
+    )
+    monkeypatch.setenv("GITHUB_TOKEN", "ghp_secret")
+
+    url = "https://github.com/owner/repo.git"
+    assert authenticated_url(repo, url) == url

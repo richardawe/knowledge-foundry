@@ -1,84 +1,112 @@
-name: nightly evaluation
+name: nightly
 
-# The automated daily health check from PROJECT_INITIATION.md section 12:
-#   build -> evaluate -> red team -> regression gate -> publish or hold.
+# The automated daily health check from PROJECT_INITIATION.md section 12, and
+# everything else that is deterministic Python:
+#
+#   build -> evaluate -> red team -> regression gate -> publish or hold
+#         -> queue prompts for the model -> export and deploy the site
+#
+# No model runs here. Runners have no GPU and no Ollama, so any generation this
+# job needed would be slow, weak or both. Instead it answers with the keyless
+# extractive provider -- which always works and can never hallucinate -- and
+# queues the same questions for the machine that does have a model. Those
+# replies arrive later, via inference.yml.
+
 on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
     inputs:
-      knowledge_area:
-        description: "Knowledge area id"
-        required: false
-        default: kb-001-battery-failure
+      force_rebuild:
+        description: "Re-extract every source even if unchanged"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write        # push promoted tests, the queue, and gh-pages
+
+concurrency:
+  group: foundry-pipeline
+  cancel-in-progress: false
+
+env:
+  # No Ollama on a runner. Naming the provider explicitly keeps the fallback
+  # visible in every stored answer rather than looking like a model reply.
+  FOUNDRY_LLM_PROVIDER: local_extractive
 
 jobs:
-  nightly:
+  pipeline:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        knowledge_area:
-          - kb-001-battery-failure
-          - kb-002-industrial-fire-explosion
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+
       - name: Install
         run: python -m pip install -e ".[dev,web,pdf]"
 
-      # Restore the previous published report so the regression gate has a
-      # baseline to compare against. Without it, every night looks like a
-      # first build and nothing can regress.
-      - name: Restore baseline
+      # The published report the regression gate compares against. Without it
+      # every night looks like a first build and nothing can regress.
+      - name: Restore previous build
         uses: actions/cache@v4
         with:
           path: var
-          key: foundry-${{ matrix.knowledge_area }}-${{ github.run_id }}
-          restore-keys: foundry-${{ matrix.knowledge_area }}-
+          key: foundry-var-${{ github.run_id }}
+          restore-keys: foundry-var-
 
-      - name: Build
-        run: python -m foundry.cli build ${{ matrix.knowledge_area }} --notes "nightly ${{ github.run_id }}"
+      - name: Test
+        run: python -m pytest -q
 
-      - name: Evaluate
-        id: evaluate
-        continue-on-error: true
-        run: python -m foundry.cli eval ${{ matrix.knowledge_area }}
+      - name: Build, evaluate, red team, publish
+        id: pipeline
+        run: |
+          set -o pipefail
+          held=0
+          for ka in $(python -m foundry.cli list --ids); do
+            echo "::group::$ka"
+            python -m foundry.cli build "$ka" \
+              ${{ inputs.force_rebuild && '--force --rebuild' || '' }} \
+              --notes "nightly ${{ github.run_id }}"
+            python -m foundry.cli eval "$ka" || held=1
+            python -m foundry.cli redteam "$ka" --count 64 --promote
+            python -m foundry.cli version "$ka" publish || held=1
+            python -m foundry.cli plan "$ka"
+            echo "::endgroup::"
+          done
+          echo "held=$held" >> "$GITHUB_OUTPUT"
 
-      - name: Red team
-        run: python -m foundry.cli redteam ${{ matrix.knowledge_area }} --count 64 --promote
+      - name: Publish the evidence pages
+        run: python -m foundry.cli deploy --base-url /${{ github.event.repository.name }}
 
-      - name: Publish or hold
-        id: publish
-        continue-on-error: true
-        run: python -m foundry.cli version ${{ matrix.knowledge_area }} publish
+      # Promoted red-team failures and the refreshed prompt queue are both
+      # repository state: the first is the regression suite growing, the second
+      # is the work waiting for the machine with the model.
+      - name: Commit promoted tests and the queue
+        run: |
+          git config user.name "knowledge-foundry-bot"
+          git config user.email "noreply@anthropic.com"
+          git add knowledge_areas inference
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "Nightly: promoted tests and refreshed prompt queue (run ${{ github.run_id }})"
+            git pull --rebase --autostash origin "${{ github.ref_name }}"
+            git push origin HEAD:"${{ github.ref_name }}"
+          fi
 
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: reports-${{ matrix.knowledge_area }}
-          path: var/${{ matrix.knowledge_area }}/reports/
+          name: reports
+          path: var/*/reports/
+          if-no-files-found: warn
 
-      # Red-team failures and expert challenges are promoted into the
-      # knowledge area's regression suite, so the repository has to keep them.
-      - name: Commit promoted regression tests
-        if: always()
+      - name: Fail if a build was held
+        if: steps.pipeline.outputs.held == '1'
         run: |
-          git config user.name "knowledge-foundry-bot"
-          git config user.email "noreply@anthropic.com"
-          if [ -n "$(git status --porcelain knowledge_areas)" ]; then
-            git add knowledge_areas
-            git commit -m "Nightly: promote red-team failures for ${{ matrix.knowledge_area }}"
-            git push
-          else
-            echo "nothing new to promote"
-          fi
-
-      - name: Fail the run if the build was held
-        if: steps.evaluate.outcome == 'failure' || steps.publish.outcome == 'failure'
-        run: |
-          echo "::error::${{ matrix.knowledge_area }} did not publish. See the report artifact."
+          echo "::error::A knowledge area did not publish. See the reports artifact."
           exit 1

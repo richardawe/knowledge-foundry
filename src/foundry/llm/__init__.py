@@ -6,6 +6,8 @@ change, and nothing else in the system knows the difference.
 
 from __future__ import annotations
 
+import os
+
 from ..manifest import Manifest
 from .base import GenerationContext, LLMProvider, LLMResponse
 from .local import ABSTENTION, FallbackProvider, LocalExtractiveProvider, ScriptedProvider
@@ -51,8 +53,13 @@ def provider_for(manifest: Manifest, allow_fallback: bool = True):
     unreachable model a hard error instead.
     """
     cfg = manifest.specialist
-    provider = get_provider(cfg.llm_provider, cfg.llm_model)
-    if allow_fallback and cfg.llm_fallback and cfg.llm_provider in REMOTE_PROVIDERS:
+    # An environment override, for machines that cannot run the knowledge
+    # area's chosen model. A CI runner has no Ollama, and saying so up front is
+    # better than a hundred connection failures that each look like an outage.
+    name = os.environ.get("FOUNDRY_LLM_PROVIDER", "").strip() or cfg.llm_provider
+    model = os.environ.get("FOUNDRY_LLM_MODEL", "").strip() or cfg.llm_model
+    provider = get_provider(name, model)
+    if allow_fallback and cfg.llm_fallback and name in REMOTE_PROVIDERS:
         return FallbackProvider(provider)
     return provider
 
