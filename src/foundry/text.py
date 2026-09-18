@@ -47,17 +47,62 @@ def tokenize(text: str) -> list[str]:
     return [m.group(0).lower() for m in _WORD_RE.finditer(text)]
 
 
-def content_terms(text: str) -> set[str]:
+def stem(token: str) -> str:
+    """Strip the handful of English suffixes that matter for term matching.
+
+    Not a linguistics project: a compact, symmetric suffix stripper covering
+    plurals and the two commonest verb forms. It exists because "venting" and
+    "vents" must match -- without it, a question phrased in the gerund misses a
+    passage phrased in the present tense, and the grounding checker reports a
+    supported sentence as unsupported.
+
+    It is applied to both sides of every comparison, so its errors are
+    consistent rather than biased. FTS5 does the equivalent internally with its
+    porter tokenizer; this keeps the Python-side comparisons in step with it.
+    """
+    if not token or not token[0].isalpha():
+        return token
+    if len(token) > 4 and token.endswith("ies"):
+        return token[:-3] + "y"
+    if len(token) > 4 and token.endswith("sses"):
+        return token[:-2]
+    if len(token) > 5 and token.endswith("ing"):
+        stripped = token[:-3]
+        # "running" -> "run", but "string" is left alone by the length guard.
+        if len(stripped) > 2 and stripped[-1] == stripped[-2]:
+            stripped = stripped[:-1]
+        return stripped
+    if len(token) > 4 and token.endswith("ed"):
+        return token[:-2]
+    if len(token) > 3 and token.endswith("s") and not token.endswith(("ss", "us", "is")):
+        return token[:-1]
+    return token
+
+
+def content_terms(text: str, stemmed: bool = True) -> set[str]:
     """Tokens that carry meaning -- the unit of grounding comparison."""
-    return {t for t in tokenize(text) if t not in STOPWORDS and len(t) > 2}
+    terms = {t for t in tokenize(text) if t not in STOPWORDS and len(t) > 2}
+    if stemmed:
+        return {stem(t) for t in terms}
+    return terms
+
+
+_CITATION_ONLY_RE = re.compile(r"^(?:\[\d+\]\s*)+$")
+_LEADING_CITATION_RE = re.compile(r"^((?:\[\d+\]\s*)+)(.*)$", re.DOTALL)
 
 
 def sentences(text: str) -> list[str]:
-    """Split into sentences.
+    """Split into sentences, keeping trailing citation markers attached.
 
     A regex splitter, not a parser. It is good enough for grounding checks on
     generated prose and has no dependencies; a mis-split only ever costs a
     marginally stricter or looser support check on one sentence.
+
+    The one case that is *not* cosmetic: models write "...exceeds 80 C. [1]",
+    and a naive split turns "[1]" into its own fragment, leaving the claim
+    sentence apparently uncited. The grounding checker would then grade every
+    properly cited sentence against no evidence at all. Citation-only fragments
+    are therefore folded back into the sentence they belong to.
     """
     out: list[str] = []
     for block in text.split("\n"):
@@ -66,8 +111,21 @@ def sentences(text: str) -> list[str]:
             continue
         for part in _SENTENCE_RE.split(block):
             part = part.strip()
-            if part:
-                out.append(part)
+            if not part:
+                continue
+            if out and _CITATION_ONLY_RE.match(part):
+                out[-1] = f"{out[-1]} {part}"
+                continue
+            leading = _LEADING_CITATION_RE.match(part)
+            if out and leading:
+                # "...80 C. [1] Venting follows." -- the marker trails the claim
+                # it supports, so it belongs to the sentence before it.
+                out[-1] = f"{out[-1]} {leading.group(1).strip()}"
+                remainder = leading.group(2).strip()
+                if remainder:
+                    out.append(remainder)
+                continue
+            out.append(part)
     return out
 
 
