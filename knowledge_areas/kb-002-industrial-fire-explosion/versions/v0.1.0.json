@@ -1,11 +1,11 @@
 {
   "version": "v0.1.0",
-  "published_at": "2026-09-18T18:01:55+00:00",
-  "created_at": "2026-09-18T18:01:53+00:00",
-  "manifest_sha": "5ef81ff46478b6da",
-  "corpus_sha": "69b74da74754c66f",
+  "published_at": "2026-09-18T20:45:34+00:00",
+  "created_at": "2026-09-18T20:40:50+00:00",
+  "manifest_sha": "271a67dbb81b3ae1",
+  "corpus_sha": "2b8c94d13a5d5e3f",
   "index_sha": "cf3509f994833a76",
-  "notes": "Seed build proving the factory is repeatable",
+  "notes": "apply 35392677519",
   "stats": {
     "sources": 13,
     "documents": 11,
@@ -17,7 +17,7 @@
     "indexed_sources": 11
   },
   "evaluation": {
-    "run_id": "run_14265e0ec880f028",
+    "run_id": "run_530a90356fe7792f",
     "passed": true,
     "total": 27,
     "passed_count": 20,
@@ -33,7 +33,7 @@
       "abstention_correctness": 0.7273,
       "source_coverage": 0.7273,
       "contradiction_rate": 0.0,
-      "corpus_freshness_days": 0.0001
+      "corpus_freshness_days": 0.0033
     },
     "by_type": {
       "factual": {
