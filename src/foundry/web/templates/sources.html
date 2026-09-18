@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ manifest.name }} — sources{% endblock %}
+{% block body %}
+<h1>Source register</h1>
+{% include "_nav.html" %}
+<p class="muted">
+  Every passage the system can cite comes from a source on this list.
+  Sources marked <span class="tag">pointer</span> are copyrighted: they are named and
+  linked, but their content is never stored, retrieved or quoted.
+</p>
+<table>
+  <tr><th>Source</th><th>Type</th><th>Auth.</th><th>Published</th><th>Retrieved</th><th>Passages</th><th>Licence</th></tr>
+  {% for source in report.sources %}
+  <tr>
+    <td>
+      <a href="/k/{{ manifest.id }}/source/{{ source.id }}"><strong>{{ source.title }}</strong></a><br>
+      <span class="muted small">{{ source.publisher }}</span>
+      {% if not source.mirrored %} <span class="tag">pointer</span>{% endif %}
+      {% if source.status == 'failed' %} <span class="tag fail">failed</span>{% endif %}
+    </td>
+    <td class="small">{{ source.source_type }}</td>
+    <td class="small">{{ source.authority }}/5</td>
+    <td class="small">{{ source.published_at or '—' }}</td>
+    <td class="small">{{ (source.retrieved_at or '—')[:10] }}</td>
+    <td class="small">{{ source.chunk_count }}</td>
+    <td class="small muted">{{ source.licence }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

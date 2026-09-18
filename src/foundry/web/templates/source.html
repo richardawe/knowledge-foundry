@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ detail.source.title }} — source{% endblock %}
+{% block body %}
+<h1>{{ detail.source.title }}</h1>
+{% include "_nav.html" %}
+<div class="panel small">
+  <strong>{{ detail.source.publisher }}</strong> ·
+  {{ detail.source.source_type }} · authority {{ detail.source.authority }}/5<br>
+  {% if detail.source.published_at %}Published {{ detail.source.published_at }} · {% endif %}
+  Retrieved {{ detail.source.retrieved_at or '—' }}<br>
+  Licence: {{ detail.source.licence }}<br>
+  {% if detail.source.uri %}
+  <a href="{{ detail.source.uri }}" rel="nofollow noopener">{{ detail.source.uri }}</a><br>
+  {% endif %}
+  {% if detail.source.content_sha256 %}
+  <span class="muted">Content hash: <code>{{ detail.source.content_sha256[:32] }}</code></span>
+  {% endif %}
+  {% if detail.source.notes %}<br><span class="muted">{{ detail.source.notes }}</span>{% endif %}
+</div>
+
+{% if not detail.source.mirrored %}
+<div class="banner">
+  <strong>Pointer source.</strong> This document is copyrighted and is deliberately
+  not stored. The system can tell you it is relevant and link to it; it cannot quote it,
+  and it will decline if asked to.
+</div>
+{% endif %}
+
+{% if detail.chunks %}
+<h2>Stored passages ({{ detail.chunks | length }})</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+{% for chunk in detail.chunks %}
+<h3>{% if chunk.section %}{{ chunk.section }}{% else %}Passage {{ chunk.ordinal }}{% endif %}
+  <span class="muted small">— chars {{ chunk.char_start }}–{{ chunk.char_end }}</span></h3>
+<pre>{{ chunk.text }}</pre>
+{% endfor %}
+{% endif %}
+
+{% if detail.claims %}
+<h2>Extracted claims ({{ detail.claims | length }})</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  {% for claim in detail.claims %}
+  <tr><td class="small"><span class="tag">{{ claim.kind }}</span></td><td class="small">{{ claim.text }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

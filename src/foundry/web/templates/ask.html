@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Try to break {{ manifest.name }}{% endblock %}
+{% block body %}
+<h1>Try to break it</h1>
+{% include "_nav.html" %}
+
+<p class="muted">
+  Ask {{ manifest.name }} something. Then check the evidence it cites, and tell us
+  where it is wrong. Answers you can falsify are the point.
+</p>
+
+<form method="post" action="/k/{{ manifest.id }}/ask">
+  <textarea name="question" rows="3" placeholder="e.g. What watt-hour limit applies to a spare lithium-ion battery in cabin baggage?">{{ question }}</textarea>
+  <p><button type="submit">Ask</button></p>
+</form>
+
+{% if answer %}
+<h2>Answer</h2>
+<p class="small">
+  <span class="tag">{{ answer.status }}</span>
+  <span class="tag">confidence: {{ answer.confidence }}</span>
+  <span class="tag">citations valid: {{ answer.citation_validity | pct }}</span>
+  <span class="tag">claims grounded: {{ answer.grounded_ratio | pct }}</span>
+  <span class="tag">{{ answer.knowledge_version }}</span>
+</p>
+<div class="panel">{{ answer.answer }}</div>
+
+{% if answer.reasoning %}
+<h3>Reasoning</h3>
+<p class="small">{{ answer.reasoning }}</p>
+{% endif %}
+
+{% if answer.contradictions %}
+<h3>Sources disagree</h3>
+<ul class="tight">
+  {% for item in answer.contradictions %}<li class="small">{{ item.description }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if answer.unsupported_claims %}
+<h3>Unsupported claims detected</h3>
+<p class="small muted">
+  Found by automated validation after generation, and shown rather than removed.
+</p>
+<table>
+  <tr><th>Sentence</th><th>Why it failed</th></tr>
+  {% for claim in answer.unsupported_claims %}
+  <tr><td class="small">{{ claim.sentence }}</td><td class="small fail">{{ claim.reason }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if answer.sources %}
+<h3>Evidence</h3>
+<p class="small muted">Passages marked <strong>cited</strong> were used in the answer above.</p>
+<table>
+  <tr><th>#</th><th>Source</th><th>Passage</th></tr>
+  {% for source in answer.sources %}
+  <tr>
+    <td>[{{ source.rank }}]{% if source.cited %} <span class="tag">cited</span>{% endif %}</td>
+    <td class="small">
+      <a href="/k/{{ manifest.id }}/source/{{ source.source_id }}">{{ source.source_title }}</a><br>
+      <span class="muted">{{ source.publisher }}{% if source.published_at %} · {{ source.published_at }}{% endif %}
+      · authority {{ source.authority }}/5</span><br>
+      {% if source.uri %}<a class="muted" href="{{ source.uri }}" rel="nofollow noopener">{{ source.uri }}</a>{% endif %}
+    </td>
+    <td class="small">{% if source.section %}<em>{{ source.section }}</em><br>{% endif %}{{ source.text }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if answer.limitations %}
+<h3>Limitations</h3>
+<ul class="tight small">{% for item in answer.limitations %}<li>{{ item }}</li>{% endfor %}</ul>
+{% endif %}
+
+<h2>Found a problem?</h2>
+<p class="small muted">
+  Wrong answer, wrong source, missing knowledge, or a figure without its conditions —
+  all of it is useful. Accepted challenges become permanent test cases.
+</p>
+<form method="post" action="/k/{{ manifest.id }}/challenges">
+  <input type="hidden" name="question" value="{{ question }}">
+  <input type="hidden" name="system_answer" value="{{ answer.answer }}">
+  <p><input type="text" name="problem" placeholder="What is wrong with this answer?"></p>
+  <p><input type="text" name="expected" placeholder="What should it have said or done?"></p>
+  <p><input type="text" name="by" placeholder="Your name or affiliation (optional)"></p>
+  <p><button type="submit">Submit challenge</button></p>
+</form>
+{% endif %}
+{% endblock %}

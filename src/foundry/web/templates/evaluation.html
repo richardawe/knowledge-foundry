@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}{{ manifest.name }} — evaluation{% endblock %}
+{% block body %}
+<h1>Evaluation</h1>
+{% include "_nav.html" %}
+
+{% if not report.evaluation.total %}
+<p class="muted">No evaluation has been run yet.</p>
+{% else %}
+<p>
+  Run <code>{{ report.evaluation.run_id }}</code> against
+  <code>{{ report.version.current }}</code>:
+  <strong>{{ report.evaluation.passed_count }} / {{ report.evaluation.total }}</strong>
+  passed ({{ report.evaluation.pass_rate | pct }}).
+  {% if report.evaluation.passed %}<span class="pass">Gate: PASS</span>
+  {% else %}<span class="fail">Gate: FAIL</span>{% endif %}
+</p>
+
+{% if report.evaluation.threshold_failures %}
+<h2>Thresholds not met</h2>
+<ul class="tight fail small">
+  {% for item in report.evaluation.threshold_failures %}<li>{{ item }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+<h2>By question type</h2>
+<table>
+  <tr><th>Type</th><th>Passed</th><th>Rate</th></tr>
+  {% for kind, bucket in report.evaluation.by_type.items() %}
+  <tr><td>{{ kind }}</td><td>{{ bucket.passed }} / {{ bucket.total }}</td><td>{{ bucket.rate | pct }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Metrics</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  {% for name, value in report.evaluation.metrics.items() %}
+  <tr><td>{{ name }}</td><td>{{ value | num }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Questions it currently fails ({{ report.evaluation.failures | length }})</h2>
+<p class="small muted">
+  Published, not hidden. A knowledge system that only shows its passes is asking
+  to be trusted rather than tested.
+</p>
+<table>
+  <tr><th>ID</th><th>Type</th><th>Question</th><th>Why it failed</th></tr>
+  {% for item in report.evaluation.failures %}
+  <tr>
+    <td class="small"><code>{{ item.id }}</code></td>
+    <td class="small">{{ item.type }}</td>
+    <td class="small">{{ item.question }}</td>
+    <td class="small fail">
+      {% for grade in item.grades %}{% if not grade.passed %}{{ grade.detail or grade.kind }}<br>{% endif %}{% endfor %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

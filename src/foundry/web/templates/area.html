@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block title %}{{ manifest.name }} — evidence{% endblock %}
+{% block body %}
+<h1>{{ manifest.name }}</h1>
+{% include "_nav.html" %}
+
+<div class="grid" style="margin-top:18px">
+  <div class="stat"><div class="k">Version</div><div class="v">{{ report.version.published or report.version.current }}</div></div>
+  <div class="stat"><div class="k">Sources</div><div class="v">{{ report.corpus.sources }}</div></div>
+  <div class="stat"><div class="k">Evaluation questions</div><div class="v">{{ report.evaluation.total }}</div></div>
+  <div class="stat">
+    <div class="k">Regression status</div>
+    <div class="v">
+      {% if report.version.evaluation_status == 'passed' %}<span class="pass">PASS</span>
+      {% elif report.version.evaluation_status == 'failed' %}<span class="fail">FAIL</span>
+      {% else %}<span class="muted">{{ report.version.evaluation_status }}</span>{% endif %}
+    </div>
+  </div>
+</div>
+<p class="muted small" style="margin-top:8px">
+  Last evaluated {{ report.version.last_evaluation or 'never' }}.
+  Corpus last refreshed {{ report.version.last_ingest or 'never' }}.
+</p>
+
+<div class="banner">
+  <strong>Don't trust it. Test it.</strong>
+  This page exists so you can judge the system rather than take its word.
+  Every failing question is listed below, not hidden.
+  <a href="/k/{{ manifest.id }}/ask">Try to break it →</a>
+</div>
+
+<h2>About</h2>
+<p>{{ report.about.description }}</p>
+<h3>In scope</h3>
+<ul class="tight">{% for item in report.about.in_scope %}<li>{{ item }}</li>{% endfor %}</ul>
+<h3>Explicitly out of scope</h3>
+<ul class="tight">{% for item in report.about.out_of_scope %}<li>{{ item }}</li>{% endfor %}</ul>
+{% if report.about.disclaimer %}
+<p class="panel small"><strong>Standing caveat.</strong> {{ report.about.disclaimer }}</p>
+{% endif %}
+
+<h2>Sources</h2>
+<div class="grid">
+  <div class="stat"><div class="k">Registered</div><div class="v">{{ report.corpus.sources }}</div></div>
+  <div class="stat"><div class="k">Indexed</div><div class="v">{{ report.corpus.indexed_sources }}</div></div>
+  <div class="stat"><div class="k">Pointer only</div><div class="v">{{ report.corpus.pointer_sources }}</div></div>
+  <div class="stat"><div class="k">Passages</div><div class="v">{{ report.corpus.chunks }}</div></div>
+</div>
+<table>
+  <tr><th>Source type</th><th>Sources</th><th>Passages</th></tr>
+  {% for kind, n in report.coverage.sources_by_type.items() %}
+  <tr><td>{{ kind }}</td><td>{{ n }}</td><td>{{ report.coverage.chunks_by_type.get(kind, 0) }}</td></tr>
+  {% endfor %}
+</table>
+<p class="small"><a href="/k/{{ manifest.id }}/sources">Full source register, with licences and retrieval dates →</a></p>
+
+<h2>Coverage</h2>
+<p class="small muted">
+  Ontology: {{ report.coverage.entities }} entities, {{ report.coverage.relationships }} relationships.
+  Source authority is 5 (primary regulator or accident investigator) down to 2 (tertiary reference).
+</p>
+<table>
+  <tr><th>Authority</th><th>Sources</th></tr>
+  {% for level, n in report.coverage.sources_by_authority.items() %}
+  <tr><td>{{ level }} / 5</td><td>{{ n }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Evaluation</h2>
+{% if report.evaluation.total %}
+<p>
+  <strong>{{ report.evaluation.passed_count }} / {{ report.evaluation.total }}</strong>
+  questions passed ({{ report.evaluation.pass_rate | pct }}).
+  {% if report.evaluation.passed %}<span class="pass">Gate: PASS</span>
+  {% else %}<span class="fail">Gate: FAIL</span>{% endif %}
+</p>
+<table>
+  <tr><th>Question type</th><th>Passed</th><th>Rate</th></tr>
+  {% for kind, bucket in report.evaluation.by_type.items() %}
+  <tr><td>{{ kind }}</td><td>{{ bucket.passed }} / {{ bucket.total }}</td><td>{{ bucket.rate | pct }}</td></tr>
+  {% endfor %}
+</table>
+<h3>Metrics</h3>
+<p class="small muted">
+  Reported separately and deliberately. There is no single headline accuracy number,
+  because there is no honest way to compute one.
+</p>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  {% for name, value in report.evaluation.metrics.items() %}
+  <tr><td>{{ name }}</td><td>{{ value | num }}</td></tr>
+  {% endfor %}
+</table>
+<p class="small"><a href="/k/{{ manifest.id }}/evaluation">Every question, including the {{ report.evaluation.failures | length }} it fails →</a></p>
+{% else %}
+<p class="muted">No evaluation has been run yet.</p>
+{% endif %}
+
+<h2>Adversarial testing</h2>
+{% if report.redteam.total %}
+<p>
+  {{ report.redteam.total }} generated attacks, survival rate
+  <strong>{{ report.redteam.survival_rate | pct }}</strong>
+  ({{ report.redteam.broke }} breaks).
+</p>
+<table>
+  <tr><th>Failure mode</th><th>Times triggered</th></tr>
+  {% for mode, n in report.redteam.by_failure_mode.items() %}
+  <tr><td>{{ mode }}</td><td>{{ n }}</td></tr>
+  {% endfor %}
+</table>
+{% if report.redteam.breaks %}
+<h3>What broke it</h3>
+<table>
+  <tr><th>Question</th><th>Failure</th></tr>
+  {% for item in report.redteam.breaks %}
+  <tr><td>{{ item.question }}</td><td class="fail small">{{ item.failures | join(', ') }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% else %}
+<p class="muted">No red-team run recorded yet.</p>
+{% endif %}
+
+<h2>Updates</h2>
+{% if report.updates %}
+<table>
+  <tr><th>Version</th><th>Published</th><th>Sources</th><th>Passages</th><th>Evaluation</th></tr>
+  {% for entry in report.updates %}
+  <tr>
+    <td><code>{{ entry.version }}</code></td>
+    <td class="small">{{ entry.published_at[:16] }}</td>
+    <td>{{ entry.stats.sources }}</td>
+    <td>{{ entry.stats.chunks }}</td>
+    <td>{{ entry.evaluation.passed_count }} / {{ entry.evaluation.total }}
+        {% if entry.evaluation.passed %}<span class="pass">PASS</span>{% else %}<span class="fail">FAIL</span>{% endif %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="muted">No version has been published yet.</p>
+{% endif %}
+
+<h2>Known limitations</h2>
+<ul class="tight">
+  {% for item in report.limitations.declared %}<li>{{ item }}</li>{% endfor %}
+</ul>
+{% if report.limitations.pointer_sources %}
+<h3>Cited but not held</h3>
+<p class="small muted">
+  These are copyrighted standards. The system can tell you they are relevant and
+  point at them. It cannot quote their clauses, and it will decline if you ask it to.
+</p>
+<table>
+  <tr><th>Standard</th><th>Publisher</th><th>Licence</th></tr>
+  {% for item in report.limitations.pointer_sources %}
+  <tr><td>{{ item.title }}</td><td>{{ item.publisher }}</td><td class="small muted">{{ item.licence }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% if report.limitations.failed_sources %}
+<h3>Sources that failed to ingest</h3>
+<table>
+  <tr><th>Source</th><th>Error</th></tr>
+  {% for item in report.limitations.failed_sources %}
+  <tr><td>{{ item.title }}</td><td class="small fail">{{ item.error }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<h2>Challenges</h2>
+<p>
+  {{ report.challenges.total }} submitted.
+  <a href="/k/{{ manifest.id }}/challenges">Read them, or submit one →</a>
+</p>
+<p class="small muted">
+  Review status: <strong>{{ report.governance.review_status }}</strong>,
+  self-assessed confidence <strong>{{ report.governance.confidence }}</strong>.
+</p>
+{% endblock %}

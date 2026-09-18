@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>Knowledge areas</h1>
+<p class="muted">
+  Each one is an independent specialist system: a curated corpus with full
+  provenance, a hybrid retriever, an evidence-first agent, and a published
+  evaluation suite it is scored against on every build.
+</p>
+{% if not rows %}
+  <p class="panel">No knowledge areas are built yet. Run <code>foundry build &lt;id&gt;</code>.</p>
+{% endif %}
+<table>
+  <tr><th>Knowledge area</th><th>Version</th><th>Evaluation</th><th>Sources</th><th>Passages</th><th>Status</th></tr>
+  {% for row in rows %}
+  <tr>
+    <td>
+      <a href="/k/{{ row.manifest.id }}"><strong>{{ row.manifest.name }}</strong></a><br>
+      <span class="muted small">{{ row.manifest.domain }}</span>
+    </td>
+    <td><code>{{ row.version }}</code></td>
+    <td>
+      {% if row.status == 'passed' %}<span class="pass">PASS</span>
+      {% elif row.status == 'failed' %}<span class="fail">FAIL</span>
+      {% else %}<span class="muted">{{ row.status }}</span>{% endif %}
+    </td>
+    <td>{{ row.counts.sources }}</td>
+    <td>{{ row.counts.chunks }}</td>
+    <td><span class="tag">{{ row.manifest.governance.review_status }}</span></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

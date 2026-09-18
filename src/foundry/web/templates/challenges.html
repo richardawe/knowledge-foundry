@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ manifest.name }} — challenges{% endblock %}
+{% block body %}
+<h1>Challenges</h1>
+{% include "_nav.html" %}
+<p class="muted">
+  Questions and corrections submitted by people who know the domain.
+  Accepted challenges are promoted into the evaluation suite, so the same
+  complaint cannot be made twice about a live system.
+</p>
+
+<h2>Submit a challenge</h2>
+<form method="post" action="/k/{{ manifest.id }}/challenges">
+  <p><input type="text" name="question" placeholder="The question you asked" required></p>
+  <p><input type="text" name="problem" placeholder="What the system got wrong"></p>
+  <p><input type="text" name="expected" placeholder="What it should have said or done"></p>
+  <p><input type="text" name="by" placeholder="Your name or affiliation (optional)"></p>
+  <p><button type="submit">Submit</button></p>
+</form>
+
+<h2>Submitted ({{ challenges | length }})</h2>
+{% if not challenges %}
+<p class="muted">None yet. <a href="/k/{{ manifest.id }}/ask">Be the first to break it.</a></p>
+{% else %}
+<table>
+  <tr><th>Status</th><th>Question</th><th>Reported problem</th><th>From</th><th>Date</th></tr>
+  {% for item in challenges %}
+  <tr>
+    <td><span class="tag">{{ item.status }}</span></td>
+    <td class="small">{{ item.question }}</td>
+    <td class="small">{{ item.claimed_problem or '—' }}</td>
+    <td class="small muted">{{ item.submitted_by }}</td>
+    <td class="small muted">{{ item.created_at[:10] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}
