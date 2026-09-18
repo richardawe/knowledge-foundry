@@ -1,9 +1,9 @@
 {
   "version": "v0.1.0",
-  "published_at": "2026-09-18T17:57:37+00:00",
-  "created_at": "2026-09-18T17:56:47+00:00",
-  "manifest_sha": "47d85e67508d5a3e",
-  "corpus_sha": "7d29aa739bb9f28e",
+  "published_at": "2026-09-18T18:01:55+00:00",
+  "created_at": "2026-09-18T18:01:53+00:00",
+  "manifest_sha": "5ef81ff46478b6da",
+  "corpus_sha": "69b74da74754c66f",
   "index_sha": "cf3509f994833a76",
   "notes": "Seed build proving the factory is repeatable",
   "stats": {
@@ -17,21 +17,21 @@
     "indexed_sources": 11
   },
   "evaluation": {
-    "run_id": "run_d612ed168ce70547",
+    "run_id": "run_14265e0ec880f028",
     "passed": true,
-    "total": 26,
-    "passed_count": 19,
-    "pass_rate": 0.731,
+    "total": 27,
+    "passed_count": 20,
+    "pass_rate": 0.741,
     "metrics": {
-      "retrieval_precision": 0.4333,
+      "retrieval_precision": 0.4778,
       "retrieval_recall": 0.9111,
-      "answer_correctness": 0.85,
+      "answer_correctness": 0.8095,
       "citation_validity": 1.0,
       "citation_relevance": 0.6167,
       "unsupported_claim_rate": 0.0,
       "hallucination_rate": 0.0,
-      "abstention_correctness": 0.6667,
-      "source_coverage": 0.8182,
+      "abstention_correctness": 0.7273,
+      "source_coverage": 0.7273,
       "contradiction_rate": 0.0,
       "corpus_freshness_days": 0.0001
     },
@@ -63,8 +63,8 @@
       },
       "unanswerable": {
         "total": 4,
-        "passed": 2,
-        "rate": 0.5
+        "passed": 3,
+        "rate": 0.75
       },
       "out_of_scope": {
         "total": 2,
@@ -75,6 +75,11 @@
         "total": 3,
         "passed": 3,
         "rate": 1.0
+      },
+      "temporal": {
+        "total": 1,
+        "passed": 0,
+        "rate": 0.0
       }
     }
   }
