@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autoignition temperature — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Autoignition temperature</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:49+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Autoignition_temperature" rel="nofollow noopener">https://en.wikipedia.org/wiki/Autoignition_temperature</a><br>
+  <span class="muted">Content hash: <code>20eef4064a517fd437d50d3edcac05ab</code></span>
+</div>
+
+
+<h2>Stored passages (8)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Autoignition temperature  <span class="muted small">— chars 56–1077</span></h3>
+<pre>34 languages
+
+العربية
+
+Asturianu
+
+Català
+
+Čeština
+
+Deutsch
+
+Ελληνικά
+
+Esperanto
+
+Español
+
+فارسی
+
+Suomi
+
+Français
+
+עברית
+
+हिन्दी
+
+Bahasa Indonesia
+
+Italiano
+
+日本語
+
+한국어
+
+Lietuvių
+
+Latviešu
+
+Македонски
+
+Nederlands
+
+Norsk bokmål
+
+Polski
+
+Português
+
+Română
+
+Русский
+
+Slovenčina
+
+Slovenščina
+
+Српски / srpski
+
+Svenska
+
+தமிழ்
+
+Türkçe
+
+Українська
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Lowest temperature at which a substance spontaneously combusts
+A flashover occurs when most combustible material reach their autoignition temperature in an enclosed space
+The autoignition temperature (often called self-ignition temperature, spontaneous ignition temperature, minimum ignition temperature, or shortly ignition temperature, formerly also known as kindling point) of a substance is the lowest temperature at which it spontaneously ignites in a normal atmosphere without an external source of ignition, such as a flame or spark.[1] This temperature is required to supply the activation energy needed for combustion.</pre>
+<h3>Autoignition temperature  <span class="muted small">— chars 1078–1786</span></h3>
+<pre>The temperature at which a chemical ignites decreases as the pressure is decreased.[dubious–discuss][2]
+
+Substances which spontaneously ignite in a normal atmosphere at naturally ambient temperatures are termed pyrophoric.
+
+Autoignition temperatures of liquid chemicals are typically measured using a 500-millilitre (18impfloz; 17USfloz) flask placed in a temperature-controlled oven in accordance with the procedure described in ASTM E659.[3]
+
+When measured for plastics, autoignition temperature can also be measured under elevated pressure and at 100% oxygen concentration. The resulting value is used as a predictor of viability for high-oxygen service. The main testing standard for this is ASTM G72.[4]</pre>
+<h3>Autoignition time equation  <span class="muted small">— chars 1819–2390</span></h3>
+<pre>The time tig{\displaystyle t_{\text{ig}}} it takes for a material to reach its autoignition temperature Tig{\displaystyle T_{\text{ig}}} when exposed to a heat fluxq′′{\displaystyle q&#39;&#39;} is given by the following equation:[5]
+
+tig=π4kρc[Tig−T0q′′]2,{\displaystyle t_{\text{ig}}={\frac {\pi }{4}}k\rho c\left[{\frac {T_{\text{ig}}-T_{0}}{q&#39;&#39;}}\right]^{2},}
+
+where k = thermal conductivity, ρ = density, and c = specific heat capacity of the material of interest, T0{\displaystyle T_{0}} is the initial temperature of the material (or the temperature of the bulk material).</pre>
+<h3>Autoignition temperature of selected substances  <span class="muted small">— chars 2444–2819</span></h3>
+<pre>Temperatures vary widely across the literature and should be treated as estimates. Factors that may cause variation include the partial pressure of oxygen, altitude, humidity, and the time required for ignition. Generally, and counter-intuitively, the autoignition temperature for hydrocarbon/air mixtures decreases with increasing molecular mass and increasing chain length.</pre>
+<h3>Autoignition temperature of selected substances  <span class="muted small">— chars 2820–4209</span></h3>
+<pre>The autoignition temperature is also higher for branched-chain hydrocarbons than for straight-chain hydrocarbons.[6] Besides the thermal conductivity, density, and specific heat capacity of the substance, influencing the autoignition time, as explained in the section above, another possible reason could be sought in the heat of evaporation, which cools volatile, lighter liquid hydrocarbons, as long as a liquid phase is still present in the system to lower its temperature below the autoignition point.[citation needed]
+
+SubstanceAutoignition[D]Note
+
+Barium550°C (1,022°F)550±90[1][C]
+
+Bismuth735°C (1,355°F)735±20[1][C]
+
+Butane405°C (761°F)[7]
+
+Calcium790°C (1,450°F)790±10[1][C]
+
+Carbon disulfide90°C (194°F)[8]
+
+Diesel or Jet A-1210°C (410°F)[9]
+
+Diethyl ether160°C (320°F)[10]
+
+Ethanol365°C (689°F)[8]
+
+Gasoline (Petrol)247–280°C (477–536°F)[8]
+
+Hydrogen535°C (995°F)
+
+Iron1,315°C (2,399°F)1315±20[1][C]
+
+Lead850°C (1,560°F)850±5[1][C]
+
+Leather / parchment200–212°C (392–414°F)[9][11]
+
+Magnesium635°C (1,175°F)635±5[1][B][C]
+
+Magnesium473°C (883°F)[8][B]
+
+Methane537°C (999°F)
+
+Molybdenum780°C (1,440°F)780±5[1][C]
+
+Paper218–246°C (424–475°F)[9][12]
+
+Phosphorus (white)34°C (93°F)[8][A][B]
+
+Silane21°C (70°F)[8]or below
+
+Strontium1,075°C (1,967°F)1075±120[1][C]
+
+Tin940°C (1,720°F)940±25[1][C]
+
+Triethylborane−20°C (−4°F)[8]
+
+A On contact with an organic substance, melts otherwise.</pre>
+<h3>Autoignition temperature of selected substances  <span class="muted small">— chars 4211–4423</span></h3>
+<pre>B There are two distinct results in the published literature. Both are separately listed in this table.
+
+C At 1 atm. The ignition temperature depends on the air pressure.
+
+DUnder standard conditions for pressure.</pre>
+<h3>See also  <span class="muted small">— chars 4438–4579</span></h3>
+<pre>Fire point
+
+Flash point
+
+Gas burner (for flame temperatures, combustion heat energy values and ignition temperatures)
+
+Spontaneous combustion</pre>
+
+<h2>Extracted claims (11)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Gasoline (Petrol)247–280°C (477–536°F)[8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The main testing standard for this is ASTM G72.[4]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where k = thermal conductivity, ρ = density, and c = specific heat capacity of the material of interest, T0{\displaystyle T_{0}} is the initial temperature of the material (or the temperature of the bulk material).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When measured for plastics, autoignition temperature can also be measured under elevated pressure and at 100% oxygen concentration.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">tig=π4kρc[Tig−T0q′′]2,{\displaystyle t_{\text{ig}}={\frac {\pi }{4}}k\rho c\left[{\frac {T_{\text{ig}}-T_{0}}{q&#39;&#39;}}\right]^{2},}</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">The autoignition temperature (often called self-ignition temperature, spontaneous ignition temperature, minimum ignition temperature, or shortly ignition temperature, formerly also known as kindling point) of a substance is the lowest temperature at which it spontaneously ignites in a normal atmosphere without an external source of ignition, such as a flame or spark.[1] This temperature is required to supply the activation energy needed for combustion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The time tig{\displaystyle t_{\text{ig}}} it takes for a material to reach its autoignition temperature Tig{\displaystyle T_{\text{ig}}} when exposed to a heat fluxq′′{\displaystyle q&#39;&#39;} is given by the following equation:[5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Strontium1,075°C (1,967°F)1075±120[1][C]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The temperature at which a chemical ignites decreases as the pressure is decreased.[dubious–discuss][2]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Leather / parchment200–212°C (392–414°F)[9][11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Autoignition temperatures of liquid chemicals are typically measured using a 500-millilitre (18impfloz; 17USfloz) flask placed in a temperature-controlled oven in accordance with the procedure described in ASTM E659.[3]</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fire triangle — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Fire triangle</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:51+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Fire_triangle" rel="nofollow noopener">https://en.wikipedia.org/wiki/Fire_triangle</a><br>
+  <span class="muted">Content hash: <code>c1814a09bf6dda7e807f9e52998b35c2</code></span>
+</div>
+
+
+<h2>Stored passages (15)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Fire triangle  <span class="muted small">— chars 45–1093</span></h3>
+<pre>24 languages
+
+Pangcah
+
+العربية
+
+Català
+
+Dansk
+
+Deutsch
+
+Ελληνικά
+
+Español
+
+Euskara
+
+فارسی
+
+Français
+
+Italiano
+
+日本語
+
+한국어
+
+Nederlands
+
+Português
+
+Română
+
+Русский
+
+Simple English
+
+Svenska
+
+தமிழ்
+
+Tayal
+
+West-Vlams
+
+粵語
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Model for understanding the 3 components of fire
+The fire triangle
+The fire triangle or combustion triangle is a simple model for understanding the necessary ingredients for most fires.[1]
+
+The triangle illustrates the three elements a fire needs to ignite: heat, fuel, and an oxidizing agent (usually oxygen).[2] A fire naturally occurs when the elements are present and combined in the right mixture.[3] A fire can be prevented or extinguished by removing any one of the elements in the fire triangle. For example, covering a fire with a fire blanket blocks oxygen and can extinguish a fire. In large fires where firefighters are called in, decreasing the amount of oxygen is not usually an option because there is no effective way to make that happen in an extended area.[4]</pre>
+<h3>Fire tetrahedron  <span class="muted small">— chars 1116–2169</span></h3>
+<pre>Not to be confused with NFPA 704, also called the fire diamond.
+The fire tetrahedron
+The fire tetrahedron represents the addition of the chemical chain reaction to the three already present in the fire triangle.
+
+Combustion is a chemical reaction that feeds a fire more heat and allows it to continue. Once a fire has started, the resulting exothermic chain reaction sustains the fire and allows it to continue until or unless at least one of the elements of the fire is blocked:
+
+foam can be used to deny the fire the oxygen it needs
+
+water can be used to lower the temperature of the fuel below the ignition point, or to remove or disperse the fuel.
+
+halon can be used to remove free radicals and create a barrier of inert gas in a direct attack on the chemical reaction responsible for the fire.
+
+carbon dioxide, being denser than air, can displace oxygen away from the fire [5]
+
+When the fire involves burning metals like lithium, magnesium, titanium,[6] etc. (known as a class-D fire), it becomes even more important to consider the energy release.</pre>
+<h3>Fire tetrahedron  <span class="muted small">— chars 2080–2657</span></h3>
+<pre>(known as a class-D fire), it becomes even more important to consider the energy release. Because the metals react faster with water than with oxygen and thereby more energy is released, putting water on such a fire results in the fire getting hotter or even exploding. Carbon dioxide extinguishers are ineffective against certain metals such as titanium.[6] Therefore, inert agents (e.g. dry sand) must be used to break the chain reaction of metallic combustion.
+
+In the same way, as soon as one of the four elements of the tetrahedron is (entirely) removed, combustion stops.</pre>
+<h3>Oxidizer  <span class="muted small">— chars 2672–3764</span></h3>
+<pre>The oxidizer is the other reactant of the chemical reaction. In most cases, it is the ambient air, and in particular one of its components, oxygen (O2). A typical fire can be extinguished by depriving it of air, such as when covering the flame of a small candle with an empty glass. To the contrary, if air is blown over a wood fire (as with bellows), the fire is activated by the introduction of more air.
+
+Some chemicals, such as fluorine gas, perchlorate salts such as ammonium perchlorate, or chlorine trifluoride, act as oxidizers, sometimes more powerful ones than oxygen itself. A fire based on a reaction with these oxidizers can be very difficult to put out until the oxidizer is exhausted; that leg of the fire triangle cannot be broken by normal means (i.e., depriving it of air will not smother it).
+
+In certain cases such as some explosives, the oxidizer and combustible are the same (e.g., nitroglycerin, an unstable molecule that has oxidizing parts in the same molecule as the oxidizeable parts).
+
+The reaction is initiated by an activating energy — in most cases, it is heat.</pre>
+<h3>Oxidizer  <span class="muted small">— chars 3686–4373</span></h3>
+<pre>The reaction is initiated by an activating energy — in most cases, it is heat. Several examples include friction, as in the case of matches, heating an electrical wire, a flame (propagation of fire), or a spark (from a lighter or from any starting electrical device). There are also many other ways to bring sufficient activation energy including electricity, radiation, and pressure, all of which will lead to a temperature rise. In most cases, heat production enables self-sustainability of the reaction, and enables a chain reaction to grow. The temperature at which a liquid produces sufficient vapor to get a flammable mix with self-sustainable combustion is called its flash-point.</pre>
+<h3>Extinguishment of the fire  <span class="muted small">— chars 4406–5582</span></h3>
+<pre>To stop a combustion reaction, one of the three elements of the fire triangle must be removed.
+
+Without sufficient heat, a fire cannot begin, and it cannot continue. Heat can be removed by the application of a substance which reduces the amount of heat available to the fire reaction. This is often water, which absorbs heat for phase change from water to steam. Introducing sufficient quantities and types of powder or gas in the flame reduces the amount of heat available for the fire reaction in the same manner. Scraping embers from a burning structure also removes the heat source. Turning off the electricity in an electrical fire removes the ignition source.
+
+Without fuel, a fire will stop. Fuel can be removed naturally, as where the fire has consumed all the burnable fuel, or manually, by mechanically or chemically removing the fuel from the fire. Fuel separation is an important factor in wildland fire suppression, and is the basis for most major tactics, such as controlled burns. The fire stops because a lower concentration of fuel vapor in the flame leads to a decrease in energy release and a lower temperature. Removing the fuel thereby decreases the heat.</pre>
+<h3>Extinguishment of the fire  <span class="muted small">— chars 5537–5822</span></h3>
+<pre>Removing the fuel thereby decreases the heat.
+
+Without sufficient oxygen, a fire cannot begin, and it cannot continue. With a decreased oxygen concentration, the combustion process slows. Oxygen can be denied to a fire using a carbon dioxide fire extinguisher, a fire blanket or water.</pre>
+<h3>Role of water in firefighting  <span class="muted small">— chars 5858–7018</span></h3>
+<pre>The water can have two different roles. In the case of a solid combustible, the solid fuel produces pyrolyzing products under the influence of heat, commonly radiation. This process is halted by the application of water, since water is more easily evaporated than the fuel is pyrolyzed. Thereby energy is removed from the fuel surface and it is cooled and the pyrolysis is stopped, removing the fuel supply to the flames. In fire fighting, this is referred to as surface cooling.
+
+In the gas phase, i.e. in the flames or in the smoke, the combustible can not be separated from the oxidizer, and the only possible action consists of cooling down. In this case, water droplets are evaporated in the gas phase, thereby lowering the temperature and adding water vapour making the gas mixture non combustible. This requires droplets of a size less than about 0.2mm. In fire fighting, this is referred to as gas cooling or smoke cooling.
+
+Cases also exist where the ignition factor is not the activation energy. For example, a smoke explosion is a very violent combustion of unburned gases contained in the smoke created by a sudden fresh air input (oxidizer input).</pre>
+<h3>Role of water in firefighting  <span class="muted small">— chars 7019–8215</span></h3>
+<pre>The interval in which an air/gas mix can burn is limited by the explosive limits of the air. This interval can be very small (kerosene) or large (acetylene).
+
+Water cannot be used on certain type of fires:
+
+Fires where live electricity is present – as water conducts electricity it presents an electrocution hazard.
+
+Hydrocarbon fires – as it will only spread the fire because of the difference in density/hydrophobicity. For example, adding water to a fire with an oil source will cause the oil to spread, since oil and water do not mix. However, using a foam/water mix in a specific application method is acceptable.
+
+Metal fires – as these fires produce huge amounts of energy (up to 7.550 calories/kg[disputed–discuss] for aluminium) and water can also create violent chemical reactions with burning metal (possibly even serving as an additional oxidizing agent).
+
+Since these reactions are well understood, it has been possible to create specific water-additives which will allow:
+
+A better heat absorption with a higher density than water.
+
+Carrying free radical catchers on the fire.
+
+Carrying foaming agents to enable water to stay on the surface of a liquid fire and prevent gas release.</pre>
+<h3>Role of water in firefighting  <span class="muted small">— chars 8066–8651</span></h3>
+<pre>Carrying free radical catchers on the fire.
+
+Carrying foaming agents to enable water to stay on the surface of a liquid fire and prevent gas release.
+
+Carrying specific reactives which will react and change the nature of the burning material.
+
+Water-additives are generally designed to be effective on several categories of fires (class A + class B or even class A + class B + class F [Class K in North America]), meaning a better global performance and usability of a single extinguisher on many different types of fires (or fires that involve several different classes of materials).</pre>
+<h3>Multi-scale fire triangles for wildland fires  <span class="muted small">— chars 8703–9824</span></h3>
+<pre>Multi-scale fire triangles describing the elements of wildland fire at the scale of the flame, a wildfire, and a fire regime. Adapted from Moritz et al. (2005) Wildfire, complexity, and highly optimized tolerance. Proceedings of the National Academy of Sciences 102, 17912-17917.
+In the context of wildland fire, the fire triangle can be scaled up to apply to fire spread over landscapes (scales of days and several kilometres) and recurrence of fire over time (scales of decades and hundreds of kilometres).[7] Thus, while heat is important to ignite a flame, topography is important for aiding fire spread especially by preheating upslope fuels, and ignitions sources are important to help explain recurrence on longer time scales. Similarly, while oxygen is relevant to sustain a flame, weather and associated winds feed oxygen into a spreading fire, and the longer-term pattern of weather is summarized as climate. Lastly, fuels is the term to describe what burns in a single flame to the range of materials burnt in a spreading wildfire, but fuels vary over larger space and time scales in what is called vegetation.</pre>
+<h3>Multi-scale fire triangles for wildland fires  <span class="muted small">— chars 9826–10570</span></h3>
+<pre>At the smallest scale, the combustion fire triangle, individual fuel particles are ignited once at a critical temperature, and fire transfers energy to the nearest surroundings. Combustion events range on the scale of several seconds to a couple of days and their effects are monitored at the quadrant scale. The largest scale, in contrast, describes the fire regime concept. Global climate change drives many of the factors involved in the &#39;wildfire&#39; and the &#39;fire regime&#39; triangles. For example, with respect to the fire regime, a particular vegetation type will support a characteristic fire in terms of recurrence, intensity, seasonality and biological effects; a change in vegetation type will have implications for a changing fire regime.</pre>
+<h3>See also  <span class="muted small">— chars 10584–10742</span></h3>
+<pre>Wikimedia Commons has media related to Fire triangle.
+
+Look up fire triangle in Wiktionary, the free dictionary.
+
+Glossary of firefighting terms
+
+Fire classes</pre>
+<h3>Notes  <span class="muted small">— chars 10754–11685</span></h3>
+<pre>↑The Fire TriangleArchived 2012-04-06 at the Wayback Machine, Hants Fire brigade, accessed June 2009
+
+↑&#34;Wildland Fire Facts: There Must Be All Three&#34;. National Park Service. Retrieved 30 August 2018.
+
+↑IFSTA, 2008 p. 88.
+
+↑&#34;What is a fire illuminate shape? triangle&#34;. FireRescue1. Archived from the original on 2017-02-14. Retrieved 2017-02-14.
+
+↑&#34;The Fire Tetrahedron (A pyramid)&#34;. Information about the Fire Triangle/Tetrahedron and Combustion. Safelincs Ltd. Retrieved 30 August 2012.
+
+12http://www.titanium.com/titanium/tech_manual/tech16.cfmArchived 2009-01-26 at the Wayback Machine Titanium MSDS
+
+↑Moritz, Max A.; Morais, Marco E.; Summerell, Lora A.; Carlson, J. M.; Doyle, John (2005-12-13). &#34;Wildfires, complexity, and highly optimized tolerance&#34;. Proceedings of the National Academy of Sciences of the United States of America. 102 (50): 17912–17917. doi:10.1073/pnas.0508985102. ISSN0027-8424. PMC1312407. PMID16332964.</pre>
+
+<h2>Extracted claims (24)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">12http://www.titanium.com/titanium/tech_manual/tech16.cfmArchived 2009-01-26 at the Wayback Machine Titanium MSDS</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">↑&#34;Wildland Fire Facts: There Must Be All Three&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Carbon dioxide extinguishers are ineffective against certain metals such as titanium.[6] Therefore, inert agents (e.g. dry sand) must be used to break the chain reaction of metallic combustion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2017-02-14.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Proceedings of the National Academy of Sciences 102, 17912-17917.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Metal fires – as these fires produce huge amounts of energy (up to 7.550 calories/kg[disputed–discuss] for aluminium) and water can also create violent chemical reactions with burning metal (possibly even serving as an additional oxidizing agent).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">carbon dioxide, being denser than air, can displace oxygen away from the fire [5]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Lastly, fuels is the term to describe what burns in a single flame to the range of materials burnt in a spreading wildfire, but fuels vary over larger space and time scales in what is called vegetation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Proceedings of the National Academy of Sciences of the United States of America. 102 (50): 17912–17917. doi:10.1073/pnas.0508985102.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">To stop a combustion reaction, one of the three elements of the fire triangle must be removed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Model for understanding the 3 components of fire</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">↑&#34;What is a fire illuminate shape? triangle&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In large fires where firefighters are called in, decreasing the amount of oxygen is not usually an option because there is no effective way to make that happen in an extended area.[4]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This requires droplets of a size less than about 0.2mm.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Combustion is a chemical reaction that feeds a fire more heat and allows it to continue.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(2005) Wildfire, complexity, and highly optimized tolerance.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑The Fire TriangleArchived 2012-04-06 at the Wayback Machine, Hants Fire brigade, accessed June 2009</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fire triangle or combustion triangle is a simple model for understanding the necessary ingredients for most fires.[1]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When the fire involves burning metals like lithium, magnesium, titanium,[6] etc.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Not to be confused with NFPA 704, also called the fire diamond.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">For example, a smoke explosion is a very violent combustion of unburned gases contained in the smoke created by a sudden fresh air input (oxidizer input).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the context of wildland fire, the fire triangle can be scaled up to apply to fire spread over landscapes (scales of days and several kilometres) and recurrence of fire over time (scales of decades and hundreds of kilometres).[7] Thus, while heat is important to ignite a flame, topography is important for aiding fire spread especially by preheating upslope fuels, and ignitions sources are important to help explain recurrence on longer time scales.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">A fire based on a reaction with these oxidizers can be very difficult to put out until the oxidizer is exhausted; that leg of the fire triangle cannot be broken by normal means (i.e., depriving it of air will not smother it).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The triangle illustrates the three elements a fire needs to ignite: heat, fuel, and an oxidizing agent (usually oxygen).[2] A fire naturally occurs when the elements are present and combined in the right mixture.[3] A fire can be prevented or extinguished by removing any one of the elements in the fire triangle.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

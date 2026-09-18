@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regime-aware physics-guided early warning of lithium-ion battery thermal runaway using thermo-mechanical signals — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Regime-aware physics-guided early warning of lithium-ion battery thermal runaway using thermo-mechanical signals</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>arXiv</strong> ·
+  academic · authority 4/5<br>
+Published 2026-07-01 ·   Retrieved 2026-09-18T18:01:07+00:00<br>
+  Licence: arXiv non-exclusive licence to distribute; see paper for author licence<br>
+  <a href="https://arxiv.org/html/2607.18860v1" rel="nofollow noopener">https://arxiv.org/html/2607.18860v1</a><br>
+  <span class="muted">Content hash: <code>4bcb1fc3f83eefa530565ff152fdbbff</code></span>
+</div>
+
+
+<h2>Stored passages (64)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–164</span></h3>
+<pre>#####
+
+arXiv is now an independent nonprofit!Learn more×
+
+Back to arXiv
+
+ License: arXiv.org perpetual non-exclusive license
+
+arXiv:2607.18860v1 [cs.LG] 21 Jul 2026</pre>
+<h3>Regime-Aware Physics-Guided Early Warning of Lithium-Ion Battery Thermal Runaway Using Thermo-Mechanical Signals  <span class="muted small">— chars 281–373</span></h3>
+<pre>Syed Sajid Ullah
+††thanks: Correspondence: sajid@chd.edu.cnMuhammad Zunair Zamir
+Salman Khan</pre>
+<h3>Abstract  <span class="muted small">— chars 392–1414</span></h3>
+<pre>Thermal runaway in lithium-ion batteries poses a major safety risk to electric vehicles and energy storage systems. Current early-warning methods depend mainly on temperature and may therefore miss mechanical precursors that emerge before rapid heating. We introduce a regime-aware, physics-guided framework that integrates temperature, voltage, force, deformation, and state-of-charge measurements for early warning under controlled mechanical abuse. A lightweight convolutional classifier first infers safe, warning, or danger regimes from mechanical signals. These regime estimates then condition a causal temporal convolutional backbone through feature-wise linear modulation, physics-biased attention, and regime-dependent gating. Joint learning unifies regime identification, thermal-runaway detection, and time-to-disaster estimation. We evaluate the framework using leave-one-experiment-out cross-validation on 30 mechanical-abuse tests across state-of-charge levels of 10%, 50%, and 90% and two loading protocols.</pre>
+<h3>Abstract  <span class="muted small">— chars 1415–2245</span></h3>
+<pre>The method achieves an F1 score of 0.89, a high-temperature prediction root-mean-square error of 12.3°C12.3\text{\,}\mathrm{\SIUnitSymbolCelsius}, a mean warning lead time of 15.6s15.6\text{\,}\mathrm{s}, a detection success rate of 0.92, and an experiment-level false alarm rate of 2.7%. Its lead time exceeds that of the strongest baseline by 69.6%. Removing force reduces the lead time by 60.3%, highlighting the value of mechanical precursors. These results support regime-aware thermo-mechanical fusion as a promising strategy for earlier and more reliable thermal-runaway warning under controlled abuse conditions.
+
+Keywords: battery thermal runaway; early warning; physics-guided neural networks; temporal convolutional network; feature-wise linear modulation; multi-task learning; leave-one-experiment-out cross-validation</pre>
+<h3>I Introduction  <span class="muted small">— chars 2266–3369</span></h3>
+<pre>Lithium-ion batteries (LIBs) are now central to electric vehicles, grid storage, and portable electronics because of their high energy density and long cycle life. However, LIBs continue to face severe safety challenges associated with thermal instability, internal short circuits, overheating, and thermal runaway (TR), which remain among the most catastrophic failure mechanisms in modern battery systems [1, 2].
+
+Thermal runaway refers to a highly nonlinear electrochemical-thermal process in which self-generated heat exceeds the dissipation capability of the battery system, resulting in uncontrollable temperature escalation, gas venting, fire propagation, toxic emissions, and explosions. The initiation of thermal runaway can occur because of overcharging, over-discharging, mechanical deformation, separator failure, lithium dendrite growth, manufacturing defects, or external thermal abuse [3]. As battery energy density increases, the thermal tolerance margin becomes progressively smaller, thereby intensifying safety risks and increasing the complexity of battery-management systems (BMSs).</pre>
+<h3>I Introduction  <span class="muted small">— chars 3371–4424</span></h3>
+<pre>To address these challenges, researchers have extensively investigated thermal-runaway early-warning methods using thermal, electrical, electrochemical, mechanical, acoustic, and gas-emission signals. Among these approaches, gas-sensing-based monitoring has shown strong potential because gaseous emissions typically occur prior to measurable voltage collapse or abnormal temperature rise. Wang et al. [4] investigated gas-sensor-based thermal-runaway monitoring using CO2, H2, CO, and volatile organic compounds, demonstrating that gas signatures can provide effective early indicators of abnormal electrochemical decomposition. Similarly, Cui et al. [5] proposed a gas-production-based thermal-runaway early-warning framework and introduced a thermal-runaway severity index capable of estimating the evolution and risk level of battery failure before catastrophic runaway occurs.
+
+In addition to gas-emission analysis, electrochemical and impedance-based monitoring approaches have gained significant attention for battery fault diagnosis. Dong et al.</pre>
+<h3>I Introduction  <span class="muted small">— chars 4413–5533</span></h3>
+<pre>Dong et al. [6] demonstrated that electrochemical impedance spectroscopy (EIS) can provide reliable precursor information regarding internal degradation and thermal instability. Lyu et al. [7] further proposed an online impedance-measurement strategy for overcharge warning and thermal-runaway prediction, showing that impedance variations can serve as early indicators of abnormal electrochemical reactions.
+
+Online data-driven fault-diagnosis frameworks have also demonstrated strong capability for thermal-runaway prediction. Sun et al. [8] proposed an online thermal-runaway early-warning framework using operational electrical signals from EV batteries and showed that intelligent monitoring can significantly improve fault-detection accuracy under dynamic operating conditions. Gao et al. [9] analyzed practical EV battery thermal-runaway cases and emphasized the importance of online internal-short-circuit detection for preventing catastrophic failures in battery packs.
+
+The rapid development of machine learning and deep learning has further transformed battery fault diagnosis and prognostics. Khaleghi et al.</pre>
+<h3>I Introduction  <span class="muted small">— chars 5393–6583</span></h3>
+<pre>The rapid development of machine learning and deep learning has further transformed battery fault diagnosis and prognostics. Khaleghi et al. [10] proposed a data-driven prognostics and health-management framework for lithium-ion batteries and highlighted the importance of intelligent data analytics in modern BMSs. More recently, Chen et al. [11] developed a model-constrained deep-learning framework capable of robust online fault diagnosis under stochastic operating conditions. Their study demonstrated that incorporating physical battery constraints into deep neural networks substantially improves generalization and interpretability.
+
+Recent studies have also demonstrated that forecasting-oriented architectures can substantially improve battery anomaly prediction and long-horizon temporal representation learning. Zeng et al. [12] argued that simple linear forecasting architectures can outperform complex transformer models in several long-sequence forecasting tasks, highlighting the importance of efficient inductive bias design for temporal learning systems. In addition, physics-based learning strategies have shown strong capability for safety-critical battery applications.</pre>
+<h3>I Introduction  <span class="muted small">— chars 6466–7621</span></h3>
+<pre>In addition, physics-based learning strategies have shown strong capability for safety-critical battery applications. Firoozi et al. [13] proposed a physics-based learning framework for cylindrical battery fault detection under extreme fast-charging conditions and demonstrated improved robustness for abnormal battery-state identification. Such studies indicate that combining physical battery constraints with modern forecasting architectures can significantly improve reliability and interpretability in thermal-runaway early-warning systems.
+
+Transfer-learning-based diagnosis frameworks have also emerged as promising solutions for limited-data environments. Dong and Sun [14] proposed a multi-source domain-transfer-learning framework for thermal-runaway diagnosis, enabling knowledge transfer across different battery chemistries and operational conditions. Such approaches are particularly important because large-scale thermal-runaway experiments are expensive, hazardous, and difficult to conduct repeatedly.
+
+Besides fault diagnosis, thermal-runaway mitigation and propagation suppression have become important research directions. Huang et al.</pre>
+<h3>I Introduction  <span class="muted small">— chars 7486–8588</span></h3>
+<pre>Besides fault diagnosis, thermal-runaway mitigation and propagation suppression have become important research directions. Huang et al. [15] investigated aerogel-based insulation materials for suppressing thermal propagation in lithium-ion battery modules and established a safety-evaluation methodology for high-energy-density systems. Zhang et al. [16] proposed a non-uniform phase-change-material strategy for directional mitigation of thermal-runaway propagation and demonstrated significant improvements in thermal isolation capability. These studies indicate that thermal management and propagation suppression must complement early-warning systems to achieve comprehensive battery safety.
+
+Several researchers have also investigated probabilistic risk-analysis frameworks for battery safety assessment. Meng et al. [17] proposed an integrated methodology for dynamic thermal-runaway risk prediction using Bayesian networks and support-vector regression. Their later work incorporated physics-informed Bayesian networks for uncertainty-aware battery accident analysis [18]. Similarly, Wang et al.</pre>
+<h3>I Introduction  <span class="muted small">— chars 8447–9621</span></h3>
+<pre>Their later work incorporated physics-informed Bayesian networks for uncertainty-aware battery accident analysis [18]. Similarly, Wang et al. [19] proposed a Bayesian fault-propagation framework for real-time reliability analysis of battery-energy-storage systems, providing an interpretable mechanism for safety-risk evolution modeling.
+
+The emergence of deep-learning-based forecasting models has opened new opportunities for intelligent battery-safety prediction. Rather than surveying every recent forecasting architecture, the present work focuses on architectures that are practical for short-horizon, causal, multivariate warning under mechanical abuse. This scope motivates the use of recurrent, convolutional, transformer, and TCN baselines in the experiments.
+
+Despite substantial progress in battery fault diagnosis and temporal forecasting, several challenges remain unresolved. Existing thermal-runaway prediction frameworks often suffer from limited generalization capability, insufficient interpretability, weak robustness under varying operational conditions, and inadequate integration between physics-based battery dynamics and deep-learning architectures.</pre>
+<h3>I Introduction  <span class="muted small">— chars 9622–10545</span></h3>
+<pre>Moreover, many existing methods rely primarily on electrical measurements while ignoring thermo-mechanical interactions and structural degradation mechanisms that may provide valuable precursor information regarding fault evolution.
+
+Therefore, there remains a strong need for regime-aware and physics-guided early-warning frameworks capable of integrating thermo-mechanical sensing, multivariate temporal forecasting, and intelligent fault diagnosis for robust TR prediction. Motivated by these challenges, this work proposes a physics-guided deep-learning framework for LIB TR early warning using thermo-mechanical signals and causal temporal modeling. The proposed framework aims to improve prediction lead time, interpretability, robustness, and operational reliability under dynamic battery conditions.
+
+This manuscript is distinct from the authors’ companion study on gradient-boosting-based infrared-hotspot warning.</pre>
+<h3>I Introduction  <span class="muted small">— chars 10431–11590</span></h3>
+<pre>This manuscript is distinct from the authors’ companion study on gradient-boosting-based infrared-hotspot warning. That study used image-derived hotspot descriptors and tree-based decision rules as the primary modeling route, whereas the present paper uses synchronized temperature, force, deformation, voltage, and SOC information in a regime-aware neural architecture with multitask TR detection and time-to-disaster estimation. The overlap is therefore limited to the broader mechanical-abuse safety context and, where applicable, shared experimental infrastructure; the modeling objective, input representation, and claimed contribution are different.
+
+The main contributions of this work are summarized as follows:
+
+Thermal runaway early warning under mechanical abuse is formulated as a causal thermo-electro-mechanical sequence prediction problem, providing a principled foundation for precursor-driven failure forecasting.
+
+A regime-aware temporal modeling framework is proposed that leverages mechanical precursor signals to identify transitions among safety states, enabling adaptive warning thresholds aligned with the battery’s physical condition.</pre>
+<h3>I Introduction  <span class="muted small">— chars 11592–12710</span></h3>
+<pre>A physics-guided, SOC-conditioned feature modulation strategy is introduced for joint warning-state classification and time-to-danger estimation, incorporating electrochemical priors through learnable FiLM-based conditioning.
+
+An experiment-level evaluation protocol is established using 30 real mechanical abuse experiments with leave-one-experiment-out validation and early-warning metrics, including lead time, false-alarm rate, missed-alarm rate, and detection success rate.
+
+The remainder of this paper is organized as follows. Section II reviews TR warning methods, mechanical abuse studies, and physics-guided learning approaches for battery safety. Section III defines the causal early-warning problem, TR onset criterion, regime labels, and prediction targets. Section IV presents the proposed regime-aware physics-guided temporal learning framework. Section V describes the dataset, preprocessing, baselines, and evaluation protocol. Section VI reports the quantitative results, ablation analysis, and interpretability study. Finally, Section VII concludes the paper and discusses future research directions.</pre>
+<h3>II-AThermal Runaway Early Warning and Fault Diagnosis  <span class="muted small">— chars 12791–13935</span></h3>
+<pre>Thermal-runaway early warning has attracted significant research attention because conventional battery-management systems are often unable to provide sufficiently early detection of catastrophic battery failures. Existing thermal-runaway diagnosis approaches can generally be classified into gas-based monitoring, impedance-based methods, probabilistic risk-analysis frameworks, deep-learning-based fault diagnosis, and hybrid physics-guided prediction systems.
+
+Gas-sensing mechanisms are among the earliest indicators of thermal instability because gaseous byproducts are typically released before severe temperature escalation occurs. Wang et al. [4] investigated gas-emission monitoring using chemical sensors and demonstrated that gases such as CO2, H2, and CO can effectively indicate abnormal electrochemical decomposition during early-stage thermal runaway. Cui et al. [5] extended this concept by introducing a thermal-runaway severity index based on gas-production characteristics and demonstrated that gas evolution can provide significantly earlier warning compared with voltage or temperature measurements. In addition, Tam et al.</pre>
+<h3>II-AThermal Runaway Early Warning and Fault Diagnosis  <span class="muted small">— chars 13912–14942</span></h3>
+<pre>In addition, Tam et al. [30] developed an acoustic-based early-stage thermal-runaway detection framework using machine-learning analysis and demonstrated that abnormal acoustic signatures can serve as precursor indicators before catastrophic battery failure occurs.
+
+Electrochemical impedance spectroscopy has also shown strong potential for early fault diagnosis because impedance variations reflect internal electrochemical degradation processes. Dong et al. [6] proposed an EIS-based thermal-runaway warning framework and demonstrated reliable detection of abnormal electrochemical behavior. Similarly, Lyu et al. [7] developed an online impedance-measurement strategy for overcharge warning and thermal-runaway prediction under dynamic charging conditions. These studies indicate that electrochemical signatures can provide highly sensitive information regarding early-stage battery degradation.
+
+Electrical-signal-based monitoring remains one of the most practical approaches for real-time battery fault diagnosis. Sun et al.</pre>
+<h3>II-AThermal Runaway Early Warning and Fault Diagnosis  <span class="muted small">— chars 14813–15953</span></h3>
+<pre>Electrical-signal-based monitoring remains one of the most practical approaches for real-time battery fault diagnosis. Sun et al. [8] proposed an online data-driven thermal-runaway warning framework using operational EV battery signals and demonstrated accurate fault detection during dynamic operating conditions. Gao et al. [9] investigated practical EV battery thermal-runaway cases and analyzed online internal-short-circuit detection methods for preventing catastrophic failure propagation.
+
+Several recent studies have explored hybrid deep-learning architectures for thermal-runaway prediction under dynamic charging and operational conditions. Huang et al. [31] proposed a convolutional-transformer-based early-warning framework capable of modeling nonlinear thermal dynamics during high-rate charging/discharging scenarios. Their framework demonstrated strong predictive capability under rapidly varying thermal conditions. Similarly, Wang et al. [32] employed convolutional neural networks for onboard thermal-runaway fault-cause analysis and demonstrated improved post-failure diagnosis capability for lithium-ion battery systems.</pre>
+<h3>II-AThermal Runaway Early Warning and Fault Diagnosis  <span class="muted small">— chars 15955–17014</span></h3>
+<pre>Deep-learning-based battery diagnosis frameworks have shown remarkable progress in recent years. Chen et al. [11] proposed a model-constrained deep-learning framework for online lithium-ion battery fault diagnosis under stochastic conditions. Their method integrated physical battery constraints into neural-network training and achieved substantial improvements in robustness and interpretability. Fan et al. [33] proposed a feature-augmented attentional autoencoder for battery fault detection and demonstrated that attention mechanisms can effectively capture abnormal temporal behavior in multivariate battery signals.
+
+Graph-neural-network-based approaches have also gained considerable attention in battery-pack diagnostics. Ouyang et al. [34] developed an optimized graphical neural network for voltage-fault diagnosis in EV batteries and demonstrated improved fault-localization capability compared with conventional deep-learning methods. These approaches highlight the importance of structural and relational modeling in large-scale battery systems.</pre>
+<h3>II-AThermal Runaway Early Warning and Fault Diagnosis  <span class="muted small">— chars 16903–17914</span></h3>
+<pre>These approaches highlight the importance of structural and relational modeling in large-scale battery systems.
+
+Transfer learning and domain adaptation techniques have emerged as promising solutions for addressing limited-data challenges in battery-fault diagnosis. Dong and Sun [14] proposed a multi-source domain-transfer-learning framework with few-shot learning capability for thermal-runaway diagnosis across different battery chemistries and operating environments. Their framework significantly improved diagnosis generalization under limited labeled data conditions.
+
+Battery-state prediction and health-estimation studies have also contributed significantly to thermal-runaway prevention because battery degradation strongly influences thermal stability and internal short-circuit probability. Wang et al. [35] proposed an IMFO-LSTM-BiGRU framework for long-term multi-state battery prediction and demonstrated improved forecasting accuracy under varying operating conditions. Furthermore, Wang et al.</pre>
+<h3>II-AThermal Runaway Early Warning and Fault Diagnosis  <span class="muted small">— chars 17890–19029</span></h3>
+<pre>Furthermore, Wang et al. [36] introduced a deep-learning framework for battery state-of-health estimation using partial charging data and polarization-equilibrium analysis, achieving high estimation accuracy with low computational overhead. Khaleghi et al. [10] further emphasized the importance of intelligent prognostics and health-management frameworks for modern lithium-ion battery systems.
+
+Several studies have also focused on thermal-runaway mitigation and propagation suppression. Huang et al. [15] investigated aerogel-based insulation materials for suppressing thermal propagation in battery modules, while Zhang et al. [16] proposed a non-uniform phase-change-material strategy for directional thermal mitigation. Liu et al. [3] analyzed the influence of external thermal conditions on thermal-runaway initiation and propagation in cylindrical lithium-ion batteries. These studies collectively demonstrate that thermal management and propagation suppression remain critical components of battery-safety design.
+
+Probabilistic risk-analysis frameworks provide additional interpretability for battery safety analysis. Meng et al.</pre>
+<h3>II-AThermal Runaway Early Warning and Fault Diagnosis  <span class="muted small">— chars 18914–19406</span></h3>
+<pre>Probabilistic risk-analysis frameworks provide additional interpretability for battery safety analysis. Meng et al. [17] proposed a dynamic risk-prediction methodology based on Bayesian networks and support-vector regression, while their later work introduced physics-informed Bayesian networks for uncertainty-aware battery accident analysis [18]. Wang et al. [19] further developed a Bayesian fault-propagation framework for real-time reliability analysis of battery-energy-storage systems.</pre>
+<h3>II-BTemporal Learning and Physics-Guided Modeling  <span class="muted small">— chars 19463–20604</span></h3>
+<pre>Modern sequence-learning methods provide useful tools for battery early warning, but a TR warning model must remain causal, short-horizon, and reliable under limited destructive-test data. For this reason, we compare against compact LSTM, CNN-LSTM, Transformer, and TCN baselines rather than importing large long-horizon forecasting architectures whose assumptions and data requirements differ from the present mechanical-abuse setting. Recent work on temporal inductive bias and physics-based learning supports this design choice: Zeng et al. [12] showed that simpler temporal models can outperform complex transformers in some forecasting settings, while Firoozi et al. [13] demonstrated the value of physics-based learning for battery fault detection under extreme conditions.
+
+Table I compares representative related studies on thermal-runaway early warning. Several key gaps emerge from the table. Existing methods predominantly rely on temperature, voltage, or gas signals with no integration of mechanical precursors such as force or deformation. They also lack regime-aware processing to distinguish safe, warning, and danger states.</pre>
+<h3>II-BTemporal Learning and Physics-Guided Modeling  <span class="muted small">— chars 20517–21649</span></h3>
+<pre>They also lack regime-aware processing to distinguish safe, warning, and danger states. Furthermore, these approaches either introduce additional hardware overhead or suffer from high computational complexity. To address these limitations, this paper proposes a regime-aware, physics-guided deep learning framework that fuses thermo-mechanical signals including temperature, force, deformation, and voltage for early thermal-runaway warning. The proposed method is detailed in the following sections.
+
+TABLE I: Comparison of representative related studies on lithium-ion battery thermal-runaway early warning.
+
+YearRef.MethodLimitations
+
+2022[8]Online data-driven fault diagnosis using voltage, current, and temperature.Relies on electrical and thermal signals; limited interpretability.
+
+2023[5]Gas-production-based TR early-warning and severity estimation.Requires additional gas-sensing hardware.
+
+2023[17]Dynamic risk prediction with fault-tree analysis and Bayesian networks.Limited real-time deep-learning capability.
+
+2024[4]Gas-sensor-based TR monitoring using CO2, H2, CO.Increases system cost; requires robust calibration.</pre>
+<h3>II-BTemporal Learning and Physics-Guided Modeling  <span class="muted small">— chars 21542–22395</span></h3>
+<pre>2024[4]Gas-sensor-based TR monitoring using CO2, H2, CO.Increases system cost; requires robust calibration.
+
+2024[14]Multi-source domain-transfer learning for TR diagnosis.May suffer from negative transfer under domain mismatch.
+
+2025[11]Model-constrained deep learning for online fault diagnosis.Model design and training more complex than data-driven methods.
+
+2025[33]Feature-augmented attentional autoencoder for battery fault detection.Detection sensitive to training-data quality.
+
+2025[31]Convolutional-transformer TR early-warning for high-rate conditions.High computational cost for embedded BMS deployment.
+
+2025[34]Optimized GNN for voltage-fault diagnosis in EV battery packs.Requires pack-topology information.
+
+2026[19]Bayesian fault-propagation network for real-time reliability analysis.Probabilistic inference computationally demanding.</pre>
+<h3>III Problem Formulation  <span class="muted small">— chars 22425–23481</span></h3>
+<pre>We define the thermal runaway onset time tTRt_{\mathrm{TR}} as the earliest time at which either of two conditions is satisfied:
+
+tTR=min⁡{t:T⁡(t)≥TTR∨T ̇​(t)≥T ̇TR}t_{\mathrm{TR}}=\min\bigl\{t:T(t)\geq T_{\mathrm{TR}}\;\lor\;\dot{T}(t)\geq\dot{T}_{\mathrm{TR}}\bigr\}(1)
+
+where T⁡(t)T(t) denotes the cell surface temperature, T ̇​(t)=d​T/d​t\dot{T}(t)=dT/dt the temperature rate of rise, TTR=150°CT_{\mathrm{TR}}=$150\text{\,}\mathrm{\SIUnitSymbolCelsius}$ the absolute temperature threshold, and T ̇TR=3°C\dot{T}_{\mathrm{TR}}=$3\text{\,}\mathrm{\SIUnitSymbolCelsius}$ the rate-of-rise threshold. These dual criteria capture both gradual temperature escalation (to 150°C150\text{\,}\mathrm{\SIUnitSymbolCelsius}) and rapid exothermic acceleration (exceeding 3°C3\text{\,}\mathrm{\SIUnitSymbolCelsius}), which are the two canonical signatures of TR onset established in the battery safety literature [37].
+
+The battery’s thermal trajectory is partitioned into three mutually exclusive safety regimes based on temperature thresholds, as illustrated in Fig.</pre>
+<h3>III Problem Formulation  <span class="muted small">— chars 23333–24404</span></h3>
+<pre>The battery’s thermal trajectory is partitioned into three mutually exclusive safety regimes based on temperature thresholds, as illustrated in Fig. 1:
+
+r⁡(t)={0​(Safe),T⁡(t)&lt;Tsafe1​(Warning),Tsafe≤T⁡(t)&lt;Tdanger2​(Danger),T⁡(t)≥Tdangerr(t)=\begin{cases}0\;\text{(Safe)},&amp;T(t)&lt;T_{\mathrm{safe}}\\
+1\;\text{(Warning)},&amp;T_{\mathrm{safe}}\leq T(t)&lt;T_{\mathrm{danger}}\\
+2\;\text{(Danger)},&amp;T(t)\geq T_{\mathrm{danger}}\end{cases}(2)
+
+where Tsafe=60°CT_{\mathrm{safe}}=$60\text{\,}\mathrm{\SIUnitSymbolCelsius}$ and Tdanger=120°CT_{\mathrm{danger}}=$120\text{\,}\mathrm{\SIUnitSymbolCelsius}$. These fixed thresholds are applied identically across SOC levels and loading protocols. The safe regime corresponds to normal operating temperatures where no safety concern exists. The warning regime captures the early onset of anomalous heating, during which internal exothermic reactions may have begun but remain controllable through active cooling. The danger regime indicates that the cell is on an irreversible trajectory toward TR and immediate protective action is required.</pre>
+<h3>III Problem Formulation  <span class="muted small">— chars 24275–25116</span></h3>
+<pre>The danger regime indicates that the cell is on an irreversible trajectory toward TR and immediate protective action is required.
+
+The regime labels are generated algorithmically from synchronized temperature measurements after timestamp alignment and smoothing; no fold-specific or experiment-specific threshold tuning is used. Force and deformation are not used to define the ground-truth regime labels, which prevents leakage from the mechanical channels into the target definition. They are used only as model inputs, allowing the Stage 1 classifier to learn whether mechanical precursor patterns anticipate the temperature-defined safety state.
+
+Fig. 1: Timeline of thermal progression through the safety regimes to TR onset. LleadL_{\mathrm{lead}} denotes the interval between the model’s first valid warning and the measured TR onset.</pre>
+<h3>III Problem Formulation  <span class="muted small">— chars 25006–26112</span></h3>
+<pre>LleadL_{\mathrm{lead}} denotes the interval between the model’s first valid warning and the measured TR onset.
+
+The lead time LleadL_{\mathrm{lead}} quantifies how far in advance the model can issue a TR warning relative to the actual TR onset:
+
+Llead=tTR−twarnL_{\mathrm{lead}}=t_{\mathrm{TR}}-t_{\mathrm{warn}}(3)
+
+where twarnt_{\mathrm{warn}} is the time at which the model first correctly predicts an imminent TR event (i.e., TR probability exceeds a detection threshold of 0.5). A larger lead time provides more opportunity for mitigative actions, making it the most operationally significant metric for TR early-warning systems.
+
+Given a multivariate time-series window X∈RW×C\mathbf{X}\in\mathbb{R}^{W\times C} of length WW with five synchronized sensor channels (high temperature, low temperature, voltage, force, and deformation) and a scalar state-of-charge s∈[0,1]s\in[0,1], the model produces three outputs:
+
+1.
+
+Regime classification: r^=fr​(X,s)∈R3\hat{\mathbf{r}}=f_{r}(\mathbf{X},s)\in\mathbb{R}^{3}, predicting the probability distribution over safety regimes at the current time step.
+
+2.</pre>
+<h3>III Problem Formulation  <span class="muted small">— chars 26110–26818</span></h3>
+<pre>2.
+
+TR detection: y^TR=fd​(X,s)∈[0,1]\hat{y}_{\mathrm{TR}}=f_{d}(\mathbf{X},s)\in[0,1], estimating the probability that TR will occur within the prediction horizon of H=60H=60 s.
+
+3.
+
+Time-to-disaster regression: t^TTD=ft​(X,s)∈R≥0\hat{t}_{\mathrm{TTD}}=f_{t}(\mathbf{X},s)\in\mathbb{R}_{\geq 0}, predicting the remaining time (in seconds) until TR onset.
+
+An effective TR early-warning system must satisfy three operational requirements:
+
+Sufficient lead time: Llead&gt;10sL_{\mathrm{lead}}&gt;$10\text{\,}\mathrm{s}$ to enable protective actions.
+
+High detection rate: Detection success rate DSR&gt;85%\mathrm{DSR}&gt;85\%.
+
+Low false alarm rate: experiment-level FAR&lt;10%\mathrm{FAR}&lt;10\% of held-out test experiments.</pre>
+<h3>IV-ASystem Overview  <span class="muted small">— chars 26868–27966</span></h3>
+<pre>Fig. 2 presents the overall architecture of the proposed regime-aware, physics-guided TR early-warning framework. The system comprises two stages operating in cascade. Stage 1 is a lightweight CNN-based regime classifier that processes the force and deformation channels to produce a probability distribution over the three safety regimes. Stage 2 is a physics-guided temporal backbone that ingests the full five-channel multivariate input and produces three task-specific outputs—regime classification logits, TR detection probability, and TTD regression value—while being conditioned on both the SOC (through FiLM) and the regime probabilities from Stage 1 (through gating).
+
+Fig. 2: Overall architecture of the proposed regime-aware, physics-guided TR early-warning framework. Stage 1 uses a lightweight CNN to estimate the operating regime from force signals. Stage 2 combines a causal dilated TCN backbone with SOC-based FiLM conditioning, physics-guided attention, and regime-conditional gating, followed by classification and time-to-disaster regression heads trained with a joint objective.</pre>
+<h3>IV-BStage 1: Regime Classifier  <span class="muted small">— chars 28004–29277</span></h3>
+<pre>The regime classifier takes the force and deformation channels Xmech∈RW×2\mathbf{X}_{\mathrm{mech}}\in\mathbb{R}^{W\times 2} as input and predicts the regime probability vector r∈R3\mathbf{r}\in\mathbb{R}^{3}. It consists of two 1-D convolutional layers with batch normalization and ReLU activation, followed by global average pooling and a two-layer fully connected classifier:
+
+H1\displaystyle\mathbf{H}_{1}=ReLU⁡(BN1​(Conv1dk=52→32​(Xmech⊤)))\displaystyle=\mathrm{ReLU}\bigl(\mathrm{BN}_{1}(\mathrm{Conv1d}_{k=5}^{2\to 32}(\mathbf{X}_{\mathrm{mech}}^{\top}))\bigr)(4)
+
+H2\displaystyle\mathbf{H}_{2}=ReLU⁡(BN2​(Conv1dk=332→64​(H1)))\displaystyle=\mathrm{ReLU}\bigl(\mathrm{BN}_{2}(\mathrm{Conv1d}_{k=3}^{32\to 64}(\mathbf{H}_{1}))\bigr)(5)
+
+h\displaystyle\mathbf{h}=GAP⁡(H2)∈R64\displaystyle=\mathrm{GAP}(\mathbf{H}_{2})\in\mathbb{R}^{64}(6)
+
+r\displaystyle\mathbf{r}=softmax(FC128→3​(ReLU⁡(Dropout⁡(FC64→128​(h)))))\displaystyle=\softmax\bigl(\mathrm{FC}_{128\to 3}(\mathrm{ReLU}(\mathrm{Dropout}(\mathrm{FC}_{64\to 128}(\mathbf{h}))))\bigr)(7)
+
+where Xmech⊤∈R2×W\mathbf{X}_{\mathrm{mech}}^{\top}\in\mathbb{R}^{2\times W} denotes the transposed input suitable for Conv1d. The classifier uses dropout with probability 0.3 in the fully connected layers for regularization.</pre>
+<h3>IV-C1 Input Projection and Normalization  <span class="muted small">— chars 29377–29832</span></h3>
+<pre>The raw five-channel input X∈RW×5\mathbf{X}\in\mathbb{R}^{W\times 5} is first projected into a latent space of dimension dmodel=64d_{\mathrm{model}}=64 and normalized:
+
+Z0=LayerNorm⁡(X​Wproj+bproj)\mathbf{Z}_{0}=\mathrm{LayerNorm}(\mathbf{X}\,\mathbf{W}_{\mathrm{proj}}+\mathbf{b}_{\mathrm{proj}})(8)
+
+where Wproj∈R5×64\mathbf{W}_{\mathrm{proj}}\in\mathbb{R}^{5\times 64} and bproj∈R64\mathbf{b}_{\mathrm{proj}}\in\mathbb{R}^{64} are learnable parameters.</pre>
+<h3>IV-C2 TCN Backbone  <span class="muted small">— chars 29859–30933</span></h3>
+<pre>The projected input is processed by a Temporal Convolutional Network (TCN) comprising four dilated causal convolutional blocks with dilation factors [1,2,4,8][1,2,4,8]. Each block contains two dilated causal convolutions with weight normalization, batch normalization, ReLU activation, and dropout (p=0.2p=0.2), connected by a residual skip:
+
+o(1)\displaystyle\mathbf{o}^{(1)}=Dropout(ReLU(BN(WN(\displaystyle=\mathrm{Dropout}\bigl(\mathrm{ReLU}(\mathrm{BN}(\mathrm{WN}(
+
+Conv1dcausal(Z))))\displaystyle\qquad\mathrm{Conv1d}_{\mathrm{causal}}(\mathbf{Z})))\bigr)(9)
+
+o(2)\displaystyle\mathbf{o}^{(2)}=Dropout(ReLU(BN(WN(\displaystyle=\mathrm{Dropout}\bigl(\mathrm{ReLU}(\mathrm{BN}(\mathrm{WN}(
+
+Conv1dcausal(o(1)))))\displaystyle\qquad\mathrm{Conv1d}_{\mathrm{causal}}(\mathbf{o}^{(1)})))\bigr)(10)
+
+HTCN\displaystyle\mathbf{H}_{\mathrm{TCN}}=ReLU⁡(o(2)+Conv1d1×1​(Z))\displaystyle=\mathrm{ReLU}\bigl(\mathbf{o}^{(2)}+\mathrm{Conv1d}_{1\times 1}(\mathbf{Z})\bigr)(11)
+
+The causal padding ensures that each time step’s representation depends only on current and past inputs.</pre>
+<h3>IV-C2 TCN Backbone  <span class="muted small">— chars 30934–31134</span></h3>
+<pre>The exponentially growing dilation factors yield a receptive field of 61 time steps with kernel size k=3k=3, capturing temporal dependencies spanning approximately 10s10\text{\,}\mathrm{s} of history.</pre>
+<h3>IV-C3 SOC-FiLM Conditioning  <span class="muted small">— chars 31170–32093</span></h3>
+<pre>The state-of-charge influences the energy available for exothermic reactions. We inject this physical prior through Feature-wise Linear Modulation (FiLM) conditioned on SOC. The SOC scalar s∈[0,1]s\in[0,1] is passed through a two-layer MLP that produces per-channel scaling γ⁡(s)\gamma(s) and shifting β⁡(s)\beta(s) parameters:
+
+m\displaystyle\mathbf{m}=ReLU⁡(FC1→64​(ReLU⁡(FC1→64​(s))))\displaystyle=\mathrm{ReLU}\bigl(\mathrm{FC}_{1\to 64}(\mathrm{ReLU}(\mathrm{FC}_{1\to 64}(s)))\bigr)(12)
+
+γ⁡(s)\displaystyle\gamma(s)=FC64→d​(m)∈Rd\displaystyle=\mathrm{FC}_{64\to d}(\mathbf{m})\in\mathbb{R}^{d}(13)
+
+β⁡(s)\displaystyle\beta(s)=FC64→d​(m)∈Rd\displaystyle=\mathrm{FC}_{64\to d}(\mathbf{m})\in\mathbb{R}^{d}(14)
+
+H′\displaystyle\mathbf{H}^{\prime}=γ⁡(s)⊙HTCN+β⁡(s)\displaystyle=\gamma(s)\odot\mathbf{H}_{\mathrm{TCN}}+\beta(s)(15)
+
+where ⊙\odot denotes element-wise multiplication (broadcast over the temporal dimension).</pre>
+<h3>IV-C4 Physics-Biased Attention  <span class="muted small">— chars 32132–33135</span></h3>
+<pre>We augment the standard self-attention with a learnable physics bias matrix Ephys∈RW×W\mathbf{E}_{\mathrm{phys}}\in\mathbb{R}^{W\times W} and channel-aware indicator scalars wTw_{T} and wFw_{F}:
+
+Q\displaystyle\mathbf{Q}=H′​WQ,K=H′​WK,V=H′​WV\displaystyle=\mathbf{H}^{\prime}\,\mathbf{W}_{Q},\quad\mathbf{K}=\mathbf{H}^{\prime}\,\mathbf{W}_{K},\quad\mathbf{V}=\mathbf{H}^{\prime}\,\mathbf{W}_{V}(16)
+
+A\displaystyle\mathbf{A}=softmax(QK⊤dk+Ephys+wT​IT+wF​IF)\displaystyle=\softmax\!\left(\frac{\mathbf{Q}\mathbf{K}^{\top}}{\sqrt{d_{k}}}+\mathbf{E}_{\mathrm{phys}}+w_{T}\,\mathbf{I}_{T}+w_{F}\,\mathbf{I}_{F}\right)(17)
+
+Hattn\displaystyle\mathbf{H}_{\mathrm{attn}}=A​V\displaystyle=\mathbf{A}\,\mathbf{V}(18)
+
+where dk=dmodeld_{k}=d_{\mathrm{model}}, IT,IF∈{0,1}W×W\mathbf{I}_{T},\mathbf{I}_{F}\in\{0,1\}^{W\times W} are indicator matrices for temperature and force channel positions. A residual connection is added: Hres=Hattn+H′\mathbf{H}_{\mathrm{res}}=\mathbf{H}_{\mathrm{attn}}+\mathbf{H}^{\prime}.</pre>
+<h3>IV-C5 Regime-Conditioned Gating  <span class="muted small">— chars 33175–33804</span></h3>
+<pre>The regime probabilities r∈R3\mathbf{r}\in\mathbb{R}^{3} from Stage 1 modulate the feature representation through multiplicative gating:
+
+g\displaystyle\mathbf{g}=sigmoid(FC64→d​(ReLU⁡(FC3→64​(r))))\displaystyle=\sigmoid\bigl(\mathrm{FC}_{64\to d}(\mathrm{ReLU}(\mathrm{FC}_{3\to 64}(\mathbf{r})))\bigr)(19)
+
+Hg\displaystyle\mathbf{H}_{g}=Hres⊙g\displaystyle=\mathbf{H}_{\mathrm{res}}\odot\mathbf{g}(20)
+
+where g∈(0,1)d\mathbf{g}\in(0,1)^{d} is the gate vector (broadcast over the temporal dimension). When the battery is in the safe regime, the gate suppresses features associated with anomalous patterns, reducing false alarms.</pre>
+<h3>IV-DMulti-Task Learning Objective  <span class="muted small">— chars 33845–34907</span></h3>
+<pre>The total loss function is a weighted sum of three task-specific losses:
+
+Ltotal=λ1⋅Lregime+λ2⋅LTR+λ3⋅LTTD\mathcal{L}_{\mathrm{total}}=\lambda_{1}\cdot\mathcal{L}_{\mathrm{regime}}+\lambda_{2}\cdot\mathcal{L}_{\mathrm{TR}}+\lambda_{3}\cdot\mathcal{L}_{\mathrm{TTD}}(21)
+
+with λ1=0.1\lambda_{1}=0.1, λ2=0.6\lambda_{2}=0.6, and λ3=0.3\lambda_{3}=0.3.
+
+Regime classification loss. Weighted cross-entropy with class weights [1.0,2.0,3.0][1.0,2.0,3.0]:
+
+Lregime=−∑c=02wc⋅1[r=c]⋅logp^(r=c)\mathcal{L}_{\mathrm{regime}}=-\sum_{c=0}^{2}w_{c}\cdot\mathbb{1}[r=c]\cdot\log\hat{p}(r=c)(22)
+
+TR detection loss. Binary cross-entropy with a positive-class weight of 10:
+
+LTR=−[wpos⋅y​log⁡y^+(1−y)​log⁡(1−y^)]\mathcal{L}_{\mathrm{TR}}=-\bigl[w_{\mathrm{pos}}\cdot y\log\hat{y}+(1-y)\log(1-\hat{y})\bigr](23)
+
+TTD regression loss. Huber loss with δ=10\delta=10:
+
+LTTD={12​(t−t^)2,|t−t^|≤δδ​|t−t^|−12​δ2,otherwise\mathcal{L}_{\mathrm{TTD}}=\begin{cases}\frac{1}{2}(t-\hat{t})^{2},&amp;|t-\hat{t}|\leq\delta\\
+\delta\,|t-\hat{t}|-\frac{1}{2}\delta^{2},&amp;\text{otherwise}\end{cases}(24)</pre>
+<h3>IV-ETraining Algorithm  <span class="muted small">— chars 34937–35934</span></h3>
+<pre>The complete training procedure uses LOEO cross-validation with the Adam optimizer, gradient clipping (max norm 1.0), and early stopping with patience of 10 epochs. A ReduceLROnPlateau scheduler halves the learning rate when validation loss plateaus for 5 consecutive epochs, with a minimum learning rate of 10−610^{-6}.
+
+Algorithm 1 LOEO Training with Multi-Task Objective
+
+0: Dataset D={D1,...,D30}\mathcal{D}=\{\mathcal{D}_{1},\dots,\mathcal{D}_{30}\}, model fθf_{\theta}, learning rate η\eta, epochs EE, patience PP
+
+0: Trained model parameters θ∗\theta^{*} for each fold
+
+1:fork=1k=1 to 3030do
+
+2:Dtest←Dk\mathcal{D}_{\mathrm{test}}\leftarrow\mathcal{D}_{k}; Dtrain←D∖Dk\mathcal{D}_{\mathrm{train}}\leftarrow\mathcal{D}\setminus\mathcal{D}_{k}
+
+3: Split Dtrain\mathcal{D}_{\mathrm{train}} into Dtr\mathcal{D}_{\mathrm{tr}} and Dval\mathcal{D}_{\mathrm{val}}
+
+4: Compute normalizer μ,σ\mu,\sigma from Dtr\mathcal{D}_{\mathrm{tr}}; normalize all splits
+
+5: Initialize θ\theta; p←0p\leftarrow 0;</pre>
+<h3>IV-ETraining Algorithm  <span class="muted small">— chars 35872–36848</span></h3>
+<pre>normalize all splits
+
+5: Initialize θ\theta; p←0p\leftarrow 0; Lval∗←∞\mathcal{L}^{*}_{\mathrm{val}}\leftarrow\infty
+
+6:fore=1e=1 to EEdo
+
+7:for each batch in Dtr\mathcal{D}_{\mathrm{tr}}do
+
+8:r^,y^TR,t^TTD←fθ​(X,s)\hat{\mathbf{r}},\hat{y}_{\mathrm{TR}},\hat{t}_{\mathrm{TTD}}\leftarrow f_{\theta}(\mathbf{X},s)
+
+9:L←λ1​Lregime+λ2​LTR+λ3​LTTD\mathcal{L}\leftarrow\lambda_{1}\mathcal{L}_{\mathrm{regime}}+\lambda_{2}\mathcal{L}_{\mathrm{TR}}+\lambda_{3}\mathcal{L}_{\mathrm{TTD}}
+
+10:θ←θ−η⋅clip⁡(∇θL,1.0)\theta\leftarrow\theta-\eta\cdot\mathrm{clip}(\nabla_{\theta}\mathcal{L},1.0)
+
+11:endfor
+
+12: Evaluate Lval\mathcal{L}_{\mathrm{val}} on Dval\mathcal{D}_{\mathrm{val}}
+
+13:ifLval&lt;Lval∗\mathcal{L}_{\mathrm{val}}&lt;\mathcal{L}^{*}_{\mathrm{val}}then
+
+14:θ∗←θ\theta^{*}\leftarrow\theta; p←0p\leftarrow 0
+
+15:else
+
+16:p←p+1p\leftarrow p+1
+
+17:endif
+
+18:ifp≥Pp\geq Pthen
+
+19:break
+
+20:endif
+
+21:endfor
+
+22: Evaluate fθ∗f_{\theta^{*}} on Dtest\mathcal{D}_{\mathrm{test}}
+
+23:endfor</pre>
+<h3>IV-FInference and Deployment  <span class="muted small">— chars 36884–37437</span></h3>
+<pre>At inference time, the model processes a sliding window of the most recent W=128W=128 time steps across all five sensor channels. A TR warning is issued when y^TR≥0.5\hat{y}_{\mathrm{TR}}\geq 0.5 and the predicted regime is warning or danger. With 156K parameters and 22ms22\text{\,}\mathrm{m}\mathrm{s} single-sample inference latency on an embedded GPU (NVIDIA Jetson Xavier NX), the model meets the real-time requirements of production BMS deployments operating at 1Hz1\text{\,}\mathrm{H}\mathrm{z}–10Hz10\text{\,}\mathrm{H}\mathrm{z} sampling rates.</pre>
+<h3>V-AExperimental Setup  <span class="muted small">— chars 37491–38195</span></h3>
+<pre>Mechanical-abuse experiments were performed using a custom-built thermo-mechanical testing platform designed to capture the coupled thermal, electrical, and mechanical behavior of lithium-ion cells under controlled loading conditions. The overall experimental arrangement is shown in Fig. 3. During high-severity abuse conditions, several cells experienced rapid thermal escalation followed by severe swelling, venting, rupture, and structural deformation as shown in Fig. 4.
+
+Fig. 3: Experimental setup for mechanical-abuse testing of lithium-ion batteries.Fig. 4: Representative lithium-ion cells after mechanical-abuse-induced thermal runaway, exhibiting swelling, rupture, and structural deformation.</pre>
+<h3>V-BDataset  <span class="muted small">— chars 38213–39453</span></h3>
+<pre>The proposed framework is evaluated on a dataset comprising 30 mechanical-abuse experiments conducted on commercial lithium-ion cells, of which 20 reached TR and 10 did not. During each experiment, synchronized thermo-mechanical and electrical measurements were acquired at a sampling rate of 2Hz2\text{\,}\mathrm{H}\mathrm{z}, including high temperature, low temperature, voltage, force, and deformation. The experiments span three SOC conditions (approximately 10%, 50%, and 90%) and two loading protocols corresponding to high-force and low-force abuse scenarios. The overall experimental distribution is summarized in Fig. 5.
+
+Fig. 5: Experimental dataset overview, including SOC distribution, experiment duration, peak temperature, and pairwise channel correlations.
+
+Representative thermo-mechanical signal trajectories are illustrated in Fig. 6. The experiment shown is selected as a median-performing TR case under the proposed method to avoid choosing only the most favorable trial. The influence of SOC on precursor behavior is further illustrated in Fig. 7.
+
+Fig. 6: Representative thermo-mechanical signal evolution during a thermal runaway event.Fig. 7.
+
+Fig. 6: Representative thermo-mechanical signal evolution during a thermal runaway event.Fig. 7: Temperature and force trajectories across SOC conditions (90%, 50%, 10%).</pre>
+<h3>V-CPreprocessing and Windowing  <span class="muted small">— chars 39491–39881</span></h3>
+<pre>Raw sensor measurements are transformed into fixed-length temporal sequences using a causal sliding-window strategy, as illustrated in Fig. 8. Each input window Xi∈R128×5\mathbf{X}_{i}\in\mathbb{R}^{128\times 5} contains 128 consecutive time steps across the five synchronized sensing channels, with a stride of S=4S=4.
+
+Fig. 8: Overview of the preprocessing and window-generation pipeline.</pre>
+<h3>V-DEvaluation Protocol  <span class="muted small">— chars 39911–40432</span></h3>
+<pre>We employ leave-one-experiment-out (LOEO) cross-validation with 30 folds. In each fold kk, experiment kk serves as the test set, while the remaining 29 experiments form the training set. A validation split is selected only from the training experiments for early stopping and learning-rate scheduling. Because each LOEO fold contains one held-out experiment, the protocol evaluates experiment-level generalization but does not eliminate the statistical uncertainty associated with the limited number of destructive tests.</pre>
+<h3>V-EBaselines  <span class="muted small">— chars 40452–41118</span></h3>
+<pre>We compare the proposed framework against four baseline architectures: LSTM, CNN-LSTM, Transformer, and standalone TCN. Each baseline is retrained under identical LOEO settings with the same preprocessing and hyperparameter search protocol for fairness. A direct numerical comparison with the companion gradient-boosting infrared-hotspot study is not included in Table III because that study uses a different input representation and decision pipeline. We therefore treat it as complementary prior work rather than as a drop-in baseline; a same-input reimplementation is planned before journal resubmission if the original experiment-level predictions are available.</pre>
+<h3>V-FEvaluation Metrics  <span class="muted small">— chars 41147–41892</span></h3>
+<pre>We evaluate the models using classification metrics (F1 score), temperature-prediction regression metrics (RMSE, MAE, R2R^{2}), and early-warning metrics (lead time LleadL_{\mathrm{lead}}, detection success rate DSR, false alarm rate FAR). RMSE and MAE are reported in degrees Celsius for the predicted high-temperature trajectory. Because the validation is performed at the experiment level, FAR is reported as the percentage of held-out experiment folds with at least one false warning episode before the valid warning period or in a non-TR experiment. Consecutive positive windows within one continuous warning episode are counted as one false warning episode, so FAR reflects experiment-level false alarms rather than window-level positives.</pre>
+<h3>V-GTraining Configuration and Implementation Settings  <span class="muted small">— chars 41953–42567</span></h3>
+<pre>All models were implemented in PyTorch 2.0 and trained using a single NVIDIA A100 GPU with the Adam optimizer. The principal training and architectural hyperparameters are summarized in Table II.
+
+TABLE II: Training and implementation settings used for all experiments.
+
+ParameterValue
+
+FrameworkPyTorch 2.0
+
+GPUNVIDIA A100
+
+OptimizerAdam
+
+Initial learning rate10−310^{-3}
+
+Weight decay10−510^{-5}
+
+LR schedulerReduceLROnPlateau
+
+Batch size32
+
+Maximum epochs100
+
+Early stopping patience10 epochs
+
+Gradient clipping1.0
+
+Model dimension (dmodeld_{\mathrm{model}})64
+
+TCN kernel size3
+
+TCN dropout0.2
+
+Head dropout0.3</pre>
+<h3>VI Results and Analysis  <span class="muted small">— chars 42597–43749</span></h3>
+<pre>The performance comparison demonstrates that the proposed framework provides the most consistent overall improvement under 30-fold LOEO cross-validation. It achieves an accuracy of 0.91, F1 score of 0.89, temperature-prediction RMSE of 12.3°C12.3\text{\,}\mathrm{\SIUnitSymbolCelsius}, mean warning lead time of 15.6s15.6\text{\,}\mathrm{s}, detection success rate (DSR) of 0.92, and experiment-level false alarm rate (FAR) of 2.7%, as summarized in Table III and visualized in Fig. 9. Relative to the best baseline lead time (TCN, 9.2s9.2\text{\,}\mathrm{s}), this corresponds to a 69.6% improvement, as highlighted in Fig. 10.
+
+TABLE III: Performance comparison under 30-fold LOEO cross-validation. RMSE is reported in degrees Celsius for high-temperature prediction; lead time is reported in seconds; FAR is the percentage of held-out experiment folds with at least one false warning episode.
+
+ModelAcc.↑\uparrowF1↑\uparrowRMSE (∘C)↓\downarrowLead↑\uparrowDSR↑\uparrowFAR↓\downarrow
+
+LSTM0.810.7922.55.10.6210.7%
+
+CNN-LSTM0.840.8219.36.80.709.3%
+
+Transformer0.860.8417.88.50.767.0%
+
+TCN0.870.8517.19.20.786.3%
+
+Proposed0.910.8912.315.60.922.7%
+
+Fig.</pre>
+<h3>VI Results and Analysis  <span class="muted small">— chars 43750–44187</span></h3>
+<pre>9: Bar-chart comparison of the main LOEO performance metrics for the proposed framework and baseline models.
+
+Fig. 10 compares warning lead time across models, while Fig. 11 shows the distribution of per-fold lead times for the proposed method.
+
+Fig. 10: Mean warning lead-time comparison across the proposed framework and baseline models.Fig. 11: Distribution of per-fold lead times for the proposed method across the 20 TR experiments.</pre>
+<h3>VI-AAblation Study  <span class="muted small">— chars 44213–45394</span></h3>
+<pre>To quantify the contribution of each architectural component, we perform a systematic ablation study. Table IV reports the results. The force signal is the single most critical component: removing it reduces lead time from 15.6s15.6\text{\,}\mathrm{s} to 6.2s6.2\text{\,}\mathrm{s}, a 60.3% reduction.
+
+TABLE IV: Ablation analysis of the proposed framework under LOEO cross-validation.
+
+VariantRMSE (∘C)↓\downarrowLead (s)↑\uparrowDSR↑\uparrowF1↑\uparrow
+
+Full Model12.315.60.920.89
+
+w/o Force18.76.20.650.72
+
+w/o Regime Cls.13.99.50.740.80
+
+w/o Physics Attn.15.910.40.780.81
+
+w/o FiLM14.811.20.810.83
+
+w/o Gating15.112.10.840.85
+
+Fig. 12 visualizes the ablation results.
+
+Fig. 12: Ablation analysis of lead-time and RMSE changes.
+
+The dominance of the force channel should be interpreted in the context of mechanical-abuse testing. In indentation and compression experiments, the force trajectory directly reflects structural loading, casing deformation, separator damage, and the transition from elastic response to irreversible mechanical failure. It is therefore expected to carry precursor information that is less visible in temperature until exothermic reactions accelerate.</pre>
+<h3>VI-AAblation Study  <span class="muted small">— chars 45264–45618</span></h3>
+<pre>It is therefore expected to carry precursor information that is less visible in temperature until exothermic reactions accelerate. This finding does not imply that force would be equally dominant for overcharge, external heating, or field-aging scenarios; in those cases, voltage, impedance, gas, or temperature-rate features may become more informative.</pre>
+<h3>VI-BStatistical Significance  <span class="muted small">— chars 45654–46854</span></h3>
+<pre>Wilcoxon signed-rank tests indicate that the proposed method’s lead-time advantage is statistically significant (p&lt;0.05p&lt;0.05) against all baselines. Table V reports the test statistics and pp-values for lead time, RMSE, and F1. Because the lead-time analysis is limited to the 20 TR experiments, these non-parametric tests have limited statistical power and should be interpreted as supportive evidence rather than definitive population-level confirmation.
+
+TABLE V: Wilcoxon signed-rank statistical significance analysis.
+
+ComparisonMetricStatisticpp-value
+
+Proposed vs. LSTMLead Time440.0006
+
+Proposed vs. CNN-LSTMLead Time340.0037
+
+Proposed vs. TransformerLead Time490.0042
+
+Proposed vs. TCNLead Time110.0044
+
+Proposed vs. LSTMRMSE320.0076
+
+Proposed vs. CNN-LSTMRMSE650.0051
+
+Proposed vs. TransformerRMSE880.0074
+
+Proposed vs. TCNRMSE620.0046
+
+Proposed vs. LSTMF1640.0060
+
+Proposed vs. CNN-LSTMF1880.0053
+
+Proposed vs. TransformerF1550.0207
+
+Proposed vs. TCNF11020.0041
+
+Fig. 13 summarizes the corresponding p-values across metrics, including DSR.
+
+Fig. 13: Heat-map summary of Wilcoxon signed-rank p-values comparing the proposed method against each baseline across lead time, RMSE, F1, and DSR.</pre>
+<h3>VI-CCross-Experiment Generalization  <span class="muted small">— chars 46897–48223</span></h3>
+<pre>Table VI presents the per-SOC results. Performance improves monotonically with SOC: at SOC≈\approx90%, the model achieves lead time of 17.2s17.2\text{\,}\mathrm{s} and DSR of 0.95, while at SOC≈\approx10%, it maintains lead time of 12.4s12.4\text{\,}\mathrm{s} and DSR of 0.85.
+
+TABLE VI: Performance of the proposed method across different SOC levels. RMSE is reported in degrees Celsius for high-temperature prediction; lead time is reported in seconds.
+
+SOC LevelAcc.↑\uparrowF1↑\uparrowRMSE (∘C)↓\downarrowLead (s)↑\uparrowDSR↑\uparrow
+
+SOC≈\approx10%0.880.8514.812.40.85
+
+SOC≈\approx50%0.900.8812.914.80.90
+
+SOC≈\approx90%0.930.9111.217.20.95
+
+Fig. 14 shows a scatter plot of per-fold lead time versus SOC.
+
+Fig. 14: Per-experiment lead time versus SOC under different loading protocols.
+
+The monotonic SOC trend is physically plausible because higher-SOC cells contain more releasable energy and often exhibit stronger thermal and mechanical precursor signals before TR. At the same time, the weaker performance at SOC≈\approx10% is an important limitation: low-SOC events provide lower signal-to-noise ratios and fewer strong precursors, making early warning intrinsically harder. Future work should evaluate whether targeted low-SOC augmentation, transfer learning, or uncertainty-aware thresholds can reduce this gap.</pre>
+<h3>VI-DQualitative Analysis  <span class="muted small">— chars 48255–48791</span></h3>
+<pre>Fig. 15 presents the thermo-mechanical signal and warning-score evolution of a median-performing high-SOC TR experiment. Fig. 16 compares actual and predicted trajectories to assess whether the model’s temporal predictions remain aligned with the observed experimental progression.
+
+Fig. 15: Thermo-mechanical signal and warning-score timeline for a median-performing high-SOC TR experiment.Fig. 16: Actual-versus-predicted diagnostic plots for assessing temporal prediction alignment across representative mechanical-abuse experiments.</pre>
+<h3>VII Conclusion  <span class="muted small">— chars 48812–49929</span></h3>
+<pre>This paper presented a regime-aware, physics-guided deep learning framework for early warning of lithium-ion battery thermal runaway under mechanical abuse conditions. The proposed framework combines a two-stage architecture with SOC-FiLM conditioning, physics-biased attention, and regime-conditioned gating to incorporate safety-state information and thermo-mechanical precursor dynamics. Evaluation on 30 mechanical-abuse experiments using leave-one-experiment-out cross-validation demonstrated that the proposed method achieves an F1 score of 0.89, a mean warning lead time of 15.6s15.6\text{\,}\mathrm{s}, a detection success rate of 0.92, and an experiment-level false-alarm rate of 2.7%. The ablation study confirmed that mechanical sensing is critical in this abuse setting: removing the force channel reduced lead time by 60.3%. However, the present study is limited to a dataset of 30 battery experiments, including 20 TR events, under controlled laboratory conditions. The LOEO protocol tests experiment-level generalization but does not remove the uncertainty caused by small destructive-test sample size.</pre>
+<h3>VII Conclusion  <span class="muted small">— chars 49792–50389</span></h3>
+<pre>The LOEO protocol tests experiment-level generalization but does not remove the uncertainty caused by small destructive-test sample size. Further validation is required across additional chemistries, form factors, aging states, abuse mechanisms, and field operating environments.
+
+Future work will extend the framework to larger and more heterogeneous datasets, including additional cell chemistries, abuse modes, and sensing modalities. Integration with production battery-management hardware and online adaptation strategies will also be investigated to improve real-time deployment reliability.</pre>
+<h3>Funding  <span class="muted small">— chars 50403–50446</span></h3>
+<pre>This research received no external funding.</pre>
+<h3>Institutional Review Board Statement  <span class="muted small">— chars 50489–50504</span></h3>
+<pre>Not applicable.</pre>
+<h3>Informed Consent Statement  <span class="muted small">— chars 50537–50552</span></h3>
+<pre>Not applicable.</pre>
+<h3>Data Availability Statement  <span class="muted small">— chars 50586–50735</span></h3>
+<pre>The data presented in this study are available on request from the corresponding author. The data are not publicly available due to ongoing research.</pre>
+<h3>Acknowledgments  <span class="muted small">— chars 50757–50896</span></h3>
+<pre>The authors thank the battery safety research group at Chang’an University for providing the experimental facilities and technical support.</pre>
+<h3>Conflicts of Interest  <span class="muted small">— chars 50924–50969</span></h3>
+<pre>The authors declare no conflicts of interest.</pre>
+<h3>Abbreviations  <span class="muted small">— chars 50989–51339</span></h3>
+<pre>TRThermal runaway
+
+TTDTime-to-disaster
+
+SOCState of charge
+
+TCNTemporal convolutional network
+
+FiLMFeature-wise linear modulation
+
+DSRDetection success rate
+
+FARFalse alarm rate
+
+LOEOLeave-one-experiment-out
+
+BMSBattery management system
+
+CNNConvolutional neural network
+
+LSTMLong short-term memory
+
+RMSERoot mean square error
+
+MAEMean absolute error</pre>
+
+<h2>Extracted claims (160)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A\displaystyle\mathbf{A}=softmax(QK⊤dk+Ephys+wT​IT+wF​IF)\displaystyle=\softmax\!\left(\frac{\mathbf{Q}\mathbf{K}^{\top}}{\sqrt{d_{k}}}+\mathbf{E}_{\mathrm{phys}}+w_{T}\,\mathbf{I}_{T}+w_{F}\,\mathbf{I}_{F}\right)(17)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">TABLE III: Performance comparison under 30-fold LOEO cross-validation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Removing force reduces the lead time by 60.3%, highlighting the value of mechanical precursors.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">22: Evaluate fθ∗f_{\theta^{*}} on Dtest\mathcal{D}_{\mathrm{test}}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Relative to the best baseline lead time (TCN, 9.2s9.2\text{\,}\mathrm{s}), this corresponds to a 69.6% improvement, as highlighted in Fig. 10.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Time-to-disaster regression: t^TTD=ft​(X,s)∈R≥0\hat{t}_{\mathrm{TTD}}=f_{t}(\mathbf{X},s)\in\mathbb{R}_{\geq 0}, predicting the remaining time (in seconds) until TR onset.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The ablation study confirmed that mechanical sensing is critical in this abuse setting: removing the force channel reduced lead time by 60.3%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">H2\displaystyle\mathbf{H}_{2}=ReLU⁡(BN2​(Conv1dk=332→64​(H1)))\displaystyle=\mathrm{ReLU}\bigl(\mathrm{BN}_{2}(\mathrm{Conv1d}_{k=3}^{32\to 64}(\mathbf{H}_{1}))\bigr)(5)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The initiation of thermal runaway can occur because of overcharging, over-discharging, mechanical deformation, separator failure, lithium dendrite growth, manufacturing defects, or external thermal abuse [3].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2025[11]Model-constrained deep learning for online fault diagnosis.Model design and training more complex than data-driven methods.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At inference time, the model processes a sliding window of the most recent W=128W=128 time steps across all five sensor channels.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 1: Timeline of thermal progression through the safety regimes to TR onset.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The experiments span three SOC conditions (approximately 10%, 50%, and 90%) and two loading protocols corresponding to high-force and low-force abuse scenarios.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">14:θ∗←θ\theta^{*}\leftarrow\theta; p←0p\leftarrow 0</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">9:L←λ1​Lregime+λ2​LTR+λ3​LTTD\mathcal{L}\leftarrow\lambda_{1}\mathcal{L}_{\mathrm{regime}}+\lambda_{2}\mathcal{L}_{\mathrm{TR}}+\lambda_{3}\mathcal{L}_{\mathrm{TTD}}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The overall experimental arrangement is shown in Fig. 3.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Stage 1 uses a lightweight CNN to estimate the operating regime from force signals.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Z0=LayerNorm⁡(X​Wproj+bproj)\mathbf{Z}_{0}=\mathrm{LayerNorm}(\mathbf{X}\,\mathbf{W}_{\mathrm{proj}}+\mathbf{b}_{\mathrm{proj}})(8)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The regime probabilities r∈R3\mathbf{r}\in\mathbb{R}^{3} from Stage 1 modulate the feature representation through multiplicative gating:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where g∈(0,1)d\mathbf{g}\in(0,1)^{d} is the gate vector (broadcast over the temporal dimension).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2025[31]Convolutional-transformer TR early-warning for high-rate conditions.High computational cost for embedded BMS deployment.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2025[33]Feature-augmented attentional autoencoder for battery fault detection.Detection sensitive to training-data quality.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 8: Overview of the preprocessing and window-generation pipeline.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 2: Overall architecture of the proposed regime-aware, physics-guided TR early-warning framework.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">5: Initialize θ\theta; p←0p\leftarrow 0;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We evaluate the framework using leave-one-experiment-out cross-validation on 30 mechanical-abuse tests across state-of-charge levels of 10%, 50%, and 90% and two loading protocols.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It consists of two 1-D convolutional layers with batch normalization and ReLU activation, followed by global average pooling and a two-layer fully connected classifier:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">o(2)\displaystyle\mathbf{o}^{(2)}=Dropout(ReLU(BN(WN(\displaystyle=\mathrm{Dropout}\bigl(\mathrm{ReLU}(\mathrm{BN}(\mathrm{WN}(</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">H′\displaystyle\mathbf{H}^{\prime}=γ⁡(s)⊙HTCN+β⁡(s)\displaystyle=\gamma(s)\odot\mathbf{H}_{\mathrm{TCN}}+\beta(s)(15)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">g\displaystyle\mathbf{g}=sigmoid(FC64→d​(ReLU⁡(FC3→64​(r))))\displaystyle=\sigmoid\bigl(\mathrm{FC}_{64\to d}(\mathrm{ReLU}(\mathrm{FC}_{3\to 64}(\mathbf{r})))\bigr)(19)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 10: Mean warning lead-time comparison across the proposed framework and baseline models.Fig. 11: Distribution of per-fold lead times for the proposed method across the 20 TR experiments.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">0: Trained model parameters θ∗\theta^{*} for each fold</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Modern sequence-learning methods provide useful tools for battery early warning, but a TR warning model must remain causal, short-horizon, and reliable under limited destructive-test data.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Regime classification: r^=fr​(X,s)∈R3\hat{\mathbf{r}}=f_{r}(\mathbf{X},s)\in\mathbb{R}^{3}, predicting the probability distribution over safety regimes at the current time step.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Model dimension (dmodeld_{\mathrm{model}})64</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">LTTD={12​(t−t^)2,|t−t^|≤δδ​|t−t^|−12​δ2,otherwise\mathcal{L}_{\mathrm{TTD}}=\begin{cases}\frac{1}{2}(t-\hat{t})^{2},&amp;|t-\hat{t}|\leq\delta\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 15 presents the thermo-mechanical signal and warning-score evolution of a median-performing high-SOC TR experiment.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Evaluation on 30 mechanical-abuse experiments using leave-one-experiment-out cross-validation demonstrated that the proposed method achieves an F1 score of 0.89, a mean warning lead time of 15.6s15.6\text{\,}\mathrm{s}, a detection success rate of 0.92, and an experiment-level false-alarm rate of 2.7%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">13:ifLval&lt;Lval∗\mathcal{L}_{\mathrm{val}}&lt;\mathcal{L}^{*}_{\mathrm{val}}then</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Binary cross-entropy with a positive-class weight of 10:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2026[19]Bayesian fault-propagation network for real-time reliability analysis.Probabilistic inference computationally demanding.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Conv1dcausal(o(1)))))\displaystyle\qquad\mathrm{Conv1d}_{\mathrm{causal}}(\mathbf{o}^{(1)})))\bigr)(10)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Llead=tTR−twarnL_{\mathrm{lead}}=t_{\mathrm{TR}}-t_{\mathrm{warn}}(3)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Algorithm 1 LOEO Training with Multi-Task Objective</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where T⁡(t)T(t) denotes the cell surface temperature, T ̇​(t)=d​T/d​t\dot{T}(t)=dT/dt the temperature rate of rise, TTR=150°CT_{\mathrm{TR}}=$150\text{\,}\mathrm{\SIUnitSymbolCelsius}$ the absolute temperature threshold, and T ̇TR=3°C\dot{T}_{\mathrm{TR}}=$3\text{\,}\mathrm{\SIUnitSymbolCelsius}$ the rate-of-rise threshold.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The force signal is the single most critical component: removing it reduces lead time from 15.6s15.6\text{\,}\mathrm{s} to 6.2s6.2\text{\,}\mathrm{s}, a 60.3% reduction.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Their later work incorporated physics-informed Bayesian networks for uncertainty-aware battery accident analysis [18].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">LTR=−[wpos⋅y​log⁡y^+(1−y)​log⁡(1−y^)]\mathcal{L}_{\mathrm{TR}}=-\bigl[w_{\mathrm{pos}}\cdot y\log\hat{y}+(1-y)\log(1-\hat{y})\bigr](23)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Stage 2 combines a causal dilated TCN backbone with SOC-based FiLM conditioning, physics-guided attention, and regime-conditional gating, followed by classification and time-to-disaster regression heads trained with a joint objective.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 2 presents the overall architecture of the proposed regime-aware, physics-guided TR early-warning framework.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2023[17]Dynamic risk prediction with fault-tree analysis and Bayesian networks.Limited real-time deep-learning capability.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">0: Dataset D={D1,...,D30}\mathcal{D}=\{\mathcal{D}_{1},\dots,\mathcal{D}_{30}\}, model fθf_{\theta}, learning rate η\eta, epochs EE, patience PP</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">An experiment-level evaluation protocol is established using 30 real mechanical abuse experiments with leave-one-experiment-out validation and early-warning metrics, including lead time, false-alarm rate, missed-alarm rate, and detection success rate.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With 156K parameters and 22ms22\text{\,}\mathrm{m}\mathrm{s} single-sample inference latency on an embedded GPU (NVIDIA Jetson Xavier NX), the model meets the real-time requirements of production BMS deployments operating at 1Hz1\text{\,}\mathrm{H}\mathrm{z}–10Hz10\text{\,}\mathrm{H}\mathrm{z} sampling rates.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">An effective TR early-warning system must satisfy three operational requirements:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We evaluate the models using classification metrics (F1 score), temperature-prediction regression metrics (RMSE, MAE, R2R^{2}), and early-warning metrics (lead time LleadL_{\mathrm{lead}}, detection success rate DSR, false alarm rate FAR).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where Wproj∈R5×64\mathbf{W}_{\mathrm{proj}}\in\mathbb{R}^{5\times 64} and bproj∈R64\mathbf{b}_{\mathrm{proj}}\in\mathbb{R}^{64} are learnable parameters.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">During high-severity abuse conditions, several cells experienced rapid thermal escalation followed by severe swelling, venting, rupture, and structural deformation as shown in Fig. 4.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">7:for each batch in Dtr\mathcal{D}_{\mathrm{tr}}do</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 13 summarizes the corresponding p-values across metrics, including DSR.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 14: Per-experiment lead time versus SOC under different loading protocols.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Representative thermo-mechanical signal trajectories are illustrated in Fig. 6.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">h\displaystyle\mathbf{h}=GAP⁡(H2)∈R64\displaystyle=\mathrm{GAP}(\mathbf{H}_{2})\in\mathbb{R}^{64}(6)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where dk=dmodeld_{k}=d_{\mathrm{model}}, IT,IF∈{0,1}W×W\mathbf{I}_{T},\mathbf{I}_{F}\in\{0,1\}^{W\times W} are indicator matrices for temperature and force channel positions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">High detection rate: Detection success rate DSR&gt;85%\mathrm{DSR}&gt;85\%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The influence of SOC on precursor behavior is further illustrated in Fig. 7.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, LIBs continue to face severe safety challenges associated with thermal instability, internal short circuits, overheating, and thermal runaway (TR), which remain among the most catastrophic failure mechanisms in modern battery systems [1, 2].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">with λ1=0.1\lambda_{1}=0.1, λ2=0.6\lambda_{2}=0.6, and λ3=0.3\lambda_{3}=0.3.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2024[4]Gas-sensor-based TR monitoring using CO2, H2, CO.Increases system cost; requires robust calibration.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 3: Experimental setup for mechanical-abuse testing of lithium-ion batteries.Fig. 4: Representative lithium-ion cells after mechanical-abuse-induced thermal runaway, exhibiting swelling, rupture, and structural deformation.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The total loss function is a weighted sum of three task-specific losses:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 12 visualizes the ablation results.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">r⁡(t)={0​(Safe),T⁡(t)&lt;Tsafe1​(Warning),Tsafe≤T⁡(t)&lt;Tdanger2​(Danger),T⁡(t)≥Tdangerr(t)=\begin{cases}0\;\text{(Safe)},&amp;T(t)&lt;T_{\mathrm{safe}}\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Weighted cross-entropy with class weights [1.0,2.0,3.0][1.0,2.0,3.0]:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Its lead time exceeds that of the strongest baseline by 69.6%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where Tsafe=60°CT_{\mathrm{safe}}=$60\text{\,}\mathrm{\SIUnitSymbolCelsius}$ and Tdanger=120°CT_{\mathrm{danger}}=$120\text{\,}\mathrm{\SIUnitSymbolCelsius}$.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Recent work on temporal inductive bias and physics-based learning supports this design choice: Zeng et al. [12]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4: Compute normalizer μ,σ\mu,\sigma from Dtr\mathcal{D}_{\mathrm{tr}}; normalize all splits</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">TR detection: y^TR=fd​(X,s)∈[0,1]\hat{y}_{\mathrm{TR}}=f_{d}(\mathbf{X},s)\in[0,1], estimating the probability that TR will occur within the prediction horizon of H=60H=60 s.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">These studies indicate that thermal management and propagation suppression must complement early-warning systems to achieve comprehensive battery safety.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">showed that simpler temporal models can outperform complex transformers in some forecasting settings, while Firoozi et al. [13]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lregime=−∑c=02wc⋅1[r=c]⋅logp^(r=c)\mathcal{L}_{\mathrm{regime}}=-\sum_{c=0}^{2}w_{c}\cdot\mathbb{1}[r=c]\cdot\log\hat{p}(r=c)(22)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The overall experimental distribution is summarized in Fig. 5.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">12: Evaluate Lval\mathcal{L}_{\mathrm{val}} on Dval\mathcal{D}_{\mathrm{val}}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A ReduceLROnPlateau scheduler halves the learning rate when validation loss plateaus for 5 consecutive epochs, with a minimum learning rate of 10−610^{-6}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">investigated aerogel-based insulation materials for suppressing thermal propagation in battery modules, while Zhang et al. [16]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">During each experiment, synchronized thermo-mechanical and electrical measurements were acquired at a sampling rate of 2Hz2\text{\,}\mathrm{H}\mathrm{z}, including high temperature, low temperature, voltage, force, and deformation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 13: Heat-map summary of Wilcoxon signed-rank p-values comparing the proposed method against each baseline across lead time, RMSE, F1, and DSR.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ltotal=λ1⋅Lregime+λ2⋅LTR+λ3⋅LTTD\mathcal{L}_{\mathrm{total}}=\lambda_{1}\cdot\mathcal{L}_{\mathrm{regime}}+\lambda_{2}\cdot\mathcal{L}_{\mathrm{TR}}+\lambda_{3}\cdot\mathcal{L}_{\mathrm{TTD}}(21)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 6: Representative thermo-mechanical signal evolution during a thermal runaway event.Fig. 7.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Performance improves monotonically with SOC: at SOC≈\approx90%, the model achieves lead time of 17.2s17.2\text{\,}\mathrm{s} and DSR of 0.95, while at SOC≈\approx10%, it maintains lead time of 12.4s12.4\text{\,}\mathrm{s} and DSR of 0.85.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">They are used only as model inputs, allowing the Stage 1 classifier to learn whether mechanical precursor patterns anticipate the temperature-defined safety state.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hg\displaystyle\mathbf{H}_{g}=Hres⊙g\displaystyle=\mathbf{H}_{\mathrm{res}}\odot\mathbf{g}(20)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">5: Initialize θ\theta; p←0p\leftarrow 0; Lval∗←∞\mathcal{L}^{*}_{\mathrm{val}}\leftarrow\infty</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Raw sensor measurements are transformed into fixed-length temporal sequences using a causal sliding-window strategy, as illustrated in Fig. 8.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">All models were implemented in PyTorch 2.0 and trained using a single NVIDIA A100 GPU with the Adam optimizer.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Stage 2 is a physics-guided temporal backbone that ingests the full five-channel multivariate input and produces three task-specific outputs—regime classification logits, TR detection probability, and TTD regression value—while being conditioned on both the SOC (through FiLM) and the regime probabilities from Stage 1 (through gating).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">o(1)\displaystyle\mathbf{o}^{(1)}=Dropout(ReLU(BN(WN(\displaystyle=\mathrm{Dropout}\bigl(\mathrm{ReLU}(\mathrm{BN}(\mathrm{WN}(</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">HTCN\displaystyle\mathbf{H}_{\mathrm{TCN}}=ReLU⁡(o(2)+Conv1d1×1​(Z))\displaystyle=\mathrm{ReLU}\bigl(\mathbf{o}^{(2)}+\mathrm{Conv1d}_{1\times 1}(\mathbf{Z})\bigr)(11)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sufficient lead time: Llead&gt;10sL_{\mathrm{lead}}&gt;$10\text{\,}\mathrm{s}$ to enable protective actions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Each block contains two dilated causal convolutions with weight normalization, batch normalization, ReLU activation, and dropout (p=0.2p=0.2), connected by a residual skip:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where twarnt_{\mathrm{warn}} is the time at which the model first correctly predicts an imminent TR event (i.e., TR probability exceeds a detection threshold of 0.5).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 14 shows a scatter plot of per-fold lead time versus SOC.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Given a multivariate time-series window X∈RW×C\mathbf{X}\in\mathbb{R}^{W\times C} of length WW with five synchronized sensor channels (high temperature, low temperature, voltage, force, and deformation) and a scalar state-of-charge s∈[0,1]s\in[0,1], the model produces three outputs:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">γ⁡(s)\displaystyle\gamma(s)=FC64→d​(m)∈Rd\displaystyle=\mathrm{FC}_{64\to d}(\mathbf{m})\in\mathbb{R}^{d}(13)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The raw five-channel input X∈RW×5\mathbf{X}\in\mathbb{R}^{W\times 5} is first projected into a latent space of dimension dmodel=64d_{\mathrm{model}}=64 and normalized:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The projected input is processed by a Temporal Convolutional Network (TCN) comprising four dilated causal convolutional blocks with dilation factors [1,2,4,8][1,2,4,8].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2022[8]Online data-driven fault diagnosis using voltage, current, and temperature.Relies on electrical and thermal signals; limited interpretability.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Q\displaystyle\mathbf{Q}=H′​WQ,K=H′​WK,V=H′​WV\displaystyle=\mathbf{H}^{\prime}\,\mathbf{W}_{Q},\quad\mathbf{K}=\mathbf{H}^{\prime}\,\mathbf{W}_{K},\quad\mathbf{V}=\mathbf{H}^{\prime}\,\mathbf{W}_{V}(16)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">m\displaystyle\mathbf{m}=ReLU⁡(FC1→64​(ReLU⁡(FC1→64​(s))))\displaystyle=\mathrm{ReLU}\bigl(\mathrm{FC}_{1\to 64}(\mathrm{ReLU}(\mathrm{FC}_{1\to 64}(s)))\bigr)(12)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Conv1dcausal(Z))))\displaystyle\qquad\mathrm{Conv1d}_{\mathrm{causal}}(\mathbf{Z})))\bigr)(9)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2024[4]Gas-sensor-based TR monitoring using CO2, H2, CO.Increases system cost; requires robust calibration.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Thermal runaway refers to a highly nonlinear electrochemical-thermal process in which self-generated heat exceeds the dissipation capability of the battery system, resulting in uncontrollable temperature escalation, gas venting, fire propagation, toxic emissions, and explosions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In each fold kk, experiment kk serves as the test set, while the remaining 29 experiments form the training set.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Their later work incorporated physics-informed Bayesian networks for uncertainty-aware battery accident analysis [18].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Each input window Xi∈R128×5\mathbf{X}_{i}\in\mathbb{R}^{128\times 5} contains 128 consecutive time steps across the five synchronized sensing channels, with a stride of S=4S=4.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hattn\displaystyle\mathbf{H}_{\mathrm{attn}}=A​V\displaystyle=\mathbf{A}\,\mathbf{V}(18)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Dong and Sun [14] proposed a multi-source domain-transfer-learning framework for thermal-runaway diagnosis, enabling knowledge transfer across different battery chemistries and operational conditions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We employ leave-one-experiment-out (LOEO) cross-validation with 30 folds.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The SOC scalar s∈[0,1]s\in[0,1] is passed through a two-layer MLP that produces per-channel scaling γ⁡(s)\gamma(s) and shifting β⁡(s)\beta(s) parameters:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">r\displaystyle\mathbf{r}=softmax(FC128→3​(ReLU⁡(Dropout⁡(FC64→128​(h)))))\displaystyle=\softmax\bigl(\mathrm{FC}_{128\to 3}(\mathrm{ReLU}(\mathrm{Dropout}(\mathrm{FC}_{64\to 128}(\mathbf{h}))))\bigr)(7)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 15: Thermo-mechanical signal and warning-score timeline for a median-performing high-SOC TR experiment.Fig. 16: Actual-versus-predicted diagnostic plots for assessing temporal prediction alignment across representative mechanical-abuse experiments.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The performance comparison demonstrates that the proposed framework provides the most consistent overall improvement under 30-fold LOEO cross-validation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where Xmech⊤∈R2×W\mathbf{X}_{\mathrm{mech}}^{\top}\in\mathbb{R}^{2\times W} denotes the transposed input suitable for Conv1d.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">8:r^,y^TR,t^TTD←fθ​(X,s)\hat{\mathbf{r}},\hat{y}_{\mathrm{TR}},\hat{t}_{\mathrm{TTD}}\leftarrow f_{\theta}(\mathbf{X},s)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 10 compares warning lead time across models, while Fig. 11 shows the distribution of per-fold lead times for the proposed method.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 6: Representative thermo-mechanical signal evolution during a thermal runaway event.Fig. 7: Temperature and force trajectories across SOC conditions (90%, 50%, 10%).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">10:θ←θ−η⋅clip⁡(∇θL,1.0)\theta\leftarrow\theta-\eta\cdot\mathrm{clip}(\nabla_{\theta}\mathcal{L},1.0)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Because the lead-time analysis is limited to the 20 TR experiments, these non-parametric tests have limited statistical power and should be interpreted as supportive evidence rather than definitive population-level confirmation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 5: Experimental dataset overview, including SOC distribution, experiment duration, peak temperature, and pairwise channel correlations.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">tTR=min⁡{t:T⁡(t)≥TTR∨T ̇​(t)≥T ̇TR}t_{\mathrm{TR}}=\min\bigl\{t:T(t)\geq T_{\mathrm{TR}}\;\lor\;\dot{T}(t)\geq\dot{T}_{\mathrm{TR}}\bigr\}(1)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The battery’s thermal trajectory is partitioned into three mutually exclusive safety regimes based on temperature thresholds, as illustrated in Fig. 1:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2:Dtest←Dk\mathcal{D}_{\mathrm{test}}\leftarrow\mathcal{D}_{k}; Dtrain←D∖Dk\mathcal{D}_{\mathrm{train}}\leftarrow\mathcal{D}\setminus\mathcal{D}_{k}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It achieves an accuracy of 0.91, F1 score of 0.89, temperature-prediction RMSE of 12.3°C12.3\text{\,}\mathrm{\SIUnitSymbolCelsius}, mean warning lead time of 15.6s15.6\text{\,}\mathrm{s}, detection success rate (DSR) of 0.92, and experiment-level false alarm rate (FAR) of 2.7%, as summarized in Table III and visualized in Fig. 9.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The regime classifier takes the force and deformation channels Xmech∈RW×2\mathbf{X}_{\mathrm{mech}}\in\mathbb{R}^{W\times 2} as input and predicts the regime probability vector r∈R3\mathbf{r}\in\mathbb{R}^{3}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The method achieves an F1 score of 0.89, a high-temperature prediction root-mean-square error of 12.3°C12.3\text{\,}\mathrm{\SIUnitSymbolCelsius}, a mean warning lead time of 15.6s15.6\text{\,}\mathrm{s}, a detection success rate of 0.92, and an experiment-level false alarm rate of 2.7%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The classifier uses dropout with probability 0.3 in the fully connected layers for regularization.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Wilcoxon signed-rank tests indicate that the proposed method’s lead-time advantage is statistically significant (p&lt;0.05p&lt;0.05) against all baselines.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 12: Ablation analysis of lead-time and RMSE changes.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, the present study is limited to a dataset of 30 battery experiments, including 20 TR events, under controlled laboratory conditions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Low false alarm rate: experiment-level FAR&lt;10%\mathrm{FAR}&lt;10\% of held-out test experiments.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A TR warning is issued when y^TR≥0.5\hat{y}_{\mathrm{TR}}\geq 0.5 and the predicted regime is warning or danger.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">9: Bar-chart comparison of the main LOEO performance metrics for the proposed framework and baseline models.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The proposed framework is evaluated on a dataset comprising 30 mechanical-abuse experiments conducted on commercial lithium-ion cells, of which 20 reached TR and 10 did not.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 16 compares actual and predicted trajectories to assess whether the model’s temporal predictions remain aligned with the observed experimental progression.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">proposed a dynamic risk-prediction methodology based on Bayesian networks and support-vector regression, while their later work introduced physics-informed Bayesian networks for uncertainty-aware battery accident analysis [18].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2025[34]Optimized GNN for voltage-fault diagnosis in EV battery packs.Requires pack-topology information.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2024[14]Multi-source domain-transfer learning for TR diagnosis.May suffer from negative transfer under domain mismatch.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These dual criteria capture both gradual temperature escalation (to 150°C150\text{\,}\mathrm{\SIUnitSymbolCelsius}) and rapid exothermic acceleration (exceeding 3°C3\text{\,}\mathrm{\SIUnitSymbolCelsius}), which are the two canonical signatures of TR onset established in the battery safety literature [37].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">β⁡(s)\displaystyle\beta(s)=FC64→d​(m)∈Rd\displaystyle=\mathrm{FC}_{64\to d}(\mathbf{m})\in\mathbb{R}^{d}(14)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">\delta\,|t-\hat{t}|-\frac{1}{2}\delta^{2},&amp;\text{otherwise}\end{cases}(24)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2023[5]Gas-production-based TR early-warning and severity estimation.Requires additional gas-sensing hardware.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Dong and Sun [14] proposed a multi-source domain-transfer-learning framework with few-shot learning capability for thermal-runaway diagnosis across different battery chemistries and operating environments.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2\;\text{(Danger)},&amp;T(t)\geq T_{\mathrm{danger}}\end{cases}(2)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1\;\text{(Warning)},&amp;T_{\mathrm{safe}}\leq T(t)&lt;T_{\mathrm{danger}}\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">H1\displaystyle\mathbf{H}_{1}=ReLU⁡(BN1​(Conv1dk=52→32​(Xmech⊤)))\displaystyle=\mathrm{ReLU}\bigl(\mathrm{BN}_{1}(\mathrm{Conv1d}_{k=5}^{2\to 32}(\mathbf{X}_{\mathrm{mech}}^{\top}))\bigr)(4)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The exponentially growing dilation factors yield a receptive field of 61 time steps with kernel size k=3k=3, capturing temporal dependencies spanning approximately 10s10\text{\,}\mathrm{s} of history.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">3: Split Dtrain\mathcal{D}_{\mathrm{train}} into Dtr\mathcal{D}_{\mathrm{tr}} and Dval\mathcal{D}_{\mathrm{val}}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The complete training procedure uses LOEO cross-validation with the Adam optimizer, gradient clipping (max norm 1.0), and early stopping with patience of 10 epochs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Stage 1 is a lightweight CNN-based regime classifier that processes the force and deformation channels to produce a probability distribution over the three safety regimes.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

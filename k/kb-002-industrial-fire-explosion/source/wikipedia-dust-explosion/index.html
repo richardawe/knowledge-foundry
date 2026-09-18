@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dust explosion — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Dust explosion</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:43+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Dust_explosion" rel="nofollow noopener">https://en.wikipedia.org/wiki/Dust_explosion</a><br>
+  <span class="muted">Content hash: <code>03eee89442374b7aa74503eed1d6f51b</code></span>
+</div>
+
+
+<h2>Stored passages (23)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Dust explosion  <span class="muted small">— chars 46–1187</span></h3>
+<pre>24 languages
+
+العربية
+
+Català
+
+Deutsch
+
+Español
+
+Eesti
+
+فارسی
+
+Suomi
+
+Français
+
+Italiano
+
+日本語
+
+한국어
+
+Nederlands
+
+Português
+
+Русский
+
+Srpskohrvatski / српскохрватски
+
+Slovenščina
+
+Српски / srpski
+
+Svenska
+
+ไทย
+
+Türkçe
+
+Українська
+
+吴语
+
+閩南語 / Bân-lâm-gí
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Rapid combustion of fine particles suspended in the air
+Lab demonstration with burning lycopodium powder
+A dust explosion is the rapid combustion of fine particles suspended in the air within an enclosed location. Dust explosions can occur where any dispersed powdered combustible material is present in high-enough concentrations in the atmosphere or other oxidizing gaseous medium, such as pure oxygen. In cases when fuel plays the role of a combustible material, the explosion is known as a fuel-air explosion.
+
+Dust explosions are a frequent hazard in coal mines, grain elevators and silos, and other industrial environments. They are also commonly used by special effects artists, filmmakers, and pyrotechnicians, given their spectacular appearance and ability to be safely contained under certain carefully controlled conditions.</pre>
+<h3>Dust explosion  <span class="muted small">— chars 1189–1422</span></h3>
+<pre>Thermobaric weapons exploit this principle by rapidly saturating an area with an easily combustible material and then igniting it to produce explosive force. These weapons are the most powerful non-nuclear explosives in existence.[1]</pre>
+<h3>Terminology  <span class="muted small">— chars 1440–2477</span></h3>
+<pre>If rapid combustion occurs in a confined space, enormous overpressures can build up, causing major structural damage and flying debris. The sudden release of energy from a &#34;detonation&#34; can produce a shockwave, either in open air or in a confined space. If the spread of flame is at subsonic speed, the phenomenon is sometimes called a &#34;deflagration&#34;, although looser usage calls both phenomena &#34;explosions&#34;.[citation needed]
+
+Dust explosions may be classified as being either &#34;primary&#34; or &#34;secondary&#34; in nature. Primary dust explosions may occur inside process equipment or similar enclosures, and are generally controlled by pressure relief through purpose-built ducting to the external atmosphere. Secondary dust explosions are the result of dust accumulation inside a building being disturbed and ignited by the primary explosion, resulting in a much more dangerous uncontrolled explosion that can affect the entire structure. Historically, fatalities from dust explosions have largely been the result of secondary dust explosions.[2]</pre>
+<h3>Conditions required  <span class="muted small">— chars 2503–2845</span></h3>
+<pre>Diagram showing the five requirements for a dust explosion
+There are five necessary conditions for a dust explosion:[3]
+
+A combustible dust
+
+The dust is dispersed in the air within certain flammability limits
+
+There is an oxidant (typically atmospheric oxygen)
+
+There is an ignition source
+
+The area is confined–a building can be an enclosure</pre>
+<h3>Sources of dust  <span class="muted small">— chars 2867–3799</span></h3>
+<pre>1878 stereograph rendering of the Great Mill DisasterMount Mulligan mine disaster in Australia 1921. These cable drums were blown 50 feet (15m) from their foundations following a coal dust explosion.Aftermath of 2008 explosion at Imperial Sugar in Port Wentworth, Georgia, US
+Many common materials which are known to burn can generate a dust explosion, such as coal dust and sawdust. In addition, many otherwise mundane organic materials can also be dispersed into a dangerous dust cloud, such as grain, flour, starch, sugar, powdered milk, cocoa, coffee, and pollen. Powdered metals (such as aluminum, magnesium, and titanium) can form explosive suspensions in air, if finely divided.
+
+A gigantic explosion of flour dust destroyed a mill in Minnesota on May 2, 1878, killing 14 workers at the Washburn A Mill and another four in adjacent buildings.[4] A similar problem occurs in sawmills and other places dedicated to woodworking.</pre>
+<h3>Sources of dust  <span class="muted small">— chars 3801–4949</span></h3>
+<pre>Since the advent of industrial production–scale metal powder–based additive manufacturing (AM) in the 2010s, there is growing need for more information and experience with preventing dust explosions and fires from the traces of excess metal powder sometimes left over after laser sintering or other fusion methods.[5] For example, in machining operations downstream of the AM build, excess powder liberated from porosities in the support structures can be exposed to sparks from the cutting interface.[5] Efforts are underway not only to build this knowledgebase within the industry but also to share it with local fire departments, who do periodic fire-safety inspections of businesses in their districts and who can expect to answer alarms at shops or plants where AM is now part of the production mix.[5]
+
+Although not strictly a dust, paper particles emitted during processing – especially rolling, unrolling, calendaring/slitting, and sheet-cutting – are also known to pose an explosion hazard. Enclosed paper mill areas subject to such dangers commonly maintain very high air humidities to reduce the chance of airborne paper dust explosions.</pre>
+<h3>Sources of dust  <span class="muted small">— chars 4801–5567</span></h3>
+<pre>Enclosed paper mill areas subject to such dangers commonly maintain very high air humidities to reduce the chance of airborne paper dust explosions.
+
+In special effectspyrotechnics, lycopodium powder[2] and non-dairy creamer[6] are two common means of producing safe, controlled fire effects.
+
+To support rapid combustion, the dust must consist of very small particles with a high surface area to volume ratio, thereby making the collective or combined surface area of all the particles very large in comparison to a dust of larger particles. Dust is defined as powders with particles less than about 500 micrometres in diameter, but finer dust will present a much greater hazard than coarse particles by virtue of the larger total surface area of all the particles.</pre>
+<h3>Concentration  <span class="muted small">— chars 5587–6444</span></h3>
+<pre>Below a certain value, the lower explosive limit (LEL), there is insufficient dust to support the combustion at the rate required for an explosion.[7] A combustible concentration at or below 25% of the LEL is considered safe.[8] Similarly, if the fuel to air ratio increases above the upper explosive limit (UEL), there is insufficient oxidant to permit combustion to continue at the necessary rate.
+
+Determining the minimum explosive concentration or maximum explosive concentration of dusts in air is difficult, and consulting different sources can lead to quite different results. Typical explosive ranges in air are from few dozens grams/m3 for the minimum limit, to few kg/m3 for the maximum limit. For example, the LEL for sawdust has been determined to be between 40 and 50 grams/m3.[9] It depends on many factors including the type of material used.</pre>
+<h3>Oxidant  <span class="muted small">— chars 6459–6961</span></h3>
+<pre>Typically, normal atmospheric oxygen can be sufficient to support a dust explosion if the other necessary conditions are also present. High-oxygen or pure oxygen environments are considered to be especially hazardous, as are strong oxidizing gases such as chlorine and fluorine. Also, particulate suspensions of compounds with a high oxidative potential, such as peroxides, chlorates, nitrates, perchlorates, and dichromates, can increase risk of an explosion if combustible materials are also present.</pre>
+<h3>Sources of ignition  <span class="muted small">— chars 6988–7811</span></h3>
+<pre>There are many sources of ignition, and a naked flame need not be the only one: over one half of the dust explosions in Germany in 2005 were from non-flame sources.[7] Common sources of ignition include:
+
+electrostatic discharge (e.g. an improperly installed conveyor belt, which can act like a Van de Graaff generator)
+
+friction
+
+electrical arcing from machinery or other equipment
+
+hot surfaces (e.g. overheated bearings)
+
+fire
+
+self-ignition
+
+However, it is often difficult to determine the exact source of ignition when investigating after an explosion. When a source cannot be found, ignition will often be attributed to static electricity. Static charges can be generated by external sources, or can be internally generated by friction at the surfaces of particles themselves as they collide or move past one another.</pre>
+<h3>Mechanism  <span class="muted small">— chars 7827–9024</span></h3>
+<pre>Video demonstration of a dust explosion, showing the size of an unignited dust cloud, size of the cloud ignited, a partially contained explosion, and a contained explosion
+Dust has a very large surface area compared to its mass. Since burning can only occur at the surface of a solid or liquid, where it can react with oxygen, this causes dust to be much more flammable than bulk materials. For example, a 1kg (2.2lb) sphere of a combustible material with a density of 1 g/cm3 would be about 12.4cm (4.9in) in diameter, and have a surface area of 0.048m2 (0.52sqft). However, if it were broken up into spherical dust particles 50 μm in diametre (about the size of flour particles) it would have a surface area of 120m2 (1,300sqft). This greatly-increased surface area allows the material to burn much faster, and the extremely small mass of each particle allows them to catch on fire with much less energy than the bulk material, as there is no heat loss to conduction within the material.
+
+When this mixture of fuel and air is ignited, especially in a confined space such as a warehouse or silo, a significant increase in pressure is created, often more than sufficient to demolish the structure.</pre>
+<h3>Mechanism  <span class="muted small">— chars 9025–9534</span></h3>
+<pre>Even materials that are traditionally thought of as nonflammable (such as aluminium), or slow burning (such as wood), can produce a powerful explosion when finely divided, and can be ignited by even a small spark.
+
+Demonstration of an open-air dust explosion
+
+Experimental setup
+
+Finely-ground flour is dispersed
+
+Cloud of flour is ignited
+
+Fireball spreads rapidly
+
+Intense radiant heat has nothing to ignite here
+
+Fireball and superheated gases rise
+
+Aftermath of explosion, with unburnt flour on the ground</pre>
+<h3>Effects  <span class="muted small">— chars 9547–10190</span></h3>
+<pre>A dust explosion can cause major damage to structures, equipment, and personnel from violent overpressure or shockwave effects. Flying objects and debris can cause further damage. Intense radiant heat from a fireball can ignite the surroundings, or cause severe skin burns in unprotected persons. In a tightly enclosed space, the sudden depletion of oxygen can cause asphyxiation. Where the dust is carbon based (such as in a coal mine), incomplete combustion may cause large amounts of carbon monoxide (the miners&#39; after-damp) to be created. This can cause more deaths than the original explosion as well as hindering rescue attempts.[10][11]</pre>
+<h3>Protection and mitigation  <span class="muted small">— chars 10222–11280</span></h3>
+<pre>This American poster during World War I warned about grain dust explosions
+Much research has been carried out in Europe and elsewhere to understand how to control these dangers, but dust explosions still occur. The alternatives for making processes and plants safer depend on the industry.
+
+In the coal mining industry, a methane explosion can initiate a coal dust explosion, which can then engulf an entire mine pit. As a precaution, incombustible stone dust may be spread along mine roadways, or stored in trays hanging from the roof, to dilute the coal dust stirred up by a shockwave to the point where it cannot burn. Mines may also be sprayed with water to inhibit ignition.
+
+Some industries exclude oxygen from dust-raising processes, a precaution known as &#34;inerting&#34;. Typically this uses nitrogen, carbon dioxide, or argon, which are incombustible gases which can displace oxygen. The same method is also used in large storage tanks where flammable vapors can accumulate. However, use of oxygen-free gases brings a risk of asphyxiation of the workers.</pre>
+<h3>Protection and mitigation  <span class="muted small">— chars 11201–11989</span></h3>
+<pre>However, use of oxygen-free gases brings a risk of asphyxiation of the workers. Workers who need illumination in enclosed spaces where a dust explosion is a high risk often use lamps designed for underwater divers, as they have no risk of producing an open spark due to their sealed waterproof design.
+
+Good housekeeping practices, such as eliminating build-up of combustible dust deposits with a dust collector, also help mitigate the problem.
+
+Best engineering control measures which can be found in the National Fire Protection Association (NFPA) Combustible Dust Standards[12] include:
+
+Wetting
+
+Oxidant concentration reduction
+
+Deflagration venting
+
+Deflagration pressure containment
+
+Deflagration suppression
+
+Deflagration venting through a dust retention and flame-arresting device</pre>
+<h3>Notable incidents  <span class="muted small">— chars 12012–13111</span></h3>
+<pre>Dust clouds are a common source of explosions, causing an estimated 2,000 explosions annually in Europe.[13] The table lists notable incidents worldwide.
+
+EventDateLocationCountrySource materialFatalitiesInjuriesNotes
+
+Giacomelli Flour Warehouse explosionDecember 14, 1785TurinItalyflour dust02Documented by Count Morozzo in the Memoirs of the Academy of Sciences of Turin. One of the earliest scientifically documented flour dust explosions. Occurred when a boy stirring flour by lamplight created a dust cloud that ignited. The explosion damaged the bakery and caused injuries, including burns to one boy and a broken leg to another who jumped from a scaffold. Count Morozzo attributed the explosion to extremely dry flour (after 5-6 months without rain) and provided an early scientific explanation of dust explosions.[14]
+
+Tradeston Flour Mills explosionJuly 9, 1872Glasgow, ScotlandUnited Kingdomgrain dust1816Destroyed the mill building and damaged surrounding buildings, and started a fire that killed others. The investigation into the explosion was published across Europe and the Americas.</pre>
+<h3>Notable incidents  <span class="muted small">— chars 13029–13992</span></h3>
+<pre>The investigation into the explosion was published across Europe and the Americas.
+
+Great Mill DisasterMay 2, 1878Minneapolis, MinnesotaUnited Statesgrain dust18Destroyed the largest grain mill in the world and leveled five other mills, effectively reducing the milling capacity of Minneapolis by one-third to one-half. Prompted mills throughout the country to install better ventilation systems to prevent dust build-up.
+
+Husted Mill and Elevator DisasterJune 24, 1913Buffalo, New YorkUnited Statesgrain dust3380This workday afternoon explosion destroyed a grain elevator and mill complex. The engineer of a passing railroad switch engine was blown from the cab and died. Windows of a passing Nickel Plate Road passenger train were broken, but no passengers were injured.[15][16]
+
+Milwaukee Works explosionMay 20, 1919Milwaukee, WisconsinUnited StatesFeed grinding plant34The blast was felt for miles around and completely leveled the plant owned by the company.</pre>
+<h3>Notable incidents  <span class="muted small">— chars 13994–15116</span></h3>
+<pre>Douglas Starch Works explosionMay 22, 1919Cedar Rapids, IowaUnited Statescorn starch4330The blast was felt for miles around and completely leveled the plant owned by the company.[17]
+
+Port Colborne explosionAugust 9, 1919Port ColborneCanadagrain1016Blast also destroyed the steamer Quebec, which was near the grain elevator.
+
+Large terminal grain elevator in Kansas CitySeptember 13, 1919Kansas City, MissouriUnited States1410Originated in basement of elevator, during a cleanup period, and travelled up through the elevator shaft.
+
+Mount Mulligan mine disasterSeptember 19, 1921Mount Mulligan, QueenslandAustraliacoal dust75The series of coal dust explosions within a mine rocked the close-knit township and was audible as far as 30 kilometres (19mi) away.
+
+Benxihu Colliery explosionApril 26, 1942Benxi, LiaoningManchukuo (now China)coal dust and gas1,54934% of the miners working that day were killed. This is the world&#39;s worst-ever coal-mining accident.
+
+Pillsbury Explosion and FireJanuary 2, 1972Buffalo, New YorkUnited Stateswheat flour38New Year&#39;s weekend explosion at what was then the world&#39;s biggest flour mill.</pre>
+<h3>Notable incidents  <span class="muted small">— chars 15117–16260</span></h3>
+<pre>The blast occurred in a series of 500-foot-long, 10-story-tall concrete-and-steel bulk flour storage bins. Repairs took a year to complete.[18]
+
+Westwego grain elevator explosionDecember 22, 1977Westwego, LouisianaUnited Statesgrain dust3613[19]
+
+Galveston grain elevator explosionDecember 27, 1977Galveston, TexasUnited Statesgrain dust20[19]
+
+Bird&#39;s Custard factory explosionNovember 18, 1981BanburyUnited Kingdomcorn starch9[13][20]
+
+Metz malt factory explosionOctober 18, 1982MetzFrancebarley dust121[21]
+
+Ingeniero White Silo No 5 explosionMarch 13, 1985Ingeniero WhiteArgentinagrain dust22[22]
+
+Harbin textile factory explosionMarch 17, 1987HarbinChinaflax dust58177[23]
+
+Sukhodilska–Skhidna coal mine accidentJune 9, 1992SukhodilskUkrainecoal dust and firedamp6337[24][25]
+
+Blaye grain explosionAugust 1997BlayeFrancegrain dust111Explosion in a grain storage facility at the Société d’Exploitation Maritime Blayaise killed 11 people in nearby offices and injured one.[13]
+
+Debruce Grain Elevator explosionJune 1998Wichita, KansasUnited Statesgrain dust710Multiple explosions occurred in what was then the world&#39;s largest grain elevator.</pre>
+<h3>Notable incidents  <span class="muted small">— chars 16261–16819</span></h3>
+<pre>Dust collection systems were not properly maintained.[26]
+
+West Pharmaceutical Services explosionJanuary 29, 2003Kinston, North CarolinaUnited Statespolyethylene dust638
+
+CTA Acoustics dust explosionFebruary 20, 2003Corbin, KentuckyUnited Statesresin dust737Employees were doing housekeeping measures when a oven was left open, small fires caused by resin dust were common, the dust was blown into the extractor, and into the oven which caused the explosion.[27]
+
+Imperial Sugar explosionFebruary 7, 2008Port Wentworth, GeorgiaUnited Statessugar dust1442[13]</pre>
+<h3>2014 Kunshan explosionAugust 2, 2014KunshanChinametal powder146114  <span class="muted small">— chars 16889–17388</span></h3>
+<pre>Formosa Fun Coast explosionJune 27, 2015New TaipeiTaiwancolored starch powder15498Explosion when Holi-like colored powder was released at an outdoor music and color festival at the Formosa Fun Coast.
+
+Bosley wood flour mill explosionJuly 17, 2015Bosley, CheshireUnited Kingdomwood flour44[28][29]
+
+Didion Milling explosionMay 31, 2017Cambria, WisconsinUnited Statescorn dust514Corn processing facility explosion caused by a smouldering nest within improperly maintained processing equipment.[30][31]</pre>
+<h3>See also  <span class="muted small">— chars 17403–17432</span></h3>
+<pre>Air to fuel ratio
+
+Power tool</pre>
+
+<h2>Extracted claims (49)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Large terminal grain elevator in Kansas CitySeptember 13, 1919Kansas City, MissouriUnited States1410Originated in basement of elevator, during a cleanup period, and travelled up through the elevator shaft.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">CTA Acoustics dust explosionFebruary 20, 2003Corbin, KentuckyUnited Statesresin dust737Employees were doing housekeeping measures when a oven was left open, small fires caused by resin dust were common, the dust was blown into the extractor, and into the oven which caused the explosion.[27]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Didion Milling explosionMay 31, 2017Cambria, WisconsinUnited Statescorn dust514Corn processing facility explosion caused by a smouldering nest within improperly maintained processing equipment.[30][31]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Windows of a passing Nickel Plate Road passenger train were broken, but no passengers were injured.[15][16]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Historically, fatalities from dust explosions have largely been the result of secondary dust explosions.[2]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Benxihu Colliery explosionApril 26, 1942Benxi, LiaoningManchukuo (now China)coal dust and gas1,54934% of the miners working that day were killed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Pillsbury Explosion and FireJanuary 2, 1972Buffalo, New YorkUnited Stateswheat flour38New Year&#39;s weekend explosion at what was then the world&#39;s biggest flour mill.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bird&#39;s Custard factory explosionNovember 18, 1981BanburyUnited Kingdomcorn starch9[13][20]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sukhodilska–Skhidna coal mine accidentJune 9, 1992SukhodilskUkrainecoal dust and firedamp6337[24][25]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, the LEL for sawdust has been determined to be between 40 and 50 grams/m3.[9] It depends on many factors including the type of material used.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Great Mill DisasterMay 2, 1878Minneapolis, MinnesotaUnited Statesgrain dust18Destroyed the largest grain mill in the world and leveled five other mills, effectively reducing the milling capacity of Minneapolis by one-third to one-half.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Blaye grain explosionAugust 1997BlayeFrancegrain dust111Explosion in a grain storage facility at the Société d’Exploitation Maritime Blayaise killed 11 people in nearby offices and injured one.[13]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Formosa Fun Coast explosionJune 27, 2015New TaipeiTaiwancolored starch powder15498Explosion when Holi-like colored powder was released at an outdoor music and color festival at the Formosa Fun Coast.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Port Colborne explosionAugust 9, 1919Port ColborneCanadagrain1016Blast also destroyed the steamer Quebec, which was near the grain elevator.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Count Morozzo attributed the explosion to extremely dry flour (after 5-6 months without rain) and provided an early scientific explanation of dust explosions.[14]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">West Pharmaceutical Services explosionJanuary 29, 2003Kinston, North CarolinaUnited Statespolyethylene dust638</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Husted Mill and Elevator DisasterJune 24, 1913Buffalo, New YorkUnited Statesgrain dust3380This workday afternoon explosion destroyed a grain elevator and mill complex.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, if it were broken up into spherical dust particles 50 μm in diametre (about the size of flour particles) it would have a surface area of 120m2 (1,300sqft).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There are many sources of ignition, and a naked flame need not be the only one: over one half of the dust explosions in Germany in 2005 were from non-flame sources.[7] Common sources of ignition include:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Dust clouds are a common source of explosions, causing an estimated 2,000 explosions annually in Europe.[13] The table lists notable incidents worldwide.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1878 stereograph rendering of the Great Mill DisasterMount Mulligan mine disaster in Australia 1921.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, a 1kg (2.2lb) sphere of a combustible material with a density of 1 g/cm3 would be about 12.4cm (4.9in) in diameter, and have a surface area of 0.048m2 (0.52sqft).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These cable drums were blown 50 feet (15m) from their foundations following a coal dust explosion.Aftermath of 2008 explosion at Imperial Sugar in Port Wentworth, Georgia, US</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Mount Mulligan mine disasterSeptember 19, 1921Mount Mulligan, QueenslandAustraliacoal dust75The series of coal dust explosions within a mine rocked the close-knit township and was audible as far as 30 kilometres (19mi) away.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The blast occurred in a series of 500-foot-long, 10-story-tall concrete-and-steel bulk flour storage bins.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Debruce Grain Elevator explosionJune 1998Wichita, KansasUnited Statesgrain dust710Multiple explosions occurred in what was then the world&#39;s largest grain elevator.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Metz malt factory explosionOctober 18, 1982MetzFrancebarley dust121[21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Dust collection systems were not properly maintained.[26]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This can cause more deaths than the original explosion as well as hindering rescue attempts.[10][11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A gigantic explosion of flour dust destroyed a mill in Minnesota on May 2, 1878, killing 14 workers at the Washburn A Mill and another four in adjacent buildings.[4] A similar problem occurs in sawmills and other places dedicated to woodworking.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Westwego grain elevator explosionDecember 22, 1977Westwego, LouisianaUnited Statesgrain dust3613[19]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Douglas Starch Works explosionMay 22, 1919Cedar Rapids, IowaUnited Statescorn starch4330The blast was felt for miles around and completely leveled the plant owned by the company.[17]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These weapons are the most powerful non-nuclear explosives in existence.[1]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In special effectspyrotechnics, lycopodium powder[2] and non-dairy creamer[6] are two common means of producing safe, controlled fire effects.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Workers who need illumination in enclosed spaces where a dust explosion is a high risk often use lamps designed for underwater divers, as they have no risk of producing an open spark due to their sealed waterproof design.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Harbin textile factory explosionMarch 17, 1987HarbinChinaflax dust58177[23]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Best engineering control measures which can be found in the National Fire Protection Association (NFPA) Combustible Dust Standards[12] include:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ingeniero White Silo No 5 explosionMarch 13, 1985Ingeniero WhiteArgentinagrain dust22[22]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bosley wood flour mill explosionJuly 17, 2015Bosley, CheshireUnited Kingdomwood flour44[28][29]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Tradeston Flour Mills explosionJuly 9, 1872Glasgow, ScotlandUnited Kingdomgrain dust1816Destroyed the mill building and damaged surrounding buildings, and started a fire that killed others.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There are five necessary conditions for a dust explosion:[3]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Galveston grain elevator explosionDecember 27, 1977Galveston, TexasUnited Statesgrain dust20[19]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">To support rapid combustion, the dust must consist of very small particles with a high surface area to volume ratio, thereby making the collective or combined surface area of all the particles very large in comparison to a dust of larger particles.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Dust explosions are a frequent hazard in coal mines, grain elevators and silos, and other industrial environments.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Imperial Sugar explosionFebruary 7, 2008Port Wentworth, GeorgiaUnited Statessugar dust1442[13]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Milwaukee Works explosionMay 20, 1919Milwaukee, WisconsinUnited StatesFeed grinding plant34The blast was felt for miles around and completely leveled the plant owned by the company.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Below a certain value, the lower explosive limit (LEL), there is insufficient dust to support the combustion at the rate required for an explosion.[7] A combustible concentration at or below 25% of the LEL is considered safe.[8] Similarly, if the fuel to air ratio increases above the upper explosive limit (UEL), there is insufficient oxidant to permit combustion to continue at the necessary rate.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Giacomelli Flour Warehouse explosionDecember 14, 1785TurinItalyflour dust02Documented by Count Morozzo in the Memoirs of the Academy of Sciences of Turin.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Dust is defined as powders with particles less than about 500 micrometres in diameter, but finer dust will present a much greater hazard than coarse particles by virtue of the larger total surface area of all the particles.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

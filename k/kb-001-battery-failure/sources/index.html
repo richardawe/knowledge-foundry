@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lithium-Ion Battery Failure Intelligence — sources</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Source register</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><p class="muted">
+  Every passage the system can cite comes from a source on this list.
+  Sources marked <span class="tag">pointer</span> are copyrighted: they are named and
+  linked, but their content is never stored, retrieved or quoted.
+</p>
+<table>
+  <tr><th>Source</th><th>Type</th><th>Auth.</th><th>Published</th><th>Retrieved</th><th>Passages</th><th>Licence</th></tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/govuk-eu-batteries-northern-ireland/"><strong>EU Batteries Regulations in Northern Ireland</strong></a><br>
+      <span class="muted small">Department for Business and Trade (UK)</span>
+    </td>
+    <td class="small">regulatory</td>
+    <td class="small">5/5</td>
+    <td class="small">2026-07-17</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">24</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/ea-waste-batteries-storage/"><strong>Waste batteries: appropriate measures - waste storage and handling</strong></a><br>
+      <span class="muted small">Environment Agency (UK)</span>
+    </td>
+    <td class="small">regulatory</td>
+    <td class="small">5/5</td>
+    <td class="small">2026-05-21</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">37</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/ea-waste-batteries-treatment/"><strong>Waste batteries: appropriate measures - waste treatment</strong></a><br>
+      <span class="muted small">Environment Agency (UK)</span>
+    </td>
+    <td class="small">regulatory</td>
+    <td class="small">5/5</td>
+    <td class="small">2026-05-21</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">35</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/eu-battery-regulation-2023-1542/"><strong>Regulation (EU) 2023/1542 concerning batteries and waste batteries</strong></a><br>
+      <span class="muted small">European Union (EUR-Lex)</span>
+    </td>
+    <td class="small">regulatory</td>
+    <td class="small">5/5</td>
+    <td class="small">2023-07-28</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">433</td>
+    <td class="small muted">© European Union 1998-2026. Reuse authorised under Commission Decision 2011/833/EU</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/faa-packsafe-lithium-batteries/"><strong>PackSafe: lithium batteries in air travel</strong></a><br>
+      <span class="muted small">Federal Aviation Administration (US)</span>
+    </td>
+    <td class="small">regulatory</td>
+    <td class="small">5/5</td>
+    <td class="small">2024-01-01</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">6</td>
+    <td class="small muted">US Government work - public domain</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/pointer-iec-62619/"><strong>IEC 62619: Safety requirements for secondary lithium cells and batteries for industrial applications</strong></a><br>
+      <span class="muted small">International Electrotechnical Commission</span>
+ <span class="tag">pointer</span>    </td>
+    <td class="small">standard</td>
+    <td class="small">5/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">0</td>
+    <td class="small muted">© IEC - copyrighted standard, not redistributable</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/pointer-nfpa-855/"><strong>NFPA 855: Standard for the Installation of Stationary Energy Storage Systems</strong></a><br>
+      <span class="muted small">National Fire Protection Association</span>
+ <span class="tag">pointer</span>    </td>
+    <td class="small">standard</td>
+    <td class="small">5/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">0</td>
+    <td class="small muted">© NFPA - copyrighted standard, not redistributable</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/opss-plev-battery-safety-research/"><strong>Personal light electric vehicle (PLEV) battery safety research</strong></a><br>
+      <span class="muted small">Office for Product Safety and Standards (UK)</span>
+    </td>
+    <td class="small">investigation</td>
+    <td class="small">5/5</td>
+    <td class="small">2025-01-29</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">9</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/psr-windgoo-b20-2410-0113/"><strong>Product Safety Report: Windgoo B20 Electric Bike (2410-0113)</strong></a><br>
+      <span class="muted small">Office for Product Safety and Standards (UK)</span>
+    </td>
+    <td class="small">investigation</td>
+    <td class="small">5/5</td>
+    <td class="small">2024-11-20</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">11</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/psr-xgo-ebike-battery-2407-0018/"><strong>Product Safety Report: X-Go E-Bike Lithium-Ion Battery (Bullet) (2407-0018)</strong></a><br>
+      <span class="muted small">Office for Product Safety and Standards (UK)</span>
+    </td>
+    <td class="small">investigation</td>
+    <td class="small">5/5</td>
+    <td class="small">2025-01-15</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">11</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/opss-ebike-statutory-guidelines/"><strong>Statutory guidelines on lithium-ion battery safety for e-bikes</strong></a><br>
+      <span class="muted small">Office for Product Safety and Standards (UK)</span>
+    </td>
+    <td class="small">regulatory</td>
+    <td class="small">5/5</td>
+    <td class="small">2024-12-12</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">25</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/hv-battery-accident-investigation-risk/"><strong>High voltage battery systems: risk to accident investigation activities</strong></a><br>
+      <span class="muted small">UK Government (accident investigation branches)</span>
+    </td>
+    <td class="small">investigation</td>
+    <td class="small">5/5</td>
+    <td class="small">2026-09-11</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">7</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/pointer-ul-9540a/"><strong>UL 9540A: Test Method for Evaluating Thermal Runaway Fire Propagation in Battery Energy Storage Systems</strong></a><br>
+      <span class="muted small">UL Standards &amp; Engagement</span>
+ <span class="tag">pointer</span>    </td>
+    <td class="small">standard</td>
+    <td class="small">5/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">0</td>
+    <td class="small muted">© UL Standards &amp; Engagement - copyrighted standard, not redistributable</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/pointer-un-38-3/"><strong>UN Manual of Tests and Criteria, sub-section 38.3 (lithium battery transport tests)</strong></a><br>
+      <span class="muted small">United Nations Economic Commission for Europe</span>
+ <span class="tag">pointer</span>    </td>
+    <td class="small">standard</td>
+    <td class="small">5/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">0</td>
+    <td class="small muted">© United Nations - not redistributable in full</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/pointer-unece-r100/"><strong>UNECE Regulation No. 100: electric power train vehicle safety</strong></a><br>
+      <span class="muted small">United Nations Economic Commission for Europe</span>
+ <span class="tag">pointer</span>    </td>
+    <td class="small">standard</td>
+    <td class="small">5/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">0</td>
+    <td class="small muted">© United Nations - not redistributable in full</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/beis-domestic-bess/"><strong>Domestic battery energy storage systems</strong></a><br>
+      <span class="muted small">Department for Business, Energy and Industrial Strategy (UK)</span>
+    </td>
+    <td class="small">investigation</td>
+    <td class="small">4/5</td>
+    <td class="small">2020-10-02</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">7</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/beis-second-life-batteries-bess/"><strong>Safety of second life batteries in battery energy storage systems</strong></a><br>
+      <span class="muted small">Department for Business, Energy and Industrial Strategy (UK)</span>
+    </td>
+    <td class="small">investigation</td>
+    <td class="small">4/5</td>
+    <td class="small">2023-01-31</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">6</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/opss-buy-safe-be-safe/"><strong>Buy Safe, Be Safe: avoid e-bike and e-scooter fires</strong></a><br>
+      <span class="muted small">Office for Product Safety and Standards (UK)</span>
+    </td>
+    <td class="small">industry</td>
+    <td class="small">4/5</td>
+    <td class="small">2024-10-23</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">12</td>
+    <td class="small muted">Open Government Licence v3.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/ul-9540a-test-method-overview/"><strong>UL 9540A test method for battery energy storage systems (overview)</strong></a><br>
+      <span class="muted small">UL Solutions</span>
+    </td>
+    <td class="small">industry</td>
+    <td class="small">4/5</td>
+    <td class="small">2024-01-01</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">31</td>
+    <td class="small muted">© UL Solutions - public web page; indexed for citation and short quotation only</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2412-16367/"><strong>A layered swarm optimization method for fitting battery thermal runaway models to accelerating rate calorimetry data</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2024-12-20</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">15</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2506-13577/"><strong>BattBee: equivalent circuit modelling and early detection of thermal runaway triggered by internal short circuits</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2025-06-16</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">89</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2408-11984/"><strong>Chemical reaction neural networks for fitting accelerating rate calorimetry data</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2024-08-21</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">15</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2510-23910/"><strong>Dynamical modelling of temperature and smoke evolution in a thermal-runaway event of a large-format lithium-ion battery in a mine tunnel</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2025-10-27</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">34</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2608-20383/"><strong>Infrared hotspot-guided early warning of lithium-ion battery thermal runaway under mechanical abuse</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2026-08-01</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">27</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2010-13519/"><strong>Li-ion Battery Fault Detection in Large Packs Using Force and Gas Sensors</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2020-10-26</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">15</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2604-20175/"><strong>Physics-enhanced deep learning for proactive thermal runaway forecasting in Li-ion batteries</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2026-04-01</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">15</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/arxiv-2607-18860/"><strong>Regime-aware physics-guided early warning of lithium-ion battery thermal runaway using thermo-mechanical signals</strong></a><br>
+      <span class="muted small">arXiv</span>
+    </td>
+    <td class="small">academic</td>
+    <td class="small">4/5</td>
+    <td class="small">2026-07-01</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">64</td>
+    <td class="small muted">arXiv non-exclusive licence to distribute; see paper for author licence</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/wikipedia-battery-management-system/"><strong>Battery management system</strong></a><br>
+      <span class="muted small">Wikipedia</span>
+    </td>
+    <td class="small">reference</td>
+    <td class="small">2/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">18</td>
+    <td class="small muted">CC BY-SA 4.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/wikipedia-ev-battery/"><strong>Electric vehicle battery</strong></a><br>
+      <span class="muted small">Wikipedia</span>
+    </td>
+    <td class="small">reference</td>
+    <td class="small">2/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">62</td>
+    <td class="small muted">CC BY-SA 4.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/wikipedia-grid-energy-storage/"><strong>Grid energy storage</strong></a><br>
+      <span class="muted small">Wikipedia</span>
+    </td>
+    <td class="small">reference</td>
+    <td class="small">2/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">36</td>
+    <td class="small muted">CC BY-SA 4.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/wikipedia-lfp/"><strong>Lithium iron phosphate battery</strong></a><br>
+      <span class="muted small">Wikipedia</span>
+    </td>
+    <td class="small">reference</td>
+    <td class="small">2/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">31</td>
+    <td class="small muted">CC BY-SA 4.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/wikipedia-lithium-ion-battery/"><strong>Lithium-ion battery</strong></a><br>
+      <span class="muted small">Wikipedia</span>
+    </td>
+    <td class="small">reference</td>
+    <td class="small">2/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">140</td>
+    <td class="small muted">CC BY-SA 4.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/wikipedia-separator/"><strong>Separator (electricity)</strong></a><br>
+      <span class="muted small">Wikipedia</span>
+    </td>
+    <td class="small">reference</td>
+    <td class="small">2/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">24</td>
+    <td class="small muted">CC BY-SA 4.0</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/source/wikipedia-thermal-runaway/"><strong>Thermal runaway</strong></a><br>
+      <span class="muted small">Wikipedia</span>
+    </td>
+    <td class="small">reference</td>
+    <td class="small">2/5</td>
+    <td class="small">—</td>
+    <td class="small">2026-09-18</td>
+    <td class="small">28</td>
+    <td class="small muted">CC BY-SA 4.0</td>
+  </tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

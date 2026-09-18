@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A layered swarm optimization method for fitting battery thermal runaway models to accelerating rate calorimetry data — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>A layered swarm optimization method for fitting battery thermal runaway models to accelerating rate calorimetry data</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>arXiv</strong> ·
+  academic · authority 4/5<br>
+Published 2024-12-20 ·   Retrieved 2026-09-18T18:01:03+00:00<br>
+  Licence: arXiv non-exclusive licence to distribute; see paper for author licence<br>
+  <a href="https://arxiv.org/abs/2412.16367" rel="nofollow noopener">https://arxiv.org/abs/2412.16367</a><br>
+  <span class="muted">Content hash: <code>bf8f8b64e4027f558010197eee572e82</code></span>
+</div>
+
+
+<h2>Stored passages (15)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–62</span></h3>
+<pre>Skip to main content
+
+ Press Enter to search · Advanced search</pre>
+<h3>Computer Science &gt; Computational Engineering, Finance, and Science  <span class="muted small">— chars 133–232</span></h3>
+<pre>arXiv:2412.16367 (cs)
+
+ [Submitted on 20 Dec 2024 (v1), last revised 1 Apr 2025 (this version, v4)]</pre>
+<h3>Title:A Layered Swarm Optimization Method for Fitting Battery Thermal Runaway Models to Accelerating Rate Calorimetry Data  <span class="muted small">— chars 360–1496</span></h3>
+<pre>Authors:Saakaar Bhatnagar, Andrew Comerford, Zelu Xu, Simone Reitano, Luigi Scrimieri, Luca Giuliano, Araz Banaeizadeh
+
+View a PDF of the paper titled A Layered Swarm Optimization Method for Fitting Battery Thermal Runaway Models to Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 6 other authors
+View PDFHTML (experimental)
+Abstract:Thermal runaway in lithium-ion batteries is a critical safety concern for the battery industry due to its potential to cause uncontrolled temperature rises and subsequent fires that can engulf the battery pack and its surroundings. Modeling and simulation offer cost-effective tools for designing strategies to mitigate thermal runaway. Accurately simulating the chemical kinetics of thermal runaway, commonly represented by systems of Arrhenius-based Ordinary Differential Equations (ODEs), requires fitting kinetic parameters to experimental calorimetry data, such as Accelerating Rate Calorimetry (ARC) measurements. However, existing fitting methods often rely on empirical assumptions and simplifications that compromise generality or require manual tuning during the fitting process.</pre>
+<h3>Title:A Layered Swarm Optimization Method for Fitting Battery Thermal Runaway Models to Accelerating Rate Calorimetry Data  <span class="muted small">— chars 1497–2665</span></h3>
+<pre>Particle Swarm Optimization (PSO) offers a promising approach for directly fitting kinetic parameters to experimental data. Yet, for systems created by multiple Arrhenius ODEs, the computational cost of fitting using a brute-force approach that searches the entire parameter space simultaneously can become prohibitive. This work introduces a divide-and-conquer approach based on PSO to fit N-equation Arrhenius ODE models to ARC data. The proposed method achieves more accurate parameter fitting compared to the brute-force method while maintaining low computational costs. The method is analyzed using two distinct ARC datasets, and the resulting models are further validated through simulations of 3D ARC and oven tests, showing excellent agreement with experimental data and alignment with expected trends.
+
+Subjects:Computational Engineering, Finance, and Science (cs.CE)
+
+Cite as:arXiv:2412.16367 [cs.CE]
+
+(or arXiv:2412.16367v4 [cs.CE] for this version)
+
+https://doi.org/10.48550/arXiv.2412.16367
+Focus to learn more
+ arXiv-issued DOI via DataCite
+
+Related DOI:
+ https://doi.org/10.1149/1945-7111/ade405
+Focus to learn more
+
+ DOI(s) linking to related resources</pre>
+<h3>Submission history  <span class="muted small">— chars 2690–2926</span></h3>
+<pre>From: Saakaar Bhatnagar [view email]
+
+[v1]
+ Fri, 20 Dec 2024 21:57:48 UTC (724 KB)
+
+[v2]
+ Tue, 24 Dec 2024 08:47:57 UTC (724 KB)
+
+[v3]
+ Thu, 6 Feb 2025 20:58:54 UTC (726 KB)
+
+[v4]
+ Tue, 1 Apr 2025 14:53:13 UTC (896 KB)
+
+Full-text links:</pre>
+<h3>Access Paper:  <span class="muted small">— chars 2946–3192</span></h3>
+<pre>View a PDF of the paper titled A Layered Swarm Optimization Method for Fitting Battery Thermal Runaway Models to Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 6 other authors
+
+View PDF
+
+HTML (experimental)
+
+TeX Source
+
+view license</pre>
+<h3>Current browse context:  <span class="muted small">— chars 3223–3296</span></h3>
+<pre>cs.CE
+
+&lt; prev | next &gt;
+
+new | recent | 2024-12
+
+ Change to browse by:
+
+cs</pre>
+<h3>References &amp; Citations  <span class="muted small">— chars 3326–3402</span></h3>
+<pre>NASA ADS
+
+Google Scholar
+
+Semantic Scholar
+
+export BibTeX citationLoading...</pre>
+<h3>BibTeX formatted citation  <span class="muted small">— chars 3434–3466</span></h3>
+<pre>×
+
+loading...
+
+Data provided by:</pre>
+<h3>Bookmark  <span class="muted small">— chars 3481–3500</span></h3>
+<pre>Bibliographic Tools</pre>
+<h3>Bibliographic and Citation Tools  <span class="muted small">— chars 3538–3813</span></h3>
+<pre>Bibliographic Explorer Toggle
+
+Bibliographic Explorer(What is the Explorer?)
+
+Connected Papers Toggle
+
+Connected Papers(What is Connected Papers?)
+
+Litmaps Toggle
+
+Litmaps(What is Litmaps?)
+
+scite.ai Toggle
+
+scite Smart Citations(What are Smart Citations?)
+
+Code, Data, Media</pre>
+<h3>Code, Data and Media Associated with this Article  <span class="muted small">— chars 3868–4196</span></h3>
+<pre>alphaXiv Toggle
+
+alphaXiv(What is alphaXiv?)
+
+Links to Code Toggle
+
+CatalyzeX Code Finder for Papers(What is CatalyzeX?)
+
+DagsHub Toggle
+
+DagsHub(What is DagsHub?)
+
+GotitPub Toggle
+
+Gotit.pub(What is GotitPub?)
+
+Huggingface Toggle
+
+Hugging Face(What is Huggingface?)
+
+ScienceCast Toggle
+
+ScienceCast(What is ScienceCast?)
+
+Demos</pre>
+<h3>Demos  <span class="muted small">— chars 4207–4365</span></h3>
+<pre>Replicate Toggle
+
+Replicate(What is Replicate?)
+
+Spaces Toggle
+
+Hugging Face Spaces(What is Spaces?)
+
+Spaces Toggle
+
+TXYZ.AI(What is TXYZ.AI?)
+
+Related Papers</pre>
+<h3>Recommenders and Search Tools  <span class="muted small">— chars 4400–4582</span></h3>
+<pre>Link to Influence Flower
+
+Influence Flower(What are Influence Flowers?)
+
+Core recommender toggle
+
+CORE Recommender(What is CORE?)
+
+Author
+
+Venue
+
+Institution
+
+Topic
+
+ About arXivLabs</pre>
+<h3>arXivLabs: experimental projects with community collaborators  <span class="muted small">— chars 4649–5188</span></h3>
+<pre>arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+
+Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+
+Have an idea for a project that will add value for arXiv&#39;s community? Learn more about arXivLabs.
+
+Which authors of this paper are endorsers? |
+ Disable MathJax (What is MathJax?)</pre>
+
+<h2>Extracted claims (9)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">View a PDF of the paper titled A Layered Swarm Optimization Method for Fitting Battery Thermal Runaway Models to Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 6 other authors</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">https://doi.org/10.48550/arXiv.2412.16367</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">View a PDF of the paper titled A Layered Swarm Optimization Method for Fitting Battery Thermal Runaway Models to Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 6 other authors</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(or arXiv:2412.16367v4 [cs.CE] for this version)</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Abstract:Thermal runaway in lithium-ion batteries is a critical safety concern for the battery industry due to its potential to cause uncontrolled temperature rises and subsequent fires that can engulf the battery pack and its surroundings.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">https://doi.org/10.1149/1945-7111/ade405</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The method is analyzed using two distinct ARC datasets, and the resulting models are further validated through simulations of 3D ARC and oven tests, showing excellent agreement with experimental data and alignment with expected trends.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">[Submitted on 20 Dec 2024 (v1), last revised 1 Apr 2025 (this version, v4)]</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flash point — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Flash point</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:47+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Flash_point" rel="nofollow noopener">https://en.wikipedia.org/wiki/Flash_point</a><br>
+  <span class="muted">Content hash: <code>7e6720e2b1413e9a946b3285527e7996</code></span>
+</div>
+
+
+<h2>Stored passages (12)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Flash point  <span class="muted small">— chars 43–1095</span></h3>
+<pre>49 languages
+
+Afrikaans
+
+العربية
+
+Български
+
+বাংলা
+
+Català
+
+کوردی
+
+Čeština
+
+Dansk
+
+Deutsch
+
+Ελληνικά
+
+Esperanto
+
+Español
+
+Eesti
+
+Euskara
+
+فارسی
+
+Suomi
+
+Français
+
+Galego
+
+עברית
+
+Magyar
+
+Bahasa Indonesia
+
+Italiano
+
+日本語
+
+한국어
+
+Lietuvių
+
+Македонски
+
+മലയാളം
+
+Bahasa Melayu
+
+Plattdüütsch
+
+Nederlands
+
+Norsk nynorsk
+
+Norsk bokmål
+
+Polski
+
+Português
+
+Română
+
+Русский
+
+Srpskohrvatski / српскохрватски
+
+Simple English
+
+Slovenčina
+
+Slovenščina
+
+Српски / srpski
+
+Svenska
+
+తెలుగు
+
+ไทย
+
+Türkçe
+
+Українська
+
+اردو
+
+Tiếng Việt
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Lowest temperature at which a volatile material&#39;s vapors ignite if given a source
+
+For other uses, see Flashpoint.
+Flaming cocktails with a flash point lower than room temperature.
+The flash point of a material is the lowest temperature at which a liquid gives off enough vapor so that it will ignite in the presence of an ignition source.[1][2] This is different from the fire point, which is the lowest temperature at which the vapors keep burning after the ignition source is removed.</pre>
+<h3>Flash point  <span class="muted small">— chars 1096–1654</span></h3>
+<pre>The fire point is higher than the flash point, because at the flash point the rate at which the vapor is produced is not sufficient to sustain combustion.[3] The flash point is also sometimes confused with the autoignition temperature, the temperature that causes spontaneous ignition.
+
+Neither flash point nor fire point depends directly on the ignition source temperature, but ignition source temperature is far higher than either the flash or fire point, and can increase the temperature of fuel above the usual ambient temperature to facilitate ignition.</pre>
+<h3>Fuels  <span class="muted small">— chars 1666–2071</span></h3>
+<pre>The flash point is a descriptive characteristic that is used to distinguish between flammable fuels, such as petrol (also known as gasoline), and combustible fuels, such as diesel.
+
+It is also used to characterize the fire hazards of fuels. Fuels which have a flash point less than 37.8°C (100.0°F) are called flammable, whereas fuels having a flash point above that temperature are called combustible.[4]</pre>
+<h3>Mechanism  <span class="muted small">— chars 2087–2829</span></h3>
+<pre>All liquids have a specific vapor pressure, which is a function of that liquid&#39;s temperature and is subject to Boyle–Mariotte law. As temperature increases, vapor pressure increases. As vapor pressure increases, the concentration of vapor of a flammable or combustible liquid in the air increases. Hence, temperature determines the concentration of vapor of the flammable liquid in the air. A certain concentration of a flammable or combustible vapor is necessary to sustain combustion in air, the lower flammable limit, and that concentration is specific to each flammable or combustible liquid. The flash point is the lowest temperature at which there will be enough flammable vapor to support combustion when an ignition source is applied.</pre>
+<h3>Measurement  <span class="muted small">— chars 2847–3966</span></h3>
+<pre>There are two basic types of flash point measurement: open cup and closed cup.[5] In open cup devices, the sample is contained in an open cup which is heated and, at intervals, a flame brought over the surface. The measured flash point will actually vary with the height of the flame above the liquid surface and, at sufficient height, the measured flash point temperature will coincide with the fire point. The best-known example is the Cleveland open cup (COC).[6]
+
+There are two types of closed cup testers: non-equilibrial, such as Pensky-Martens, where the vapours above the liquid are not in temperature equilibrium with the liquid, and equilibrial, such as Small Scale (commonly known as Setaflash), where the vapours are deemed to be in temperature equilibrium with the liquid. In both these types, the cups are sealed with a lid through which the ignition source can be introduced. Closed cup testers normally give lower values for the flash point than open cup (typically 5–10°C or 9–18°F lower) and are a better approximation to the temperature at which the vapour pressure reaches the lower flammable limit.</pre>
+<h3>Measurement  <span class="muted small">— chars 3967–5053</span></h3>
+<pre>In addition to the Pensky-Martens flash point testers, other non-equilibrial testers include TAG and Abel, both of which are capable of cooling the sample below ambient for low flash point materials. The TAG flash point tester adheres to ASTM D56 and has no stirrer, while the Abel flash point testers adheres to IP 170 and ISO 13736 and has a stirring motor so the sample is stirred during testing.
+
+The flash point is an empirical measurement rather than a fundamental physical parameter. The measured value will vary with equipment and test protocol variations, including temperature ramp rate (in automated testers), time allowed for the sample to equilibrate, sample volume and whether the sample is stirred.
+
+Methods for determining the flash point of a liquid are specified in many standards. For example, testing by the Pensky-Martens closed cup method is detailed in ASTM D93, IP34, ISO 2719, DIN 51758, JIS K2265 and AFNOR M07-019. Determination of flash point by the Small Scale closed cup method is detailed in ASTM D3828 and D3278, EN ISO 3679 and 3680, and IP 523 and 524.</pre>
+<h3>Measurement  <span class="muted small">— chars 4909–5847</span></h3>
+<pre>Determination of flash point by the Small Scale closed cup method is detailed in ASTM D3828 and D3278, EN ISO 3679 and 3680, and IP 523 and 524.
+
+CEN/TR 15138 Guide to Flash Point Testing and ISO TR 29662 Guidance for Flash Point Testing cover the key aspects of flash point testing.
+
+In modern automated laboratories, modern closed-cup variants are increasingly used to minimize sample volume and enhance safety in confined environments. The Modified Continuously Closed Cup Flash Point (MCCCFP) method, governed by standards such as ASTM D7094 and ISO 24966, requires as little as 2mL of sample and eliminates the open ignition source by utilizing an unvented chamber with a closed electric spark.[7] Instruments utilizing this protocol, such as the eralytics ERAFLASH series, are deployed in mobile military laboratories and fuel testing facilities where traditional Pensky-Martens closed cup tester pose spatial or fume hazards.[7][8]</pre>
+<h3>Examples  <span class="muted small">— chars 5862–6991</span></h3>
+<pre>FuelFlash pointAutoignition
+
+temperature
+
+Ethanol (70%)16.6°C (61.9°F)[9]363°C (685°F)[9]
+
+Coleman fuel (White Gas)−4°C (25°F)[10]215°C (419°F)[10]
+
+Petrol (gasoline)−43°C (−45°F)[11]280°C (536°F)[12]
+
+Diesel (2-D)&gt;52°C (126°F)[11]210°C (410°F)[12]
+
+Jet fuel (A/A-1)&gt;38°C (100°F)210°C (410°F)
+
+Kerosene&gt;38°C (100°F)210°C (410°F)
+
+Vegetable oil (canola)327°C (621°F)424°C (795°F)[13]
+
+Biodiesel&gt;130°C (266°F)
+
+Petrol (gasoline) is a fuel used in a spark-ignition engine. The fuel is mixed with air within its flammable limits and heated by compression and subject to Boyle&#39;s law above its flash point, then ignited by the spark plug. To ignite, the fuel must have a low flash point, but in order to avoid preignition caused by residual heat in a hot combustion chamber, the fuel must have a high autoignition temperature.
+
+Diesel fuel flash points vary between 52 and 96°C (126 and 205°F). Diesel is suitable for use in a compression-ignition engine. Air is compressed until it heats above the autoignition temperature of the fuel, which is then injected as a high-pressure spray, keeping the fuel-air mix within flammable limits.</pre>
+<h3>Examples  <span class="muted small">— chars 6992–7437</span></h3>
+<pre>A diesel-fueled engine has no ignition source (such as the spark plugs in a petrol engine), so diesel fuel can have a high flash point, but must have a low autoignition temperature.
+
+Jet fuel flash points also vary with the composition of the fuel. Both Jet A and Jet A-1 have flash points between 38 and 66°C (100 and 151°F), close to that of off-the-shelf kerosene. Yet both Jet B and JP-4 have flash points between −23 and −1°C (−9 and 30°F).</pre>
+<h3>Standardization  <span class="muted small">— chars 7459–8338</span></h3>
+<pre>Automatic Pensky-Martens closed cup tester with an integrated fire extinguisher
+
+Anton Paar Pensky-Martens Flash Point Tester at DEF-TECH Bharat 2026, KTPO, Bengaluru
+
+Flash points of substances are measured according to standard test methods described and defined in a 1938 publication by T.L. Ainsley of South Shields entitled &#34;Sea Transport of Petroleum&#34; (Capt. P. Jansen). The test methodology defines the apparatus required to carry out the measurement, key test parameters, the procedure for the operator or automated apparatus to follow, and the precision of the test method. Standard test methods are written and controlled by a number of national and international committees and organizations. The three main bodies are the CEN / ISO Joint Working Group on Flash Point (JWG-FP), ASTM D02.8B Flammability Section and the Energy Institute&#39;s TMS SC-B-4 Flammability Panel.</pre>
+<h3>See also  <span class="muted small">— chars 8353–8414</span></h3>
+<pre>Autoignition temperature
+
+Fire point
+
+Safety data sheet (SDS)</pre>
+
+<h2>Extracted claims (29)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Coleman fuel (White Gas)−4°C (25°F)[10]215°C (419°F)[10]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Jet fuel (A/A-1)&gt;38°C (100°F)210°C (410°F)</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">All liquids have a specific vapor pressure, which is a function of that liquid&#39;s temperature and is subject to Boyle–Mariotte law.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Modified Continuously Closed Cup Flash Point (MCCCFP) method, governed by standards such as ASTM D7094 and ISO 24966, requires as little as 2mL of sample and eliminates the open ignition source by utilizing an unvented chamber with a closed electric spark.[7] Instruments utilizing this protocol, such as the eralytics ERAFLASH series, are deployed in mobile military laboratories and fuel testing facilities where traditional Pensky-Martens closed cup tester pose spatial or fume hazards.[7][8]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Closed cup testers normally give lower values for the flash point than open cup (typically 5–10°C or 9–18°F lower) and are a better approximation to the temperature at which the vapour pressure reaches the lower flammable limit.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Petrol (gasoline)−43°C (−45°F)[11]280°C (536°F)[12]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The flash point is a descriptive characteristic that is used to distinguish between flammable fuels, such as petrol (also known as gasoline), and combustible fuels, such as diesel.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The flash point of a material is the lowest temperature at which a liquid gives off enough vapor so that it will ignite in the presence of an ignition source.[1][2] This is different from the fire point, which is the lowest temperature at which the vapors keep burning after the ignition source is removed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The best-known example is the Cleveland open cup (COC).[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The TAG flash point tester adheres to ASTM D56 and has no stirrer, while the Abel flash point testers adheres to IP 170 and ISO 13736 and has a stirring motor so the sample is stirred during testing.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">To ignite, the fuel must have a low flash point, but in order to avoid preignition caused by residual heat in a hot combustion chamber, the fuel must have a high autoignition temperature.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">A diesel-fueled engine has no ignition source (such as the spark plugs in a petrol engine), so diesel fuel can have a high flash point, but must have a low autoignition temperature.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Determination of flash point by the Small Scale closed cup method is detailed in ASTM D3828 and D3278, EN ISO 3679 and 3680, and IP 523 and 524.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Both Jet A and Jet A-1 have flash points between 38 and 66°C (100 and 151°F), close to that of off-the-shelf kerosene.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Petrol (gasoline) is a fuel used in a spark-ignition engine.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There are two basic types of flash point measurement: open cup and closed cup.[5] In open cup devices, the sample is contained in an open cup which is heated and, at intervals, a flame brought over the surface.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Diesel fuel flash points vary between 52 and 96°C (126 and 205°F).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">CEN/TR 15138 Guide to Flash Point Testing and ISO TR 29662 Guidance for Flash Point Testing cover the key aspects of flash point testing.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Vegetable oil (canola)327°C (621°F)424°C (795°F)[13]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ethanol (70%)16.6°C (61.9°F)[9]363°C (685°F)[9]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fire point is higher than the flash point, because at the flash point the rate at which the vapor is produced is not sufficient to sustain combustion.[3] The flash point is also sometimes confused with the autoignition temperature, the temperature that causes spontaneous ignition.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Flash points of substances are measured according to standard test methods described and defined in a 1938 publication by T.L.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fuels which have a flash point less than 37.8°C (100.0°F) are called flammable, whereas fuels having a flash point above that temperature are called combustible.[4]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Anton Paar Pensky-Martens Flash Point Tester at DEF-TECH Bharat 2026, KTPO, Bengaluru</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Determination of flash point by the Small Scale closed cup method is detailed in ASTM D3828 and D3278, EN ISO 3679 and 3680, and IP 523 and 524.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The three main bodies are the CEN / ISO Joint Working Group on Flash Point (JWG-FP), ASTM D02.8B Flammability Section and the Energy Institute&#39;s TMS SC-B-4 Flammability Panel.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, testing by the Pensky-Martens closed cup method is detailed in ASTM D93, IP34, ISO 2719, DIN 51758, JIS K2265 and AFNOR M07-019.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Yet both Jet B and JP-4 have flash points between −23 and −1°C (−9 and 30°F).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Diesel (2-D)&gt;52°C (126°F)[11]210°C (410°F)[12]</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chemical reaction neural networks for fitting accelerating rate calorimetry data — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Chemical reaction neural networks for fitting accelerating rate calorimetry data</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>arXiv</strong> ·
+  academic · authority 4/5<br>
+Published 2024-08-21 ·   Retrieved 2026-09-18T18:01:04+00:00<br>
+  Licence: arXiv non-exclusive licence to distribute; see paper for author licence<br>
+  <a href="https://arxiv.org/abs/2408.11984" rel="nofollow noopener">https://arxiv.org/abs/2408.11984</a><br>
+  <span class="muted">Content hash: <code>f8dcc59cbf056454ef089c52b64d0dfa</code></span>
+</div>
+
+
+<h2>Stored passages (15)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–62</span></h3>
+<pre>Skip to main content
+
+ Press Enter to search · Advanced search</pre>
+<h3>Computer Science &gt; Computational Engineering, Finance, and Science  <span class="muted small">— chars 133–232</span></h3>
+<pre>arXiv:2408.11984 (cs)
+
+ [Submitted on 21 Aug 2024 (v1), last revised 3 Sep 2024 (this version, v2)]</pre>
+<h3>Title:Chemical Reaction Neural Networks for Fitting Accelerating Rate Calorimetry Data  <span class="muted small">— chars 324–1512</span></h3>
+<pre>Authors:Saakaar Bhatnagar, Andrew Comerford, Zelu Xu, Davide Berti Polato, Araz Banaeizadeh, Alessandro Ferraris
+
+View a PDF of the paper titled Chemical Reaction Neural Networks for Fitting Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 5 other authors
+View PDFHTML (experimental)
+Abstract:As the demand for lithium-ion batteries rapidly increases there is a need to design these cells in a safe manner to mitigate thermal runaway. Thermal runaway in batteries leads to an uncontrollable temperature rise and potentially fires, which is a major safety concern. Typically, when modelling the chemical kinetics of thermal runaway calorimetry data ( e.g. Accelerating Rate Calorimetry (ARC)) is needed to determine the temperature-driven decomposition kinetics. Conventional methods of fitting Arrhenius Ordinary Differential Equation (ODE) thermal runaway models to Accelerated Rate Calorimetry (ARC) data make several assumptions that reduce the fidelity and generalizability of the obtained model. In this paper, Chemical Reaction Neural Networks (CRNNs) are trained to fit the kinetic parameters of N-equation Arrhenius ODEs to ARC data obtained from a Molicel 21700 P45B.</pre>
+<h3>Title:Chemical Reaction Neural Networks for Fitting Accelerating Rate Calorimetry Data  <span class="muted small">— chars 1513–2271</span></h3>
+<pre>The models are found to be better approximations of the experimental data. The flexibility of the method is demonstrated by experimenting with two-equation and four-equation models. Thermal runaway simulations are conducted in 3D using the obtained kinetic parameters, showing the applicability of the obtained thermal runaway models to large-scale simulations.
+
+Subjects:Computational Engineering, Finance, and Science (cs.CE); Artificial Intelligence (cs.AI)
+
+Cite as:arXiv:2408.11984 [cs.CE]
+
+(or arXiv:2408.11984v2 [cs.CE] for this version)
+
+https://doi.org/10.48550/arXiv.2408.11984
+Focus to learn more
+ arXiv-issued DOI via DataCite
+
+Related DOI:
+ https://doi.org/10.1016/j.jpowsour.2024.235834
+Focus to learn more
+
+ DOI(s) linking to related resources</pre>
+<h3>Submission history  <span class="muted small">— chars 2296–2445</span></h3>
+<pre>From: Saakaar Bhatnagar [view email]
+
+[v1]
+ Wed, 21 Aug 2024 20:39:41 UTC (4,127 KB)
+
+[v2]
+ Tue, 3 Sep 2024 16:31:21 UTC (4,127 KB)
+
+Full-text links:</pre>
+<h3>Access Paper:  <span class="muted small">— chars 2465–2675</span></h3>
+<pre>View a PDF of the paper titled Chemical Reaction Neural Networks for Fitting Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 5 other authors
+
+View PDF
+
+HTML (experimental)
+
+TeX Source
+
+view license</pre>
+<h3>Current browse context:  <span class="muted small">— chars 2706–2785</span></h3>
+<pre>cs.CE
+
+&lt; prev | next &gt;
+
+new | recent | 2024-08
+
+ Change to browse by:
+
+cs
+cs.AI</pre>
+<h3>References &amp; Citations  <span class="muted small">— chars 2815–2891</span></h3>
+<pre>NASA ADS
+
+Google Scholar
+
+Semantic Scholar
+
+export BibTeX citationLoading...</pre>
+<h3>BibTeX formatted citation  <span class="muted small">— chars 2923–2955</span></h3>
+<pre>×
+
+loading...
+
+Data provided by:</pre>
+<h3>Bookmark  <span class="muted small">— chars 2970–2989</span></h3>
+<pre>Bibliographic Tools</pre>
+<h3>Bibliographic and Citation Tools  <span class="muted small">— chars 3027–3302</span></h3>
+<pre>Bibliographic Explorer Toggle
+
+Bibliographic Explorer(What is the Explorer?)
+
+Connected Papers Toggle
+
+Connected Papers(What is Connected Papers?)
+
+Litmaps Toggle
+
+Litmaps(What is Litmaps?)
+
+scite.ai Toggle
+
+scite Smart Citations(What are Smart Citations?)
+
+Code, Data, Media</pre>
+<h3>Code, Data and Media Associated with this Article  <span class="muted small">— chars 3357–3685</span></h3>
+<pre>alphaXiv Toggle
+
+alphaXiv(What is alphaXiv?)
+
+Links to Code Toggle
+
+CatalyzeX Code Finder for Papers(What is CatalyzeX?)
+
+DagsHub Toggle
+
+DagsHub(What is DagsHub?)
+
+GotitPub Toggle
+
+Gotit.pub(What is GotitPub?)
+
+Huggingface Toggle
+
+Hugging Face(What is Huggingface?)
+
+ScienceCast Toggle
+
+ScienceCast(What is ScienceCast?)
+
+Demos</pre>
+<h3>Demos  <span class="muted small">— chars 3696–3854</span></h3>
+<pre>Replicate Toggle
+
+Replicate(What is Replicate?)
+
+Spaces Toggle
+
+Hugging Face Spaces(What is Spaces?)
+
+Spaces Toggle
+
+TXYZ.AI(What is TXYZ.AI?)
+
+Related Papers</pre>
+<h3>Recommenders and Search Tools  <span class="muted small">— chars 3889–4071</span></h3>
+<pre>Link to Influence Flower
+
+Influence Flower(What are Influence Flowers?)
+
+Core recommender toggle
+
+CORE Recommender(What is CORE?)
+
+Author
+
+Venue
+
+Institution
+
+Topic
+
+ About arXivLabs</pre>
+<h3>arXivLabs: experimental projects with community collaborators  <span class="muted small">— chars 4138–4677</span></h3>
+<pre>arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+
+Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+
+Have an idea for a project that will add value for arXiv&#39;s community? Learn more about arXivLabs.
+
+Which authors of this paper are endorsers? |
+ Disable MathJax (What is MathJax?)</pre>
+
+<h2>Extracted claims (12)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">View a PDF of the paper titled Chemical Reaction Neural Networks for Fitting Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 5 other authors</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">https://doi.org/10.1016/j.jpowsour.2024.235834</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Abstract:As the demand for lithium-ion batteries rapidly increases there is a need to design these cells in a safe manner to mitigate thermal runaway.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Thermal runaway simulations are conducted in 3D using the obtained kinetic parameters, showing the applicability of the obtained thermal runaway models to large-scale simulations.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">[Submitted on 21 Aug 2024 (v1), last revised 3 Sep 2024 (this version, v2)]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Thermal runaway in batteries leads to an uncontrollable temperature rise and potentially fires, which is a major safety concern.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">View a PDF of the paper titled Chemical Reaction Neural Networks for Fitting Accelerating Rate Calorimetry Data, by Saakaar Bhatnagar and 5 other authors</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(or arXiv:2408.11984v2 [cs.CE] for this version)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">https://doi.org/10.48550/arXiv.2408.11984</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In this paper, Chemical Reaction Neural Networks (CRNNs) are trained to fit the kinetic parameters of N-equation Arrhenius ODEs to ARC data obtained from a Molicel 21700 P45B.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Wed, 21 Aug 2024 20:39:41 UTC (4,127 KB)</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

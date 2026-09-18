@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explosive limit — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Explosive limit</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:48+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Explosive_limit" rel="nofollow noopener">https://en.wikipedia.org/wiki/Explosive_limit</a><br>
+  <span class="muted">Content hash: <code>925721f2cf899ff8f64d013d203e400a</code></span>
+</div>
+
+
+<h2>Stored passages (18)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Flammability limit  <span class="muted small">— chars 50–1308</span></h3>
+<pre>24 languages
+
+العربية
+
+Català
+
+Čeština
+
+Deutsch
+
+Español
+
+فارسی
+
+Français
+
+Magyar
+
+Bahasa Indonesia
+
+Ido
+
+Italiano
+
+日本語
+
+한국어
+
+Македонски
+
+Plattdüütsch
+
+Nederlands
+
+Polski
+
+Português
+
+Română
+
+Русский
+
+Српски / srpski
+
+Svenska
+
+Türkçe
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+(Redirected from Explosive limit)
+
+Burning within well-defined lower and upper bounds
+
+Flammability limits or explosive limits are the ranges of fuel concentrations in relation to oxygen from the air. Combustion can range in violence from deflagration through detonation.
+
+Limits vary with temperature and pressure, but are normally expressed in terms of volume percentage at 25°C and atmospheric pressure. These limits are relevant both in producing and optimising explosion or combustion, as in an engine, or to preventing it, as in uncontrolled explosions of build-ups of combustible gas or dust. Attaining the best combustible or explosive mixture of a fuel and air (the stoichiometric proportion) is important in internal combustion engines such as gasoline or diesel engines. The standard reference work is still that elaborated by Michael George Zabetakis, a fire safety engineering specialist, using an apparatus developed by the United States Bureau of Mines.</pre>
+<h3>Violence of combustion  <span class="muted small">— chars 1337–1792</span></h3>
+<pre>Combustion can vary in degree of violence. A deflagration is a propagation of a combustion zone at a velocity less than the speed of sound in the unreacted medium. A detonation is a propagation of a combustion zone at a velocity greater than the speed of sound in the unreacted medium. An explosion is the bursting or rupture of an enclosure or container due to the development of internal pressure from a deflagration or detonation as defined in NFPA 69.</pre>
+<h3>Limits  <span class="muted small">— chars 1805–2078</span></h3>
+<pre>Any mixture of combustibles has specific lower and upper flammability limits. These limits are a function of the pressure, temperature and composition.
+These limits are often shown in flammability diagrams for which an example can be found in the work by Bee and Börner.[1]</pre>
+<h3>Lower flammability limit  <span class="muted small">— chars 2110–3242</span></h3>
+<pre>Lower flammability limit (LFL): The lowest concentration (percentage) of a gas or a vapor in air capable of producing a flash of fire in the presence of an ignition source (arc, flame, heat). The term is considered by many safety professionals to be the same as the lower explosive level (LEL). At a concentration in air lower than the LFL, gas mixtures are &#34;too lean&#34; to burn.
+Methane gas has an LFL of 4.4%.[2] If the atmosphere has less than 4.4% methane, an explosion cannot occur even if a source of ignition is present. From the health and safety perspective, the LEL concentration is considered to be Immediately Dangerous to Life or Health (IDLH), where a more stringent exposure limit does not exist for the flammable gas.[3]
+
+Percentage reading on combustible air monitors should not be confused with the LFL concentrations. Explosimeters designed and calibrated to a specific gas may show the relative concentration of the atmosphere to the LFL—the LFL being 100%. A 5% displayed LFL reading for methane, for example, would be equivalent to 5% multiplied by 4.4%, or approximately 0.22% methane by volume at 20 degrees C.</pre>
+<h3>Lower flammability limit  <span class="muted small">— chars 3243–3470</span></h3>
+<pre>Control of the explosion hazard is usually achieved by sufficient natural or mechanical ventilation, to limit the concentration of flammable gases or vapors to a maximum level of 25% of their lower explosive or flammable limit.</pre>
+<h3>Upper flammability limit  <span class="muted small">— chars 3502–3878</span></h3>
+<pre>Upper flammability limit (UFL): Highest concentration (percentage) of a gas or a vapor in air capable of producing a flash of fire in the presence of an ignition source (arc, flame, heat). Concentrations higher than UFL or UEL are &#34;too rich&#34; to burn. Operating above the UFL is usually avoided for safety because air leaking in can bring the mixture into combustibility range.</pre>
+<h3>Influence of temperature, pressure and composition  <span class="muted small">— chars 3936–5087</span></h3>
+<pre>Flammability limits of mixtures of several combustible gases can be calculated using Le Chatelier&#39;s mixing rule for combustible volume fractions xi{\displaystyle x_{i}}:
+
+LFLmix=1∑ixiLFLi{\displaystyle LFL_{\text{mix}}={\frac {1}{\sum _{i}{\frac {x_{i}}{LFL_{i}}}}}}
+
+and similar for UFL.
+
+Temperature, pressure, and the concentration of the oxidizer also influences flammability limits. Higher temperature or pressure, as well as higher concentration of the oxidizer (primarily oxygen in air), results in lower LFL and higher UFL, hence the gas mixture will be easier to explode.
+
+Usually atmospheric air supplies the oxygen for combustion, and limits assume the normal concentration of oxygen in air. Oxygen-enriched atmospheres enhance combustion, lowering the LFL and increasing the UFL, and vice versa; an atmosphere devoid of an oxidizer is neither flammable nor explosive for any fuel concentration (except for gases that can energetically decompose even in the absence of an oxidizer, such as acetylene). Significantly increasing the fraction of inert gases in an air mixture, at the expense of oxygen, increases the LFL and decreases the UFL.</pre>
+<h3>Gas and vapor  <span class="muted small">— chars 5146–5749</span></h3>
+<pre>Controlling gas and vapor concentrations outside the flammable limits is a major consideration in occupational safety and health. Methods used to control the concentration of a potentially explosive gas or vapor include use of sweep gas, an unreactive gas such as nitrogen or argon to dilute the explosive gas before coming in contact with air. Use of scrubbers or adsorption resins to remove explosive gases before release are also common. Gases can also be maintained safely at concentrations above the UEL, although a breach in the storage container can lead to explosive conditions or intense fires.</pre>
+<h3>Dusts  <span class="muted small">— chars 5762–6771</span></h3>
+<pre>Dusts also have upper and lower explosion limits, though the upper limits are hard to measure and of little practical importance. Lower flammability limits for many organic materials are in the range of 10–50g/m3, which is much higher than the limits set for health reasons, as is the case for the LEL of many gases and vapours. Dust clouds of this concentration are hard to see through for more than a short distance, and normally only exist inside process equipment.
+
+Flammability limits also depend on the particle size of the dust involved, and are not intrinsic properties of the material. In addition, a concentration above the LEL can be created suddenly from settled dust accumulations, so management by routine monitoring, as is done with gases and vapours, is of no value. The preferred method of managing combustible dust is by preventing accumulations of settled dust through process enclosure, ventilation, and surface cleaning. However, lower flammability limits may be relevant to plant design.</pre>
+<h3>Volatile liquids  <span class="muted small">— chars 6795–7079</span></h3>
+<pre>Situations caused by evaporation of flammable liquids into the air-filled void volume of a container may be limited by flexible container volume or by using an immiscible fluid to fill the void volume. Hydraulic tankers use displacement of water when filling a tank with petroleum.[4]</pre>
+<h3>Examples  <span class="muted small">— chars 7094–7220</span></h3>
+<pre>The flammable/explosive limits of some gases and vapors are given below. Concentrations are given in percent by volume of air.</pre>
+<h3>Examples  <span class="muted small">— chars 7094–8425</span></h3>
+<pre>The flammable/explosive limits of some gases and vapors are given below. Concentrations are given in percent by volume of air.
+
+Class IA liquids with a flash point less than 73°F (23°C) and boiling point less than 100°F (38°C) have a NFPA 704 flammability rating of 4
+
+Class IB liquids with a flash point less than 73°F (23°C) and a boiling point equal to or greater than 100°F (38°C) and class IC liquids with a flash point equal to or greater than 73°F (23°C), but less than 100°F (38°C) have a NFPA 704 flammability rating of 3
+
+Class II liquids with a flash point equal to or greater than 100°F (38°C), but less than 140°F (60°C) and class IIIA liquids with a flash point equal to or greater than 140°F (60°C), but less than 200°F (93°C) have a NFPA 704 flammability rating of 2
+
+Class IIIB liquids with a flash point equal to or greater than 200°F (93°C) have a NFPA 704 flammability rating of 1
+
+SubstanceFlammability limit (%vol.)NFPA
+
+classFlash
+
+pointMinimum ignition energy (mJ)
+
+@ proportion in air at which achieved[a][5]Autoignition
+
+temperature
+
+LowerUpper
+
+Acetaldehyde4.057.0IA−39°C0.37175°C
+
+Acetic acid (glacial)419.9II39–43°C463°C
+
+Acetic anhydrideII54°C
+
+Acetone2.6–312.8–13IB−17°C1.15 @ 4.5%465°C, 485°C[6]
+
+AcetonitrileIB2°C524°C
+
+Acetyl chloride7.319IB5°C390°C
+
+Acetylene2.5100[7]IAFlammable gas0.017 @ 8.5%;</pre>
+<h3>Examples  <span class="muted small">— chars 8426–11175</span></h3>
+<pre>0.0002 @ 40%, in pure oxygen305°C
+
+Acrolein2.831IB−26°C0.13
+
+Acrylonitrile3.017.0IB0°C0.16 @ 9.0%
+
+Allyl chloride2.911.1IB−32°C0.77
+
+Ammonia1528IIIB11°C680651°C
+
+Arsine4.5–5.1[8]78IAFlammable gas
+
+Benzene1.27.8IB−11°C0.2 @ 4.7%560°C
+
+1,3-Butadiene2.012IA−85°C0.13 @ 5.2%
+
+Butane, n-butane1.68.4IA−60°C0.25 @ 4.7%420–500°C
+
+n-Butyl acetate, butyl acetate1–1.7[6]8–15IB24°C370°C
+
+2-Butanol1.79.829°C405°C
+
+Isobutanol1.710.922–27°C415°C
+
+n-Butanol1.4[6]11.2IC35°C340°C
+
+n-Butyl chloride, 1-chlorobutane1.810.1IB−6°C1.24
+
+n-Butyl mercaptan1.4[9]10.2IB2°C225°C
+
+Butyl methyl ketone, 2-hexanone1[10]8IC25°C423°C
+
+Butylene, 1-butylene, 1-butene1.98[8]9.65IA−80°C
+
+Carbon disulfide1.050.0IB−30°C0.009 @ 7.8%90°C
+
+Carbon monoxide12[8]75IA−191°C Flammable gas609°C
+
+Chlorine monoxideIAFlammable gas
+
+1-Chloro-1,1-difluoroethane6.217.9IA−65°C Flammable gas
+
+Cyanogen6.0–6.6[11]32–42.6IAFlammable gas
+
+Cyclobutane1.811.1IA−63.9°C[12]426.7°C
+
+Cyclohexane1.37.8–8IB−18 – −20°C[13]0.22 @ 3.8%245°C
+
+Cyclohexanol19IIIA68°C300°C
+
+Cyclohexanone1–1.19–9.4II43.9–44°C420°C[14]
+
+Cyclopentadiene[15]IB0°C0.67640°C
+
+Cyclopentane1.5–29.4IB−37 – −38.9°C[16][17]0.54361°C
+
+Cyclopropane2.410.4IA−94.4°C[18]0.17 @ 6.3%498°C
+
+Decane0.85.4II46.1°C210°C
+
+Diborane0.888IA−90°C Flammable gas[19]38°C
+
+o-Dichlorobenzene, 1,2-dichlorobenzene2[20]9IIIA65°C648°C
+
+1,1-Dichloroethane611IB14°C
+
+1,2-Dichloroethane616IB13°C413°C
+
+1,1-Dichloroethene6.515.5IA−10°C Flammable gas
+
+Dichlorofluoromethane54.7Non flammable,[21] −36.1°C[22]552°C
+
+Dichloromethane, methylene chloride1666Non flammable
+
+Dichlorosilane4–4.796IA−28°C0.015
+
+Diesel fuel0.67.5IIIA&gt;62°C210°C
+
+Diethanolamine213IB169°C
+
+Diethylamine1.810.1IB−23 – −26°C312°C
+
+Diethyl disulfide1.2II38.9°C[23]
+
+Diethyl ether1.9–236–48IA−45°C0.19 @ 5.1%160–170°C
+
+Diethyl sulfideIB−10°C[24]
+
+1,1-Difluoroethane3.718IA−81.1°C[25]
+
+1,1-Difluoroethylene5.521.3−126.1°C[26]
+
+Difluoromethane14.4[27]
+
+Diisobutyl ketone1649°C
+
+Diisopropyl ether121IB−28°C
+
+Dimethylamine2.814.4IAFlammable gas
+
+1,1-DimethylhydrazineIB
+
+Dimethyl sulfideIA−49°C
+
+Dimethyl sulfoxide2.6–342IIIB88–95°C215°C
+
+1,4-Dioxane222IB12°C
+
+Epichlorohydrin42131°C
+
+Ethane3[8]12–12.4IAFlammable gas, −135°C515°C
+
+Ethanol, ethyl alcohol3–3.319IB12.8°C365°C
+
+2-Ethoxyethanol31843°C
+
+2-Ethoxyethyl acetate2856°C
+
+Ethyl acetate212IA−4°C460°C
+
+Ethylamine3.514IA−17°C
+
+Ethylbenzene1.07.115–20°C
+
+Ethylene2.736IA0.07490°C
+
+Ethylene glycol322111°C
+
+Ethylene oxide3100IA−20°C
+
+Ethyl chloride3.8[8]15.4IA−50°C
+
+Ethyl mercaptanIA
+
+Fuel oil No.10.7[8]5
+
+Furan214IA−36°C
+
+Gasoline (100 octane)1.47.6IB&lt; −40°C246–280°C
+
+Glycerol319199°C
+
+Heptane, n-heptane1.056.7−4°C0.24 @ 3.4%204–215°C
+
+Hexane, n-hexane1.27.5−22°C0.24 @ 3.8%225°C, 233°C[6]
+
+Hydrogen4/18.3[28]75/59IAFlammable gas0.016 @ 28%;</pre>
+<h3>Examples  <span class="muted small">— chars 11176–12319</span></h3>
+<pre>0.0012, in pure oxygen500–571°C
+
+Hydrogen sulfide4.346IAFlammable gas0.068
+
+Isobutane1.8[8]9.6IAFlammable gas462°C
+
+Isobutyl alcohol21128°C
+
+Isophorone1484°C
+
+Isopropyl alcohol, isopropanol2[8]12IB12°C398–399°C; 425°C[6]
+
+Isopropyl chlorideIA
+
+KeroseneJet A-10.6–0.74.9–5II&gt;38°C, as jet fuel210°C
+
+Lithium hydrideIA
+
+2-MercaptoethanolIIIA
+
+Methane (natural gas)ISO101565.014.3IAFlammable gas0.21 @ 8.5%580°C
+
+IEC60079-20-14.417
+
+Methyl acetate316−10°C
+
+Methyl alcohol, methanol6–6.7[8]36IB11°C385°C; 455°C[6]
+
+MethylamineIA8°C
+
+Methyl chloride10.7[8]17.4IA−46°C
+
+Methyl etherIA−41°C
+
+Methyl ethyl etherIA
+
+Methyl ethyl ketone1.8[8]10IB−6°C505–515°C[6]
+
+Methyl formateIA
+
+Methyl mercaptan3.921.8IA−53°C
+
+Mineral spirits0.7[6]6.538–43°C258°C
+
+Morpholine1.810.8IC31–37.7°C310°C
+
+Naphthalene0.9[8]5.9IIIA79–87°C540°C
+
+Neohexane1.19[8]7.58−29°C425°C
+
+Nickel tetracarbonyl2344°C60°C
+
+Nitrobenzene29IIIA88°C
+
+Nitromethane7.322.235°C379°C
+
+Octane1713°C
+
+iso-Octane0.795.94
+
+Pentane1.57.8IA−40 – −49°C0.18 @ 4.4%, as 2-pentane260°C
+
+n-Pentane1.47.8IA0.28 @ 3.3%
+
+iso-Pentane1.32[8]9.16IA420°C
+
+PhosphineIA
+
+Propane2.19.5–10.1IAFlammable gas0.25 @ 5.2%;</pre>
+<h3>Examples  <span class="muted small">— chars 12320–13001</span></h3>
+<pre>0.0021, in pure oxygen480°C
+
+Propyl acetate2813°C
+
+Propylene2.011.1IA−108°C0.28458°C
+
+Propylene oxide2.936IA
+
+Pyridine21220°C
+
+Silane1.5[8]98IA&lt;21°C
+
+Styrene1.16.1IB31–32.2°C490°C
+
+TetrafluoroethyleneIA
+
+Tetrahydrofuran212IB−14°C321°C
+
+Toluene1.2–1.276.75–7.1IB4.4°C0.24 @ 4.1%480°C; 535°C[6]
+
+Triethylborane−20°C−20°C
+
+TrimethylamineIAFlammable gas
+
+TrinitrobenzeneIA
+
+Turpentine0.8[29]IC35°C
+
+Vegetable oilIIIB327°C
+
+Vinyl acetate2.613.4−8°C
+
+Vinyl chloride3.633
+
+Xylenes0.9–1.06.7–7.0IC27–32°C0.2
+
+m-Xylene1.1[6]7IC25°C525°C
+
+o-XyleneIC17°C
+
+p-Xylene1.06.0IC27.2°C530°C
+
+↑Note that for many chemicals it takes the least amount of ignition energy halfway between the LEL and UEL.</pre>
+<h3>ASTM E681  <span class="muted small">— chars 13017–13536</span></h3>
+<pre>Image of a flame of R-32 (Difluoromethane) near its LFL in a 12 L ASTM E-681 apparatus.[27]
+In the U.S. the most common method of measuring LFLs and UFLs is ASTM E681.[27] This standard test is required for HAZMAT Class 2 Gases and for determining refrigerant flammability classifications. This standard uses visual observations of flame propagation in 5 or 12 L spherical glass vessels to measure the flammability limits. Flammable conditions are defined as those for which a flame propagates outside a 90° cone angle.</pre>
+<h3>See also  <span class="muted small">— chars 13550–13642</span></h3>
+<pre>Chemistry portal
+
+ATEX
+
+Flammability
+
+Limiting oxygen concentration
+
+Minimum ignition energy</pre>
+
+<h2>Extracted claims (60)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">n-Butyl acetate, butyl acetate1–1.7[6]8–15IB24°C370°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Control of the explosion hazard is usually achieved by sufficient natural or mechanical ventilation, to limit the concentration of flammable gases or vapors to a maximum level of 25% of their lower explosive or flammable limit.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ethanol, ethyl alcohol3–3.319IB12.8°C365°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Explosimeters designed and calibrated to a specific gas may show the relative concentration of the atmosphere to the LFL—the LFL being 100%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Acetone2.6–312.8–13IB−17°C1.15 @ 4.5%465°C, 485°C[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hexane, n-hexane1.27.5−22°C0.24 @ 3.8%225°C, 233°C[6]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">A detonation is a propagation of a combustion zone at a velocity greater than the speed of sound in the unreacted medium.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">These limits are a function of the pressure, temperature and composition.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Class IB liquids with a flash point less than 73°F (23°C) and a boiling point equal to or greater than 100°F (38°C) and class IC liquids with a flash point equal to or greater than 73°F (23°C), but less than 100°F (38°C) have a NFPA 704 flammability rating of 3</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the U.S. the most common method of measuring LFLs and UFLs is ASTM E681.[27] This standard test is required for HAZMAT Class 2 Gases and for determining refrigerant flammability classifications.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This standard uses visual observations of flame propagation in 5 or 12 L spherical glass vessels to measure the flammability limits.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Cyclohexanone1–1.19–9.4II43.9–44°C420°C[14]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lower flammability limits for many organic materials are in the range of 10–50g/m3, which is much higher than the limits set for health reasons, as is the case for the LEL of many gases and vapours.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Methane gas has an LFL of 4.4%.[2] If the atmosphere has less than 4.4% methane, an explosion cannot occur even if a source of ignition is present.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Dichlorofluoromethane54.7Non flammable,[21] −36.1°C[22]552°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cyanogen6.0–6.6[11]32–42.6IAFlammable gas</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Heptane, n-heptane1.056.7−4°C0.24 @ 3.4%204–215°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1-Chloro-1,1-difluoroethane6.217.9IA−65°C Flammable gas</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">n-Butyl chloride, 1-chlorobutane1.810.1IB−6°C1.24</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hydraulic tankers use displacement of water when filling a tank with petroleum.[4]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Carbon disulfide1.050.0IB−30°C0.009 @ 7.8%90°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">KeroseneJet A-10.6–0.74.9–5II&gt;38°C, as jet fuel210°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Class IIIB liquids with a flash point equal to or greater than 200°F (93°C) have a NFPA 704 flammability rating of 1</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1,1-Dichloroethene6.515.5IA−10°C Flammable gas</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Carbon monoxide12[8]75IA−191°C Flammable gas609°C</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Acetic acid (glacial)419.9II39–43°C463°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Propane2.19.5–10.1IAFlammable gas0.25 @ 5.2%;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Butylene, 1-butylene, 1-butene1.98[8]9.65IA−80°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cyclohexane1.37.8–8IB−18 – −20°C[13]0.22 @ 3.8%245°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Class II liquids with a flash point equal to or greater than 100°F (38°C), but less than 140°F (60°C) and class IIIA liquids with a flash point equal to or greater than 140°F (60°C), but less than 200°F (93°C) have a NFPA 704 flammability rating of 2</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Pentane1.57.8IA−40 – −49°C0.18 @ 4.4%, as 2-pentane260°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hydrogen4/18.3[28]75/59IAFlammable gas0.016 @ 28%;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Methane (natural gas)ISO101565.014.3IAFlammable gas0.21 @ 8.5%580°C</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Dimethyl sulfoxide2.6–342IIIB88–95°C215°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Limits vary with temperature and pressure, but are normally expressed in terms of volume percentage at 25°C and atmospheric pressure.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Acetylene2.5100[7]IAFlammable gas0.017 @ 8.5%;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Butyl methyl ketone, 2-hexanone1[10]8IC25°C423°C</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Methyl ethyl ketone1.8[8]10IB−6°C505–515°C[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Image of a flame of R-32 (Difluoromethane) near its LFL in a 12 L ASTM E-681 apparatus.[27]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Class IA liquids with a flash point less than 73°F (23°C) and boiling point less than 100°F (38°C) have a NFPA 704 flammability rating of 4</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Methyl alcohol, methanol6–6.7[8]36IB11°C385°C; 455°C[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A 5% displayed LFL reading for methane, for example, would be equivalent to 5% multiplied by 4.4%, or approximately 0.22% methane by volume at 20 degrees C.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Toluene1.2–1.276.75–7.1IB4.4°C0.24 @ 4.1%480°C; 535°C[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cyclopropane2.410.4IA−94.4°C[18]0.17 @ 6.3%498°C</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Butane, n-butane1.68.4IA−60°C0.25 @ 4.7%420–500°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">@ proportion in air at which achieved[a][5]Autoignition</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Controlling gas and vapor concentrations outside the flammable limits is a major consideration in occupational safety and health.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Diborane0.888IA−90°C Flammable gas[19]38°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ethane3[8]12–12.4IAFlammable gas, −135°C515°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">LFLmix=1∑ixiLFLi{\displaystyle LFL_{\text{mix}}={\frac {1}{\sum _{i}{\frac {x_{i}}{LFL_{i}}}}}}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These limits are often shown in flammability diagrams for which an example can be found in the work by Bee and Börner.[1]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Gasoline (100 octane)1.47.6IB&lt; −40°C246–280°C</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Diethyl ether1.9–236–48IA−45°C0.19 @ 5.1%160–170°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Flammable conditions are defined as those for which a flame propagates outside a 90° cone angle.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cyclopentane1.5–29.4IB−37 – −38.9°C[16][17]0.54361°C</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">From the health and safety perspective, the LEL concentration is considered to be Immediately Dangerous to Life or Health (IDLH), where a more stringent exposure limit does not exist for the flammable gas.[3]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Isopropyl alcohol, isopropanol2[8]12IB12°C398–399°C; 425°C[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">o-Dichlorobenzene, 1,2-dichlorobenzene2[20]9IIIA65°C648°C</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">A deflagration is a propagation of a combustion zone at a velocity less than the speed of sound in the unreacted medium.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">An explosion is the bursting or rupture of an enclosure or container due to the development of internal pressure from a deflagration or detonation as defined in NFPA 69.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

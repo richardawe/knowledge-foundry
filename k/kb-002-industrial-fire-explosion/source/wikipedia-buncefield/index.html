@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buncefield fire — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Buncefield fire</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  investigation · authority 3/5<br>
+Published 2005-12-11 ·   Retrieved 2026-09-18T18:01:52+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Buncefield_fire" rel="nofollow noopener">https://en.wikipedia.org/wiki/Buncefield_fire</a><br>
+  <span class="muted">Content hash: <code>e2ec356b978e1d23ff9211d4f7044086</code></span>
+</div>
+
+
+<h2>Stored passages (37)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Buncefield fire  <span class="muted small">— chars 47–407</span></h3>
+<pre>6 languages
+
+Deutsch
+
+Español
+
+Suomi
+
+Français
+
+Italiano
+
+Nederlands
+
+Edit links
+
+Coordinates: 51°45′49′′N0°25′26′′W﻿ / ﻿51.76361°N 0.42389°W﻿ / 51.76361; -0.42389
+
+From Wikipedia, the free encyclopedia
+
+2005 oil storage fire and explosion in England
+
+Buncefield fire
+
+The fire ten minutes after the explosion as seen from Hunters Oak, 0.6 miles (0.97km) away.</pre>
+<h3>Buncefield fire  <span class="muted small">— chars 409–1407</span></h3>
+<pre>Date11December2005(2005-12-11)
+
+Time06:01 UTC
+
+Location
+
+Hemel Hempstead, Hertfordshire, England, United Kingdom
+
+Injuries43, 2 serious
+
+Buncefield fire (Hertfordshire)
+
+The Buncefield fire was a major fire at an oil storage facility that started at 06:01 UTC on Sunday 11 December 2005 at the Hertfordshire Oil Storage Terminal,[1] located near the M1 motorway, Hemel Hempstead, in Hertfordshire, England.[2][3] The terminal was the fifth largest oil-products storage depot in the United Kingdom, with a capacity of about 60million imperial gallons (270,000m3) of fuel.[3][4] The terminal is owned by Total UK Limited (60%) and Texaco (40%).[5][6][7][8]
+
+The first and largest explosion occurred near tank 912,[6][9] which led to further explosions which eventually overwhelmed 20large storage tanks.[10]
+The emergency services announced a major emergency at 06:08 and a firefighting effort began. The cause of the explosion was a fuel-air explosion in a vapour cloud of evaporated leaking petrol.</pre>
+<h3>Buncefield fire  <span class="muted small">— chars 1308–2333</span></h3>
+<pre>The cause of the explosion was a fuel-air explosion in a vapour cloud of evaporated leaking petrol. The British Geological Survey monitored the event, which measured 2.4 on the Richter scale.[4][9][11]
+News reports described the incident as the biggest of its kind in peacetime Europe[12] and certainly the biggest such explosion in the United Kingdom since the 1974 Flixborough disaster.[1][13] The flames had been extinguished by the afternoon of 13 December 2005. However, one storage tank reignited that evening, which firefighters left to burn rather than attempting to extinguish it again.[3][5]
+
+The Health Protection Agency and the Major Incident Investigation Board provided advice to prevent incidents such as these in the future.[14] The primary need is for safety measures to be in place to prevent fuel escaping the tanks in which it is stored.[15] Added safety measures are needed for when fuel does escape, mainly to prevent it forming a flammable vapour and stop pollutants from poisoning the environment.[15]</pre>
+<h3>Explosion and fire  <span class="muted small">— chars 2372–3514</span></h3>
+<pre>The fire seen from a vantage point between the Northgate and 3Com Corporation buildings. The windscreen and rear window on the vehicle in the foreground are broken.
+The first and largest explosion occurred at 06:01 UTC on Sunday, 11 December 2005 near container 912.[6][9]Further explosions followed which eventually overwhelmed 20 large storage tanks.[10]
+From all accounts, it seems to have been an unconfined vapour cloud explosion of unusually high strength–also known as a fuel-air explosion.[16] Because of an inversion layer, the explosions were heard up to 125 miles (200km) away; there were reports that they were audible in Belgium, France, and the Netherlands.[2][6][11]
+
+The British Geological Survey monitored the event, which measured 2.4 on the Richter scale.[4][9][11] It was reported that people were woken in south London, and as far west as Wokingham about 28 miles (45km) away, where in its southern suburb, Finchampstead, numerous people felt the shockwave after the initial explosion. Subsequent explosions occurred at 06:27 and 06:28.[5][6]
+
+Witnesses many miles from the terminal observed flames hundreds of feet high;</pre>
+<h3>Explosion and fire  <span class="muted small">— chars 3379–4392</span></h3>
+<pre>Subsequent explosions occurred at 06:27 and 06:28.[5][6]
+
+Witnesses many miles from the terminal observed flames hundreds of feet high; the smoke cloud was visible from space, and from as far north as Lincolnshire about 70 miles (110km) away.[5] Damage from the blasts included broken windows at various buildings including the Holy Trinity church and Leverstock Green School, blown-in or warped front doors, and an entire wall being removed from a warehouse more than 0.5 miles (800m) from the site.[17] Buildings in neighbouring St Albans also suffered; Townsend School had serious blast damage, and was subsequently closed for repair work and a window was blown out of St Albans Abbey about 5 miles (8km) away.[9]
+
+Several nearby office blocks were hit so badly that almost every window, front and back, was blown in as the explosion ripped through them.[18] The timing of the explosion before work hours possibly prevented additional casualties. Reports also indicated that cars in nearby streets caught fire.</pre>
+<h3>Explosion and fire  <span class="muted small">— chars 4329–5257</span></h3>
+<pre>Reports also indicated that cars in nearby streets caught fire. The roof of at least one house was blown off.[17] Buildings in the vicinity were evacuated by police, not only because of the smoke and possibility of more explosions, but because of the danger of structural damage making the buildings unstable.[9]
+
+There were 43reported injuries. Two people were hospitalized, one in Watford General Hospital, with breathing difficulties, and another in Hemel Hempstead Hospital, although they were not in a life-threatening condition.[4][11][19] No one was killed in the incident.[20] All members of staff from the terminal were accounted for.[3][17]
+
+Hertfordshire police and fire services and the member of parliament for the area, Mike Penning, said that there were seven fuel tanks on the site which, as of 14:00 on 12 December, had not been affected. These tanks were at risk of exploding if the fire were to spread.[5][16]</pre>
+<h3>Tackling the blaze  <span class="muted small">— chars 5282–5608</span></h3>
+<pre>This satellite photo shows black smoke from the explosion spreading in two main streams from the explosion site shown by the orange dot. By the time the fire had been extinguished the smoke had reached the English Channel.
+The emergency services announced a major emergency at 06:08 and a tremendous firefighting effort began.</pre>
+<h3>Tackling the blaze  <span class="muted small">— chars 5505–6706</span></h3>
+<pre>The emergency services announced a major emergency at 06:08 and a tremendous firefighting effort began. At peak times this effort consisted of 25fire engines, 20support vehicles and 180fire fighters.[10]
+
+Around 150firefighters were called immediately to the incident, and began tackling the blaze at 08:20 on the morning of 11 December, putting in containment measures before applying a large quantity of foam.[5][21][22] The incident occurred close to junction 8 of the M1 motorway, which led to its closure and the setting up of a public exclusion area.[3] It was estimated that this incident would be the largest &#34;single-seat&#34; fire in the world ever to be fought by a fire brigade, and foam supplies from sites all over the UK were drawn upon.[3][6]
+
+Plans had been in place to start using foam at midnight on 11 December, but were delayed by last-minute concerns over possible pollution of local rivers and underlying water sources.[17][23] Six high volume pumps were used to extract 25,000 litres (5,499impgal) of water per minute–417 litres (92impgal) per second–from a reservoir 1.5 miles (2km) from the fire, with six more high-volume pumps deployed at various locations to serve as boosters.</pre>
+<h3>Tackling the blaze  <span class="muted small">— chars 6707–7539</span></h3>
+<pre>Thirty-two thousand litres (7,039 imp gal) of fire fighting foam per minute were directed against the fire for just over four hours, after which the pumping rate was reduced.[5] Half of the 20individual fires were reported extinguished by midday.[21]
+
+By 16:30 on Monday 12 December, it was reported that a further two tank fires had been extinguished, but that one of the tanks extinguished earlier had ruptured and re-ignited, and was now threatening to cause the explosion of an adjacent tank.[22] This led to the M1 motorway being closed again; the public exclusion area was widened, and firefighters were temporarily withdrawn until the risk posed by the threatened tank could be assessed.[3][6]
+
+Firefighting operations were resumed at about 20:00, and it was anticipated that all fires could be extinguished during the night.</pre>
+<h3>Tackling the blaze  <span class="muted small">— chars 7540–8490</span></h3>
+<pre>Further damage occurred to one of the storage tanks in the early hours of Tuesday morning, causing firefighters to be withdrawn once again, but operations resumed at 08:30.[24] By midday on 13 December, all but three fires had been extinguished, although the largest tank was still burning.[22]Bronze command–operations on the ground–was visited by the Bishop of St Albans, the local vicar, and the industrial chaplain supporting the fire crews, to see how they were coping.[5]
+
+Firefighters were confident that the remaining fires could be extinguished during the day on Tuesday, 13 December.[22] The smoke plume had been considerably reduced and was more grey, indicating the amount of vapourised water now combining with the smoke. It was reported at 16:45 that all tank fires had been extinguished, although some smaller fires persisted.[22] 75% of firefighters for Hertfordshire were involved in fighting the fire, supported by 16other brigades.</pre>
+<h3>Tackling the blaze  <span class="muted small">— chars 8491–9134</span></h3>
+<pre>The entire gold command operation, involving many agencies as well as all the emergency services, was run from Hertfordshire Constabulary&#39;s headquarters in Welwyn Garden City, some distance from the fire.[5]
+
+A further fire broke out during the early morning of 14 December. Firefighters were of the view that extinguishing it would leave the risk of petroleum vapour re-igniting or exploding, so it would be better to allow the fire, which was well contained, to burn itself out.[5] Hertfordshire Fire Service&#39;s deputy chief Mark Yates stated that escaping petroleum vapour was the most likely cause of the original explosion and fire.[5][16]</pre>
+<h3>Smoke cloud  <span class="muted small">— chars 9152–10067</span></h3>
+<pre>The smoke plume seen from Dunsmore, Buckinghamshire, about 14 miles (23km) away, 2 hours after the explosion
+The black smoke cloud, which was visible from satellite photographs, drifted at a high altitude, around 9,000 feet (2,700m), towards Reading and Swindon, and could be seen across much of South East England.[25]
+
+The small particles in the smoke contained hydrocarbons, which can be an irritant but have a low toxicity and were not expected to cause any long-term harm.[17] The Met Office issued warnings that the smoke in the atmosphere could come down in rainfall during the night of 11 December.[25]
+
+The fire resulted in 244people requiring medical aid–mainly on the first day of the fire.[17] From those 117 had symptoms attributable to the incident, of whom 38 were members of the public. The majority of those visiting hospitals were from the rescue services and attended for precautionary check ups.</pre>
+<h3>Smoke cloud  <span class="muted small">— chars 9955–11142</span></h3>
+<pre>The majority of those visiting hospitals were from the rescue services and attended for precautionary check ups. Most of them had no symptoms, except for 63 emergency workers who suffered respiratory complaints, of which half were sore throats.[17]
+The smoke plume seen from High Wycombe, Buckinghamshire, about 18 miles (29km) away, nearly 38 hours after the explosion
+For the first two days of the fire, the high thermal energy made the plume highly buoyant; this, together with settled weather conditions, allowed the plume to rise to a great height with little cross-mixing. When the fire was reduced in intensity it was reported to be possible that the plume would be less buoyant and that ground-level smoke concentrations could then rise significantly.[24] By 12 December, it was reported that the smoke cloud had reached northern France; it was expected to arrive in northern Spain by the weekend.[21]
+
+To investigate the smoke cloud the Facility for Airborne Atmospheric Measurements, a research aircraft operated jointly by NERC and the Met Office, made two flights on 12 and 13 December. In the first flight the edge of the plume was followed along the south coast of England.</pre>
+<h3>Smoke cloud  <span class="muted small">— chars 11054–11400</span></h3>
+<pre>In the first flight the edge of the plume was followed along the south coast of England. Carbon monoxide, nitrogen oxides and ozone concentrations were found to be low with soot particles being the major component in the cloud. The second flight went into the centre of the plume to obtain data to help forecasting and emergency teams.[6][17][26]</pre>
+<h3>Evacuations and closures  <span class="muted small">— chars 11458–11689</span></h3>
+<pre>Smoke from the blast, visible from Hemel Hempstead, above the closed M1 motorway on the day of the explosion
+Hundreds of homes in the Hemel Hempstead area were evacuated, and about 2,000people had to find alternative accommodation;</pre>
+<h3>Evacuations and closures  <span class="muted small">— chars 11690–13007</span></h3>
+<pre>emergency services asked residents of the smoke-affected areas to close their windows and doors and to stay inside.[3][21][24]
+
+Hertfordshire Constabulary advised people who had houses with smashed windows to seek refuge with friends or family nearby if possible.[3] Some people whose homes were damaged by the blast were placed in hotels, while others stayed in a nearby shopping centre.[18] Total, the operator of the Buncefield depot, set up a helpline for people whose properties had been damaged by the explosion, and called in local authorities and the Salvation Army to provide accommodation or other help.[18]
+
+Concerns for public safety resulted in about 227schools, libraries, and other public buildings across Hertfordshire and Buckinghamshire closing on 12 and 13 December.[3][27] Police and local authorities advised residents to consult the Hertfordshire Direct website for up-to-date information.[27]
+
+Seventy-eight schools in Luton borough were closed on 13 December, along with a limited number of schools in Bedfordshire,[3] on the advice of Hertfordshire&#39;s Health Protection Agency that all schools within a 10-mile (16km) radius of the incident site should be closed because of concerns surrounding the effect of the smoke plume on children&#39;s health. Schools reopened as normal on 14 December.[28]</pre>
+<h3>Transport disruption  <span class="muted small">— chars 13034–14076</span></h3>
+<pre>The incident occurred close to junction 8 of the M1 motorway.[3] The motorway was shut between junctions 12 and 6a–about 18 miles (29km)–shortly after the incident. Other roads in the vicinity, including the short M10 motorway (now part of the A414 road), were also closed.[3]
+
+Some local petrol stations reported long queues as people started panic buying. A spokesman for the Department of Trade and Industry gave assurances that no petrol shortage was likely to result from the incident.[3][6]
+
+The oil terminal supplied 30% of Heathrow Airport&#39;s fuel, and because of the fire, the airport had to start rationing fuel.[2][29] Some long-haul flights to Australia, the Far East, and South Africa had to make an intermediate stop at Stansted Airport or other European airports to refuel, while short-haul operators were asked to fuel their aircraft for the round trip before flying to Heathrow.[29] Some aircraft were only allowed 40% of the fuel they would normally take on board. Fuel shortages continued for months after the explosion.[29]</pre>
+<h3>Business disruption  <span class="muted small">— chars 14103–15133</span></h3>
+<pre>In the Maylands Industrial area the worst affected buildings were the Northgate Information Solutions headquarters and the Fujifilm building. These buildings were so badly damaged they were rendered completely unusable. Demolition of the Fujifilm building began soon afterwards, and by June 2006 it had been completely removed from the site.[5] Although the Northgate and Fujifilm buildings were closest to the blast, the surrounding Catherine House (to the north), Keystone Distribution building (to the west), 3Com Corporation, and RO buildings (to the south), were also extensively damaged.[30]ASOS lost £5 million of inventory and could not sell during the Christmas shopping season.[31] In all, six buildings were designated for demolition and 30 more required major repairs before they could be reoccupied.[32]
+
+As a result of the destruction of the equipment in the Northgate building several websites hosted there were inaccessible–including that of the Labour Party. Addenbrooke&#39;s Hospital in Cambridge was also affected;</pre>
+<h3>Business disruption  <span class="muted small">— chars 15079–15642</span></h3>
+<pre>Addenbrooke&#39;s Hospital in Cambridge was also affected; its IT system dealing with admissions and discharges had to be replaced for several days by a manual system.[30]
+
+A number of companies were affected by inability to reach their premises even where the premises themselves were largely unaffected by the blast.[5] Criticism was expressed by local citizens and the local MP as originally the depot had been constructed away from other buildings, but that developmental pressures had led to both houses and commercial premises being built near the depot.[5][18]</pre>
+<h3>Groundwater pollution  <span class="muted small">— chars 15671–16657</span></h3>
+<pre>In May 2006 Three Valleys Water announced that it had detected the persistent, bioaccumulative, and toxicfluorosurfactantperfluorooctane sulfonate (PFOS)–which is used in fire fighting foam–in a ground water bore hole close to the Buncefield site.[17][33] It stated that no water from this well entered the public water supply and that a nearby well and pumping station had been closed since the fire as a precaution. The chemical is a known health risk and the UK government had been about to ban its use.[23][33]
+
+However just before the announcement, the Drinking Water Inspectorate announced that it was increasing the safe level of the chemical in drinking water.[17] Hemel Hempstead MP, Mike Penning accused the government of changing the rules to suit the situation in which PFOS levels in drinking water in the area may rise in the future.[17] Most of the fuel burned out–rather than spilling into the soil, so the impact on surrounding land and the water table was limited.[23]</pre>
+<h3>Inquiry  <span class="muted small">— chars 16671–17765</span></h3>
+<pre>Smoke from the fire over Hampstead Heath, London, about 18 miles (29km) away, 10 hours after the explosion
+A government inquiry held jointly by the Health and Safety Executive (HSE) and the Environment Agency was started, but calls for a full public inquiry were declined.[11][34] The Board included Tony Newton, Baron Newton of Braintree; Prof Dougal Drysdale, an authority on fire safety; and Dr Peter Baxter, a medical expert.[1] Environment Agency and HSE staff were also on the board.[35] Its aim was to identify the immediate causes of the explosion, rather than consider who was to blame for any deficiencies, so as not to prejudice further legal proceedings.[34][35]
+
+An initial progress report by the Major Incident Investigation Board on 21 February 2006 did not go into the causes of the explosion, but summed up the event and the immediate reaction from the emergency services.[23][35] A second progress report, published on 11April 2006, looked at the environmental impact.[11]
+
+A further announcement was made on 9 May 2006 about the sequence of events which caused the explosion.</pre>
+<h3>Inquiry  <span class="muted small">— chars 17766–18179</span></h3>
+<pre>Starting at 19:00 on the evening of 10 December 2005, Tank 912, towards the north west of the main depot, was filled with unleaded petrol–from the Coryton Refinery located in Essex, England.[10][17] At midnight the terminal closed, and a check was made of the contents of tanks, which found everything normal. Normally the gauges monitor the level of the fuel in the tank as it fills from the particular pipeline.</pre>
+<h3>Inquiry  <span class="muted small">— chars 18076–19084</span></h3>
+<pre>Normally the gauges monitor the level of the fuel in the tank as it fills from the particular pipeline. From about 03:00 the level gauge for Tank 912 began to indicate an unchanging level reading, despite it being filled at 550 cubic metres (19,423ft3) per hour.[17]
+
+Calculations show that the tank would have begun to overflow at about 05:20.[1][10] There is evidence suggesting that a high-level switch, which should have detected that the tank was full and shut off the supply, failed to operate.[1][10] The switch failure should have triggered an alarm, but it too appears to have failed.[1][17] Forty-one minutes later, an estimated 300 tonnes (330 short tons) of petrol would have spilled down the side of the tank through the roof vents onto the ground inside a bund wall–a semi-enclosed compound surrounding several tanks.[1][4][17]
+
+An overflow such as this results in the rapid formation of a rich fuel and air vapour. CCTV footage showed such a vapour flowing out the bund wall from around 05:38.</pre>
+<h3>Inquiry  <span class="muted small">— chars 19006–20056</span></h3>
+<pre>CCTV footage showed such a vapour flowing out the bund wall from around 05:38. By 05:50 the vapour started flowing off the site, near the junction of Cherry Tree and Buncefield Lane.[10] Around 05:50 the rate at which fuel was being pumped into the tank increased dramatically. Initially the fuel was pumped in at 550 cubic metres (19,423ft3) per hour, but it increased to about 890 cubic metres (31,430ft3) per hour.[10] By 06:01, when the first explosion occurred, the cloud which was initially about 1 metre (3ft) deep, thickened to 2 metres (7ft) and had spread beyond the boundaries of the site.[5][10][24]
+
+The extent of the damage meant it was not possible to determine the exact source of ignition, but possibilities include an emergency generator and the depot&#39;s fire pump system.[3][17] The investigators did not believe that it was caused either by the driver of a fuel tanker, as had been speculated, or by anyone using a mobile phone. It was felt unlikely that the explosion had a widespread effect on air quality at ground level.[5][16]</pre>
+<h3>Civil liability  <span class="muted small">— chars 20095–21202</span></h3>
+<pre>This section needs to be updated. Please help update this article to reflect recent events or newly available information.(January 2011)
+
+The Buncefield depot is behind the Northgate building (at the right of this photo). The building lost the glass from all of its windows.
+A total of 2,700 claims were filed by residents, businesses and insurers.[18] A group of 146 claimants were hoping to bring a class action against Hertfordshire Oil Storage Ltd. On 17 March 2006 a High Court official, Senior Master Turner, adjourned a hearing on whether to permit the class action until October 2006.[18][needs update] Claimants including insurance companies, small businesses and about 280families whose properties were damaged or destroyed were claiming up to £1billion in damages.[19]
+
+Several court cases resulted from the explosion, although the main trial to determine who was liable for the damage commenced at the High Court in October 2008.[7][needs update] The BBC quoted Cheetah Couriers–which suffered a 20% drop in turnover because of the explosions, resulting in losses of around £300,000 to £400,000.</pre>
+<h3>Civil liability  <span class="muted small">— chars 21203–22234</span></h3>
+<pre>The company was located in offices on an industrial estate 400 metres (1,300ft) from the depot.[18]
+
+An initial trial concluded on 23 May 2008 when Mr Justice David Steel issued a summary judgment after hearing that both Total and Hertfordshire Oil Storage Ltd (HOSL) had agreed that negligence was the cause.[7][19] In the main trial, Total UK claimed that the duty supervisor at the time was responsible for the explosion, but refused to admit either civil or criminal liability for the incident.[4][19] Total UK argued that it should not be liable for damages because it could not reasonably have foreseen that it would cause the destruction it did.[4][19] On 20 March 2009 the High Court found Total liable for the blast, saying that it was satisfied that Total had control of tank filling operations at the Buncefield depot.[36] The judgement left the company facing damage claims of around £700million.[7][37]
+
+Total appealed the judgement,[36][38] but the appeal was dismissed in a hearing on 4 March 2010.[39][needs update]</pre>
+<h3>Criminal liability  <span class="muted small">— chars 22260–23105</span></h3>
+<pre>The site is covered by the COMAH regulations. The Control of Major Accidents and Hazards Regulations are jointly enforced by the competent authority which is formed of the Environment Agency and the Health and Safety Executive. They carried out an investigation during and following the fire.
+
+In April 2010, the five companies accused of causing the explosion faced a criminal prosecution brought by the Health and Safety Executive and the Environment Agency. Two defendants, Total UK and British Pipeline Agency Limited, had already pleaded guilty to offences under the Health and Safety at Work Act. The remaining three, Hertfordshire Oil Storage Ltd, TAV Engineering Ltd and Motherwell Control Systems were found guilty in June 2010. TAV Engineering Ltd and Motherwell Control Systems were found guilty of failing to protect their employees.</pre>
+<h3>Criminal liability  <span class="muted small">— chars 22998–23750</span></h3>
+<pre>TAV Engineering Ltd and Motherwell Control Systems were found guilty of failing to protect their employees. Hertfordshire Oil Storage Ltd was found guilty of failing to prevent major accidents and limit their effects and then pleaded guilty to causing pollution to enter controlled waters underlying the vicinity around the site, contrary to the Water Resources Act.[7][11][36][38][40][41][42]
+
+Sentencing took place in July 2010.[42] Total UK was fined £3.6m, plus £2.6m in costs. Hertfordshire Oil Storage Limited was fined £1.45m and £1m in costs. The British Pipeline Agency was fined £300,000 plus £480,000 costs. Motherwell Control Systems and TAV Engineering were fined £1,000 each. Local MP Mike Penning called the modest fines &#34;insulting&#34;.[43]</pre>
+<h3>The terminal  <span class="muted small">— chars 23769–24923</span></h3>
+<pre>Main article: Hertfordshire Oil Storage Terminal
+
+The Hertfordshire Oil Storage Terminal (HOSL–Hertfordshire Oil Storage Ltd), generally known as the Buncefield complex, was the fifth largest oil-products storage depot in the UK, with a capacity of about 60,000,000 imperial gallons (270ML) of fuel, although it was not always full.[3][4] This was about 8% of UK oil storage capacity.[5][6]
+
+The HOSL is a major hub on the UK&#39;s oil pipeline network (UKOP) with pipelines to the Lindsey Oil Refinery and Stanlow Refinery and is an important fuel source to the British aviation industry, providing aircraft fuel for local airports including Gatwick, Heathrow and Luton airports.[5] About half of the complex is dedicated to the storage of aviation fuel. The remainder of the complex stores oil, kerosene, petrol and diesel fuel for petrol stations across much of the South-East of England.[2][4] The terminal is owned by TOTAL UK Limited (60%) and Texaco 40%.[5][6][7][8]
+
+The seat of the fire, and the worst damaged section, was &#34;HOSL West&#34;, used by Total and Texaco to store a variety of fuels, and the neighbouring British Pipeline Agency area.[5][7][8]</pre>
+<h3>Causes  <span class="muted small">— chars 24936–26035</span></h3>
+<pre>The smoke plume from 3.75 miles (6.04km) away, the day after the explosion
+The final report of the Major Incident Investigation Board (MIIB) was written in 2008 and released in February 2011.[44] The investigation found that Tank 912 at the Buncefield oil storage depot was being filled with petrol. The tank had a level gauge that employees used to monitor the level manually, and an independent high-level switch which would shut off inflow if the level got above a certain setpoint.
+
+On Tank 912, the manual gauge was stuck and the independent shut-off switch was inoperative, meaning that the tank was being &#34;filled blind&#34; with petrol (i.e., being filled without a clear indication of the level). Eventually Tank 912 filled up completely, the petrol overflowed through vents at the top, and formed a vapour cloud near ground level, which ignited and exploded. The fires from the explosion then lasted for five days.[44]
+
+The investigation found that the level gauge had stuck at random times after a tank service in August 2005, but it did not concern maintenance contractors or site management.</pre>
+<h3>Causes  <span class="muted small">— chars 26036–27096</span></h3>
+<pre>The independent shut-off switch was not fitted with a critical padlock to allow its check lever to work. Secondary containment (meant to trap the petrol in a retaining wall around the tank) failed and allowed petrol to flow out. Tertiary containment (drains and catchment areas to prevent release of spilled chemicals to the environment) also failed, and fuel and firefighting foam entered groundwater supplies. The investigation found secondary and tertiary containment to be inadequately designed and poorly maintained.[44]
+
+Wider management failings were found by the investigation to have contributed to the explosion: management safety checks at the site were found to be deficient and not properly followed. Site staff did not have control over the flow rates and timing of two of the three inlet sources, meaning that they did not have enough information to properly manage the storage of incoming fuel. Further, overall throughput had increased, reducing wait times further and shifting the emphasis to process operations instead of process safety.[44]</pre>
+<h3>Aftermath  <span class="muted small">— chars 27111–27462</span></h3>
+<pre>This section needs to be updated. Please help update this article to reflect recent events or newly available information.(January 2018)
+
+Soon after the incident the Health Protection Agency was stripped of its remit to provide air quality data and it was passed on to the Environment Agency which forms part of the Major Accident Investigation Board.</pre>
+<h3>Remembrance  <span class="muted small">— chars 27480–27860</span></h3>
+<pre>An anniversary service was held in Holy Trinity Church Leverstock Green on Sunday, 10 December 2006, at which the Bishop of St Albans spoke, calling again for a full public inquiry, for assurances that the local hospital would maintain its accident and emergency department, and for the community to continue to build on good and new relationships formed because of the blast.[45]</pre>
+<h3>Reconstruction  <span class="muted small">— chars 27882–28606</span></h3>
+<pre>To rebuild the damaged parts of the site, the relevant approval from Dacorum Borough Council would be needed. The BP section of the site is a good way from the explosion and survived with very little damage, but it was inoperative as of 2009.[46] BP is exploring plans for the future use of this part of the site, and has indicated a number of priorities, including the reopening of the fuel pipelines to Heathrow. It is considering using its section to store aviation fuel and as a distribution centre for motor fuel, but at a much-reduced level.[46] In late 2009, Total UK submitted plans for the reconstruction of the oil depot.[47] The reconstruction of the site has been taking place since March 2013.[48][needs update]</pre>
+<h3>Commemoration  <span class="muted small">— chars 28627–28844</span></h3>
+<pre>Phoenix Gateway sculpture in Hemel
+On the roundabout at the entrance to Hemel, the &#34;Phoenix Gateway&#34; sculpture was designed by Jose Zavala to symbolise the recovery of the town from the Buncefield oil depot explosion.</pre>
+<h3>See also  <span class="muted small">— chars 28858–29016</span></h3>
+<pre>England portal
+
+Wikinews has related news:
+
+ Major explosions at UK oil depot
+
+Wikimedia Commons has media related to Hertfordshire Oil Storage Terminal fire.</pre>
+
+<h2>Extracted claims (100)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">By 05:50 the vapour started flowing off the site, near the junction of Cherry Tree and Buncefield Lane.[10] Around 05:50 the rate at which fuel was being pumped into the tank increased dramatically.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A spokesman for the Department of Trade and Industry gave assurances that no petrol shortage was likely to result from the incident.[3][6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The investigation found secondary and tertiary containment to be inadequately designed and poorly maintained.[44]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The small particles in the smoke contained hydrocarbons, which can be an irritant but have a low toxicity and were not expected to cause any long-term harm.[17] The Met Office issued warnings that the smoke in the atmosphere could come down in rainfall during the night of 11 December.[25]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Plans had been in place to start using foam at midnight on 11 December, but were delayed by last-minute concerns over possible pollution of local rivers and underlying water sources.[17][23] Six high volume pumps were used to extract 25,000 litres (5,499impgal) of water per minute–417 litres (92impgal) per second–from a reservoir 1.5 miles (2km) from the fire, with six more high-volume pumps deployed at various locations to serve as boosters.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Several court cases resulted from the explosion, although the main trial to determine who was liable for the damage commenced at the High Court in October 2008.[7][needs update] The BBC quoted Cheetah Couriers–which suffered a 20% drop in turnover because of the explosions, resulting in losses of around £300,000 to £400,000.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fires from the explosion then lasted for five days.[44]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">From all accounts, it seems to have been an unconfined vapour cloud explosion of unusually high strength–also known as a fuel-air explosion.[16] Because of an inversion layer, the explosions were heard up to 125 miles (200km) away; there were reports that they were audible in Belgium, France, and the Netherlands.[2][6][11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">An anniversary service was held in Holy Trinity Church Leverstock Green on Sunday, 10 December 2006, at which the Bishop of St Albans spoke, calling again for a full public inquiry, for assurances that the local hospital would maintain its accident and emergency department, and for the community to continue to build on good and new relationships formed because of the blast.[45]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Initially the fuel was pumped in at 550 cubic metres (19,423ft3) per hour, but it increased to about 890 cubic metres (31,430ft3) per hour.[10] By 06:01, when the first explosion occurred, the cloud which was initially about 1 metre (3ft) deep, thickened to 2 metres (7ft) and had spread beyond the boundaries of the site.[5][10][24]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Most of them had no symptoms, except for 63 emergency workers who suffered respiratory complaints, of which half were sore throats.[17]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It was reported at 16:45 that all tank fires had been extinguished, although some smaller fires persisted.[22] 75% of firefighters for Hertfordshire were involved in fighting the fire, supported by 16other brigades.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The remaining three, Hertfordshire Oil Storage Ltd, TAV Engineering Ltd and Motherwell Control Systems were found guilty in June 2010.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hundreds of homes in the Hemel Hempstead area were evacuated, and about 2,000people had to find alternative accommodation;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Firefighting operations were resumed at about 20:00, and it was anticipated that all fires could be extinguished during the night.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Health Protection Agency and the Major Incident Investigation Board provided advice to prevent incidents such as these in the future.[14] The primary need is for safety measures to be in place to prevent fuel escaping the tanks in which it is stored.[15] Added safety measures are needed for when fuel does escape, mainly to prevent it forming a flammable vapour and stop pollutants from poisoning the environment.[15]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">emergency services asked residents of the smoke-affected areas to close their windows and doors and to stay inside.[3][21][24]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Further, overall throughput had increased, reducing wait times further and shifting the emphasis to process operations instead of process safety.[44]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The first and largest explosion occurred near tank 912,[6][9] which led to further explosions which eventually overwhelmed 20large storage tanks.[10]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These tanks were at risk of exploding if the fire were to spread.[5][16]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Total appealed the judgement,[36][38] but the appeal was dismissed in a hearing on 4 March 2010.[39][needs update]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The British Pipeline Agency was fined £300,000 plus £480,000 costs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The incident occurred close to junction 8 of the M1 motorway.[3] The motorway was shut between junctions 12 and 6a–about 18 miles (29km)–shortly after the incident.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The first and largest explosion occurred at 06:01 UTC on Sunday, 11 December 2005 near container 912.[6][9]Further explosions followed which eventually overwhelmed 20 large storage tanks.[10]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Smoke from the fire over Hampstead Heath, London, about 18 miles (29km) away, 10 hours after the explosion</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The British Geological Survey monitored the event, which measured 2.4 on the Richter scale.[4][9][11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Firefighters were confident that the remaining fires could be extinguished during the day on Tuesday, 13 December.[22] The smoke plume had been considerably reduced and was more grey, indicating the amount of vapourised water now combining with the smoke.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The emergency services announced a major emergency at 06:08 and a tremendous firefighting effort began.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Further damage occurred to one of the storage tanks in the early hours of Tuesday morning, causing firefighters to be withdrawn once again, but operations resumed at 08:30.[24] By midday on 13 December, all but three fires had been extinguished, although the largest tank was still burning.[22]Bronze command–operations on the ground–was visited by the Bishop of St Albans, the local vicar, and the industrial chaplain supporting the fire crews, to see how they were coping.[5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The company was located in offices on an industrial estate 400 metres (1,300ft) from the depot.[18]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The HOSL is a major hub on the UK&#39;s oil pipeline network (UKOP) with pipelines to the Lindsey Oil Refinery and Stanlow Refinery and is an important fuel source to the British aviation industry, providing aircraft fuel for local airports including Gatwick, Heathrow and Luton airports.[5] About half of the complex is dedicated to the storage of aviation fuel.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">An initial progress report by the Major Incident Investigation Board on 21 February 2006 did not go into the causes of the explosion, but summed up the event and the immediate reaction from the emergency services.[23][35] A second progress report, published on 11April 2006, looked at the environmental impact.[11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Addenbrooke&#39;s Hospital in Cambridge was also affected; its IT system dealing with admissions and discharges had to be replaced for several days by a manual system.[30]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The oil terminal supplied 30% of Heathrow Airport&#39;s fuel, and because of the fire, the airport had to start rationing fuel.[2][29] Some long-haul flights to Australia, the Far East, and South Africa had to make an intermediate stop at Stansted Airport or other European airports to refuel, while short-haul operators were asked to fuel their aircraft for the round trip before flying to Heathrow.[29] Some aircraft were only allowed 40% of the fuel they would normally take on board.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">News reports described the incident as the biggest of its kind in peacetime Europe[12] and certainly the biggest such explosion in the United Kingdom since the 1974 Flixborough disaster.[1][13] The flames had been extinguished by the afternoon of 13 December 2005.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A further announcement was made on 9 May 2006 about the sequence of events which caused the explosion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A further fire broke out during the early morning of 14 December.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The chemical is a known health risk and the UK government had been about to ban its use.[23][33]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A number of companies were affected by inability to reach their premises even where the premises themselves were largely unaffected by the blast.[5] Criticism was expressed by local citizens and the local MP as originally the depot had been constructed away from other buildings, but that developmental pressures had led to both houses and commercial premises being built near the depot.[5][18]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Please help update this article to reflect recent events or newly available information.(January 2018)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Buncefield fire was a major fire at an oil storage facility that started at 06:01 UTC on Sunday 11 December 2005 at the Hertfordshire Oil Storage Terminal,[1] located near the M1 motorway, Hemel Hempstead, in Hertfordshire, England.[2][3] The terminal was the fifth largest oil-products storage depot in the United Kingdom, with a capacity of about 60million imperial gallons (270,000m3) of fuel.[3][4] The terminal is owned by Total UK Limited (60%) and Texaco (40%).[5][6][7][8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The seat of the fire, and the worst damaged section, was &#34;HOSL West&#34;, used by Total and Texaco to store a variety of fuels, and the neighbouring British Pipeline Agency area.[5][7][8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Concerns for public safety resulted in about 227schools, libraries, and other public buildings across Hertfordshire and Buckinghamshire closing on 12 and 13 December.[3][27] Police and local authorities advised residents to consult the Hertfordshire Direct website for up-to-date information.[27]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When the fire was reduced in intensity it was reported to be possible that the plume would be less buoyant and that ground-level smoke concentrations could then rise significantly.[24] By 12 December, it was reported that the smoke cloud had reached northern France; it was expected to arrive in northern Spain by the weekend.[21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Thirty-two thousand litres (7,039 imp gal) of fire fighting foam per minute were directed against the fire for just over four hours, after which the pumping rate was reduced.[5] Half of the 20individual fires were reported extinguished by midday.[21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The second flight went into the centre of the plume to obtain data to help forecasting and emergency teams.[6][17][26]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On Tank 912, the manual gauge was stuck and the independent shut-off switch was inoperative, meaning that the tank was being &#34;filled blind&#34; with petrol (i.e., being filled without a clear indication of the level).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Motherwell Control Systems and TAV Engineering were fined £1,000 each.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Two people were hospitalized, one in Watford General Hospital, with breathing difficulties, and another in Hemel Hempstead Hospital, although they were not in a life-threatening condition.[4][11][19] No one was killed in the incident.[20] All members of staff from the terminal were accounted for.[3][17]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The BP section of the site is a good way from the explosion and survived with very little damage, but it was inoperative as of 2009.[46] BP is exploring plans for the future use of this part of the site, and has indicated a number of priorities, including the reopening of the fuel pipelines to Heathrow.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The smoke plume seen from High Wycombe, Buckinghamshire, about 18 miles (29km) away, nearly 38 hours after the explosion</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hertfordshire Constabulary advised people who had houses with smashed windows to seek refuge with friends or family nearby if possible.[3] Some people whose homes were damaged by the blast were placed in hotels, while others stayed in a nearby shopping centre.[18] Total, the operator of the Buncefield depot, set up a helpline for people whose properties had been damaged by the explosion, and called in local authorities and the Salvation Army to provide accommodation or other help.[18]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2005 oil storage fire and explosion in England</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">By 16:30 on Monday 12 December, it was reported that a further two tank fires had been extinguished, but that one of the tanks extinguished earlier had ruptured and re-ignited, and was now threatening to cause the explosion of an adjacent tank.[22] This led to the M1 motorway being closed again; the public exclusion area was widened, and firefighters were temporarily withdrawn until the risk posed by the threatened tank could be assessed.[3][6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It was felt unlikely that the explosion had a widespread effect on air quality at ground level.[5][16]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To investigate the smoke cloud the Facility for Airborne Atmospheric Measurements, a research aircraft operated jointly by NERC and the Met Office, made two flights on 12 and 13 December.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fire ten minutes after the explosion as seen from Hunters Oak, 0.6 miles (0.97km) away.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fire resulted in 244people requiring medical aid–mainly on the first day of the fire.[17] From those 117 had symptoms attributable to the incident, of whom 38 were members of the public.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The final report of the Major Incident Investigation Board (MIIB) was written in 2008 and released in February 2011.[44] The investigation found that Tank 912 at the Buncefield oil storage depot was being filled with petrol.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">CCTV footage showed such a vapour flowing out the bund wall from around 05:38.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The emergency services announced a major emergency at 06:08 and a tremendous firefighting effort began.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The investigation found that the level gauge had stuck at random times after a tank service in August 2005, but it did not concern maintenance contractors or site management.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Eventually Tank 912 filled up completely, the petrol overflowed through vents at the top, and formed a vapour cloud near ground level, which ignited and exploded.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On 17 March 2006 a High Court official, Senior Master Turner, adjourned a hearing on whether to permit the class action until October 2006.[18][needs update] Claimants including insurance companies, small businesses and about 280families whose properties were damaged or destroyed were claiming up to £1billion in damages.[19]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The emergency services announced a major emergency at 06:08 and a firefighting effort began.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Seventy-eight schools in Luton borough were closed on 13 December, along with a limited number of schools in Bedfordshire,[3] on the advice of Hertfordshire&#39;s Health Protection Agency that all schools within a 10-mile (16km) radius of the incident site should be closed because of concerns surrounding the effect of the smoke plume on children&#39;s health.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The roof of at least one house was blown off.[17] Buildings in the vicinity were evacuated by police, not only because of the smoke and possibility of more explosions, but because of the danger of structural damage making the buildings unstable.[9]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A total of 2,700 claims were filed by residents, businesses and insurers.[18] A group of 146 claimants were hoping to bring a class action against Hertfordshire Oil Storage Ltd.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The entire gold command operation, involving many agencies as well as all the emergency services, was run from Hertfordshire Constabulary&#39;s headquarters in Welwyn Garden City, some distance from the fire.[5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sentencing took place in July 2010.[42] Total UK was fined £3.6m, plus £2.6m in costs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Please help update this article to reflect recent events or newly available information.(January 2011)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hertfordshire Oil Storage Limited was fined £1.45m and £1m in costs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, one storage tank reignited that evening, which firefighters left to burn rather than attempting to extinguish it again.[3][5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Subsequent explosions occurred at 06:27 and 06:28.[5][6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The black smoke cloud, which was visible from satellite photographs, drifted at a high altitude, around 9,000 feet (2,700m), towards Reading and Swindon, and could be seen across much of South East England.[25]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However just before the announcement, the Drinking Water Inspectorate announced that it was increasing the safe level of the chemical in drinking water.[17] Hemel Hempstead MP, Mike Penning accused the government of changing the rules to suit the situation in which PFOS levels in drinking water in the area may rise in the future.[17] Most of the fuel burned out–rather than spilling into the soil, so the impact on surrounding land and the water table was limited.[23]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At peak times this effort consisted of 25fire engines, 20support vehicles and 180fire fighters.[10]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hertfordshire police and fire services and the member of parliament for the area, Mike Penning, said that there were seven fuel tanks on the site which, as of 14:00 on 12 December, had not been affected.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The extent of the damage meant it was not possible to determine the exact source of ignition, but possibilities include an emergency generator and the depot&#39;s fire pump system.[3][17] The investigators did not believe that it was caused either by the driver of a fuel tanker, as had been speculated, or by anyone using a mobile phone.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The remainder of the complex stores oil, kerosene, petrol and diesel fuel for petrol stations across much of the South-East of England.[2][4] The terminal is owned by TOTAL UK Limited (60%) and Texaco 40%.[5][6][7][8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">From about 03:00 the level gauge for Tank 912 began to indicate an unchanging level reading, despite it being filled at 550 cubic metres (19,423ft3) per hour.[17]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In May 2006 Three Valleys Water announced that it had detected the persistent, bioaccumulative, and toxicfluorosurfactantperfluorooctane sulfonate (PFOS)–which is used in fire fighting foam–in a ground water bore hole close to the Buncefield site.[17][33] It stated that no water from this well entered the public water supply and that a nearby well and pumping station had been closed since the fire as a precaution.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In April 2010, the five companies accused of causing the explosion faced a criminal prosecution brought by the Health and Safety Executive and the Environment Agency.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Local MP Mike Penning called the modest fines &#34;insulting&#34;.[43]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">CCTV footage showed such a vapour flowing out the bund wall from around 05:38.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The British Geological Survey monitored the event, which measured 2.4 on the Richter scale.[4][9][11] It was reported that people were woken in south London, and as far west as Wokingham about 28 miles (45km) away, where in its southern suburb, Finchampstead, numerous people felt the shockwave after the initial explosion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Subsequent explosions occurred at 06:27 and 06:28.[5][6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Starting at 19:00 on the evening of 10 December 2005, Tank 912, towards the north west of the main depot, was filled with unleaded petrol–from the Coryton Refinery located in Essex, England.[10][17] At midnight the terminal closed, and a check was made of the contents of tanks, which found everything normal.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fuel shortages continued for months after the explosion.[29]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hertfordshire Oil Storage Ltd was found guilty of failing to prevent major accidents and limit their effects and then pleaded guilty to causing pollution to enter controlled waters underlying the vicinity around the site, contrary to the Water Resources Act.[7][11][36][38][40][41][42]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Firefighters were of the view that extinguishing it would leave the risk of petroleum vapour re-igniting or exploding, so it would be better to allow the fire, which was well contained, to burn itself out.[5] Hertfordshire Fire Service&#39;s deputy chief Mark Yates stated that escaping petroleum vapour was the most likely cause of the original explosion and fire.[5][16]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It is considering using its section to store aviation fuel and as a distribution centre for motor fuel, but at a much-reduced level.[46] In late 2009, Total UK submitted plans for the reconstruction of the oil depot.[47] The reconstruction of the site has been taking place since March 2013.[48][needs update]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Several nearby office blocks were hit so badly that almost every window, front and back, was blown in as the explosion ripped through them.[18] The timing of the explosion before work hours possibly prevented additional casualties.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fire seen from a vantage point between the Northgate and 3Com Corporation buildings.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Other roads in the vicinity, including the short M10 motorway (now part of the A414 road), were also closed.[3]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The smoke plume from 3.75 miles (6.04km) away, the day after the explosion</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Schools reopened as normal on 14 December.[28]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The smoke plume seen from Dunsmore, Buckinghamshire, about 14 miles (23km) away, 2 hours after the explosion</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Hertfordshire Oil Storage Terminal (HOSL–Hertfordshire Oil Storage Ltd), generally known as the Buncefield complex, was the fifth largest oil-products storage depot in the UK, with a capacity of about 60,000,000 imperial gallons (270ML) of fuel, although it was not always full.[3][4] This was about 8% of UK oil storage capacity.[5][6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Coordinates: 51°45′49′′N0°25′26′′W﻿ / ﻿51.76361°N 0.42389°W﻿ / 51.76361; -0.42389</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

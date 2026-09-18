@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vapour cloud explosion — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Vapour cloud explosion</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:45+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Vapor_cloud_explosion" rel="nofollow noopener">https://en.wikipedia.org/wiki/Vapor_cloud_explosion</a><br>
+  <span class="muted">Content hash: <code>4a0e77150d7ede0e5e76f27430482dcf</code></span>
+</div>
+
+
+<h2>Stored passages (24)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Gas explosion  <span class="muted small">— chars 45–910</span></h3>
+<pre>16 languages
+
+العربية
+
+Azərbaycanca
+
+Deutsch
+
+فارسی
+
+Suomi
+
+Français
+
+עברית
+
+Hrvatski
+
+Bahasa Indonesia
+
+日本語
+
+한국어
+
+Bahasa Melayu
+
+Svenska
+
+Türkçe
+
+閩南語 / Bân-lâm-gí
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+(Redirected from Vapor cloud explosion)
+
+Ignition of air and flammable gas
+
+A balloon filled with gaseous hydrogen exploding.
+A gas explosion is the ignition of a mixture of air and flammable gas, typically from a gas leak.[1] In household accidents, the principal explosive gases are those used for heating or cooking purposes such as natural gas, methane, propane, butane. In industrial explosions, many other gases, like hydrogen, as well as evaporated (gaseous) gasoline or ethanol play an important role. Industrial gas explosions can be prevented with the use of intrinsic safety barriers to prevent ignition, or use of alternative energy.</pre>
+<h3>Lower and upper explosive limits  <span class="muted small">— chars 949–1354</span></h3>
+<pre>Whether a mixture of air and gas is combustible depends on the air-to-fuel ratio. For each fuel, ignition occurs only within a certain range of concentration, known as the upper and lower flammability limits. For example, for methane and gasoline vapor, this range is 5-15% and 1.4-7.6% gas to air, respectively. An explosion can only occur when fuel concentration is within these limits.[citation needed]</pre>
+<h3>List of gas explosions  <span class="muted small">— chars 1383–1763</span></h3>
+<pre>This section may require cleanup to meet Wikipedia&#39;s quality standards. The specific problem is: Inconsistent formatting of events and dates that comes off as being haphazardly &#34;stitched together&#34;. Please help improve this section if you can.(October 2024) (Learn how and when to remove this message)
+
+The damaged roads after gas explosions in Kaohsiung, Taiwan, on July 31, 2014.</pre>
+<h3>1900–1950  <span class="muted small">— chars 1780–2866</span></h3>
+<pre>Australian federal MP George Edwards and a gas mechanic were killed on February 4, 1911, when a gasometer exploded on Edwards&#39; property in Turramurra, New South Wales.[2][3]
+
+The Pittsburgh gasometer explosion occurred during the morning of November 14, 1927, in the north side of Pittsburgh. A large gasometer exploded, killing 28 people and injuring hundreds.
+
+The Mather Mine disaster occurred on May 19, 1928, in Mather, Pennsylvania. A methane gas and dust explosion resulted in the deaths of 195 men.[4][5]
+
+The New London School explosion occurred on March 18, 1937, when a natural gas leak caused an explosion, destroying the New London School of the city of New London, Texas. The disaster killed three hundred students and teachers.
+
+On January 27, 1943, 43 people in the Sydney suburb of Chippendale inhaled fumes after a chlorine cylinder leaked.[6]
+
+The Cleveland East Ohio Gas Explosion occurred on the afternoon of Friday, October 20, 1944. The resulting gas leak, explosion and fires killed 130 people and destroyed a one-square-mile area on Cleveland, Ohio’s east side.</pre>
+<h3>1950–2000  <span class="muted small">— chars 2883–4085</span></h3>
+<pre>On October 31, 1963, the Indiana State Fairgrounds Coliseum gas explosion (later known as the Indiana Farmers Coliseum) occurred during the opening night for the Holiday on Ice show, killing 81 and injuring nearly 400.[7] The cause was an explosion following a propane tank leak.[8]
+
+On March 1, 1965, the LaSalle Heights Disaster occurred when a gas line fractured in a low-cost residential neighborhood near Montreal, Quebec, killing 28 people and injuring dozens.
+
+On January 9, 1968, in Reading, Pennsylvania, an explosion killed nine people and demolished two houses. A gas company spokesman said Reading workmen digging in the street to repair a water main had hit a gas line shortly before the explosion.[9]
+
+On Saturday, April 6, 1968, the Richmond, Indiana explosion occurred in the middle of downtown Richmond, Indiana. There were two explosions; the first was caused by a natural gas leak, while the second by gunpowder and ammunition inside a sporting goods store. 41 people were killed and more than 150 injured, and four squares of downtown Richmond, Indiana, were heavily damaged by the explosion or subsequent fire.
+
+Ronan Point was a 23-story counciltower block in Newham, east London.</pre>
+<h3>1950–2000  <span class="muted small">— chars 4016–4714</span></h3>
+<pre>Ronan Point was a 23-story counciltower block in Newham, east London. On May 16, 1968, a gas explosion caused the collapse of a whole corner of the building. Four people were killed in the collapse.
+
+On April 8, 1970, a gas explosion during construction at the Osaka Metro&#39;s Tenjimbashisuji Rokuchōme Station in Kita-ku, Osaka, Japan killed 79 people, injured 420 others, and damaged and destroyed 495 buildings.[10]
+
+On October 21, 1971, Clarkston explosion on October 21, 1971; a build-up of gas under a shopping centre left 22 dead and around 100 injured.
+
+October 23, 1980, a propane explosion at Escuela Nacional de Marcelino Ugalde (Marcelino Ugalde Primary School), Ortuella, Vizcaya, Spain.</pre>
+<h3>1950–2000  <span class="muted small">— chars 4576–5771</span></h3>
+<pre>October 23, 1980, a propane explosion at Escuela Nacional de Marcelino Ugalde (Marcelino Ugalde Primary School), Ortuella, Vizcaya, Spain. According to the local government&#39;s official report, 50 schoolchildren and 3 adults were killed and an additional 128 people injured.[11]
+
+January 23, 1983, two people died in a gas explosion which destroyed the Golden Crown restaurant, Bye Street, Ledbury, England.[12]
+
+May 23, 1984 Abbeystead disaster - an explosion resulting in 16 deaths and 22 injured from methane entering waterwork pipes.[13]
+
+March 24, 1986 Loscoe gas explosion - no fatalities but extensive property destruction, this caused the UK Government to legislate on landfill sites and building practices with regard to landfill gas migration.
+
+In July 1988, 167 people died when Occidental Petroleum&#39;s Alpha offshore production platform, on the Piper field in the North Sea, exploded after a gas leak.
+
+On May 25, 1989, construction equipment clearing debris from the San Bernardino train disaster, which had killed four people and destroyed several houses, accidentally damaged a section of the Calnev Pipeline, which ruptured and exploded, killing two people and destroying 11 houses.</pre>
+<h3>1950–2000  <span class="muted small">— chars 5773–6949</span></h3>
+<pre>The 1989 Ufa train disaster was caused by a gas explosion from a leaking pipeline as two trains went by, their sparks igniting the gas. 575 people died.
+
+On April 7, 1992, LPG leaking from a salt dome storage cavern near Brenham, Texas ignited and exploded, killing three and injuring 21. The blast was felt and heard as far away as Houston.[14]
+
+On April 22, 1992, several explosions occurred in Guadalajara, Mexico. The explosions involved gas lines in the sewer systems beneath the downtown district of Analco that continued over four hours, killing 206 people, injuring nearly 500, leaving 15,000 homeless, and destroying several kilometers of streets.
+
+On April 29, 1995, gas lines a subway construction site in Sangin-dong, Daegu, South Koreaexploded after a spark from construction equipment ignited gas from a damaged pipe, killing 101 people and injuring 202.[15]
+
+The Humberto Vidal Explosion (sometimes also referred to as the Río Piedras Explosion) was a gas explosion that occurred on November 21, 1996, on the Humberto Vidal shoe store located in Río Piedras, Puerto Rico, United States. The explosion killed 33 and wounded 69 others when the building collapsed.</pre>
+<h3>1950–2000  <span class="muted small">— chars 6875–7927</span></h3>
+<pre>The explosion killed 33 and wounded 69 others when the building collapsed. It is considered one of the deadliest disasters to have occurred on the island.
+
+On September 11, 1998, in Bucheon, South Korea, an LPG filling station for propane and butane caught fire, causing a massive fire and several very large explosions.[16][circular reference] Two storage tanks and several vehicles were destroyed, killing 1 person and injuring 83.
+
+On December 11, 1998, there was a gas explosion in St. Cloud, Minnesota that killed four people.
+
+On February 1, 1999, six employees were killed and two dozen more were injured in a gas explosion at Ford&#39;s River Rouge complex in Dearborn, Michigan.[17]
+
+In December 1999, there was a natural gas explosion which completely destroyed one house and severely damaged four other houses in Larkhall, South Lanarkshire, Scotland. It killed the family of four that lived in the house that exploded. Transco Gas was fined £15 million when the cause was found to be a severely corroded gas main directly outside the house.[18]</pre>
+<h3>2000s  <span class="muted small">— chars 7940–9101</span></h3>
+<pre>August 19, 2000, a natural gas transmission pipeline ruptured and a fire killed 12 campers near Carlsbad, New Mexico.[19]
+
+On January 17, 2001, natural gas stored underground in Hutchinson, Kansas, leaked into empty brine caverns. Two explosions resulted from the leak. One destroyed two businesses and damaged 26 others. Another destroyed a trailer park killing two people. Sinkholes and gas leaks formed all around the city and the gas had to be slowly burned off.[20]
+
+On March 16, 2004, a gas explosion in an apartment building in Arkhangelsk, Russia, killed 58 people. Reportedly, a former gas technician caused the explosion due to a dispute with his former employers.
+
+On May 11, 2004, the Stockline Plastics Factory in the Maryhill area of Glasgow was destroyed by a gas explosion. The cause was found by a Health and Safety Executive report to be the ignition of gas from a ruptured pipe. Nine people were killed and 37 were injured, 15 seriously.
+
+On July 30, 2004, a natural gas pipeline exploded in Ghislenghien, Belgium. The leak was a result of the damage from a previous construction work. The explosion and fire killed 24 people and injured 132.</pre>
+<h3>2000s  <span class="muted small">— chars 8974–9247</span></h3>
+<pre>The leak was a result of the damage from a previous construction work. The explosion and fire killed 24 people and injured 132.
+
+The 2009 Viareggio train derailment, in Versilia, Italy, killed 33 people with the explosion of LPG that was contained in one of the train cars.</pre>
+<h3>2010s  <span class="muted small">— chars 9260–10459</span></h3>
+<pre>September 9, 2010: In San Bruno, California, a suburb of San Francisco, a gas leak and explosion killed eight people. 53 homes were burned down and over 120 homes were damaged.[21]
+
+On February 10, 2011, in Allentown, Pennsylvania, a gas explosion killed 5 people and levels a city block.[22]
+
+On February 5, 2012, in the state of Washington, Josh Powell killed himself and two sons in a gas explosion at their home.[23]
+
+August 14, 2012, Brentwood, New York (Suffolk County, New York; Long Island): A suspected gas explosion levels a house, killing a toddler and wounding up to 17 others.[24]
+
+August 29, 2012, New Milford, Connecticut: An online Associated Press August 29 news article from the Boston Herald stated that, according to the Danbury News-Times, a propane leak explosion killed one man (a friend of the family who lived in the home who was a plumber and had come over to assist), and severely injured the homeowner and the older child of the deceased friend.[citation needed]
+
+Richmond Hill explosion: a natural gas explosion in the Richmond Hill neighborhood of southern Indianapolis took place on Saturday, November 10, 2012. Two people were killed and about 20 people were injured.</pre>
+<h3>2010s  <span class="muted small">— chars 10403–11496</span></h3>
+<pre>Two people were killed and about 20 people were injured. The blast caused $4.4 million in damage and 33 homes were damaged severely enough that they needed to be demolished. The explosion was large enough that it registered on IUPUI seismic detectors and was felt for miles. Four people, including the home owner, were charged with felony murder. Prosecutors allege they intentionally caused the explosion for insurance money.[25]
+
+On November 23, 2012, in Springfield, Massachusetts, a natural gas explosion destroyed two buildings, including one housing a strip club, damaging a total of 42 buildings. Firefighters, police officers and gas company workers were in the area because of an earlier gas leak. The explosion injured a total of 21 people, including 12 of the firefighters that responded to the gas leak. There were no deaths relating to the explosion.[26]
+
+The 2013 Rosario gas explosion in Argentina on August 6, 2013, left 21 dead.[27]
+
+On March 12, 2014, the East Harlem apartment explosion occurred within two buildings in the East Harlem section of Manhattan in New York City.</pre>
+<h3>2010s  <span class="muted small">— chars 11497–12624</span></h3>
+<pre>Eight people were killed and more than 70 were injured.[28]
+
+On July 31, 2014, the Kaohsiung gas explosions occurred due to gas leak on the gas pipeline beneath the public roads in Kaohsiung, Taiwan.[29]
+
+2015 East Village gas explosion: On March 26, 2015, an illegal tap into a gas main triggered an explosion and fire that killed two, injured nineteen and destroyed three buildings.[30]
+
+On September 15, 2015, in Pennsville, New Jersey, a main gas line explosion and subsequent fast-moving fire destroyed a modified house building, with a second-story apartment. The building was used as the Law Offices of John Jordan. Kline Construction, a South Jersey Gas Company contractor, was performing work in the area as part of a gas main and renewal project. South Jersey Gas is a natural gas company that serves Salem County, New Jersey, and also has offices in Atlantic County, New Jersey, and Gloucester County, New Jersey. Workers from Kline punctured a gas main nearby causing a gas leak into the basement of the building. As the building&#39;s heat source was natural gas, there was a heater with a pilot light in the basement.</pre>
+<h3>2010s  <span class="muted small">— chars 12523–13609</span></h3>
+<pre>As the building&#39;s heat source was natural gas, there was a heater with a pilot light in the basement. As the gas built up, the heater&#39;s pilot light became the ignition source of the explosion. A year later the company was fined US$300,000 by the New Jersey Board of Public Utilities after their investigation found multiple safety violations. No one was injured in the blast or fire. However, the neighboring homes suffered smoke and structural damage as a result.[31][32]
+
+On June 3, 2016, there was a gas explosion in the Dutch city of Urk. Three houses were completely destroyed, and three people were wounded.[33]
+
+On July 3, 2016, a natural gas explosion occurred in the city of Melvindale, Michigan, when a car crashed through a fence at and hit a large natural gas line. Two buildings in the facility&#39;s complex caught fire as a result of the explosion - but no injuries were reported at the facility.
+
+On September 27, 2016, a gas explosion in the Bronx, New York, took the life of a FDNY Chief in the line of duty. After the gas explosion a suspected illegal drug lab was found.</pre>
+<h3>2010s  <span class="muted small">— chars 13546–14719</span></h3>
+<pre>After the gas explosion a suspected illegal drug lab was found. Whistleblower NYC Gas Explosions-2009 Floral Park gas explosion and 2014 East Harlem gas explosion provided additional information to authorities regarding this explosion.
+
+On August 10, 2016, a gas explosion occurred at an apartment building in Silver Spring, Maryland. The explosion killed 7 and injured more than 40 people.[34]
+
+2016 Portland gas explosion – On October 2, 2016, a series of gas explosions occurred in Portland, Oregon, from a construction accident caused by Loy Clark Pipelines who was installing a vault in the sidewalk for Comcast for a new building being built for Portland based Bremik Construction. Eight people were injured, one pet cat had gone missing, one building totally leveled and $17.2 million (USD) in damage was done to nearby buildings.
+
+On July 2, 2017, a gas leak at a home in Manor Township, Lancaster County, Pennsylvania, caused the death of a gas company employee. Three other people were injured.[35]
+
+On July 10, 2018, a miscommunication between contractors boring a hole for fiber optic cables led to a gas leak and subsequent explosion in Sun Prairie, Wisconsin.</pre>
+<h3>2010s  <span class="muted small">— chars 14720–15826</span></h3>
+<pre>One person was killed, eleven were injured[36] and half of a city block was destroyed.[37]
+
+On September 13, 2018, in the Massachusetts gas explosions, a set of 60 to 100 fires and explosions caused by natural gas occurred in Lawrence, Andover, and North Andover, Massachusetts. Much of the area was evacuated, one person was killed and several injured.[38]
+
+On October 9, 2018, a natural gas pipeline near Prince George, British Columbia, Canada, exploded in a remote location. No one was killed or injured as a direct result of the explosion.[39]
+
+2019 Paris explosion – on January 12, 2019, in central Paris, a gas explosion in a house with in a bakery killed 4 and injured about 40.[40]
+
+On January 18, 2019, in the Tlahuelilpan pipeline explosion, an illicitly tapped fuel pipeline exploded in Tlahuelilpan, Hidalgo, Mexico, killing at least 66 people and wounding 76 others. It is believed the explosion occurred after the line was ruptured by suspected fuel thieves.[41]
+
+On April 10, 2019, a gas explosion occurred in downtown Durham, North Carolina.[42] Two people were killed and 25 were injured.</pre>
+<h3>2010s  <span class="muted small">— chars 15828–16922</span></h3>
+<pre>On May 10, 2019, a gas explosion occurred at a gas station and market in Buena Vista, Virginia, killing four people.[43]
+
+On May 19, 2019, a gas explosion occurred at a house in Jeffersonville, Indiana, killing one and injuring two others.[44]
+
+On July 6, 2019, around 20 people were injured, two seriously, by an apparent gas explosion at The Fountains shopping plaza in Plantation, Florida, which caused extensive damage to it and surrounding buildings.[45]
+
+On July 19, 2019, a gas explosion destroyed a house in Christchurch, New Zealand, and damaged surrounding houses. 6 people were injured.[46]
+
+On August 10, 2019, a gas tanker in Morogoro, Tanzaniaexploded, killing 75 and injuring at least 55.[47]
+
+On September 16, 2019, a propane leak caused the LEAP building on Route 2 in Farmington Maine to explode. The blast killed 1 firefighter and injured seven others in the blast. [48]
+
+On December 6, 2019, a gas explosion occurred in block of flats in Prešov, Slovakia, pressure wave damaged windows of surrounding buildings. 7 people were killed, and at least 40 people were injured.[49]</pre>
+<h3>2020s  <span class="muted small">— chars 16935–18032</span></h3>
+<pre>Aftermath of the 2020 gas explosion in Rua de Santa Marta, LisbonAftermath of the 2023 gas explosion in the Paris American Academy
+On July 30, 2020, a gas explosion destroyed a shabu-shabu restaurant in Kōriyama, Fukushima Prefecture, Japan, killing one man and injuring 19.[50]
+
+On August 10, 2020, a gas explosion occurred in Baltimore, Maryland, killing 1 woman and critically injuring two others. At least 5 others were trapped under the rubble of three rowhouses which collapsed in the blast.[51]
+
+On December 20, 2020, a gas explosion destroyed a four-storey building opposite Saint Martha&#39;s Hospital in Lisbon, killing two men and injuring five people.[52]
+
+On January 20, 2021, a gas explosion in Madrid, Spain, killed 4 people and injured 10 others.
+
+On February 3, 2021, a gas explosion damaged a home in Springfield, Virginia, and injured three people.[53]
+
+On February 17, 2021, a gas explosion demolished a house in Manchester, England. 1 person lost their life and 2 others were injured.[citation needed]
+
+On May 4, 2021, a gas explosion demolished a house in Willesborough, England.</pre>
+<h3>2020s  <span class="muted small">— chars 17885–19050</span></h3>
+<pre>1 person lost their life and 2 others were injured.[citation needed]
+
+On May 4, 2021, a gas explosion demolished a house in Willesborough, England. 7 people were injured, with two currently in critical condition.[54]
+
+On May 16, 2021, at 2:30 A gas explosion near Heysham, Lancashire, demolished 2 houses and severely damaged 1, a child died and 4 adults were injured in result.[55]
+
+On March 16, 2022, a gas explosion destroyed a 8-storey building in Casal de São Brás, Amadora in Lisbon, injuring fifteen people.[56]
+
+On May 6, 2022, a gas explosion damaged a four-storey building in Madrid, killing two people and injuring eighteen.[57]
+
+On May 6, 2022, the Hotel Saratoga explosion killed 45 people and injured 97 others in Havana, Cuba. The explosion originated from a leak in a gas tanker that was parked outside the hotel.
+
+On June 26, 2022, a house in Birmingham was destroyed and several other cars and homes were damaged. A woman died and a man was injured. The listing for the home stated that the boiler required repair.[58]
+
+On August 8, 2022, a house on Galpin Road in the southLondon suburb of Thornton Heath was completely destroyed at around 7 a.m.</pre>
+<h3>2020s  <span class="muted small">— chars 19051–19385</span></h3>
+<pre>A four-year-old girl died, and several others suffered various injuries. Neighbours had reported smelling gas weeks before the explosion, and the family living in the house itself had been in touch with the gas company. On the morning of August 8, just before the explosion, neighbours said that the gas smell was particularly strong.</pre>
+<h3>2020s  <span class="muted small">— chars 19271–20595</span></h3>
+<pre>On the morning of August 8, just before the explosion, neighbours said that the gas smell was particularly strong.
+
+On December 24, 2022, in Boksburg, a town on the East Rand of Greater Johannesburg, a gas tanker carrying LPG exploded after catching fire when it got stuck under a bridge about 100 metres from the hospital (Tambo Memorial Hospital)[59]
+
+On June 21, 2023, a gas explosion in Yinchuan, China, occurred on the eve of the Dragon Boat Festival on a busy street, following a leak of a liquefied petroleum gas tank inside the kitchen of the restaurant, killed 31 people.[60]
+
+On June 21, 2023, a gas explosion in the center of Paris, France, destroyed the Paris American Academy, killed 3 people and injured 50 others.[61]
+
+On February 1, 2024, a gas explosion in Kenya’s capital of Nairobi occurred due to an unlicensed cooking gas-filling plant, killing at least 3 people and injured 280 others.[62]
+
+On December 29, 2024, a gas explosion at the Police Academy in Cairo, Egypt, killed 3 police officers and injured 2 others.[63]
+
+On February 13, 2025, a gas explosion at a Shin Kong Mitsukoshi department store in Taichung, Taiwan, killed 4 people and injured 38 others.[64]
+
+On May 4, 2025, a gas explosion at an apartment block in Moscow, Russia, killed 3 people, and injured 15 others, including children.[65]</pre>
+<h3>See also  <span class="muted small">— chars 20609–20715</span></h3>
+<pre>Boiling liquid expanding vapor explosion (BLEVE) Incidents
+
+List of pipeline accidents
+
+Thermobaric weapon</pre>
+
+<h2>Extracted claims (134)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On the morning of August 8, just before the explosion, neighbours said that the gas smell was particularly strong.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 6, 2022, a gas explosion damaged a four-storey building in Madrid, killing two people and injuring eighteen.[57]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On December 11, 1998, there was a gas explosion in St.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Whistleblower NYC Gas Explosions-2009 Floral Park gas explosion and 2014 East Harlem gas explosion provided additional information to authorities regarding this explosion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The blast caused $4.4 million in damage and 33 homes were damaged severely enough that they needed to be demolished.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">No one was killed or injured as a direct result of the explosion.[39]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2015 East Village gas explosion: On March 26, 2015, an illegal tap into a gas main triggered an explosion and fire that killed two, injured nineteen and destroyed three buildings.[30]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The damaged roads after gas explosions in Kaohsiung, Taiwan, on July 31, 2014.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 25, 1989, construction equipment clearing debris from the San Bernardino train disaster, which had killed four people and destroyed several houses, accidentally damaged a section of the Calnev Pipeline, which ruptured and exploded, killing two people and destroying 11 houses.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On September 13, 2018, in the Massachusetts gas explosions, a set of 60 to 100 fires and explosions caused by natural gas occurred in Lawrence, Andover, and North Andover, Massachusetts.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">According to the local government&#39;s official report, 50 schoolchildren and 3 adults were killed and an additional 128 people injured.[11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On December 29, 2024, a gas explosion at the Police Academy in Cairo, Egypt, killed 3 police officers and injured 2 others.[63]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The explosion and fire killed 24 people and injured 132.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The explosion killed 33 and wounded 69 others when the building collapsed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sinkholes and gas leaks formed all around the city and the gas had to be slowly burned off.[20]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Nine people were killed and 37 were injured, 15 seriously.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">August 19, 2000, a natural gas transmission pipeline ruptured and a fire killed 12 campers near Carlsbad, New Mexico.[19]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 3, 2016, a natural gas explosion occurred in the city of Melvindale, Michigan, when a car crashed through a fence at and hit a large natural gas line.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A gas company spokesman said Reading workmen digging in the street to repair a water main had hit a gas line shortly before the explosion.[9]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The 2009 Viareggio train derailment, in Versilia, Italy, killed 33 people with the explosion of LPG that was contained in one of the train cars.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 30, 2020, a gas explosion destroyed a shabu-shabu restaurant in Kōriyama, Fukushima Prefecture, Japan, killing one man and injuring 19.[50]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The blast was felt and heard as far away as Houston.[14]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">South Jersey Gas is a natural gas company that serves Salem County, New Jersey, and also has offices in Atlantic County, New Jersey, and Gloucester County, New Jersey.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On October 9, 2018, a natural gas pipeline near Prince George, British Columbia, Canada, exploded in a remote location.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">October 23, 1980, a propane explosion at Escuela Nacional de Marcelino Ugalde (Marcelino Ugalde Primary School), Ortuella, Vizcaya, Spain.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There were no deaths relating to the explosion.[26]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Eight people were injured, one pet cat had gone missing, one building totally leveled and $17.2 million (USD) in damage was done to nearby buildings.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The blast killed 1 firefighter and injured seven others in the blast. [48]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On April 8, 1970, a gas explosion during construction at the Osaka Metro&#39;s Tenjimbashisuji Rokuchōme Station in Kita-ku, Osaka, Japan killed 79 people, injured 420 others, and damaged and destroyed 495 buildings.[10]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On Saturday, April 6, 1968, the Richmond, Indiana explosion occurred in the middle of downtown Richmond, Indiana.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On October 31, 1963, the Indiana State Fairgrounds Coliseum gas explosion (later known as the Indiana Farmers Coliseum) occurred during the opening night for the Holiday on Ice show, killing 81 and injuring nearly 400.[7] The cause was an explosion following a propane tank leak.[8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On January 18, 2019, in the Tlahuelilpan pipeline explosion, an illicitly tapped fuel pipeline exploded in Tlahuelilpan, Hidalgo, Mexico, killing at least 66 people and wounding 76 others.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On February 17, 2021, a gas explosion demolished a house in Manchester, England. 1 person lost their life and 2 others were injured.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The explosions involved gas lines in the sewer systems beneath the downtown district of Analco that continued over four hours, killing 206 people, injuring nearly 500, leaving 15,000 homeless, and destroying several kilometers of streets.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On October 21, 1971, Clarkston explosion on October 21, 1971; a build-up of gas under a shopping centre left 22 dead and around 100 injured.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 16, 1968, a gas explosion caused the collapse of a whole corner of the building.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The explosion killed 33 and wounded 69 others when the building collapsed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On August 8, 2022, a house on Galpin Road in the southLondon suburb of Thornton Heath was completely destroyed at around 7 a.m.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 10, 2019, a gas explosion occurred at a gas station and market in Buena Vista, Virginia, killing four people.[43]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 30, 2004, a natural gas pipeline exploded in Ghislenghien, Belgium.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On August 10, 2020, a gas explosion occurred in Baltimore, Maryland, killing 1 woman and critically injuring two others.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">For example, for methane and gasoline vapor, this range is 5-15% and 1.4-7.6% gas to air, respectively.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Humberto Vidal Explosion (sometimes also referred to as the Río Piedras Explosion) was a gas explosion that occurred on November 21, 1996, on the Humberto Vidal shoe store located in Río Piedras, Puerto Rico, United States.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On February 1, 1999, six employees were killed and two dozen more were injured in a gas explosion at Ford&#39;s River Rouge complex in Dearborn, Michigan.[17]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The 2013 Rosario gas explosion in Argentina on August 6, 2013, left 21 dead.[27]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On January 27, 1943, 43 people in the Sydney suburb of Chippendale inhaled fumes after a chlorine cylinder leaked.[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Prosecutors allege they intentionally caused the explosion for insurance money.[25]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On April 29, 1995, gas lines a subway construction site in Sangin-dong, Daegu, South Koreaexploded after a spark from construction equipment ignited gas from a damaged pipe, killing 101 people and injuring 202.[15]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">October 23, 1980, a propane explosion at Escuela Nacional de Marcelino Ugalde (Marcelino Ugalde Primary School), Ortuella, Vizcaya, Spain.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On February 13, 2025, a gas explosion at a Shin Kong Mitsukoshi department store in Taichung, Taiwan, killed 4 people and injured 38 others.[64]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The New London School explosion occurred on March 18, 1937, when a natural gas leak caused an explosion, destroying the New London School of the city of New London, Texas.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 10, 2018, a miscommunication between contractors boring a hole for fiber optic cables led to a gas leak and subsequent explosion in Sun Prairie, Wisconsin.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A year later the company was fined US$300,000 by the New Jersey Board of Public Utilities after their investigation found multiple safety violations.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Cleveland East Ohio Gas Explosion occurred on the afternoon of Friday, October 20, 1944.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On June 21, 2023, a gas explosion in Yinchuan, China, occurred on the eve of the Dragon Boat Festival on a busy street, following a leak of a liquefied petroleum gas tank inside the kitchen of the restaurant, killed 31 people.[60]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Mather Mine disaster occurred on May 19, 1928, in Mather, Pennsylvania.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On August 10, 2019, a gas tanker in Morogoro, Tanzaniaexploded, killing 75 and injuring at least 55.[47]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 11, 2004, the Stockline Plastics Factory in the Maryhill area of Glasgow was destroyed by a gas explosion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A large gasometer exploded, killing 28 people and injuring hundreds.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On September 27, 2016, a gas explosion in the Bronx, New York, took the life of a FDNY Chief in the line of duty.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On September 15, 2015, in Pennsville, New Jersey, a main gas line explosion and subsequent fast-moving fire destroyed a modified house building, with a second-story apartment.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In July 1988, 167 people died when Occidental Petroleum&#39;s Alpha offshore production platform, on the Piper field in the North Sea, exploded after a gas leak.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2016 Portland gas explosion – On October 2, 2016, a series of gas explosions occurred in Portland, Oregon, from a construction accident caused by Loy Clark Pipelines who was installing a vault in the sidewalk for Comcast for a new building being built for Portland based Bremik Construction.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On December 6, 2019, a gas explosion occurred in block of flats in Prešov, Slovakia, pressure wave damaged windows of surrounding buildings. 7 people were killed, and at least 40 people were injured.[49]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Transco Gas was fined £15 million when the cause was found to be a severely corroded gas main directly outside the house.[18]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 31, 2014, the Kaohsiung gas explosions occurred due to gas leak on the gas pipeline beneath the public roads in Kaohsiung, Taiwan.[29]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On September 11, 1998, in Bucheon, South Korea, an LPG filling station for propane and butane caught fire, causing a massive fire and several very large explosions.[16][circular reference] Two storage tanks and several vehicles were destroyed, killing 1 person and injuring 83.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2019 Paris explosion – on January 12, 2019, in central Paris, a gas explosion in a house with in a bakery killed 4 and injured about 40.[40]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">August 14, 2012, Brentwood, New York (Suffolk County, New York; Long Island): A suspected gas explosion levels a house, killing a toddler and wounding up to 17 others.[24]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On April 22, 1992, several explosions occurred in Guadalajara, Mexico.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Aftermath of the 2020 gas explosion in Rua de Santa Marta, LisbonAftermath of the 2023 gas explosion in the Paris American Academy</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On June 26, 2022, a house in Birmingham was destroyed and several other cars and homes were damaged.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A gas explosion is the ignition of a mixture of air and flammable gas, typically from a gas leak.[1] In household accidents, the principal explosive gases are those used for heating or cooking purposes such as natural gas, methane, propane, butane.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 4, 2025, a gas explosion at an apartment block in Moscow, Russia, killed 3 people, and injured 15 others, including children.[65]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The listing for the home stated that the boiler required repair.[58]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The explosion and fire killed 24 people and injured 132.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">One destroyed two businesses and damaged 26 others.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On December 24, 2022, in Boksburg, a town on the East Rand of Greater Johannesburg, a gas tanker carrying LPG exploded after catching fire when it got stuck under a bridge about 100 metres from the hospital (Tambo Memorial Hospital)[59]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It is believed the explosion occurred after the line was ruptured by suspected fuel thieves.[41]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On November 23, 2012, in Springfield, Massachusetts, a natural gas explosion destroyed two buildings, including one housing a strip club, damaging a total of 42 buildings.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 19, 2019, a gas explosion destroyed a house in Christchurch, New Zealand, and damaged surrounding houses. 6 people were injured.[46]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 19, 2019, a gas explosion occurred at a house in Jeffersonville, Indiana, killing one and injuring two others.[44]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Three houses were completely destroyed, and three people were wounded.[33]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On March 1, 1965, the LaSalle Heights Disaster occurred when a gas line fractured in a low-cost residential neighborhood near Montreal, Quebec, killing 28 people and injuring dozens.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At least 5 others were trapped under the rubble of three rowhouses which collapsed in the blast.[51]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 4, 2021, a gas explosion demolished a house in Willesborough, England.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">March 24, 1986 Loscoe gas explosion - no fatalities but extensive property destruction, this caused the UK Government to legislate on landfill sites and building practices with regard to landfill gas migration.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, the neighboring homes suffered smoke and structural damage as a result.[31][32]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 2, 2017, a gas leak at a home in Manor Township, Lancaster County, Pennsylvania, caused the death of a gas company employee.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The explosion killed 7 and injured more than 40 people.[34]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On January 17, 2001, natural gas stored underground in Hutchinson, Kansas, leaked into empty brine caverns.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On the morning of August 8, just before the explosion, neighbours said that the gas smell was particularly strong.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A methane gas and dust explosion resulted in the deaths of 195 men.[4][5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Richmond Hill explosion: a natural gas explosion in the Richmond Hill neighborhood of southern Indianapolis took place on Saturday, November 10, 2012.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Two people were killed and about 20 people were injured.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Eight people were killed and more than 70 were injured.[28]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On January 20, 2021, a gas explosion in Madrid, Spain, killed 4 people and injured 10 others.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Pittsburgh gasometer explosion occurred during the morning of November 14, 1927, in the north side of Pittsburgh.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">August 29, 2012, New Milford, Connecticut: An online Associated Press August 29 news article from the Boston Herald stated that, according to the Danbury News-Times, a propane leak explosion killed one man (a friend of the family who lived in the home who was a plumber and had come over to assist), and severely injured the homeowner and the older child of the deceased friend.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On August 10, 2016, a gas explosion occurred at an apartment building in Silver Spring, Maryland.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The resulting gas leak, explosion and fires killed 130 people and destroyed a one-square-mile area on Cleveland, Ohio’s east side.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 16, 2021, at 2:30 A gas explosion near Heysham, Lancashire, demolished 2 houses and severely damaged 1, a child died and 4 adults were injured in result.[55]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The explosion injured a total of 21 people, including 12 of the firefighters that responded to the gas leak.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The 1989 Ufa train disaster was caused by a gas explosion from a leaking pipeline as two trains went by, their sparks igniting the gas. 575 people died.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">January 23, 1983, two people died in a gas explosion which destroyed the Golden Crown restaurant, Bye Street, Ledbury, England.[12]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On February 10, 2011, in Allentown, Pennsylvania, a gas explosion killed 5 people and levels a city block.[22]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On February 1, 2024, a gas explosion in Kenya’s capital of Nairobi occurred due to an unlicensed cooking gas-filling plant, killing at least 3 people and injured 280 others.[62]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Australian federal MP George Edwards and a gas mechanic were killed on February 4, 1911, when a gasometer exploded on Edwards&#39; property in Turramurra, New South Wales.[2][3]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Two people were killed and about 20 people were injured.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On July 6, 2019, around 20 people were injured, two seriously, by an apparent gas explosion at The Fountains shopping plaza in Plantation, Florida, which caused extensive damage to it and surrounding buildings.[45]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On June 3, 2016, there was a gas explosion in the Dutch city of Urk.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1 person lost their life and 2 others were injured.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">September 9, 2010: In San Bruno, California, a suburb of San Francisco, a gas leak and explosion killed eight people. 53 homes were burned down and over 120 homes were damaged.[21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On March 16, 2022, a gas explosion destroyed a 8-storey building in Casal de São Brás, Amadora in Lisbon, injuring fifteen people.[56]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On December 20, 2020, a gas explosion destroyed a four-storey building opposite Saint Martha&#39;s Hospital in Lisbon, killing two men and injuring five people.[52]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On March 16, 2004, a gas explosion in an apartment building in Arkhangelsk, Russia, killed 58 people.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There were two explosions; the first was caused by a natural gas leak, while the second by gunpowder and ammunition inside a sporting goods store. 41 people were killed and more than 150 injured, and four squares of downtown Richmond, Indiana, were heavily damaged by the explosion or subsequent fire.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 6, 2022, the Hotel Saratoga explosion killed 45 people and injured 97 others in Havana, Cuba.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ronan Point was a 23-story counciltower block in Newham, east London.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On January 9, 1968, in Reading, Pennsylvania, an explosion killed nine people and demolished two houses.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On September 16, 2019, a propane leak caused the LEAP building on Route 2 in Farmington Maine to explode.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On February 5, 2012, in the state of Washington, Josh Powell killed himself and two sons in a gas explosion at their home.[23]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On April 7, 1992, LPG leaking from a salt dome storage cavern near Brenham, Texas ignited and exploded, killing three and injuring 21.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Please help improve this section if you can.(October 2024) (Learn how and when to remove this message)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ronan Point was a 23-story counciltower block in Newham, east London.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Much of the area was evacuated, one person was killed and several injured.[38]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">One person was killed, eleven were injured[36] and half of a city block was destroyed.[37]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">May 23, 1984 Abbeystead disaster - an explosion resulting in 16 deaths and 22 injured from methane entering waterwork pipes.[13]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On April 10, 2019, a gas explosion occurred in downtown Durham, North Carolina.[42] Two people were killed and 25 were injured.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On February 3, 2021, a gas explosion damaged a home in Springfield, Virginia, and injured three people.[53]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On March 12, 2014, the East Harlem apartment explosion occurred within two buildings in the East Harlem section of Manhattan in New York City.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In December 1999, there was a natural gas explosion which completely destroyed one house and severely damaged four other houses in Larkhall, South Lanarkshire, Scotland.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On May 4, 2021, a gas explosion demolished a house in Willesborough, England. 7 people were injured, with two currently in critical condition.[54]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On June 21, 2023, a gas explosion in the center of Paris, France, destroyed the Paris American Academy, killed 3 people and injured 50 others.[61]</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamical modelling of temperature and smoke evolution in a thermal-runaway event of a large-format lithium-ion battery in a mine tunnel — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Dynamical modelling of temperature and smoke evolution in a thermal-runaway event of a large-format lithium-ion battery in a mine tunnel</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>arXiv</strong> ·
+  academic · authority 4/5<br>
+Published 2025-10-27 ·   Retrieved 2026-09-18T18:01:05+00:00<br>
+  Licence: arXiv non-exclusive licence to distribute; see paper for author licence<br>
+  <a href="https://arxiv.org/html/2510.23910v1" rel="nofollow noopener">https://arxiv.org/html/2510.23910v1</a><br>
+  <span class="muted">Content hash: <code>5b525d0b792469754646892e98e3b642</code></span>
+</div>
+
+
+<h2>Stored passages (34)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–166</span></h3>
+<pre>#####
+
+arXiv is now an independent nonprofit!Learn more×
+
+Back to arXiv
+
+ License: arXiv.org perpetual non-exclusive license
+
+arXiv:2510.23910v1 [eess.SY] 27 Oct 2025</pre>
+<h3>Dynamical Modeling of Temperature and Smoke Evolution in a Thermal-Runaway Event of a Large-Format Lithium-ion Battery in a Mine Tunnel  <span class="muted small">— chars 306–1128</span></h3>
+<pre>Journal: Tunneling and Underground Space Technology
+Khadia Omar Said
+Email: kos5600@psu.eduAffiliation: Department of Energy and Mineral Engineering, The Pennsylvania State University, 58 Pollock Road, University Park, 16801, United States
+Yukta Pareek
+Email: ybp5153@psu.eduAffiliation: Department of Mechanical Engineering, The Pennsylvania State University, Reber Building, University Park, 16801, United States
+Satadru Dey
+Email: skd5685@psu.eduAffiliation: Department of Mechanical Engineering, The Pennsylvania State University, Reber Building, University Park, 16801, United States
+Ashish Ranjan Kumar
+Email: awk5528@psu.eduCorresponding author: Corresponding author
+Affiliation: Department of Energy and Mineral Engineering, The Pennsylvania State University, 58 Pollock Road, University Park, 16801, United States</pre>
+<h3>Abstract  <span class="muted small">— chars 1146–2193</span></h3>
+<pre>Large-format lithium-ion batteries (LIBs) provide effective energy storage solutions for high-power equipment used in underground mining operations.
+They have high Columbic efficiency and minimal heat and emission footprints.
+However, improper use of LIBs, accidents, or other factors may increase the probability of thermal runaway (TR), a rapid combustion reaction that discharges toxic and flammable substances.
+Several such incidents have been documented in underground mines.
+Since repeatable TR experiments to uncover the transient-state propagation of TR are expensive and hazardous, high-fidelity models are usually developed to mimic the impact of these events.
+They are resource-intensive and are impractical to develop for many scenarios that could be observed in a mine.
+Therefore, dynamic models within a reduced-order framework were constructed to represent the transient-state combustion event.
+Reduced order models (ROMs) reasonably replicate trends in temperature and smoke, showing strong alignment with the ground-truth dataset.</pre>
+<h3>Keywords:  <span class="muted small">— chars 2213–2602</span></h3>
+<pre>Lithium-ion battery , Thermal runaway , Combustion , Computational fluid dynamics , Reduced-order models
+
+††highlights: Thermal runaway in large-format lithium-ion batteries underground is hazardous.
+High-fidelity numerical models presenting these combustion events are computationally expensive.
+Reduce-order models capture the major trends in the transient-state thermo-fluid parameters.</pre>
+<h3>1 Introduction  <span class="muted small">— chars 2623–3744</span></h3>
+<pre>Underground mining operations typically use high voltage electrical or diesel engine-driven equipment for material transport.
+Electrical equipment, such as a tethered shuttle car, is commonly used in underground coal mines that use continuous miners to develop workings and production [1].
+It drags the electric cable, has limited mobility, and could be hazardous to miners who work around them.
+Other underground mines use diesel equipment for their flexibility [2].
+Diesel particulate matter (DPM) released from these engines is a known carcinogen [3, 4].
+Therefore, the mining industry is evaluating the application of rechargeable (secondary) batteries in several non-coal unit operations, with haulage being the most promising.
+Lithium-ion batteries (LIBs) are the most commonly used secondary batteries.
+They have expanded considerably in their scope of applications.
+This is due to their high energy density, long cycle life, low memory effect, and high Coulombic efficiency
+[5].
+However, there have been multiple incidents of violent failure due to a rapid combustion process known as thermal runaway (TR) [6, 7].</pre>
+<h3>1 Introduction  <span class="muted small">— chars 3610–4778</span></h3>
+<pre>However, there have been multiple incidents of violent failure due to a rapid combustion process known as thermal runaway (TR) [6, 7].
+TR events lead to fire, sometimes with explosions, and the emission of several flammable hydrocarbons and other toxic gases that can present hazardous conditions for underground mining personnel [8, 9].
+
+A TR event associated with a large-format battery could be catastrophic for exposed personnel.
+Controlled tests to study these events are hazardous, expensive, and unsuitable for repeated trials.
+Therefore, numerical modeling is a viable alternative. Generally, computational fluid dynamics (CFD) models are developed to mimic a TR event in a facility.
+These high-fidelity models require accurate flow volume geometry and boundary conditions to deliver results in terms of spatio-temporal thermo-fluid parameters [10].
+However, CFD models remain computationally expensive despite recent advances in high-performance computing systems.
+Therefore, they cannot be deployed rapidly to analyze complex scenarios, such as large-format battery combustion, especially when there are rapid changes in underground environmental conditions.</pre>
+<h3>1 Introduction  <span class="muted small">— chars 4779–5949</span></h3>
+<pre>In addition, as thermo-fluid parameters like velocity and temperature fluctuate rapidly because of turbulence, using an averaged value often suffices for the implementation of mine safety protocols.
+
+This work aims to bridge the aforementioned research gap by contributing to the body of knowledge by developing a reduced-order model (ROM) for fast and accurate modeling of key LIB TR products, including temperature and smoke.
+ROMs have previously been developed for convective heat transfer [11, 12].
+High-fidelity (ground-truth) data sets for this research were developed by simulating TR LIB in a tunnel using the Fire Dynamics Simulator (FDS) developed by the National Institute of Standards and Technology (NIST) [13].
+The MATLAB System Identification Toolbox was used to generate data-driven state-space models for each node under investigation.
+Models were developed for the failure of two LIBs, with capacities of 60 Ah and 243 Ah, respectively, in a mine tunnel [14, 15].
+Longitudinal airflow speeds of 1.0 m/s and 2.0 m/s in the tunnel were considered for this investigation.
+Two data sets were concatenated for training and one data set was used for testing.</pre>
+<h3>1 Introduction  <span class="muted small">— chars 5866–6644</span></h3>
+<pre>Two data sets were concatenated for training and one data set was used for testing.
+
+The paper is structured as follows. Section 1 presents an introduction to the dynamic modeling of temperature and smoke from LIB TR.
+Section 2 presents the key hazards emanating from LIB TR, including temperature and smoke, highlighting their potential risks in subterranean facilities.
+Section 3 elaborates on the method used to develop the dynamic modeling framework.
+Section 4 describes the results obtained from this work, including FDS simulation, training and testing models, and uncertainty analysis.
+Section 5 presents the conclusions and avenues for further research as indicated in Fig. 1.
+
+Figure 1: Illustration of the structure of the manuscript showing key focus for each section</pre>
+<h3>2.1 Environmental impacts of thermal runaway  <span class="muted small">— chars 6756–7922</span></h3>
+<pre>LIB TR could be a serious hazard due to rapid heat release and the emission of noxious gases and aerosols, especially in large-format units [16, 17].
+These events present complex thermochemical reactions with several distinct stages and unique characteristics [18, 19].
+Internal short circuits act as the trigger, yet they do not significantly contribute to heat release.
+TR could begin at any affected cell located in the pack and spread rapidly to adjacent cells.
+However, the interaction between the anode and cathode in a large-format LIB causes the main exothermic reaction
+[20].
+Temperature differences exceeding 700 °C within a battery have been observed [7].
+The impact of TR on personnel and assets is exacerbated in confined underground mines, where ventilation configurations and geometry critically influence the spread of temperature, gases, and smoke.
+Understanding and predicting their propagation and spread promptly is instrumental in the deployment of suppression mechanisms and emergency response planning.
+
+LIB TR also results in the formation of soot, which has been reported to be more toxic to human lungs and neural cells than soot from wood.</pre>
+<h3>2.1 Environmental impacts of thermal runaway  <span class="muted small">— chars 7783–8885</span></h3>
+<pre>LIB TR also results in the formation of soot, which has been reported to be more toxic to human lungs and neural cells than soot from wood.
+The soot of LiFePO4 and the ternary battery typically exhibit ‘core shell’ with the former containing elements such as carbon, oxygen, lithium, fluorine, phosphorus and iron, while the latter also contains nickel, cobalt and manganese [21].
+A study on LIB TR particulates reported that LIB TR-PM concentrations are approximately six times higher than under ambient conditions.
+A comparison indicated that TR of LIBs of LFP chemistry resulted in a soot concentration of 356.3±23.2​mg/m3356.3\pm 23.2~\mathrm{mg/m^{3}} while NMC had 401.1±30.1​mg/m3401.1\pm 30.1~\mathrm{mg/m^{3}}[22].
+As such, the timely detection and monitoring of LIB TR together with its products is crucial to deploy mitigation measures and ensure the safety of first responders.
+
+The temperature profiles during LIB TR have been well documented in the literature.
+For example, a 20 Ah LiFePO4 LIB was subjected to TR by overcharging at 100% SoC using a constant current and voltage sequence.</pre>
+<h3>2.1 Environmental impacts of thermal runaway  <span class="muted small">— chars 8758–9653</span></h3>
+<pre>For example, a 20 Ah LiFePO4 LIB was subjected to TR by overcharging at 100% SoC using a constant current and voltage sequence.
+The study reported maximum temperatures of 166.1°C166.1\text{\,}\mathrm{\SIUnitSymbolCelsius}, 166.1°C166.1\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 139.2°C139.2\text{\,}\mathrm{\SIUnitSymbolCelsius} when overcharged at 0.5 C, 0.75 C, and 1 C, respectively [19].
+Another study investigated the TR of 50 Ah and 105 Ah LiFePO4 batteries.
+Temperature ranges of 150°C150\text{\,}\mathrm{\SIUnitSymbolCelsius} to 400°C400\text{\,}\mathrm{\SIUnitSymbolCelsius} and 160°C160\text{\,}\mathrm{\SIUnitSymbolCelsius} to 540°C540\text{\,}\mathrm{\SIUnitSymbolCelsius} were reported, respectively, with an increase in heating temperature within the range of 150°C150\text{\,}\mathrm{\SIUnitSymbolCelsius} to 300°C300\text{\,}\mathrm{\SIUnitSymbolCelsius} for the two units [23].</pre>
+<h3>2.1 Environmental impacts of thermal runaway  <span class="muted small">— chars 9654–10019</span></h3>
+<pre>A research on the stability of various LIB chemistries indicated peak temperatures of 900°C900\text{\,}\mathrm{\SIUnitSymbolCelsius}, 1000°C1000\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 800°C800\text{\,}\mathrm{\SIUnitSymbolCelsius} due to local heating of 2.6 Ah LiCoO2 at 100 % SoC, 3.4 Ah LiNi0.8CO0.15Al0.05O2 at 50 % SoC, and 1.5 Ah LiFePO4 at 100% SoC [24].</pre>
+<h3>2.2 Relevant numerical modeling frameworks  <span class="muted small">— chars 10069–11172</span></h3>
+<pre>The development of numerical models allows for a parametric study of these combustion events.
+These are usually generated using the finite-volume framework, where the fluid flow volume is discretized into millions of control volumes.
+The propagation of the LIB TR products in the flow volume can be explained using equations of mass, species, momentum, and energy conservation [13].
+These are shown in Eq. (1a)–(1d).
+Here, ρ\mathbf{\rho} is the fluid density (kg/m3\mathrm{kg/m^{3}}),
+u→\mathbf{\vec{u}} is the velocity vector (m/s\mathrm{m/s}),
+p\mathbf{p} is the pressure (Pa\mathrm{Pa}),
+τ{\tau} is the viscous stress tensor (Pa\mathrm{Pa}),
+g→\mathbf{\vec{g}} is the gravitational acceleration vector (m/s2\mathrm{m/s^{2}}),
+h\mathbf{h} is the specific enthalpy (J/kg\mathrm{J/kg}),
+k\mathbf{k} is the thermal conductivity (W/(m⋅K)\mathrm{W/(m{\cdot}K)}),
+T\mathbf{T} is the temperature (K\mathrm{K}), and
+Q ̇\mathbf{\dot{Q}} is the volumetric heat source term due to thermal runaway (W/m3\mathrm{W/m^{3}}),
+and DpDt\mathbf{\dfrac{Dp}{Dt}} is the material derivative of pressure (Pa/s\mathrm{Pa/s}).</pre>
+<h3>2.2 Relevant numerical modeling frameworks  <span class="muted small">— chars 11173–12343</span></h3>
+<pre>These are implemented in the FDS software that was used to develop the numerical models for this research.
+
+∂ρ∂t+∇⋅(ρ​u)=0\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{u})=0(1a)
+
+∂∂t(ρYl)+∇⋅(ρYlu)=∇⋅[(ρD)l∇Yl]+W ̇l′′\frac{\partial}{\partial t}(\rho Y_{l})+\nabla\cdot(\rho Y_{l}\mathbf{u})=\nabla\cdot[(\rho D)_{l}\nabla Y_{l}]+\dot{W}^{\prime\prime}_{l}(1b)
+
+ρ(∂u∂t+(u⋅∇)u)+∇p=ρg+f+∇⋅τ\rho\left(\frac{\partial\mathbf{u}}{\partial t}+(\mathbf{u}\cdot\nabla)\mathbf{u}\right)+\nabla p=\rho\mathbf{g}+\mathbf{f}+\nabla\cdot\boldsymbol{\tau}(1c)
+
+∂∂t(ρh)+∇⋅(ρhu)−D​pD​t=q ̇′′′+∇⋅(k∇T)+∇⋅∑lhl(ρD)l∇Yl\frac{\partial}{\partial t}(\rho h)+\nabla\cdot(\rho h\mathbf{u})-\frac{Dp}{Dt}=\dot{q}^{\prime\prime\prime}+\nabla\cdot(k\nabla T)+\nabla\cdot\sum_{l}h_{l}(\rho D)_{l}\nabla Y_{l}(1d)
+
+Alternatively, state space models (SSMs) have proven their efficiency in modeling dynamic systems based on internal states, inputs, and outputs using differential or difference models [25].
+These provide a mathematical framework for describing complex systems in terms of differential equations.
+In discrete-time format, SSMs are generally shown as illustrated in Eq. 2a and 2b.</pre>
+<h3>2.2 Relevant numerical modeling frameworks  <span class="muted small">— chars 12261–13198</span></h3>
+<pre>In discrete-time format, SSMs are generally shown as illustrated in Eq. 2a and 2b.
+Here k\mathbf{k} represents the time index, x⁡(k)\mathbf{x(k)} represents the vector of internal states (e.g., temperatures or smoke concentrations at specific locations), u⁡(k)\mathbf{u(k)} is the input (e.g., heat release rate), and y⁡(k)\mathbf{y(k)} is the output (e.g., measurable temperature or smoke at sensors).
+The corresponding matrices are represented by the symbols A\mathbf{A}-D\mathbf{D}.
+SSMs have been widely used to model various hazards, including road accidents, city fire surveillance, and flooding [26, 27].
+However, despite their proven prowess, limited studies have deployed SSMs to monitor LIB post-TR hazards, especially in underground mines.
+This study aims to investigate the efficiency of SSM as an appropriate tool to monitor the evolution of smoke and temperature during LIB TR in a tunnel, as described in the next section.</pre>
+<h3>2.2 Relevant numerical modeling frameworks  <span class="muted small">— chars 13200–13578</span></h3>
+<pre>x⁡(k+1)\displaystyle x(k+1)=A​x​(k)+B​u​(k)\displaystyle=Ax(k)+Bu(k)(2a)
+
+y⁡(k)\displaystyle y(k)=C​x​(k)+D​u​(k)\displaystyle=Cx(k)+Du(k)(2b)
+
+Figure 2: Geometry of the study domain: The first illustration depicts the battery alongside a tunnel cross-section with dimensions of 9.0 m x 5.5 m; the second one shows the direction of airflow with the temperature decaying along it</pre>
+<h3>3 Dynamical Modeling Framework  <span class="muted small">— chars 13615–14792</span></h3>
+<pre>To develop reduced-order models for the dynamic behavior of the smoke and temperature resulting from LIB TR in an underground mine tunnel, numerical simulation and data-driven system identification tools were used.
+High-fidelity computational fluid dynamics (CFD) models for two LIB capacities, 60 Ah and 243 Ah, were developed under varying airflow conditions in the tunnel using the Fire Dynamics Simulator software (illustrated in Fig. 2).
+A real-world monitoring scenario was achieved by resolving the spatio-temporal evolution of smoke and temperature with output recorded at strategic nodes downstream of the LIBs.
+This data was used as ground truth.
+
+A comprehensive data set that encapsulates possible thermal and fluid flow regimes was created through concatenation.
+MATLAB’s system identification toolbox was used to learn the underlying dynamics from the FDS-generated data to create continuous-state SSMs for both smoke and temperature.
+Two additional data sets were used for model testing.
+This enables the assessment of SSM’s ability to reproduce the captured dynamic features with a reduced computational complexity.
+A summary of this process is shown in Fig. 3.</pre>
+<h3>3 Dynamical Modeling Framework  <span class="muted small">— chars 14747–15155</span></h3>
+<pre>A summary of this process is shown in Fig. 3.
+This section details the procedure used for developing the SSM for temperature and smoke.
+
+Figure 3: Summary of employed method: FDS provides the high fidelity ground truth data using the flow volume and boundary conditions to provide the ground-truth data, while SSMs present an efficient pathway to capture the dynamics using the input data and internal states</pre>
+<h3>3.1 Data Generation using Fire Dynamics Simulator  <span class="muted small">— chars 15212–16204</span></h3>
+<pre>This study simulated the transient-state combustion event presented by LIB TR of two large units appropriate for large equipment (60 Ah and 243 Ah) in an 80.0 m long tunnel,
+The tunnel had a cross-sectional area of 9.0 m x 5.5 m as presented in Fig. 2.
+The gravitational acceleration was assigned in the vertical direction as -9.81 m/s2\mathrm{m/s^{2}} to ensure natural entrainment, layering, and buoyancy-driven flows in a real-life setting.
+The ambient temperature was set to 15 °C.
+The dimensions of the grid cells used to develop the mesh were determined using the length of the fire characteristics (Eq. 3).
+Here, Q ̇\mathbf{\dot{Q}} is the peak heat release rate (HRR) (kW),
+ρ∞\mathbf{\rho_{\infty}} is the ambient air density (kg/m3),
+Cp\mathbf{C_{p}} is the specific heat capacity (kJ/kg/K), and
+T∞\mathbf{T_{\infty}} is the ambient temperature (K).
+The HRRs for the two battery capacities are presented in Fig. 4.
+Once a robust mesh was developed, boundary conditions were assigned.</pre>
+<h3>3.1 Data Generation using Fire Dynamics Simulator  <span class="muted small">— chars 16071–17158</span></h3>
+<pre>The HRRs for the two battery capacities are presented in Fig. 4.
+Once a robust mesh was developed, boundary conditions were assigned.
+
+D∗=(Q ̇ρ∞​Cp​T∞​g)2/5D^{*}=\left(\frac{\dot{Q}}{\rho_{\infty}C_{p}T_{\infty}\sqrt{g}}\right)^{2/5}(3)
+
+Figure 4: HRR of the battery capacities under consideration, including 243 Ah and 60 Ah LIBs, presented as a fraction of the maximum area-averaged heat release rates
+
+The entry and exit of the tunnels were defined using &amp;VENT to represent the entry and exit boundaries of the simulation domain.
+The LIB, which is the fire source, was modeled as &amp;OBSTRUCTION at the entrance of the tunnel.
+The obstruction was modeled to occupy spatial bounds of x=3.0​–​6.0​m,y=0.0​–​10.0,and​z=0.5​–​1.5​mx=3.0\text{\textendash}6.0~\mathrm{m},\ y=0.0\text{\textendash}10.0,\ \text{and}\ z=0.5\text{\textendash}1.5~\mathrm{m}
+to represent the geometry of the fire source.
+The associated surface conditions were assigned using &amp;SURF ID, where the combustion surface was assigned the &amp;FIRE SURFACE properties, while the walls are inert, presented using &amp;INERT command.</pre>
+<h3>3.1 Data Generation using Fire Dynamics Simulator  <span class="muted small">— chars 17159–18145</span></h3>
+<pre>The combustion of LIB TR was assigned the reaction ID of the electrolyte because it has the lowest flashing point and is the most volatile and flammable part of LIBs.
+The heat profile was defined using the &amp;RAMP function, specifying the fractional progression of the peak HRR as a function of the increase in time monotonically.
+This ensures that the fire grows over time based on the specified HRR profile, while accurately presenting the convective and radiative behavior of combustion surfaces.
+The temperature and smoke probes were placed in the center of the tunnel (that is, 4.5 m from the side walls) and 1.5 m high (average height of the miners) at the entrance and after every 8.0 m, equidistant throughout the tunnel.
+The corresponding files stored the boundary conditions.
+The simulations were run on a high performance workstation using parallel compute cores.
+Transient temperatures and smoke concentrations for different scenarios were recorded in the corresponding files.</pre>
+<h3>3.2 State Space Modeling  <span class="muted small">— chars 18177–19360</span></h3>
+<pre>Time-series data for LIB TR of two LIB capacities, 60 Ah and 243 Ah, were concatenated to ensure that the model captures a wide range of thermal and smoke dynamics under varying energy densities and failure intensities.
+The concatenated data was then used as training input for system identification in MATLAB for SSM development [28].
+The process used ‘Grey-Box’ system identification, in which physics insights guided input-output parameter selection, and system dynamics were learned from the time-series data.
+
+The SSM for the node next to the LIB was developed using two key exogenous inputs: (i) HRR, and (ii) ambient temperature.
+These variables were assumed to be the key drivers for localized thermal response, while the ground truth temperature was used as the output.
+The downstream nodes were modeled as dependent systems to capture convection and diffusive heat propagation.
+For each node ii downstream, the input parameters considered were ambient temperature and temperature output from the preceding node T⁡(yi−1,t)T(y_{i-1},t) to capture spatial coupling between adjacent nodes (Fig. 5).
+The output for these nodes was the local node temperature, T⁡(yi,t)T(y_{i},t).</pre>
+<h3>3.2 State Space Modeling  <span class="muted small">— chars 19278–19707</span></h3>
+<pre>5).
+The output for these nodes was the local node temperature, T⁡(yi,t)T(y_{i},t).
+This node-wise cascaded structure allowed modular training and testing of the dynamic model for temperature and smoke.
+
+Figure 5: Schematic of the underground mine setup for dynamical modeling purposes. The lithium-ion battery is placed ∼\sim 5.0 m from the mine inlet. Temperature and smoke are monitored at nodes below and downstream of the LIB</pre>
+<h3>4 Results and Conclusions  <span class="muted small">— chars 19739–20755</span></h3>
+<pre>High-fidelity simulation using FDS yielded spatio-temporal temperature and smoke concentration profiles of 60 Ah and 243 Ah LIBs undergoing a full-length thermal runaway.
+For these combustion events, a constant airflow rate was maintained in the tunnel.
+As the TR event propagated, the heat and particulate injected in the tunnel followed the HRR curve.
+The evolution of temperature and the transportation of particulates, driven by combined fire-driven buoyancy and forced ventilation, were obtained at the designated nodes under investigation, placed equidistant from the fire source.
+The near-field nodes exhibited higher temperature transients, taking shorter durations to reach peak temperature.
+
+For the 60 Ah LIB, the peak temperatures for nodes 1, 2, 3, and 4 were ∼\sim1180°C1180\text{\,}\mathrm{\SIUnitSymbolCelsius}, 605°C605\text{\,}\mathrm{\SIUnitSymbolCelsius}, 405°C405\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 300°C300\text{\,}\mathrm{\SIUnitSymbolCelsius}, respectively, as indicated in Fig. 6(a).</pre>
+<h3>4 Results and Conclusions  <span class="muted small">— chars 20750–21901</span></h3>
+<pre>6(a).
+In the case of 243 Ah LIB, nodes 1, 2, 3, and 4 exhibited peak temperatures of ∼\sim1250°C1250\text{\,}\mathrm{\SIUnitSymbolCelsius}, 820°C820\text{\,}\mathrm{\SIUnitSymbolCelsius}, 600°C600\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 240°C240\text{\,}\mathrm{\SIUnitSymbolCelsius}, respectively, as indicated in Fig. 6(b) respectively.
+This thermal gradient is caused by the propagation of the thermal plume downstream, which intermixes with ambient air, convective losses to the surrounding area, and attenuation of thermal radiation, which reduces the temperatures further from the source.
+Similar trends are observed for smoke concentration, as illustrated in Fig. 7(a) and 7(b).
+The smoke concentration increases as the fuel burns more vigorously.
+As the smoke plume propagates downstream, it becomes diluted, and its concentration progressively decreases.
+This spatial variation reflects the combined effect of convective transport and turbulent mixing in the study domain.
+
+(a)
+
+(b)
+
+Figure 6: Temperature plots from airflow velocity of 2.0 m/s from: (a) 60 Ah LIB illustrating increased thermal decay with increased distance from the LIB.</pre>
+<h3>4 Results and Conclusions  <span class="muted small">— chars 21902–22322</span></h3>
+<pre>Nodes closer to the LIB have higher temperatures than nodes downstream, (b) 243 Ah LIB indicate much higher temperature profiles than 60 Ah. Thermal decay is observed at nodes downstream of the LIB
+
+(a)
+
+(b)
+
+Figure 7: Smoke plots from airflow velocity of 2.0 m/s from: (a) 60 Ah LIB indicate higher concentration in nodes closer to the LIB than nodes downstream, (b) 243 Ah LIB indicate higher concentrations than 60 Ah</pre>
+<h3>4.1 Training and Testing  <span class="muted small">— chars 22354–23524</span></h3>
+<pre>Concatenated data from the LIB TR simulation of 60 Ah and 243 Ah LIB under an airflow velocity of 2.0 m/s were used to train the state-space models using the System Identification Toolbox.
+The SSMs for temperature at the selected nodes are presented in Fig. 8.
+They have a fitting performance of 42.9%, 68.1%, 64.9%, and 44.2%, respectively.
+Testing these models on a new airflow velocity data set of 1.0 m/s yielded reasonable accuracy for the nodes, as indicated in Fig. 9.
+Similarly, the SSMs for smoke at the selected nodes are presented in Fig. 10, and present a fitting performance of 29.8%, 42.9%, 44.8%, and 36.8%, respectively.
+Testing these models on a new data set yielded reasonable accuracy for the nodes, as indicated in Fig. 11.
+
+Figure 8: Comparison of the dynamical temperature propagation model and ground truth, for the training datasetFigure 9: Comparison of the dynamical temperature propagation model and ground truth for testing dataset
+
+The apparent discrepancy between moderate model fitting and good visual trend alignment when using data from LES can be attributed to high-frequency perturbations and inherent turbulence built into LES models.</pre>
+<h3>4.1 Training and Testing  <span class="muted small">— chars 23525–24305</span></h3>
+<pre>LES resolves large-scale turbulent structures and models smaller eddies stochastically, resulting in the loss of smoothness, unlike the more conventional Reynold’s-Averaged Navier-Stokes turbulence models that incorporate averaging.
+Therefore, in this instance, the visual agreement demonstrated by testing the models indicates the model’s sound capability to reproduce dominant physical trends in the system.
+The low numerical fit arises from the stochastic and highly unresolved nature of LES, which does not necessarily indicate the modeling error.
+
+Figure 10: Comparison of the dynamical smoke propagation model and ground truth, for training datasetFigure 11: Comparison of the dynamical smoke propagation model and ground truth obtained at the four nodes for testing dataset</pre>
+<h3>4.2 Model uncertainty analysis  <span class="muted small">— chars 24343–25371</span></h3>
+<pre>Probability density estimates (PDE) were used to assess the model uncertainty for selected nodes.
+The residuals of the model were estimated using kernel density estimation.
+For example, at node 2, the SSM for 60 Ah demonstrates a narrower and higher peak in its density curve, indicating a low uncertainty and greater confidence in its prediction.
+However, the 243 Ah model indicates more sensitivity and variability.
+However, both curves are centered on the 0 K error, indicating that the models are of acceptable accuracy, as indicated in Fig. 12.
+Similar trends are observed for smoke concentration as indicated in Fig. 13.
+This exercise was performed for all other nodes and yielded similar results.
+
+Figure 12: Comparison of probability density estimate of the dynamical temperature model error with H​R​R=243​A​hHRR=243Ah and H​R​R=60​A​hHRR=60Ah at node 2Figure 13: Comparison of probability density estimate of the dynamical smoke concentration model error with H​R​R=243​A​hHRR=243Ah and H​R​R=60​A​hHRR=60Ah at node 2.</pre>
+<h3>4.2 Model uncertainty analysis  <span class="muted small">— chars 25372–26388</span></h3>
+<pre>Ta​m​b=25​KT_{amb}=25K
+
+Furthermore, the influence of ambient temperature of 15°C15\text{\,}\mathrm{\SIUnitSymbolCelsius} and 25°C25\text{\,}\mathrm{\SIUnitSymbolCelsius} on model uncertainty was assessed at node 2 based on HRR of 60 Ah.
+The distributions derived from the kernel density estimation indicate that the model prediction error is centered around 0 K, indicating a generally reasonable accuracy.
+However, the ambient temperature of 25°C25\text{\,}\mathrm{\SIUnitSymbolCelsius} indicates less variance and greater confidence in its estimates compared to the broader curve of 15°C15\text{\,}\mathrm{\SIUnitSymbolCelsius} as shown in Fig. 14.
+This suggests that lower ambient temperature introduces more uncertainty in model prediction, possibly from nonlinearity in heat transfer or LIB behavior at lower temperatures.
+
+Figure 14: Comparison of the probability density estimate of
+the dynamical temperature model error with Ta​m​b=25​KT_{amb}=25K and Ta​m​b=15​KT_{amb}=15K at node 2. H​R​R=60​A​hHRR=60Ah.</pre>
+<h3>5 Discussions &amp; Future Work  <span class="muted small">— chars 26422–27540</span></h3>
+<pre>Mines experience dynamical changes in their ventilation air flows due to variation in ambient atmospheric pressure, temperature, and humidity. This can be exacerbated by anomalous events, such as thermal runaway of a large-format battery.
+In this work, a reduced order modeling approach has been presented that captures the changes in thermal and smoke dynamics after a battery fire in an underground mine tunnel. Specifically, a state-space modeling technique has been employed, which has been identified and tested using high-fidelity numerical simulation data obtained using Fire Dynamics Simulator software.
+The state-space model demonstrated strong visual alignment with the testing data, successfully capturing dominant transient trends.
+
+High-fidelity models were developed for this research using the large eddy simulation (LES) framework.
+This approach resolves the thermo-fluid parameters on the grid larger than the selected cell size and models the ones smaller than it.
+Transient-state temperature and smoke exhibit rapid fluctuations in their magnitude due to sudden changes in geometry around the nodes.</pre>
+<h3>5 Discussions &amp; Future Work  <span class="muted small">— chars 27405–28562</span></h3>
+<pre>Transient-state temperature and smoke exhibit rapid fluctuations in their magnitude due to sudden changes in geometry around the nodes.
+FDS also uses a structured grid with rectilinear elements which could have also contributed to the fluctuations.
+Refining meshes further could have possibility have alleviated the fluctuations somewhat, but that would have come at a rapid increase in computational cost.
+Moderate numerical fitting scores (29.8–68.1%) are attributed to high-frequency turbulence in LES-based training data.
+Furthermore, probability density estimates of model residuals centered around zero, which indicates no systematic bias.
+The reduced order model framework provides a computationally efficient and sufficiently accurate method for tracking critical TR hazards, offering a practical tool for safety protocol development.
+
+The work presented here could be extended to a much larger and more complex layout of underground mining operations.
+These form a complex network of connected tunnels and support structures.
+As the mines grow larger and deeper, geothermal gradients and autocompression of air add more heat to the ventilation air.</pre>
+<h3>5 Discussions &amp; Future Work  <span class="muted small">— chars 28440–29291</span></h3>
+<pre>As the mines grow larger and deeper, geothermal gradients and autocompression of air add more heat to the ventilation air.
+Reduced-order models could be a powerful numerical tool for the mine operators in these cases, since developing high-fidelity three-dimensional models is computationally prohibitive.
+Changing any parameters in the boundary conditions will require the development of entirely new models.
+ROMs, on the other hand, can be rapidly developed for a suite of operating conditions.
+Finally, an ensemble of high-fidelity CFD models and ROMs provides a high degree of confidence as laboratory-scale testing of the numerical framework is planned.
+As indicated earlier, large-scale thermal runway testing is extremely hazardous and expensive.
+Efforts are underway to develop robust estimation models to mimic the post combustion conditions.</pre>
+<h3>Funding Source  <span class="muted small">— chars 29312–29444</span></h3>
+<pre>Thomas V. and Jean C. Falkie Mining Engineering Faculty Fellowship awarded to Dr. Ashish R. Kumar supported a part of this research.</pre>
+
+<h2>Extracted claims (89)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Here, ρ\mathbf{\rho} is the fluid density (kg/m3\mathrm{kg/m^{3}}),</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Email: kos5600@psu.eduAffiliation: Department of Energy and Mineral Engineering, The Pennsylvania State University, 58 Pollock Road, University Park, 16801, United States</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">arXiv:2510.23910v1 [eess.SY] 27 Oct 2025</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Section 4 describes the results obtained from this work, including FDS simulation, training and testing models, and uncertainty analysis.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">the dynamical temperature model error with Ta​m​b=25​KT_{amb}=25K and Ta​m​b=15​KT_{amb}=15K at node 2.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">SSMs have been widely used to model various hazards, including road accidents, city fire surveillance, and flooding [26, 27].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These events present complex thermochemical reactions with several distinct stages and unique characteristics [18, 19].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In discrete-time format, SSMs are generally shown as illustrated in Eq. 2a and 2b.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Similar trends are observed for smoke concentration, as illustrated in Fig. 7(a) and 7(b).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">TR events lead to fire, sometimes with explosions, and the emission of several flammable hydrocarbons and other toxic gases that can present hazardous conditions for underground mining personnel [8, 9].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, at node 2, the SSM for 60 Ah demonstrates a narrower and higher peak in its density curve, indicating a low uncertainty and greater confidence in its prediction.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Section 1 presents an introduction to the dynamic modeling of temperature and smoke from LIB TR.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ROMs have previously been developed for convective heat transfer [11, 12].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Alternatively, state space models (SSMs) have proven their efficiency in modeling dynamic systems based on internal states, inputs, and outputs using differential or difference models [25].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The temperature and smoke probes were placed in the center of the tunnel (that is, 4.5 m from the side walls) and 1.5 m high (average height of the miners) at the entrance and after every 8.0 m, equidistant throughout the tunnel.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A summary of this process is shown in Fig. 3.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Email: ybp5153@psu.eduAffiliation: Department of Mechanical Engineering, The Pennsylvania State University, Reber Building, University Park, 16801, United States</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Other underground mines use diesel equipment for their flexibility [2].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">High-fidelity simulation using FDS yielded spatio-temporal temperature and smoke concentration profiles of 60 Ah and 243 Ah LIBs undergoing a full-length thermal runaway.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This is due to their high energy density, long cycle life, low memory effect, and high Coulombic efficiency [5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The ambient temperature was set to 15 °C.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">g→\mathbf{\vec{g}} is the gravitational acceleration vector (m/s2\mathrm{m/s^{2}}),</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Testing these models on a new data set yielded reasonable accuracy for the nodes, as indicated in Fig. 11.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The study reported maximum temperatures of 166.1°C166.1\text{\,}\mathrm{\SIUnitSymbolCelsius}, 166.1°C166.1\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 139.2°C139.2\text{\,}\mathrm{\SIUnitSymbolCelsius} when overcharged at 0.5 C, 0.75 C, and 1 C, respectively [19].</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Moderate numerical fitting scores (29.8–68.1%) are attributed to high-frequency turbulence in LES-based training data.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Temperature differences exceeding 700 °C within a battery have been observed [7].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 14: Comparison of the probability density estimate of</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Nodes closer to the LIB have higher temperatures than nodes downstream, (b) 243 Ah LIB indicate much higher temperature profiles than 60 Ah.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The dimensions of the grid cells used to develop the mesh were determined using the length of the fire characteristics (Eq. 3).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, both curves are centered on the 0 K error, indicating that the models are of acceptable accuracy, as indicated in Fig. 12.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Similar trends are observed for smoke concentration as indicated in Fig. 13.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, there have been multiple incidents of violent failure due to a rapid combustion process known as thermal runaway (TR) [6, 7].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Section 3 elaborates on the method used to develop the dynamic modeling framework.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Therefore, numerical modeling is a viable alternative.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Electrical equipment, such as a tethered shuttle car, is commonly used in underground coal mines that use continuous miners to develop workings and production [1].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">D∗=(Q ̇ρ∞​Cp​T∞​g)2/5D^{*}=\left(\frac{\dot{Q}}{\rho_{\infty}C_{p}T_{\infty}\sqrt{g}}\right)^{2/5}(3)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, the ambient temperature of 25°C25\text{\,}\mathrm{\SIUnitSymbolCelsius} indicates less variance and greater confidence in its estimates compared to the broader curve of 15°C15\text{\,}\mathrm{\SIUnitSymbolCelsius} as shown in Fig. 14.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">y⁡(k)\displaystyle y(k)=C​x​(k)+D​u​(k)\displaystyle=Cx(k)+Du(k)(2b)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">∂ρ∂t+∇⋅(ρ​u)=0\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{u})=0(1a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For the 60 Ah LIB, the peak temperatures for nodes 1, 2, 3, and 4 were ∼\sim1180°C1180\text{\,}\mathrm{\SIUnitSymbolCelsius}, 605°C605\text{\,}\mathrm{\SIUnitSymbolCelsius}, 405°C405\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 300°C300\text{\,}\mathrm{\SIUnitSymbolCelsius}, respectively, as indicated in Fig. 6(a).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">They have a fitting performance of 42.9%, 68.1%, 64.9%, and 44.2%, respectively.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">∂∂t(ρYl)+∇⋅(ρYlu)=∇⋅[(ρD)l∇Yl]+W ̇l′′\frac{\partial}{\partial t}(\rho Y_{l})+\nabla\cdot(\rho Y_{l}\mathbf{u})=\nabla\cdot[(\rho D)_{l}\nabla Y_{l}]+\dot{W}^{\prime\prime}_{l}(1b)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Email: skd5685@psu.eduAffiliation: Department of Mechanical Engineering, The Pennsylvania State University, Reber Building, University Park, 16801, United States</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For each node ii downstream, the input parameters considered were ambient temperature and temperature output from the preceding node T⁡(yi−1,t)T(y_{i-1},t) to capture spatial coupling between adjacent nodes (Fig. 5).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A comparison indicated that TR of LIBs of LFP chemistry resulted in a soot concentration of 356.3±23.2​mg/m3356.3\pm 23.2~\mathrm{mg/m^{3}} while NMC had 401.1±30.1​mg/m3401.1\pm 30.1~\mathrm{mg/m^{3}}[22].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, the 243 Ah model indicates more sensitivity and variability.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">∂∂t(ρh)+∇⋅(ρhu)−D​pD​t=q ̇′′′+∇⋅(k∇T)+∇⋅∑lhl(ρD)l∇Yl\frac{\partial}{\partial t}(\rho h)+\nabla\cdot(\rho h\mathbf{u})-\frac{Dp}{Dt}=\dot{q}^{\prime\prime\prime}+\nabla\cdot(k\nabla T)+\nabla\cdot\sum_{l}h_{l}(\rho D)_{l}\nabla Y_{l}(1d)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The distributions derived from the kernel density estimation indicate that the model prediction error is centered around 0 K, indicating a generally reasonable accuracy.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, a 20 Ah LiFePO4 LIB was subjected to TR by overcharging at 100% SoC using a constant current and voltage sequence.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The soot of LiFePO4 and the ternary battery typically exhibit ‘core shell’ with the former containing elements such as carbon, oxygen, lithium, fluorine, phosphorus and iron, while the latter also contains nickel, cobalt and manganese [21].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A summary of this process is shown in Fig. 3.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Testing these models on a new airflow velocity data set of 1.0 m/s yielded reasonable accuracy for the nodes, as indicated in Fig. 9.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Diesel particulate matter (DPM) released from these engines is a known carcinogen [3, 4].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Concatenated data from the LIB TR simulation of 60 Ah and 243 Ah LIB under an airflow velocity of 2.0 m/s were used to train the state-space models using the System Identification Toolbox.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, a 20 Ah LiFePO4 LIB was subjected to TR by overcharging at 100% SoC using a constant current and voltage sequence.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, the interaction between the anode and cathode in a large-format LIB causes the main exothermic reaction [20]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The SSMs for temperature at the selected nodes are presented in Fig. 8.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These high-fidelity models require accurate flow volume geometry and boundary conditions to deliver results in terms of spatio-temporal thermo-fluid parameters [10].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Section 2 presents the key hazards emanating from LIB TR, including temperature and smoke, highlighting their potential risks in subterranean facilities.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Similarly, the SSMs for smoke at the selected nodes are presented in Fig. 10, and present a fitting performance of 29.8%, 42.9%, 44.8%, and 36.8%, respectively.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The HRRs for the two battery capacities are presented in Fig. 4.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The concatenated data was then used as training input for system identification in MATLAB for SSM development [28].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The gravitational acceleration was assigned in the vertical direction as -9.81 m/s2\mathrm{m/s^{2}} to ensure natural entrainment, layering, and buoyancy-driven flows in a real-life setting.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Section 5 presents the conclusions and avenues for further research as indicated in Fig. 1.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the case of 243 Ah LIB, nodes 1, 2, 3, and 4 exhibited peak temperatures of ∼\sim1250°C1250\text{\,}\mathrm{\SIUnitSymbolCelsius}, 820°C820\text{\,}\mathrm{\SIUnitSymbolCelsius}, 600°C600\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 240°C240\text{\,}\mathrm{\SIUnitSymbolCelsius}, respectively, as indicated in Fig. 6(b) respectively.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This study simulated the transient-state combustion event presented by LIB TR of two large units appropriate for large equipment (60 Ah and 243 Ah) in an 80.0 m long tunnel,</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Models were developed for the failure of two LIBs, with capacities of 60 Ah and 243 Ah, respectively, in a mine tunnel [14, 15].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">LIB TR could be a serious hazard due to rapid heat release and the emission of noxious gases and aerosols, especially in large-format units [16, 17].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">High-fidelity (ground-truth) data sets for this research were developed by simulating TR LIB in a tunnel using the Fire Dynamics Simulator (FDS) developed by the National Institute of Standards and Technology (NIST) [13].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 10: Comparison of the dynamical smoke propagation model and ground truth, for training datasetFigure 11: Comparison of the dynamical smoke propagation model and ground truth obtained at the four nodes for testing dataset</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The tunnel had a cross-sectional area of 9.0 m x 5.5 m as presented in Fig. 2.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">High-fidelity computational fluid dynamics (CFD) models for two LIB capacities, 60 Ah and 243 Ah, were developed under varying airflow conditions in the tunnel using the Fire Dynamics Simulator software (illustrated in Fig. 2).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The lithium-ion battery is placed ∼\sim 5.0 m from the mine inlet.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">x⁡(k+1)\displaystyle x(k+1)=A​x​(k)+B​u​(k)\displaystyle=Ax(k)+Bu(k)(2a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Another study investigated the TR of 50 Ah and 105 Ah LiFePO4 batteries.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In discrete-time format, SSMs are generally shown as illustrated in Eq. 2a and 2b.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Time-series data for LIB TR of two LIB capacities, 60 Ah and 243 Ah, were concatenated to ensure that the model captures a wide range of thermal and smoke dynamics under varying energy densities and failure intensities.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Q ̇\mathbf{\dot{Q}} is the volumetric heat source term due to thermal runaway (W/m3\mathrm{W/m^{3}}),</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ρ(∂u∂t+(u⋅∇)u)+∇p=ρg+f+∇⋅τ\rho\left(\frac{\partial\mathbf{u}}{\partial t}+(\mathbf{u}\cdot\nabla)\mathbf{u}\right)+\nabla p=\rho\mathbf{g}+\mathbf{f}+\nabla\cdot\boldsymbol{\tau}(1c)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The HRRs for the two battery capacities are presented in Fig. 4.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The propagation of the LIB TR products in the flow volume can be explained using equations of mass, species, momentum, and energy conservation [13].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Affiliation: Department of Energy and Mineral Engineering, The Pennsylvania State University, 58 Pollock Road, University Park, 16801, United States</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, there have been multiple incidents of violent failure due to a rapid combustion process known as thermal runaway (TR) [6, 7].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A research on the stability of various LIB chemistries indicated peak temperatures of 900°C900\text{\,}\mathrm{\SIUnitSymbolCelsius}, 1000°C1000\text{\,}\mathrm{\SIUnitSymbolCelsius}, and 800°C800\text{\,}\mathrm{\SIUnitSymbolCelsius} due to local heating of 2.6 Ah LiCoO2 at 100 % SoC, 3.4 Ah LiNi0.8CO0.15Al0.05O2 at 50 % SoC, and 1.5 Ah LiFePO4 at 100% SoC [24].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The obstruction was modeled to occupy spatial bounds of x=3.0​–​6.0​m,y=0.0​–​10.0,and​z=0.5​–​1.5​mx=3.0\text{\textendash}6.0~\mathrm{m},\ y=0.0\text{\textendash}10.0,\ \text{and}\ z=0.5\text{\textendash}1.5~\mathrm{m}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 12: Comparison of probability density estimate of the dynamical temperature model error with H​R​R=243​A​hHRR=243Ah and H​R​R=60​A​hHRR=60Ah at node 2Figure 13: Comparison of probability density estimate of the dynamical smoke concentration model error with H​R​R=243​A​hHRR=243Ah and H​R​R=60​A​hHRR=60Ah at node 2.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Temperature ranges of 150°C150\text{\,}\mathrm{\SIUnitSymbolCelsius} to 400°C400\text{\,}\mathrm{\SIUnitSymbolCelsius} and 160°C160\text{\,}\mathrm{\SIUnitSymbolCelsius} to 540°C540\text{\,}\mathrm{\SIUnitSymbolCelsius} were reported, respectively, with an increase in heating temperature within the range of 150°C150\text{\,}\mathrm{\SIUnitSymbolCelsius} to 300°C300\text{\,}\mathrm{\SIUnitSymbolCelsius} for the two units [23].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Longitudinal airflow speeds of 1.0 m/s and 2.0 m/s in the tunnel were considered for this investigation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Furthermore, the influence of ambient temperature of 15°C15\text{\,}\mathrm{\SIUnitSymbolCelsius} and 25°C25\text{\,}\mathrm{\SIUnitSymbolCelsius} on model uncertainty was assessed at node 2 based on HRR of 60 Ah.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

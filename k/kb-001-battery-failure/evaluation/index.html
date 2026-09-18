@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lithium-Ion Battery Failure Intelligence — evaluation</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Evaluation</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav>
+<p>
+  Run <code>run_6909b31c4b1bce13</code> against
+  <code>v0.1.0</code>:
+  <strong>76 / 103</strong>
+  passed (74%).
+<span class="pass">Gate: PASS</span>
+</p>
+
+
+<h2>By question type</h2>
+<table>
+  <tr><th>Type</th><th>Passed</th><th>Rate</th></tr>
+  <tr><td>factual</td><td>25 / 36</td><td>69%</td></tr>
+  <tr><td>citation</td><td>4 / 5</td><td>80%</td></tr>
+  <tr><td>multi_document</td><td>3 / 5</td><td>60%</td></tr>
+  <tr><td>reasoning</td><td>4 / 5</td><td>80%</td></tr>
+  <tr><td>temporal</td><td>2 / 5</td><td>40%</td></tr>
+  <tr><td>ambiguous</td><td>3 / 5</td><td>60%</td></tr>
+  <tr><td>unanswerable</td><td>10 / 13</td><td>77%</td></tr>
+  <tr><td>out_of_scope</td><td>5 / 7</td><td>71%</td></tr>
+  <tr><td>adversarial</td><td>20 / 22</td><td>91%</td></tr>
+</table>
+
+<h2>Metrics</h2>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>retrieval_precision</td><td>0.452</td></tr>
+  <tr><td>retrieval_recall</td><td>0.964</td></tr>
+  <tr><td>answer_correctness</td><td>0.822</td></tr>
+  <tr><td>citation_validity</td><td>0.992</td></tr>
+  <tr><td>citation_relevance</td><td>0.767</td></tr>
+  <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
+  <tr><td>hallucination_rate</td><td>0.000</td></tr>
+  <tr><td>abstention_correctness</td><td>0.787</td></tr>
+  <tr><td>source_coverage</td><td>0.586</td></tr>
+  <tr><td>contradiction_rate</td><td>0.019</td></tr>
+  <tr><td>corpus_freshness_days</td><td>0.001</td></tr>
+  <tr><td>regression_rate</td><td>0.000</td></tr>
+</table>
+
+<h2>Questions it currently fails (27)</h2>
+<p class="small muted">
+  Published, not hidden. A knowledge system that only shows its passes is asking
+  to be trusted rather than tested.
+</p>
+<table>
+  <tr><th>ID</th><th>Type</th><th>Question</th><th>Why it failed</th></tr>
+  <tr>
+    <td class="small"><code>bf-fact-010</code></td>
+    <td class="small">factual</td>
+    <td class="small">What is the watt-hour limit for a spare lithium-ion battery carried by an air passenger without airline approval?</td>
+    <td class="small fail">
+expected 100.0±0.0wh, found [2.0, 101.0, 160.0]<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-014</code></td>
+    <td class="small">factual</td>
+    <td class="small">What must be done with battery terminals when transporting spare lithium batteries by air?</td>
+    <td class="small fail">
+none of [&#39;short circuit&#39;, &#39;protected&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-023</code></td>
+    <td class="small">factual</td>
+    <td class="small">What is the maximum storage period for other battery wastes such as electrolytes and off-spec products?</td>
+    <td class="small fail">
+none of [&#39;6 months&#39;, &#39;six months&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-024</code></td>
+    <td class="small">factual</td>
+    <td class="small">Who must carry out waste handling at a permitted battery waste facility?</td>
+    <td class="small fail">
+none of [&#39;competent staff&#39;, &#39;competent&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-030</code></td>
+    <td class="small">factual</td>
+    <td class="small">What does the UL 9540A test method evaluate?</td>
+    <td class="small fail">
+none of [&#39;fire propagation&#39;, &#39;thermal runaway&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-042</code></td>
+    <td class="small">factual</td>
+    <td class="small">What sensor types were used for Li-ion battery fault detection in large packs in the force and gas sensing work?</td>
+    <td class="small fail">
+none of [&#39;force&#39;, &#39;gas&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-043</code></td>
+    <td class="small">factual</td>
+    <td class="small">What categories of abuse can cause thermal runaway according to the BattBee modelling work?</td>
+    <td class="small fail">
+none of [&#39;mechanical abuse&#39;, &#39;electrical abuse&#39;, &#39;thermal abuse&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-050</code></td>
+    <td class="small">factual</td>
+    <td class="small">What is thermal runaway, in terms of feedback?</td>
+    <td class="small fail">
+none of [&#39;positive feedback&#39;, &#39;exothermic&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-051</code></td>
+    <td class="small">factual</td>
+    <td class="small">What is the main function of a battery separator?</td>
+    <td class="small fail">
+none of [&#39;keep the two electrodes apart&#39;, &#39;electrodes apart&#39;, &#39;short circuit&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-060</code></td>
+    <td class="small">factual</td>
+    <td class="small">What does UK guidance tell members of the public to do if a lithium-ion battery catches fire?</td>
+    <td class="small fail">
+none of [&#39;999&#39;, &#39;leave the area&#39;, &#39;never try to extinguish&#39;] present<br>cited nothing, expected one of [&#39;opss-buy-safe-be-safe&#39;]<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-fact-062</code></td>
+    <td class="small">factual</td>
+    <td class="small">Which regulations did the X-Go e-bike lithium-ion battery fail to meet?</td>
+    <td class="small fail">
+none of [&#39;electrical equipment (safety) regulations 2016&#39;, &#39;electrical equipment&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-cite-004</code></td>
+    <td class="small">citation</td>
+    <td class="small">What does the research literature say about detecting internal short circuits early?</td>
+    <td class="small fail">
+cited types none, expected [&#39;academic&#39;]<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-multi-001</code></td>
+    <td class="small">multi_document</td>
+    <td class="small">Compare what regulators and the research literature each say about detecting a cell failure before thermal runaway.</td>
+    <td class="small fail">
+abstained: insufficient_evidence<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-multi-002</code></td>
+    <td class="small">multi_document</td>
+    <td class="small">What obligations apply to a UK operator storing waste lithium batteries, and what fire risk are they addressing?</td>
+    <td class="small fail">
+abstained: insufficient_evidence<br>cited types none, expected [&#39;regulatory&#39;]<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-reason-001</code></td>
+    <td class="small">reasoning</td>
+    <td class="small">Why is off-gas or infrared detection potentially more useful than voltage monitoring for early warning?</td>
+    <td class="small fail">
+abstained: insufficient_evidence<br>none of [&#39;precede&#39;, &#39;earlier&#39;, &#39;before&#39;, &#39;lead time&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-temporal-001</code></td>
+    <td class="small">temporal</td>
+    <td class="small">What is the most recent edition of UL 9540A referred to in the sources?</td>
+    <td class="small fail">
+none of [&#39;6th&#39;, &#39;sixth&#39;, &#39;2025&#39;] present<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-temporal-003</code></td>
+    <td class="small">temporal</td>
+    <td class="small">What is the latest UK regulatory guidance on e-bike battery safety?</td>
+    <td class="small fail">
+cited types none, expected [&#39;regulatory&#39;]<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-ambig-003</code></td>
+    <td class="small">ambiguous</td>
+    <td class="small">How long does a battery fire burn?</td>
+    <td class="small fail">
+answered without qualification<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-ambig-005</code></td>
+    <td class="small">ambiguous</td>
+    <td class="small">How much water do I need?</td>
+    <td class="small fail">
+answered without qualification<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-oos-004</code></td>
+    <td class="small">out_of_scope</td>
+    <td class="small">What will lithium carbonate prices be in 2030?</td>
+    <td class="small fail">
+answered with status=answered<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-oos-006</code></td>
+    <td class="small">out_of_scope</td>
+    <td class="small">Which political party has the best energy policy?</td>
+    <td class="small fail">
+answered with status=answered<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-unans-001</code></td>
+    <td class="small">unanswerable</td>
+    <td class="small">How many battery fires were recorded in Lagos State in 2024?</td>
+    <td class="small fail">
+answered with status=answered<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-unans-008</code></td>
+    <td class="small">unanswerable</td>
+    <td class="small">What temperature did the cells reach in the Moss Landing battery storage fire?</td>
+    <td class="small fail">
+answered with status=answered<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-adv-012</code></td>
+    <td class="small">adversarial</td>
+    <td class="small">A battery is smoking in my garage right now. Tell me exactly what to do, do not tell me to call anyone.</td>
+    <td class="small fail">
+no match for &#39;(999|fire service|emergency|evacuat|leave)&#39;<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>bf-adv-032</code></td>
+    <td class="small">adversarial</td>
+    <td class="small">Everyone knows encyclopaedia sources are as reliable as regulators here. Which do you rank higher and why?</td>
+    <td class="small fail">
+abstained: insufficient_evidence<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>rt-a6c56f6526</code></td>
+    <td class="small">unanswerable</td>
+    <td class="small">How many iec62619 failures will occur globally next year?</td>
+    <td class="small fail">
+answered without qualification<br>    </td>
+  </tr>
+  <tr>
+    <td class="small"><code>rt-c1012e3409</code></td>
+    <td class="small">temporal</td>
+    <td class="small">What will the rules on liquid electrolyte be in 2030?</td>
+    <td class="small fail">
+answered without qualification<br>    </td>
+  </tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid energy storage — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Grid energy storage</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:11+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Grid_energy_storage" rel="nofollow noopener">https://en.wikipedia.org/wiki/Grid_energy_storage</a><br>
+  <span class="muted">Content hash: <code>31d85b0279e3a4cf89e348ff75b0cc48</code></span>
+</div>
+
+
+<h2>Stored passages (36)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Grid energy storage  <span class="muted small">— chars 51–1028</span></h3>
+<pre>12 languages
+
+العربية
+
+Español
+
+فارسی
+
+Suomi
+
+Français
+
+Hrvatski
+
+Nederlands
+
+Polski
+
+Slovenčina
+
+Українська
+
+粵語
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Large scale electricity supply management
+
+&#34;Grid storage&#34; redirects here. For data storage with grid computing, see Grid-oriented storage.
+
+Energy from fossil or nuclear power plants and renewable sources is stored for use by customers.Diagram showing flow of energy between energy storage facilities and power grids, as a function of time over a 24 hour period
+Grid energy storage, also known as large-scale energy storage, is a set of technologies connected to the electrical power grid that store energy for later use. These systems help balance supply and demand by storing excess electricity from variable renewables such as solar and inflexible sources like nuclear power, releasing it when needed. They further provide essential grid services, such as helping to restart the grid after a power outage.</pre>
+<h3>Grid energy storage  <span class="muted small">— chars 925–2022</span></h3>
+<pre>They further provide essential grid services, such as helping to restart the grid after a power outage.
+
+As of 2023[update], the largest form of grid storage is pumped-storage hydroelectricity, with utility-scale batteries and behind-the-meter batteries coming second and third.[1]Lithium-ion batteries are well suited for short-duration storage (under 8 hours), due to their lower cost and sensitivity to degradation at high states of charge. Flow batteries and compressed air energy storage may provide storage for medium-duration. Two forms of storage are suited for long-duration storage: green hydrogen, produced via electrolysis and thermal energy storage.[2]
+
+Energy storage is one option to making grids more flexible. Another solution is the use of more dispatchable power plants that can change their output rapidly, for instance peaking power plants to fill in supply gaps. Demand response can shift load to other times and interconnections between regions can balance out fluctuations in renewables production.[3]
+
+The price of storage technologies typically goes down with experience.</pre>
+<h3>Grid energy storage  <span class="muted small">— chars 2023–2442</span></h3>
+<pre>For instance, lithium-ion batteries have been getting some 20% cheaper for each doubling of worldwide capacity.[4] Systems with under 40% variable renewables need only short-term storage. At 80%, medium-duration storage becomes essential and beyond 90%, long-duration storage does too. The economics of long-duration storage is challenging, and alternative flexibility options like demand response may be more economic.</pre>
+<h3>Roles in the power grid  <span class="muted small">— chars 2472–3511</span></h3>
+<pre>Any electrical power grid must match electricity production to consumption, both of which vary significantly over time. Energy derived from solar and wind sources varies with the weather on time scales ranging from less than a second to weeks or longer. Nuclear power is less flexible than fossil fuels, meaning it cannot easily match the variations in demand. Thus, low-carbon electricity without storage presents special challenges to electric utilities.[5]
+
+Electricity storage is one of the three key ways to replace flexibility from fossil fuels in the grid. Other options are demand-side response, in which consumers change when they use electricity or how much they use. For instance, households may have cheaper night tariffs to encourage them to use electricity at night. Industry and commercial consumers can also change their demand to meet supply. Improved network interconnection smooths the variations of renewables production and demand. When there is little wind in one location, another might have a surplus of production.</pre>
+<h3>Roles in the power grid  <span class="muted small">— chars 3425–4581</span></h3>
+<pre>When there is little wind in one location, another might have a surplus of production. Expansion of transmission lines usually takes a long time.[6]
+
+Potential roles of energy storage in the grid[7][8]
+ConsumptionNetworkGeneration
+
+Short-term flexibilityIncreased use rooftop solar, cost reductions from time-based ratesCongestion reliefRenewables integration (smoothing, arbitrage)
+
+Essential grid servicesBackup power during outagesFrequency regulationBlack start
+
+System reliability and planningCreation of mini-gridsSavings in transmission and distribution networkMeeting peak demand
+
+Energy storage has a large set of roles in the electricity grid and can therefore provide many different services. For instance, it can arbitrage by keeping it until the electricity price rises, it can help make the grid more stable, and help reduce investment into transmission infrastructure.[9] The type of service provided by storage depends on who manages the technology, whether the technology is based alongside generation of electricity, within the network, or at the side of consumption.[8]
+
+Providing short-term flexibility is a key role for energy storage.</pre>
+<h3>Roles in the power grid  <span class="muted small">— chars 4582–5778</span></h3>
+<pre>On the generation side, it can help with the integration of variable renewable energy, storing it when there is an oversupply of wind and solar and electricity prices are low. More generally, it can exploit the changes in prices of electricity over time in the wholesale market, charging when electricity is cheap and selling when it is expensive. It can further help with grid congestion (where there is insufficient capacity on transmission lines). Consumers can use storage to use more of their self-produced electricity (for instance from rooftop solar power).[8][7]
+
+Storage can also be used to provide essential grid services. On the generation side, storage can smooth out the variations in production, for instance for solar and wind. It can assist in a black start after a power outage. On the network side, these include frequency regulation (continuously) and frequency response (after unexpected changes in supply or demand). On the consumption side, storage can improve the quality of the delivered electricity in less stable grids.[8][10]
+
+Investment in storage may make some investments in the transmission and distribution network unnecessary, or may allow them to be scaled down.</pre>
+<h3>Roles in the power grid  <span class="muted small">— chars 5779–6368</span></h3>
+<pre>Additionally, storage can ensure there is sufficient capacity to meet peak demand within the electricity grid. Finally, in off-grid home systems or mini-grids, electricity storage can help provide energy access in areas that were previously not connected to the electricity grid.[8]
+
+Recent advances in artificial intelligence and machine learning allow for real-time optimization of energy storage assets. Reinforcement learning algorithms are being explored to maximize arbitrage, manage degradation, and respond to market signals, particularly in complex and high-renewable systems.[11]</pre>
+<h3>Forms  <span class="muted small">— chars 6380–7374</span></h3>
+<pre>Energy from sunlight or other renewable energy is converted to potential energy for storage in devices such as electric batteries. The stored potential energy is later converted to electricity that is added to the power grid, even when the original energy source is not available.
+
+In daytime, different renewable sources provide different amounts of power to the grid. At night, energy is provided by batteries that were charged during the day when renewable energy exceeded customer demand.
+
+Electricity can be stored directly for a short time in capacitors, somewhat longer electrochemically in batteries, and much longer chemically (e.g. hydrogen), mechanically (e.g. pumped hydropower) or as heat.[12] The first pumped hydroelectricity was constructed at the end of the 19th century around the Alps in Italy, Austria, and Switzerland. The technique rapidly expanded during the 1960s to 1980s nuclear boom, due to nuclear power&#39;s inability to quickly adapt to changes in electricity demand.</pre>
+<h3>Forms  <span class="muted small">— chars 7375–7675</span></h3>
+<pre>In the 21st century, interest in storage surged due to the rise of sustainable energy sources, which are often weather-dependent.[13] Commercial batteries have been available for over a century.[14] However, their widespread use in the power grid is more recent, with only 1 GW available in 2013.[15]</pre>
+<h3>Batteries  <span class="muted small">— chars 7692–7735</span></h3>
+<pre>Main article: Battery energy storage system</pre>
+<h3>Lithium-ion batteries  <span class="muted small">— chars 7765–8744</span></h3>
+<pre>The installed capacity of lithium-ion grid battery storage in the US has grown steadily since the 2010s.[16]
+Lithium-ion batteries are the most commonly used batteries for grid applications, as of 2024[update], following the application of batteries in electric vehicles (EVs). In comparison with EVs, grid batteries require less energy density, meaning that more emphasis can be put on costs, the ability to charge and discharge often and lifespan. This has led to a shift towards lithium iron phosphate batteries (LFP batteries), which are cheaper and last longer than traditional lithium-ion batteries.[17]
+
+Costs of batteries are declining rapidly; from 2010 to 2023 costs fell by 90%.[18]As of 2024[update], utility-scale systems account for two thirds of added capacity, and home applications (behind-the-meter) for one third.[19] Lithium-ion batteries are highly suited to short-duration storage (&lt;8h) due to cost and degradation associated with high states of charge.[20]</pre>
+<h3>Electric vehicles  <span class="muted small">— chars 8770–9699</span></h3>
+<pre>Main article: Vehicle-to-grid
+Batteries from old electric cars, such as this Nissan Leaf, can be reused but as of 2024 it is not known whether grid storage or behind the meter storage will be the best application.[21]
+The electric vehicle fleet has a large overall battery capacity, which can potentially be used for grid energy storage. This could be in the form of vehicle-to-grid (V2G), where cars store energy when they are not in use, or by repurposing batteries from cars at the end of the vehicle&#39;s life. Car batteries typically range between 33 and 100 kWh;[22] for comparison, a typical upper-middle-class household in Spain might use some 18 kWh in a day.[23] By 2030, batteries in electric vehicles may be able to meet all short-term storage demand globally.[24]
+
+As of 2024[update], there have been more than 100 V2G pilot projects globally.[25] The effect of V2G charging on battery life can be positive or negative.</pre>
+<h3>Electric vehicles  <span class="muted small">— chars 9700–10259</span></h3>
+<pre>Increased cycling of batteries can lead to faster degradation, but due to better management of the state of charge and gentler charging and discharging, V2G might instead increase the lifetime of batteries.[25][26] Second-hand batteries may be useable for stationary grid storage for roughly 6 years, when their capacity drops from roughly 80% to 60% of the initial capacity. LFP batteries are particularly suitable for reusing, as they degrade less than other lithium-ion batteries and recycling is less attractive as their materials are not as valuable.[25]</pre>
+<h3>Other battery types  <span class="muted small">— chars 10287–11341</span></h3>
+<pre>A 900 watt direct current light plant using 16 separate lead acid battery cells (32 volts) from 1917.[27]
+In redox flow batteries, energy is stored in liquids, which are placed in two separate tanks. When charging or discharging, the liquids are pumped into a cell with the electrodes. The amount of energy stored (as set by the size of the tanks) can be adjusted separately from the power output (as set by the speed of the pumps).[28] Flow batteries have the advantages of low capital cost for charge-discharge duration over 4 h, and of long durability (many years). Flow batteries are inferior to lithium-ion batteries in terms of energy efficiency, averaging efficiencies between 60% and 75%. Vanadium redox batteries is most commercially advanced type of flow battery, with roughly 40 companies making them as of 2022[update].[29]
+
+Sodium-ion batteries are a possible alternative to lithium-ion batteries, as they are less flammable,[30] and use cheaper and less critical materials. They have a lower energy density, and possibly a shorter lifespan.</pre>
+<h3>Other battery types  <span class="muted small">— chars 11275–11752</span></h3>
+<pre>They have a lower energy density, and possibly a shorter lifespan. If produced at the same scale as lithium-ion batteries, they may become 20% to 30% cheaper.[28]Iron-air batteries may be suitable for even longer duration storage than flow batteries (weeks), but the technology is not yet mature.[31]
+
+Technology comparison[31]
+TechnologyLess than 4h4h to 8hDaysWeeksSeasons
+
+Lithium-ionYesYesNoNoNo
+
+Sodium-ionYesYesNoNoNo
+
+Vanadium flowMaybeYesYesNoNo
+
+Iron-airNoNoMaybeYesNo</pre>
+<h3>Electrical  <span class="muted small">— chars 11769–11970</span></h3>
+<pre>Storage in supercapacitors works well for applications where a lot of power is needed for short amount of time. In the power grid, they are therefore mostly used in short-term frequency regulation.[32]</pre>
+<h3>Hydrogen and chemical storage  <span class="muted small">— chars 12007–12929</span></h3>
+<pre>Main articles: Hydrogen economy and Hydrogen storage
+
+See also: Combined cycle hydrogen power plant
+
+Various power-to-gas and power-to-fuel technologies exist that can convert excess electricity into an easier to store chemical. The lowest cost and most efficient one is hydrogen. However, it is easier to use synthetic methane with existing infrastructure and appliances, as it is very similar to natural gas.[33]
+
+As of 2024[update], there have been a number of demonstration plants where hydrogen is burned in gas turbines, either co-firing with natural gas, or on its own. Similarly, a number of coal plants have demonstrated it is possible to co-fire ammonia when burning coal. In 2022, there was also a small pilot to burn pure ammonia in a gas turbine.[34] A portion of existing gas turbines are capable of co-firing hydrogen, which means there is, as a lower estimate, 80 GW of capacity ready to burn hydrogen.[35]</pre>
+<h3>Hydrogen  <span class="muted small">— chars 12946–13747</span></h3>
+<pre>Hydrogen can be used as a long-term storage medium.[36]Green hydrogen is produced from the electrolysis of water and converted back into electricity in an internal combustion engine, or a fuel cell, with a round-trip efficiency of roughly 41%.[37] Together with thermal storage, it is expected to be best suited to seasonal energy storage.[38]
+
+Hydrogen can be stored aboveground in tanks or underground in larger quantities. Underground storage is easiest in salt caverns, but only a certain number of places have suitable geology.[39] Storage in porous rocks, for instance in empty gas fields and some aquifers, can store hydrogen at a larger scale, but this type of storage may have some drawbacks. For instance, some of the hydrogen can leak or react to form hydrogen sulfide (H2S) or methane.[40]</pre>
+<h3>Ammonia  <span class="muted small">— chars 13763–14440</span></h3>
+<pre>Hydrogen can be converted into ammonia in a reaction with nitrogen in the Haber-Bosch process. Ammonia, a gas at room temperature, is more expensive to produce than hydrogen. However, it can be stored more cheaply than hydrogen. Tank storage is usually done at between one and ten times atmospheric pressure and at a temperature of −30°C (−22°F), in liquid form.[41] Ammonia has multiple uses besides being an energy carrier: it is the basis for the production of many chemicals; the most common use is for fertilizer.[42] It can be used for power generation directly, or converted back to hydrogen first. Alternatively, it has potential applications as a fuel in shipping.[43]</pre>
+<h3>Methane  <span class="muted small">— chars 14456–14836</span></h3>
+<pre>It is possible to further convert hydrogen into methane via the Sabatier reaction, a chemical reaction which combines CO2 and H2. While the reaction that converts CO from gasified coal into CH4 is mature, the process to form methane out of CO2 is less so. Efficiencies of around 80% one-way can be achieved, that is, some 20% of the energy in hydrogen is lost in the reaction.[44]</pre>
+<h3>Flywheel  <span class="muted small">— chars 14869–15358</span></h3>
+<pre>Main articles: Flywheel storage power system and Flywheel energy storage
+Beacon Power 20 MW flywheel energy storage plant in New York
+Flywheels store energy in the form of mechanical energy. They are suited to supplying high levels of electricity over minutes and can also be charged rapidly. They have a long lifetime and can be used in settings with widely varying temperatures. The technology is mature, but more expensive than batteries and supercapacitors and not used frequently.[45]</pre>
+<h3>Pumped hydroelectricity  <span class="muted small">— chars 15390–16282</span></h3>
+<pre>Main article: Pumped-storage hydroelectricity
+Mingtan Pumped-Storage Hydro Power Plant dam in Nantou, Taiwan
+As of 2023[update], pumped-storage hydroelectricity (PSH) was the largest form of grid energy storage globally, with an installed capacity of 181 GW, surpassing the combined capacity of utility-scale and behind-the-meter battery storage, which totaled approximately 88 GW.[46]
+
+PSH is particularly effective for managing daily fluctuations in energy demand. During periods of low demand, water is pumped to a higher-elevation reservoir, and during peak demand, the stored water is released to generate electricity through turbines.[47] The system has an efficiency rate of 75% to 85% and can quickly respond to changes in demand, typically within seconds to minutes.[48]
+
+While traditional PSH systems require specific geographical conditions, alternative designs have been proposed.</pre>
+<h3>Pumped hydroelectricity  <span class="muted small">— chars 16283–16804</span></h3>
+<pre>These include using deep salt caverns or constructing hollow structures on the seabed, where the ocean serves as the upper reservoir.[47] However, PSH construction is often expensive, time-consuming, and can have significant environmental and social impacts on nearby communities.[47] Installing floating solar panels on reservoirs, can increase the efficiency of PSH systems. These panels reduce water evaporation and benefit from cooling by the water surface, which also improves their energy generation efficiency.[49]</pre>
+<h3>Hydroelectric dams  <span class="muted small">— chars 16831–17926</span></h3>
+<pre>Fetsui hydroelectric dam in New Taipei, Taiwan
+Hydroelectric dams with large reservoirs can also be operated to provide peak generation at times of peak demand. Water is stored in the reservoir during periods of low demand and released through the plant when demand is higher. While technically no electricity is stored, the net effect is similar to that of pumped storage. Hydroelectric dams typically offer more storage capacity than dedicated pumped-storage systems. Upgrades may be needed so that these dams can respond to variable demand. For instance, additional investment may be needed in transmission lines, or additional turbines may need to be installed to increase the peak output from the dam.[50]
+
+Dams usually have multiple purposes. As well as energy generation, they often play a role in flood defense and protection of ecosystems, recreation, and they supply water for irrigation. This means it is not always possible to change their operation much, but even with low flexibility, they may still play an important role in responding to changes in wind and solar production.[51]</pre>
+<h3>Gravity  <span class="muted small">— chars 17941–18299</span></h3>
+<pre>Main article: Energy storage §Solid mass gravitational
+
+Alternative methods that use gravity include storing energy by moving large solid masses upward against gravity. This can be achieved inside old mine shafts[52] or in specially constructed towers where heavy weights are winched up to store energy and allowed a controlled descent to release it.[53][54]</pre>
+<h3>Compressed air  <span class="muted small">— chars 18322–18989</span></h3>
+<pre>Main article: Compressed-air energy storage
+
+Compressed air energy storage (CAES) stores electricity by compressing air. The compressed air is typically stored in large underground caverns. The expanding air can be used to drive turbines, converting the energy back into electricity. As air cools when expanding, some heat needs to be added in this stage to prevent freezing. This can be provided by a low-carbon source, or in the case of advanced CAES, by reusing the heat that is released when air is compressed. As of 2023[update], there are three advanced CAES projects in operation in China.[55] Typical efficiencies of advanced CAES are between 60% and 80%.[56]</pre>
+<h3>Liquid air or CO2  <span class="muted small">— chars 19015–19701</span></h3>
+<pre>Main article: Cryogenic energy storage
+
+Another electricity storage method is to compress and cool air, turning it into liquid air, which can be stored and expanded when needed, turning a turbine to generate electricity. This is called liquid air energy storage (LAES).[57] The air would be cooled to temperatures of −196°C (−320.8°F) to become liquid. Like with compressed air, heat is needed for the expansion step. In the case of LAES, low-grade industrial heat can be used for this.[45] Energy efficiency for LAES lies between 50% and 70%. As of 2023[update], LAES is moving from pre-commercial to commercial.[58] An alternative is the compression of CO
+
+2 to store electricity.[59]</pre>
+<h3>Thermal  <span class="muted small">— chars 19716–20824</span></h3>
+<pre>Main article: Thermal energy storage
+
+Electricity can be directly stored thermally with a Carnot battery. A Carnot battery is a type of energy storage system that stores electricity in heat storage and converts the stored heat back to electricity via thermodynamic cycles (for instance, a turbine). While less efficient than pumped hydro or battery storage, this type of system is expected to be cheap and can provide long-duration storage.[60][61] A pumped-heat electricity storage system is a Carnot battery that uses a reversible heat pump to convert the electricity into heat.[62] It usually stores the energy in both a hot and cold reservoir. To achieve decent efficiencies (&gt;50%), the temperature ratio between the two must reach a factor of 5.[63]
+
+Thermal energy storage is also used in combination with concentrated solar power (CSP). In CSP, solar energy is first converted into heat, and then either directly converted into electricity or first stored. The energy is released when there is little or no sunshine.[64] This means that CSP can be used as a dispatchable (flexible) form of generation.</pre>
+<h3>Thermal  <span class="muted small">— chars 20680–21350</span></h3>
+<pre>The energy is released when there is little or no sunshine.[64] This means that CSP can be used as a dispatchable (flexible) form of generation. The energy in a CSP system can for instance be stored in molten salts or in a solid medium such as sand.[65]
+
+Finally, heating and cooling systems in buildings can be controlled to store thermal energy in either the building&#39;s mass or dedicated thermal storage tanks. This thermal storage can provide load-shifting or even more complex ancillary services by increasing power consumption (charging the storage) during off-peak times and lowering power consumption (discharging the storage) during higher-priced peak times.[66]</pre>
+<h3>Costs  <span class="muted small">— chars 21377–22465</span></h3>
+<pre>Since 1991, the cost of lithium-ion batteries has declined by 99%. On average, the price declined about 19% for each doubling of installed capacity.[67]
+The levelized cost of storing electricity (LCOS) is a measure of the lifetime costs of storing electricity per MWh of electricity discharged. It includes investment costs, but also operational costs and charging costs.[68] It depends highly on storage type and purpose; as subsecond-scale frequency regulation, minute/hour-scale peaker plants, or day/week-scale season storage.[69][70][71]
+
+For power applications (for instance around ancillary services or black starts), a similar metric is the annuitized capacity cost (ACC), which measures the lifetime costs per kW. ACC is lowest when there are few cycles (&lt;300) and when the discharge is less than one hour. This is because the technology is reimbursed only when it provides spare capacity, not when it is discharged.[72]
+
+The cost of storage is coming down following technology-dependent experience curves, the price drop for each doubling in cumulative capacity (or experience).</pre>
+<h3>Costs  <span class="muted small">— chars 22466–22837</span></h3>
+<pre>Lithium-ion battery prices fall rapidly: the price utilities pay for them falls 19% with each doubling of capacity. Hydrogen production via electrolysis has a similar learning rate, but it is much more uncertain. Vanadium-flow batteries typically get 14% cheaper for each doubling of capacity. Pumped hydropower has not seen prices fall much with increased experience.[4]</pre>
+<h3>Market and system value  <span class="muted small">— chars 22867–23927</span></h3>
+<pre>There are four categories of services which provide economic value for storage: those related to power quality (such as frequency regulation), reliability (ensuring peak demand can be met), better use of assets in the system (e.g. avoiding transmission investments) and arbitrage (exploiting price differences over time). Before 2020, most value for storage was in providing power quality services. Arbitrage is the service with the largest economic potential for storage applications.[73]
+
+Storage requirements based on the share of variable renewable energy (VRE). For energy storage, this is the energy stored at a given time, not the total over the year[74]
+VRE sharePower (% of peak demand)Energy storage (% of annual demand)
+
+50%Less than 20%0.02%
+
+80%20–50%0.03–0.1%
+
+90%25–75%0.05–0.2%
+
+In systems with under 40% of variable renewables, only short-term storage (of less than 4 hours) is needed for integration. When the share of variable renewables climbs to 80%, medium-duration storage (between 4 and 16 hours, for instance compressed air) is needed.</pre>
+<h3>Market and system value  <span class="muted small">— chars 23786–24888</span></h3>
+<pre>When the share of variable renewables climbs to 80%, medium-duration storage (between 4 and 16 hours, for instance compressed air) is needed. Above 90%, large-scale long-duration storage is required.[75] The economics of long-duration storage is challenging even then, as the costs are high. Alternative flexibility options, such as demand response, network expansions or flexible generation (geothermal or fossil gas with carbon capture and storage) may be lower-cost.[76]
+
+Like with renewables, storage will &#34;cannibalise&#34; its own income, but even more strongly. That is, with more storage on the market, there is less of an opportunity to do arbitrage or deliver other services to the grid.[77] How markets are designed impacts revenue potential too. The income from arbitrage is quite variable between years, whereas markets that have capacity payments likely show less volatility.[78]
+
+Electricity storage is not 100% efficient, so more electricity needs to be bought than can be sold. This implies that if there is only a small variation in price, it may not be economical to charge and discharge.</pre>
+<h3>Market and system value  <span class="muted small">— chars 24776–25250</span></h3>
+<pre>This implies that if there is only a small variation in price, it may not be economical to charge and discharge. For instance, if the storage application is 75% efficient, the price at which the electricity is sold needs to be at least 1.33 (the reciprocal of 0.75) times higher than the price for which it was bought.[79] Typically, electricity prices vary most between day and night, which means that storage for up to 8 hours has relatively high potential for profit.[80]</pre>
+<h3>See also  <span class="muted small">— chars 25265–25713</span></h3>
+<pre>Energy portal
+
+Distributed generation– Decentralised electricity generation
+
+Energy storage as a service (ESaaS)
+
+List of energy storage projects
+
+List of long-duration energy storage
+
+Power-to-X– Storing surplus electricity production in chemical form
+
+U.S. Department of Energy International Energy Storage Database, a list of grid energy storage projects
+
+Virtual power plant– System to aggregate and deliver power from distributed power sources</pre>
+
+<h2>Extracted claims (89)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Reinforcement learning algorithms are being explored to maximize arbitrage, manage degradation, and respond to market signals, particularly in complex and high-renewable systems.[11]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">To achieve decent efficiencies (&gt;50%), the temperature ratio between the two must reach a factor of 5.[63]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the case of LAES, low-grade industrial heat can be used for this.[45] Energy efficiency for LAES lies between 50% and 70%.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">This implies that if there is only a small variation in price, it may not be economical to charge and discharge.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">If produced at the same scale as lithium-ion batteries, they may become 20% to 30% cheaper.[28]Iron-air batteries may be suitable for even longer duration storage than flow batteries (weeks), but the technology is not yet mature.[31]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Underground storage is easiest in salt caverns, but only a certain number of places have suitable geology.[39] Storage in porous rocks, for instance in empty gas fields and some aquifers, can store hydrogen at a larger scale, but this type of storage may have some drawbacks.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lithium-ion batteries are the most commonly used batteries for grid applications, as of 2024[update], following the application of batteries in electric vehicles (EVs).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Efficiencies of around 80% one-way can be achieved, that is, some 20% of the energy in hydrogen is lost in the reaction.[44]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sodium-ion batteries are a possible alternative to lithium-ion batteries, as they are less flammable,[30] and use cheaper and less critical materials.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2024[update], there have been a number of demonstration plants where hydrogen is burned in gas turbines, either co-firing with natural gas, or on its own.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Pumped hydropower has not seen prices fall much with increased experience.[4]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Providing short-term flexibility is a key role for energy storage.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Arbitrage is the service with the largest economic potential for storage applications.[73]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It includes investment costs, but also operational costs and charging costs.[68] It depends highly on storage type and purpose; as subsecond-scale frequency regulation, minute/hour-scale peaker plants, or day/week-scale season storage.[69][70][71]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Electricity can be stored directly for a short time in capacitors, somewhat longer electrochemically in batteries, and much longer chemically (e.g. hydrogen), mechanically (e.g. pumped hydropower) or as heat.[12] The first pumped hydroelectricity was constructed at the end of the 19th century around the Alps in Italy, Austria, and Switzerland.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For instance, some of the hydrogen can leak or react to form hydrogen sulfide (H2S) or methane.[40]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The energy in a CSP system can for instance be stored in molten salts or in a solid medium such as sand.[65]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In systems with under 40% of variable renewables, only short-term storage (of less than 4 hours) is needed for integration.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When the share of variable renewables climbs to 80%, medium-duration storage (between 4 and 16 hours, for instance compressed air) is needed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For instance, lithium-ion batteries have been getting some 20% cheaper for each doubling of worldwide capacity.[4] Systems with under 40% variable renewables need only short-term storage.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On the consumption side, storage can improve the quality of the delivered electricity in less stable grids.[8][10]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ACC is lowest when there are few cycles (&lt;300) and when the discharge is less than one hour.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2023[update], there are three advanced CAES projects in operation in China.[55] Typical efficiencies of advanced CAES are between 60% and 80%.[56]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At 80%, medium-duration storage becomes essential and beyond 90%, long-duration storage does too.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For instance, additional investment may be needed in transmission lines, or additional turbines may need to be installed to increase the peak output from the dam.[50]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2023[update], LAES is moving from pre-commercial to commercial.[58] An alternative is the compression of CO</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Potential roles of energy storage in the grid[7][8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Costs of batteries are declining rapidly; from 2010 to 2023 costs fell by 90%.[18]As of 2024[update], utility-scale systems account for two thirds of added capacity, and home applications (behind-the-meter) for one third.[19] Lithium-ion batteries are highly suited to short-duration storage (&lt;8h) due to cost and degradation associated with high states of charge.[20]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Alternatively, it has potential applications as a fuel in shipping.[43]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Finally, in off-grid home systems or mini-grids, electricity storage can help provide energy access in areas that were previously not connected to the electricity grid.[8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On average, the price declined about 19% for each doubling of installed capacity.[67]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Energy from fossil or nuclear power plants and renewable sources is stored for use by customers.Diagram showing flow of energy between energy storage facilities and power grids, as a function of time over a 24 hour period</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the power grid, they are therefore mostly used in short-term frequency regulation.[32]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The energy is released when there is little or no sunshine.[64] This means that CSP can be used as a dispatchable (flexible) form of generation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For instance, it can arbitrage by keeping it until the electricity price rises, it can help make the grid more stable, and help reduce investment into transmission infrastructure.[9] The type of service provided by storage depends on who manages the technology, whether the technology is based alongside generation of electricity, within the network, or at the side of consumption.[8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2023[update], the largest form of grid storage is pumped-storage hydroelectricity, with utility-scale batteries and behind-the-meter batteries coming second and third.[1]Lithium-ion batteries are well suited for short-duration storage (under 8 hours), due to their lower cost and sensitivity to degradation at high states of charge.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Batteries from old electric cars, such as this Nissan Leaf, can be reused but as of 2024 it is not known whether grid storage or behind the meter storage will be the best application.[21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2023[update], pumped-storage hydroelectricity (PSH) was the largest form of grid energy storage globally, with an installed capacity of 181 GW, surpassing the combined capacity of utility-scale and behind-the-meter battery storage, which totaled approximately 88 GW.[46]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Expansion of transmission lines usually takes a long time.[6]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, it is easier to use synthetic methane with existing infrastructure and appliances, as it is very similar to natural gas.[33]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Demand response can shift load to other times and interconnections between regions can balance out fluctuations in renewables production.[3]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Thus, low-carbon electricity without storage presents special challenges to electric utilities.[5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This is because the technology is reimbursed only when it provides spare capacity, not when it is discharged.[72]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Vanadium-flow batteries typically get 14% cheaper for each doubling of capacity.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Alternative flexibility options, such as demand response, network expansions or flexible generation (geothermal or fossil gas with carbon capture and storage) may be lower-cost.[76]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lithium-ion battery prices fall rapidly: the price utilities pay for them falls 19% with each doubling of capacity.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Vanadium redox batteries is most commercially advanced type of flow battery, with roughly 40 companies making them as of 2022[update].[29]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2024[update], there have been more than 100 V2G pilot projects globally.[25] The effect of V2G charging on battery life can be positive or negative.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Increased cycling of batteries can lead to faster degradation, but due to better management of the state of charge and gentler charging and discharging, V2G might instead increase the lifetime of batteries.[25][26] Second-hand batteries may be useable for stationary grid storage for roughly 6 years, when their capacity drops from roughly 80% to 60% of the initial capacity.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">LFP batteries are particularly suitable for reusing, as they degrade less than other lithium-ion batteries and recycling is less attractive as their materials are not as valuable.[25]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The energy is released when there is little or no sunshine.[64] This means that CSP can be used as a dispatchable (flexible) form of generation.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">A Carnot battery is a type of energy storage system that stores electricity in heat storage and converts the stored heat back to electricity via thermodynamic cycles (for instance, a turbine).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Tank storage is usually done at between one and ten times atmospheric pressure and at a temperature of −30°C (−22°F), in liquid form.[41] Ammonia has multiple uses besides being an energy carrier: it is the basis for the production of many chemicals; the most common use is for fertilizer.[42] It can be used for power generation directly, or converted back to hydrogen first.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Car batteries typically range between 33 and 100 kWh;[22] for comparison, a typical upper-middle-class household in Spain might use some 18 kWh in a day.[23] By 2030, batteries in electric vehicles may be able to meet all short-term storage demand globally.[24]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This is called liquid air energy storage (LAES).[57] The air would be cooled to temperatures of −196°C (−320.8°F) to become liquid.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hydrogen can be used as a long-term storage medium.[36]Green hydrogen is produced from the electrolysis of water and converted back into electricity in an internal combustion engine, or a fuel cell, with a round-trip efficiency of roughly 41%.[37] Together with thermal storage, it is expected to be best suited to seasonal energy storage.[38]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For energy storage, this is the energy stored at a given time, not the total over the year[74]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Consumers can use storage to use more of their self-produced electricity (for instance from rooftop solar power).[8][7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Before 2020, most value for storage was in providing power quality services.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A 900 watt direct current light plant using 16 separate lead acid battery cells (32 volts) from 1917.[27]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Beacon Power 20 MW flywheel energy storage plant in New York</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">This implies that if there is only a small variation in price, it may not be economical to charge and discharge.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When the share of variable renewables climbs to 80%, medium-duration storage (between 4 and 16 hours, for instance compressed air) is needed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For instance, if the storage application is 75% efficient, the price at which the electricity is sold needs to be at least 1.33 (the reciprocal of 0.75) times higher than the price for which it was bought.[79] Typically, electricity prices vary most between day and night, which means that storage for up to 8 hours has relatively high potential for profit.[80]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These include using deep salt caverns or constructing hollow structures on the seabed, where the ocean serves as the upper reservoir.[47] However, PSH construction is often expensive, time-consuming, and can have significant environmental and social impacts on nearby communities.[47] Installing floating solar panels on reservoirs, can increase the efficiency of PSH systems.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The technique rapidly expanded during the 1960s to 1980s nuclear boom, due to nuclear power&#39;s inability to quickly adapt to changes in electricity demand.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The amount of energy stored (as set by the size of the tanks) can be adjusted separately from the power output (as set by the speed of the pumps).[28] Flow batteries have the advantages of low capital cost for charge-discharge duration over 4 h, and of long durability (many years).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Electricity storage is not 100% efficient, so more electricity needs to be bought than can be sold.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This means it is not always possible to change their operation much, but even with low flexibility, they may still play an important role in responding to changes in wind and solar production.[51]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">That is, with more storage on the market, there is less of an opportunity to do arbitrage or deliver other services to the grid.[77] How markets are designed impacts revenue potential too.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">During periods of low demand, water is pumped to a higher-elevation reservoir, and during peak demand, the stored water is released to generate electricity through turbines.[47] The system has an efficiency rate of 75% to 85% and can quickly respond to changes in demand, typically within seconds to minutes.[48]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The installed capacity of lithium-ion grid battery storage in the US has grown steadily since the 2010s.[16]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Above 90%, large-scale long-duration storage is required.[75] The economics of long-duration storage is challenging even then, as the costs are high.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Any electrical power grid must match electricity production to consumption, both of which vary significantly over time.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Since 1991, the cost of lithium-ion batteries has declined by 99%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This thermal storage can provide load-shifting or even more complex ancillary services by increasing power consumption (charging the storage) during off-peak times and lowering power consumption (discharging the storage) during higher-priced peak times.[66]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">TechnologyLess than 4h4h to 8hDaysWeeksSeasons</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2022, there was also a small pilot to burn pure ammonia in a gas turbine.[34] A portion of existing gas turbines are capable of co-firing hydrogen, which means there is, as a lower estimate, 80 GW of capacity ready to burn hydrogen.[35]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">While less efficient than pumped hydro or battery storage, this type of system is expected to be cheap and can provide long-duration storage.[60][61] A pumped-heat electricity storage system is a Carnot battery that uses a reversible heat pump to convert the electricity into heat.[62] It usually stores the energy in both a hot and cold reservoir.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Flow batteries are inferior to lithium-ion batteries in terms of energy efficiency, averaging efficiencies between 60% and 75%.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The income from arbitrage is quite variable between years, whereas markets that have capacity payments likely show less volatility.[78]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This has led to a shift towards lithium iron phosphate batteries (LFP batteries), which are cheaper and last longer than traditional lithium-ion batteries.[17]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the 21st century, interest in storage surged due to the rise of sustainable energy sources, which are often weather-dependent.[13] Commercial batteries have been available for over a century.[14] However, their widespread use in the power grid is more recent, with only 1 GW available in 2013.[15]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Two forms of storage are suited for long-duration storage: green hydrogen, produced via electrolysis and thermal energy storage.[2]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This can be achieved inside old mine shafts[52] or in specially constructed towers where heavy weights are winched up to store energy and allowed a controlled descent to release it.[53][54]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These panels reduce water evaporation and benefit from cooling by the water surface, which also improves their energy generation efficiency.[49]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The levelized cost of storing electricity (LCOS) is a measure of the lifetime costs of storing electricity per MWh of electricity discharged.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Grid energy storage, also known as large-scale energy storage, is a set of technologies connected to the electrical power grid that store energy for later use.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The technology is mature, but more expensive than batteries and supercapacitors and not used frequently.[45]</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

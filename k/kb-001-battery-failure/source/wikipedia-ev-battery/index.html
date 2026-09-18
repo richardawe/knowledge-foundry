@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electric vehicle battery — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Electric vehicle battery</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:13+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Electric_vehicle_battery" rel="nofollow noopener">https://en.wikipedia.org/wiki/Electric_vehicle_battery</a><br>
+  <span class="muted">Content hash: <code>8693dcce3de6b99e59af282616bea7d7</code></span>
+</div>
+
+
+<h2>Stored passages (62)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Electric vehicle battery  <span class="muted small">— chars 56–1158</span></h3>
+<pre>16 languages
+
+العربية
+
+Català
+
+Deutsch
+
+Español
+
+فارسی
+
+Bahasa Indonesia
+
+Italiano
+
+日本語
+
+한국어
+
+Nederlands
+
+Português
+
+Română
+
+Русский
+
+Türkçe
+
+Українська
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Rechargeable battery used for vehicles
+
+For the starting, lighting and ignition system battery of an automobile, see Automotive battery.
+
+Nissan Leaf cutaway showing part of the battery in 2009
+An electric vehicle battery is a rechargeable battery used to power the electric motors of a battery electric vehicle (BEV) or hybrid electric vehicle (HEV).
+
+They are typically lithium-ion batteries that are designed for high power-to-weight ratio and energy density. Compared to liquid fuels, most current battery technologies have much lower specific energy. This increases the weight of vehicles or reduces their range.
+
+Li-NMC batteries using lithium nickel manganese cobalt oxides are the most common in EV. The lithium iron phosphate battery (LFP) is on the rise, reaching 41% global market share by capacity for BEVs in 2023.[1]:85 LFP batteries are heavier but cheaper and more sustainable.</pre>
+<h3>Electric vehicle battery  <span class="muted small">— chars 1159–2202</span></h3>
+<pre>However, some commercial passenger car manufacturers are now beginning to use a sodium-ion battery completely avoiding the need for critical minerals.[2]
+
+The battery makes up a significant portion of the cost and environmental impact of an electric vehicle. Growth in the industry has generated interest in securing ethical battery supply chains, which has become an important geopolitical issue. Reduction of use of mined cobalt, which is also required in fossil fuel refining, has been a major goal of research. A number of new chemistries compete to displace Li-NMC with (see solid-state battery) performance above 800Wh/kg in laboratory testing.
+
+In 2019, the cost of electric vehicle batteries was said to have fallen 87% on a per kilowatt-hour basis.[3]
+
+Demand for EVBs exceeded 750 GWh in 2023.[1] EVBs have much higher capacities than automotive batteries used for starting, lighting, and ignition (SLI) in combustion cars. The battery capacity of available EV models reached from 21 to 123kWh in 2023 with an average of 80kWh.[4][5]</pre>
+<h3>Electric vehicle battery types  <span class="muted small">— chars 2239–3148</span></h3>
+<pre>A man cutting open a lithium-ion battery for use in an electric vehicle
+See also: Comparison of commercial battery types
+
+As of 2024, the lithium-ion battery (LIB) with the variants Li-NMC, LFP and Li-NCA dominates the BEV market. The combined global production capacity in 2023 reached almost 2000 GWh with 772GWh used for EVs in 2023. Most production is based in China where capacities increased by 45% that year.[1]:17 With their high energy density and long cycle life, lithium-ion batteries have become the leading battery type for use in EVs. They were initially developed and commercialized for use in laptops and consumer electronics. Recent EVs are using new variations on lithium-ion chemistry that sacrifice specific energy and specific power to provide fire resistance, environmental friendliness, rapid charging and longer lifespans. These variants have been shown to have a much longer lifetime.</pre>
+<h3>Electric vehicle battery types  <span class="muted small">— chars 3086–4207</span></h3>
+<pre>These variants have been shown to have a much longer lifetime. For example, lithium-ion cells containing single wall carbon nanotubes (SWCNTs) show increased mechanical strength, suppressing degradation and leading to a longer battery lifetime.[6][7]
+
+Li-NMCLFPLi-NCASodium-ionLead-acid
+
+global 2023 new BEV market share&gt;50%[8]:2640%[8]:267%[8]:26no datano data
+
+Energy density per ton
+
+(same as Wh/kg)
+150-275 kWh [9]
+150-220 kWh[10]
+165 kWh (sales avg 2023)[1]:166
+80-150 kWh [9]
+210 [11]
+90-160 kWh[10]
+135 kWh (sales avg 2023)[1]:166
+200-260 kWh[10]140-160 kWh [12][13]:1235 kWh [14]
+
+Energy density projection300 kWh [15]260 kWh [11]&gt;200 kWh [12]:13[16]
+
+Price per kWh$139 [17]
+$130[1]
+$70
+
+$105[1]
+$120[1]80-€120 [12]:12
+$87 [18]
+65-$100 [19][20]
+
+Price projection$80 (2030) [17]$36 (2025) [citation needed]&lt;€40 (2035) [12]:13
+40-$80 (2034) [18][21]
+8-$10
+
+Cycles (state of health 80%)1500 - 5000 [22]3000 - 7000 [23]4000 - 5000 [24]200 - 1500 [22]
+
+Considerable flammabilityyesnomediumnoyes
+
+Temperature rangemedium
+
+(cold climates)[8]:26
+high
+
+(hot climates)[8]:26
+highmedium
+
+Production&gt;67% China[1]100% China[1]</pre>
+<h3>Lithium-NMC  <span class="muted small">— chars 4225–4960</span></h3>
+<pre>Lithium nickel manganese cobalt oxides offer high performance and have become the global standard in BEV production since the 2010s. On the other hand, the exploitation of the required minerals causes environmental problems. The downside of traditional NMC batteries includes sensitivity to temperature, low temperature power performance, and performance degradation with age.[25] Due to the volatility of organic electrolytes, the presence of highly oxidized metal oxides, and the thermal instability of the anode SEI layer, traditional lithium-ion batteries pose a fire safety risk if punctured or charged improperly. Early cells did not accept or supply charge when extremely cold. Heaters can be used in some climates to warm them.</pre>
+<h3>Lithium iron phosphate (LFP)  <span class="muted small">— chars 4996–5372</span></h3>
+<pre>The Lithium iron phosphate battery has a shorter range but is cheaper, safer and more sustainable than the NMC battery.[26] It does not require the critical minerals manganese and cobalt.
+Since 2023, LFP has become the leading technology in China while the market share in Europe and North America remains lower than 10%.[1]:86 LFP is the dominant type in grid energy storage.</pre>
+<h3>Lithium titanate (LTO)  <span class="muted small">— chars 5402–5865</span></h3>
+<pre>Lithium titanate or lithium-titanium-oxide (LTO) batteries are known for their high safety profile, with reduced risk of thermal runaway and effective operation over a wide temperature range.[27] LTO batteries have an impressive cycle life, often exceeding 10,000 charge-discharge cycles.[28] They also have rapid charging capabilities due to their high charge acceptance.[29] However, they have a lower energy density compared to other lithium-ion batteries.[30]</pre>
+<h3>Sodium-ion  <span class="muted small">— chars 5883–6480</span></h3>
+<pre>The Sodium-ion battery completely avoids critical materials.[31] Due to the high availability of sodium which is a part of salt water, cost projections are low. In early 2024, various Chinese manufacturers began with the delivery of their first models.[2] Analysts saw a high potential for this type especially for the use in small EVs, bikes and three-wheelers;[32] as in early 2024, JAC Yiwe (model Sehol E10X) and JMEV (EV3 Youth Edition) started production on smaller, budget-friendly EVs using these batteries.[33] In 2026, they are installed in mass production cars, as Changan Nevo A06.[34]</pre>
+<h3>Future types  <span class="muted small">— chars 6500–6793</span></h3>
+<pre>Several types are in development.
+
+The solid-state battery could offer high energy density and potential safety improvements.[8]:26
+
+The lithium-sulfur battery is also expected to meet high performance demands.
+
+The LMFP battery is a LFP battery that includes manganese as a cathode component.</pre>
+<h3>Lead-acid  <span class="muted small">— chars 6829–7682</span></h3>
+<pre>In the 20th century most electric vehicles used a flooded lead–acid battery due to their mature technology, high availability, and low cost. Lead–acid batteries powered such early modern EVs as the original 1996 versions of the EV1. There are two main types of lead–acid batteries: automobile engine starter batteries, and deep-cycle batteries which provide continuous electricity to run electric vehicles like forklifts or golf carts.[35] Deep-cycle batteries are also used as auxiliary batteries in recreational vehicles, but they require different, multi-stage charging. Discharging below 50% can shorten the battery&#39;s life.[36] Flooded batteries require inspection of electrolyte levels and occasional replacement of water, which gases away during the normal charging cycle. EVs with lead–acid batteries are capable of up to 130km (81mi) per charge.</pre>
+<h3>Nickel–metal hydride (NiMH)  <span class="muted small">— chars 7718–8498</span></h3>
+<pre>Main article: Nickel–metal hydride battery
+GM Ovonic NiMH battery module
+Nickel–metal hydride batteries are considered a mature technology.[37] While less efficient (60–70%) in charging and discharging than even lead–acid, they have a higher specific energy of 30–80W·h/kg. When used properly, nickel–metal hydride batteries can have exceptionally long lives, as has been demonstrated in their use in hybrid cars and in the surviving first-generation NiMH Toyota RAV4EVs that still operate well after 100,000 miles (160,000km) and over a decade of service. Downsides include finicky charge cycles and poor performance in weather below -20°C.[38] GM Ovonic produced the NiMH battery used in the second generation EV-1.[39] Prototype NiMH-EVs delivered up to 200km (120mi) of range.</pre>
+<h3>Zebra  <span class="muted small">— chars 8512–9206</span></h3>
+<pre>Main article: Molten salt battery
+
+The sodium nickel chloride or &#34;Zebra&#34; battery was used in early EVs between 1997 and 2012. It uses a molten sodium chloroaluminate (NaAlCl4) salt as the electrolyte. It has a specific energy of 120W·h/kg. Since the battery must be heated for use, cold weather does not strongly affect its operation except for increasing heating costs. Zebra batteries can last for a few thousand charge cycles and are nontoxic. The downsides to the Zebra battery include poor specific power (&lt;300W/kg) and the need to heat the electrolyte to about 270°C (518°F), which wastes some energy, presents difficulties in long-term storage of charge, and is potentially a hazard.[40]</pre>
+<h3>Other legacy types  <span class="muted small">— chars 9233–9448</span></h3>
+<pre>Other types of rechargeable batteries used in early electric vehicles include
+
+nickel–cadmium
+
+Nickel–iron battery used in the Detroit Electric
+
+Lithium vanadium oxide made its way into the Subaru prototype G4e.[41]</pre>
+<h3>Battery architecture and integration  <span class="muted small">— chars 9491–9867</span></h3>
+<pre>CTx series:
+
+Cell to Module (CTM) - battery cells put into modules, than into battery pack
+
+Cell to Pack (CTP) - battery cells into battery pack without modules
+
+Cell to Chassis (CTC) - battery cells into frame or chassis, batteries maybe used as part of structural integrity or to increase structural strength
+
+Cell to Body (CTB) - battery cells into vehicle body[42][43][44]</pre>
+<h3>Supply chain  <span class="muted small">— chars 9886–9992</span></h3>
+<pre>Geographical distribution of the global battery supply chain[8]:58
+See also: Electric vehicle supply chain</pre>
+<h3>Lifecycle of lithium-based EV batteries  <span class="muted small">— chars 10038–10663</span></h3>
+<pre>During the first stage, the materials[45] are mined in different parts of the world, including Australia,[46]Russia,[47]New Caledonia and Indonesia.[48][49] All the following steps are currently dominated by China.[50][51] After the materials are refined by pre-processing factories, battery manufacturing companies buy them, make batteries, and assemble them into packs. Car manufacturing companies buy and install them in cars. To address the environmental impact of this process, the supply chain is increasingly focusing on sustainability, with efforts to reduce reliance on rare-earth minerals and improve recycling.[52]</pre>
+<h3>Manufacturing  <span class="muted small">— chars 10684–11760</span></h3>
+<pre>Manufacturing process of EV batteries
+There are mainly three stages during the manufacturing process of EV batteries: materials manufacturing, cell manufacturing and integration, as shown in Manufacturing process of EV batteries graph in grey, green and orange color respectively. This shown process does not include manufacturing of cell hardware, i.e. casings and current collectors. During the materials manufacturing process, the active material, conductivity additives, polymer binder and solvent are mixed first. After this, they are coated on the current collectors ready for the drying process. During this stage, the methods of making active materials depend on the electrode and the chemistry.
+
+Cathodes mostly use transition metal oxides, i.e. Lithium nickel manganese cobalt oxides (Li-NMC), or else Lithium metal phosphates, i.e. Lithium iron phosphates (LFP). The most popular material for anodes is graphite. However, recently there have been a lot of companies started to make Si mixed anode (Sila Nanotech, ProLogium) and Li metal anode (Cuberg, Solid Power).</pre>
+<h3>Manufacturing  <span class="muted small">— chars 11762–12329</span></h3>
+<pre>In general, for active materials production, there are three steps: materials preparation, materials processing and refinement. Schmuch et al. discussed materials manufacturing in greater details.[53]
+
+In the cell manufacturing stage, the prepared electrode will be processed to the desired shape for packaging in a cylindrical, rectangular or pouch format. Then after filling the electrolytes and sealing the cells, the battery cells are cycled carefully to form SEI protecting the anode. Then, these batteries are assembled into packs ready for vehicle integration.</pre>
+<h3>Reusing and repurposing  <span class="muted small">— chars 12359–13523</span></h3>
+<pre>Examples of storage projects using second-life EV batteries. Adapted from Awan[54]
+For electric vehicles (EVs), actual end of life will be defined by many factors that will vary across vehicles, including the owner&#39;s willingness to continue driving the EV as its range declines, the health of other components in the vehicle, and whether or not the vehicle is involved in a crash. For practicality, however, end of life is commonly defined in repurposing studies as when a battery&#39;s capacity degrades to 80% of its initial capacity.[55] This likely comes from the U.S. American Battery Consortium definition: &#34;End-of-life is clarified to occur when either the net DST delivered capacity or peak power capability at 80% DOD is less than 80% of rated.&#34;[56] One of the waste management methods is to reuse the pack. By repurposing the pack for stationary storage, more value can be extracted from the battery pack while reducing the per kWh lifecycle impact.
+
+Uneven and undesired battery degradation happens during EV operation depending on temperature during operation and charging/discharging patterns. Each battery cell could degrade differently during operation.</pre>
+<h3>Reusing and repurposing  <span class="muted small">— chars 13462–14621</span></h3>
+<pre>Each battery cell could degrade differently during operation. Currently, the state of health (SOH) information from a battery management system (BMS) can be extracted on a pack level but not on a cell level. Engineers can mitigate the degradation by engineering the next-generation thermal management system. electrochemical impedance spectroscopy (EIS) can be used to ensure the quality of the battery pack.[54][57]
+
+It is costly and time-intensive to disassemble modules and cells. The module must be fully discharged. Then, the pack must be disassembled and reconfigured to meet the power and energy requirement of the second life application. A refurbishing company can sell or reuse the discharged energy from the module to reduce the cost of this process. Robots are being used to increase the safety of the dismantling process.[54][58]
+
+Battery technology is non-transparent and lacks standards. Because battery development is the core part of EV, it is difficult for the manufacturer to label the exact chemistry of cathode, anode and electrolytes on the pack. In addition, the capacity and the design of the cells and packs changes on a yearly basis.</pre>
+<h3>Reusing and repurposing  <span class="muted small">— chars 14531–15246</span></h3>
+<pre>In addition, the capacity and the design of the cells and packs changes on a yearly basis. The refurbishing company needs to closely work with the manufacture to have a timely update on this information. On the other hand, government can set up labeling standard.[54]
+
+Lastly, battery costs have decreased faster than predicted. The refurbished unit may be less attractive than the new batteries to the market.[54]
+
+Nonetheless, there have been several successes on the second-life application as shown in the examples of storage projects using second-life EV batteries. They are used in less demanding stationary storage application as peak shaving or additional storage for renewable-based generating sources.[54]</pre>
+<h3>Recycling  <span class="muted small">— chars 15262–15932</span></h3>
+<pre>Examples of current lithium-ion battery recycling facilities. Adapted from Awan[54]
+See also: Lithium-ion batteries §Solid waste and recycling
+
+Although battery life span can be extended by enabling a second-life application, ultimately EV batteries need to be recycled. Recyclability is not currently an important design consideration for battery manufacturers, and in 2019 only 5% of electric vehicle batteries were recycled.[59]
+However, closing the loop is extremely important. Not only because of a predicted tightened supply of nickel, cobalt and lithium in the future, also recycling EV batteries has the potential to maximize the environmental benefit. Xu et al.</pre>
+<h3>Recycling  <span class="muted small">— chars 15923–17028</span></h3>
+<pre>Xu et al. predicted that in the sustainable development scenario, lithium, cobalt and nickel will reach or surpass the amount of known reserves in the future if no recycling is in place.[60] Ciez and Whitacre found that by deploying battery recycling some green house gas (GHG) emission from mining could be avoided.[61]
+
+BEV technologies lack an established recycling framework in many countries, making the usage of BEV and other battery-operated electrical equipment a large energy expenditure, ultimately increasing CO2 emissions - especially in countries lacking renewable energy resources.[62]
+
+There have been many efforts around the world to promote recycling technologies development and deployment. In the US, the Department of Energy Vehicle Technologies Offices (VTO) set up two efforts targeting at innovation and practicability of recycling processes. ReCell Lithium Recycling RD center brings in three universities and three national labs together to develop innovative, efficient recycling technologies. Most notably, the direct cathode recycling method was developed by the ReCell center.</pre>
+<h3>Recycling  <span class="muted small">— chars 16943–17541</span></h3>
+<pre>Most notably, the direct cathode recycling method was developed by the ReCell center. On the other hand, VTO also set up the battery recycling prize to incentivize American entrepreneurs to find innovative solutions to solve current challenges.[63]
+
+Recycling of EV Batteries helps to recover valuable materials such as lithium, cobalt, nickel, and rare-earth elements, reducing the need for new mining and conserving natural resources and reduces the environmental footprint associated with battery production by minimizing mining impacts, energy consumption, and greenhouse gas emissions.[64][65]</pre>
+<h3>Recycling vs mining  <span class="muted small">— chars 17567–18585</span></h3>
+<pre>Battery recycling emissions under US average electricity grid. (a,b) for cylindrical cell and (c,d) for pouch cell. Adapted from Ciez and Whitacre.[61]
+To develop a deeper understanding of the lifecycle of EV batteries, it is important to analyze the emission associated with different phases. Using NMC cylindrical cells as an example, Ciez and Whitacre found that around 9kg CO2e kg battery−1 is emitted during raw materials pre-processing and battery manufacturing under the US average electricity grid. The biggest part of the emission came from materials preparation accounting for more than 50% of the emissions. If NMC pouch cell is used, the total emission increases to almost 10kg CO2e kg battery−1 while materials manufacturing still contributes to more than 50% of the emission.[61] During the end-of-life management phase, the refurbishing process adds little emission to the lifecycle emission. The recycling process, on the other hand, as suggested by Ciez and Whitacre emits a significant amount of GHG.</pre>
+<h3>Recycling vs mining  <span class="muted small">— chars 18475–19664</span></h3>
+<pre>The recycling process, on the other hand, as suggested by Ciez and Whitacre emits a significant amount of GHG. As shown in the battery recycling emission plot a and c, the emission of the recycling process varies with the different recycling processes, different chemistry and different form factor. Thus, the net emission avoided compared to not recycling also varies with these factors. At a glance, as shown in the plot b and d, the direct recycling process is the most ideal process for recycling pouch cell batteries, while the hydrometallurgical process is most suitable for cylindrical type battery. However, with the error bars shown, the best approach cannot be picked with confidence. It is worth noting that for the lithium iron phosphates (LFP) chemistry, the net benefit is negative. Because LFP cells lacks cobalt and nickel which are expensive and energy intensive to produce, it is more energetically efficient to mine. In general, in addition to promoting the growth of a single sector, a more integrated effort should be in place to reduce the lifecycle emission of EV batteries. A finite total supply of rare earth material can apparently justify the need for recycling.</pre>
+<h3>Recycling vs mining  <span class="muted small">— chars 19573–19875</span></h3>
+<pre>A finite total supply of rare earth material can apparently justify the need for recycling. But the environmental benefit of recycling needs closer scrutiny. Based on current recycling technology, the net benefit of recycling depends on the form factors, the chemistry and the recycling process chosen.</pre>
+<h3>Environmental impact  <span class="muted small">— chars 19902–20255</span></h3>
+<pre>Transition to electric vehicles is estimated to require 87 times more than 2015 of specific metals by 2060 that need to be mined initially, with recycling covering part of the demand in future.[66] According to IEA 2021 study, mineral supplies need to increase from 400 kilotonnes in 2020 to 11,800 kilotonnes in 2040 in order to cover the demand by EV.</pre>
+<h3>Environmental impact  <span class="muted small">— chars 20256–21493</span></h3>
+<pre>This increase creates a number of key challenges, from supply chain as 60% of production is concentrated in China to significant impact on climate[need quotation to verify] and environment as result of such a large increase in mining operations.[67] However 45% of oil demand in 2022 was for road transport, and batteries may reduce this to 20% by 2050,[68] which would save hundreds of times more raw material than that used to make the batteries.[69]
+
+Distributive and energy injustice concerns persist as resource-rich but economically disadvantaged communities bear social and ecological costs while wealthier nations benefit from these technologies.[70][71] Scholars described these regions as sacrifice zones, where Indigenous and low-income groups experience slow violence and environmental degradation.[72][73] In many cases, mining projects proceed without meaningful consultation/consent, leaving local communities without a voice in decisions impacting them, highlighting issues in procedural injustice.[74][75][76] Regulatory policies, like the DRC Mining Code[77] and OECD Due Diligence Guidance,[78] aim to address issues, but face weak enforcement, corruption, and non-binding commitments that limited their effectiveness.</pre>
+<h3>Environmental impact  <span class="muted small">— chars 21495–22675</span></h3>
+<pre>Rising demand for EV batteries has intensified mining for nickel, copper, lithium, and cobalt, particularly in developing countries including the Philippines,[79] the Democratic Republic of Congo (DRC),[80]Chile,[81][82] and Indonesia.[83]Nickel mining in Indonesia has caused significant deforestation and heavy metal contamination in rivers, affecting communities reliant on these ecosystems.[84][76][85] In the DRC, mining exposes marginalized groups to elevated levels of toxic metals in the air, water, and soil, with little compensation or protection and lack the power to influence mining regulations or demand better working conditions.[80]
+
+In Chile&#39;s Salar de Atacama, lithium extraction consumes 65% of the region&#39;s freshwater supply, worsening droughts and impacting Indigenous communities.[81][86] Producing one metric ton of lithium requires 400,000 to 2 million liters (100,000-500,000 gallons) of water.[81][87] In January 2024, Indigenous-led protests blocked mining operations, demanding inclusion in decision-making regarding the salt flats.[88] Concerns remain over the lack of adherence to Free, Prior, and Informed Consent (FPIC) in affected communities.[89]</pre>
+<h3>Battery cost  <span class="muted small">— chars 22694–23557</span></h3>
+<pre>Main article: Rechargeable battery §Price history
+
+Average battery costs fell by 90% between 2010 and 2024 due to advances in battery chemistry and manufacturing.[8]:3
+Batteries represent a substantial portion of an EV&#39;s overall cost, often accounting for up to 30-40% of the vehicle&#39;s total price.[90] However, the cost of EV batteries has been decreasing steadily over the years due to advancements in technology, economies of scale, and improvements in manufacturing processes.[91] EV batteries typically come with warranties covering a certain number of years or miles, reflecting confidence in their durability and reliability over time.[92]
+
+The cost of lithium-ion battery packs remains a primary barrier to the widespread adoption of battery electric vehicles (BEVs), particularly in achieving cost parity with internal combustion engine vehicles (ICEVs).</pre>
+<h3>Battery cost  <span class="muted small">— chars 23558–24594</span></h3>
+<pre>A large fraction—around 70%—of the total battery cost is attributed to the materials used in the cell, with cathodes alone accounting for 40–45% of this material cost.[93] The high price volatility of raw materials, particularly nickel and cobalt, significantly affects the cost of cathode active materials (CAMs), which in turn influences the overall cost of battery packs.
+
+According to a 2019 paper, newer models from that era took a bottom-up approach, calculating battery costs from raw metal prices rather than relying on fixed CAM prices. This approach revealed how fluctuations in cobalt and nickel prices impacted the costs of CAMs such as NMC, NCA, LMO, LNMO, and LFP. The shift to higher nickel cathodes (e.g., NMC811, NCA) was shown to reduce material costs by enhancing energy density and reducing cobalt content.[94]
+
+Techno-economic analyses show that BEVs with larger energy requirements (e.g., 320km, 200-mile range) benefit from lower per-kWh costs due to the use of thicker electrodes and improved economies of scale.</pre>
+<h3>Battery cost  <span class="muted small">— chars 24595–25315</span></h3>
+<pre>For instance, pack-level costs can range from approximately $545/kWh for plug-in hybrid electric vehicles (PHEV10) to around $230/kWh for BEV200 vehicles.[95] These reductions are more significant than those achieved by optimistic process improvements alone.
+
+Economies of scale play a crucial role in reducing battery costs, though significant reductions plateau beyond production volumes of 200–300 MWh per year.[96] Further reductions may require increases in plant size, improved roll-to-roll electrode manufacturing, and higher equipment utilization rates. Minimum viable plant sizes currently stand below 2 GWh/year but may need to exceed 15 GWh/year in the future to sustain cost efficiency and market growth.[96]</pre>
+<h3>EV parity  <span class="muted small">— chars 25331–25571</span></h3>
+<pre>Battery prices fell, given economies of scale and new cell chemistries improving energy density.[97] However, general inflationary pressures, and rising costs of raw materials and components, inhibited price declines in the early 2020s.[97]</pre>
+<h3>Cost parity  <span class="muted small">— chars 25589–26162</span></h3>
+<pre>See also: Electric vehicle conversion
+
+One issue is purchase price, the other issue is total cost of ownership. Total cost of ownership of electric cars is often less than petrol or diesel cars.[98] In 2024 Gartner predicted that by 2027, next-generation BEVs will, on average, be cheaper to produce than a comparable ICE&#34;.[99] In China, BEV are now cheaper than comparable combustion cars.[100] The development is driven by subsidies in the Chinese market. The USA are protecting their own manufacturers with tariffs, in the EU this is debated. This can delay cost parity.</pre>
+<h3>Range parity  <span class="muted small">— chars 26182–27078</span></h3>
+<pre>The mass of the electric vehicle battery is the limiting factor to reach range parity. Diesel and gasoline have more than the 50-fold energy density of current EV batteries.
+
+energy density
+
+kWh/t
+typical consumption
+
+per 100km
+mass
+
+per 100km
+
+Diesel12600[101]7 litres ~ 72kWh~6kg
+
+EV battery165[1]:16620 kWh~120kg
+
+In practical use, charging speed is more relevant than battery capacity (see recharging section).
+Typical EV batteries in passenger cars have a mass of 300 to 1,000kg (660 to 2,200lb)[102] resulting in ranges from 150 to 500km (90 to 310 miles), depending on temperature, driving style and car type.
+
+Even with the same range as an average all-combustion vehicle, buyers must be assured that there are widely available and compatible charging stations for their vehicles.[103]
+
+As of 2024[update] the range of electric ships and large planes is less than combustion engined ones.</pre>
+<h3>Range parity  <span class="muted small">— chars 27079–27421</span></h3>
+<pre>To electrify all shipping standardized multi-megawatt charging is needed.[104] But sometimes batteries can be swapped, for example for river shipping.[105]As of 2024[update] pure electric large plane ranges of over 1000km are not expected within a decade - meaning that for over half of scheduled flights range parity cannot be achieved.[106]</pre>
+<h3>Internal components  <span class="muted small">— chars 27462–28650</span></h3>
+<pre>Battery pack on the roof of a battery electric busElectric truck e-Force One. Battery pack between the axles.Cylindrical cell (18650) prior to assemblyLithium ion battery monitoring electronics (overcharge and over-discharge protection)
+Battery pack designs for electric vehicles (EVs) are complex and vary widely by manufacturer and specific application. However, they all incorporate a combination of several simple mechanical and electrical component systems which perform the basic required functions of the pack.[citation needed]
+
+The actual battery cells can have different chemistry, physical shapes, and sizes as preferred by various pack manufacturers. Battery packs will always incorporate many discrete cells connected in series and parallel to achieve the total voltage and current requirements of the pack. Battery packs for all electric drive EVs can contain several hundred individual cells. Each cell has a nominal voltage of 3-4 volts, depending on its chemical composition.[citation needed]
+
+To assist in manufacturing and assembly, the large stack of cells is typically grouped into smaller stacks called modules. Several of these modules are placed into a single pack.</pre>
+<h3>Internal components  <span class="muted small">— chars 28595–29601</span></h3>
+<pre>Several of these modules are placed into a single pack. Within each module the cells are welded together to complete the electrical path for current flow. Modules can also incorporate cooling mechanisms, temperature monitors, and other devices. Modules must remain within a specific temperature range for optimal performance.[107] In most cases, modules also allow for monitoring the voltage produced by each battery cell in the stack by using a battery management system (BMS).[108]
+
+The battery cell stack has a main fuse which limits the current of the pack under a short circuit. A &#34;service plug&#34; or &#34;service disconnect&#34; can be removed to split the battery stack into two electrically isolated halves. With the service plug removed, the exposed main terminals of the battery present no high potential electrical danger to service technicians.[108][109]
+
+The battery pack also contains relays, or contactors, which control the distribution of the battery pack&#39;s electrical power to the output terminals.</pre>
+<h3>Internal components  <span class="muted small">— chars 29602–30418</span></h3>
+<pre>In most cases there will be a minimum of two main relays which connect the battery cell stack to the main positive and negative output terminals of the pack, which then supply high current to the electrical drive motor. Some pack designs include alternate current paths for pre-charging the drive system through a pre-charge resistor or for powering an auxiliary bus which will also have their own associated control relays. For safety reasons these relays are all normally open.[108][109]
+
+The battery pack also contains a variety of temperature, voltage, and current sensors. Collection of data from the pack sensors and activation of the pack relays are accomplished by the pack&#39;s battery monitoring unit (BMU) or BMS. The BMS is also responsible for communications with the vehicle outside the battery pack.[108]</pre>
+<h3>Recharging  <span class="muted small">— chars 30435–30744</span></h3>
+<pre>Batteries in BEVs must be periodically recharged. BEVs charge at home from the power grid or local generation such as solar panels, or using a recharging point. The energy is generated from a variety of resources including coal, hydroelectricity, nuclear, natural gas, photovoltaic solar cell panels and wind.</pre>
+<h3>Recharging time  <span class="muted small">— chars 30768–31943</span></h3>
+<pre>EV charging curves at 300 kW chargers[110]
+With rapid recharging, the concern about limited travel ranges loses relevance as the duration of a stops at public charging stations can be minimized. There is a growing electric vehicle charging network[111] with DC powers of 150kW and more which can add up to 300km of range within a typical 30 minute break. Charging speed depends on the power of the charging station and the maximum load which the specific EV model can handle. At charging states over 50%, charging speed generally slows down. Typical rapid charging powers are between 30 and 80kW.[110] Charging at home or smaller charging stations using alternating current usually takes several hours.
+The table assumes a typical consumption of 15 kWh per 100km and takes into account that drivers should take a break every 300km anyway.
+
+Duration for refuelling / charging 300km (45 kWh)
+
+typemaximum poweraverage powertime
+
+Diesel / Gasoline5-10 min
+
+Tesla model Y250kW87.7kW (10-90%) [112]31 min
+
+VW e-Up37kW30 KW[113]90 min (2 stops)
+
+Charging time at home is limited by the capacity of the household electrical outlet, unless specialized electrical wiring work is done.</pre>
+<h3>Recharging time  <span class="muted small">— chars 31944–32398</span></h3>
+<pre>In the US, Canada, Japan, and other countries with 120V electricity, a normal household outlet delivers 1.5 kilowatts. In other countries with 230V electricity between 7 and 14 kilowatts can be delivered (230V single phase and 400V three-phase, respectively). In Europe, a 400V (three-phase 230V) grid connection is increasingly popular since newer houses don&#39;t have natural gas connection due to the European Union&#39;s safety regulations.[citation needed]</pre>
+<h3>Battery life  <span class="muted small">— chars 32418–32993</span></h3>
+<pre>With suitable power supplies, good battery lifespan is usually achieved at charging rates not exceeding half of the capacity of the battery per hour (&#34;0.5C&#34;),[114] thereby taking two or more hours for a full charge, but faster charging is available even for large capacity batteries.[115]
+
+Data from Geotab in 2019 showed that exposure to heat and the use of fast charging promote the degradation of Li-ion batteries more than age and actual use, and that the average electric vehicle battery will retain 90% of its initial capacity after six years and six months of service.</pre>
+<h3>Battery life  <span class="muted small">— chars 32994–33950</span></h3>
+<pre>For example, the battery in a contemporaneous Nissan Leaf degraded twice as fast as the battery in a Tesla of the time, because the Leaf did not have an active cooling system for its battery.[116] Furthermore, Geotab data that was cited in 2026 showed that frequent fast-charging can wear out batteries at twice the rate, and that frequently charging to 100% and letting it rest at 0% for extended periods can harm long-term range.[117]
+
+A December 2024 study published in Nature Energy has prompted significant discussion within the scientific and automotive communities regarding the longevity of electric vehicle (EV) batteries. The research suggests that EV batteries, in real-world conditions, may last up to a third longer than previously estimated under laboratory conditions. This finding challenges the assumption that laboratory tests, conducted under controlled and often harsher conditions, accurately predict battery life in everyday use.[118]</pre>
+<h3>Connectors  <span class="muted small">— chars 33969–34975</span></h3>
+<pre>The charging power can be connected to the car in two ways. The first is a direct electrical connection known as conductive coupling. This might be as simple as a mains lead into a weatherproof socket through special high capacity cables with connectors to protect the user from high voltages. The modern standard for plug-in vehicle charging is the SAE1772 conductive connector (IEC62196 Type1) in the US.[119] The ACEA has chosen the VDE-AR-E 2623-2-2 (IEC62196 Type2) for deployment in Europe, which comes with an automatic locking mechanism instead of a physical latch.[120]
+
+The second approach is known as inductive charging. A special &#39;paddle&#39; is inserted into a slot on the car. The paddle is one winding of a transformer, while the other is built into the car. When the paddle is inserted it completes a magnetic circuit which provides power to the battery pack. In one inductive charging system, one winding is attached to the underside of the car, and the other stays on the floor of the garage.</pre>
+<h3>Connectors  <span class="muted small">— chars 34841–35532</span></h3>
+<pre>In one inductive charging system, one winding is attached to the underside of the car, and the other stays on the floor of the garage. The advantage of the inductive approach is that there is no possibility of electrocution as there are no exposed conductors, although interlocks, special connectors and ground fault detectors can make conductive coupling nearly as safe. Inductive charging can also reduce vehicle weight, by moving more charging componentry offboard.[121] An inductive charging advocate from Toyota contended in 1998, that overall cost differences were minimal, while a conductive charging advocate from Ford contended that conductive charging was more cost efficient.[121]</pre>
+<h3>Recharging locations  <span class="muted small">— chars 35561–35699</span></h3>
+<pre>Main article: Charging station
+
+As of June2024[update], there more than 200,000 locations and 400,000 EV charging stations worldwide.[122]</pre>
+<h3>Travel range before recharging  <span class="muted small">— chars 35738–37001</span></h3>
+<pre>The range of a BEV depends on the number and type of batteries used. The weight and type of vehicle as well as terrain, weather, and the performance of the driver also have an impact, just as they do on the mileage of traditional vehicles. Electric vehicle conversion performance depends on a number of factors including the battery chemistry. Lithium-ion battery-equipped EVs provide 320–540km (200–340mi) of range per charge.[123]
+
+The internal resistance of some batteries may be significantly increased at low temperature[124] which can cause noticeable reduction in the range of the vehicle and on the lifetime of the battery.
+
+With an AC system or advanced DC system, regenerative braking can extend range by up to 50% under extreme traffic conditions without complete stopping. Otherwise, the range is extended by about 10 to 25% in city driving,[125] and only negligibly in highway driving, depending upon terrain.[citation needed]
+
+BEVs (including buses and trucks) can also use genset trailers and pusher trailers in order to extend their range when desired without the additional weight during normal short range use. Discharged basket trailers can be replaced by recharged ones en route. Discharged basket trailers can be replaced by recharged ones en route. If rented then maintenance costs can be deferred to the agency.</pre>
+<h3>Trailers  <span class="muted small">— chars 37018–37237</span></h3>
+<pre>Auxiliary battery capacity carried in trailers can increase the overall vehicle range, but also increases the loss of power arising from aerodynamic drag, increases weight transfer effects and reduces traction capacity.</pre>
+<h3>Swapping and removing  <span class="muted small">— chars 37267–38225</span></h3>
+<pre>Main article: Battery swapping
+
+An alternative to recharging is to exchange drained or nearly drained batteries (or battery range extender modules) with fully charged batteries. This is called battery swapping and is done in exchange stations.[126]
+
+Features of swap stations include:[127]
+
+The consumer is no longer concerned with battery capital cost, life cycle, technology, maintenance, or warranty issues;
+
+Swapping is far faster than charging: battery swap equipment built by the firm Better Place has demonstrated automated swaps in less than 60seconds;[128]
+
+Swap stations increase the feasibility of distributed energy storage via the electric grid;
+
+Concerns about swap stations include:
+
+Potential for fraud (battery quality can only be measured over a full discharge cycle; battery lifetime can only be measured over repeated discharge cycles; those in the swap transaction cannot know if they are getting a worn or reduced effectiveness battery;</pre>
+<h3>Swapping and removing  <span class="muted small">— chars 38123–38505</span></h3>
+<pre>those in the swap transaction cannot know if they are getting a worn or reduced effectiveness battery; battery quality degrades slowly over time, so worn batteries will be gradually forced into the system)
+
+Manufacturers&#39; unwillingness to standardize open-source hardware battery access and implementation details,[129] so users must find a proprietary station
+
+Safety concerns[129]</pre>
+<h3>Vehicle-to-grid  <span class="muted small">— chars 38528–38958</span></h3>
+<pre>Main article: Vehicle-to-grid
+
+Smart grid allows BEVs to provide power to the grid at any time, especially:
+
+During peak load periods (When the selling price of electricity can be very high. Vehicles can then be recharged during off-peak hours at cheaper rates which helps absorb excess night time generation. The vehicles serve as a distributed battery storage system to buffer power.)
+
+During blackouts, as backup power sources.</pre>
+<h3>Safety  <span class="muted small">— chars 38972–40131</span></h3>
+<pre>The safety issues of battery electric vehicles are largely dealt with by the international standard ISO6469. This standard is divided into three parts:
+
+On-board electrical energy storage, i.e. the battery
+
+Functional safety means and protection against failures
+
+Protection of persons against electrical hazards.
+
+Firefighters and rescue personnel receive special training to deal with the higher voltages and chemicals encountered in electric and hybrid electric vehicle accidents. While BEV accidents may present unusual problems, such as fires and fumes resulting from rapid battery discharge, many experts agree that BEV batteries are safe in commercially available vehicles and in rear-end collisions, and are safer than gasoline-propelled cars with rear gasoline tanks.[130]
+
+Usually, battery performance testing includes the determination of:
+
+State of charge (SOC)
+
+State of Health (SOH)
+
+Energy Efficiency
+
+Performance testing simulates the drive cycles for the drive trains of Battery Electric Vehicles (BEV), Hybrid Electric Vehicles (HEV) and Plug in Hybrid Electric Vehicles (PHEV) as per the required specifications of car manufacturers (OEMs).</pre>
+<h3>Safety  <span class="muted small">— chars 40132–40427</span></h3>
+<pre>During these drive cycles, controlled cooling of the battery can be performed, simulating the thermal conditions in the car.
+
+In addition, climatic chambers control environmental conditions during testing and allow simulation of the full automotive temperature range and climatic conditions.[35]</pre>
+<h3>Patents  <span class="muted small">— chars 40442–40837</span></h3>
+<pre>See also: open hardware and patent encumbrance of large automotive NiMH batteries
+
+Patents may be used to suppress development or deployment of battery technology. For example, patents relevant to the use of Nickel metal hydride cells in cars were held by an offshoot of Chevron Corporation, a petroleum company, who maintained veto power over any sale or licensing of NiMH technology.[131][132]</pre>
+<h3>Research, development and innovation  <span class="muted small">— chars 40880–41619</span></h3>
+<pre>As of December 2019, billions of euro in research are planned to be invested around the world for improving batteries.[133][134]
+
+Researchers have come up with some design considerations for contactless BEV chargers. Inductively coupled power transfer (ICPT) systems are made to transfer power efficiently from a primary source (charging station) to one or more secondary sources (BEVs) in a contactless way via magnetic coupling.[135]
+
+Europe has plans for heavy investment in electric vehicle battery development and production, and Indonesia also aims to produce electric vehicle batteries in 2023, inviting Chinese battery firm GEM and Contemporary Amperex Technology Ltd to invest in Indonesia.[136][137][138][139][140][141][142][143]</pre>
+<h3>Ultracapacitors  <span class="muted small">— chars 41642–42242</span></h3>
+<pre>Electric double-layer capacitors (or &#34;ultracapacitors&#34;) are used in some electric vehicles, such as AFS Trinity&#39;s concept prototype, to store rapidly available energy with their high specific power, in order to keep batteries within safe resistive heating limits and extend battery life.[144][145]
+
+Since commercially available ultracapacitors have a low specific energy, no production electric cars use ultracapacitors exclusively.
+
+In January 2020, Elon Musk, CEO of Tesla, stated that the advancements in Li-ion battery technology have made ultra-capacitors unnecessary for electric vehicles.[146]</pre>
+<h3>Promotion in the United States  <span class="muted small">— chars 42280–43017</span></h3>
+<pre>On 2 May 2022, President Biden announced the administration will begin a $3.16 billion plan to boost domestic manufacturing and recycling of batteries, in a larger effort to shift the country away from gas-powered cars to electric vehicles. The goal of the Biden administration is to have half of U.S. automobile production electric by 2030.[147]
+
+The Inflation Reduction Act, passed on 16 August 2022, aimed to incentivize clean energy manufacturing with a $7,500 consumer tax credit for EVs with US-built batteries, and subsidies for EV plants. By October 2022, billions of dollars of investment had been announced for over two dozen US battery plants, leading some commentators to nickname the Midwest as the &#34;Battery Belt&#34;.[148][149]</pre>
+<h3>Lists  <span class="muted small">— chars 43043–43172</span></h3>
+<pre>List of electric vehicle battery manufacturers
+
+List of battery types
+
+List of battery electric vehicles
+
+List of hybrid vehicles</pre>
+<h3>Related  <span class="muted small">— chars 43187–43465</span></h3>
+<pre>Battery electric multiple unit
+
+Battery locomotive
+
+Battery charging
+
+Charging station
+
+Dual-mode vehicle
+
+Electric aircraft
+
+Electric car energy efficiency
+
+Plug-in electric vehicle fire incidents
+
+Rechargeable battery
+
+Salt water battery
+
+Traction motor
+
+Vehicle-to-grid (V2G)</pre>
+
+<h2>Extracted claims (123)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In Europe, a 400V (three-phase 230V) grid connection is increasingly popular since newer houses don&#39;t have natural gas connection due to the European Union&#39;s safety regulations.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Even with the same range as an average all-combustion vehicle, buyers must be assured that there are widely available and compatible charging stations for their vehicles.[103]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With suitable power supplies, good battery lifespan is usually achieved at charging rates not exceeding half of the capacity of the battery per hour (&#34;0.5C&#34;),[114] thereby taking two or more hours for a full charge, but faster charging is available even for large capacity batteries.[115]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the 20th century most electric vehicles used a flooded lead–acid battery due to their mature technology, high availability, and low cost.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Then, the pack must be disassembled and reconfigured to meet the power and energy requirement of the second life application.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Using NMC cylindrical cells as an example, Ciez and Whitacre found that around 9kg CO2e kg battery−1 is emitted during raw materials pre-processing and battery manufacturing under the US average electricity grid.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Inductive charging can also reduce vehicle weight, by moving more charging componentry offboard.[121] An inductive charging advocate from Toyota contended in 1998, that overall cost differences were minimal, while a conductive charging advocate from Ford contended that conductive charging was more cost efficient.[121]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There is a growing electric vehicle charging network[111] with DC powers of 150kW and more which can add up to 300km of range within a typical 30 minute break.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Each cell has a nominal voltage of 3-4 volts, depending on its chemical composition.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Average battery costs fell by 90% between 2010 and 2024 due to advances in battery chemistry and manufacturing.[8]:3</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lithium-ion battery-equipped EVs provide 320–540km (200–340mi) of range per charge.[123]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2024, the lithium-ion battery (LIB) with the variants Li-NMC, LFP and Li-NCA dominates the BEV market.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Price projection$80 (2030) [17]$36 (2025) [citation needed]&lt;€40 (2035) [12]:13</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Xu et al. predicted that in the sustainable development scenario, lithium, cobalt and nickel will reach or surpass the amount of known reserves in the future if no recycling is in place.[60] Ciez and Whitacre found that by deploying battery recycling some green house gas (GHG) emission from mining could be avoided.[61]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Nickel–metal hydride batteries are considered a mature technology.[37] While less efficient (60–70%) in charging and discharging than even lead–acid, they have a higher specific energy of 30–80W·h/kg.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">EV charging curves at 300 kW chargers[110]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Typical rapid charging powers are between 30 and 80kW.[110] Charging at home or smaller charging stations using alternating current usually takes several hours.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Schmuch et al. discussed materials manufacturing in greater details.[53]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">An electric vehicle battery is a rechargeable battery used to power the electric motors of a battery electric vehicle (BEV) or hybrid electric vehicle (HEV).</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">A large fraction—around 70%—of the total battery cost is attributed to the materials used in the cell, with cathodes alone accounting for 40–45% of this material cost.[93] The high price volatility of raw materials, particularly nickel and cobalt, significantly affects the cost of cathode active materials (CAMs), which in turn influences the overall cost of battery packs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cycles (state of health 80%)1500 - 5000 [22]3000 - 7000 [23]4000 - 5000 [24]200 - 1500 [22]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Nissan Leaf cutaway showing part of the battery in 2009</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">They are used in less demanding stationary storage application as peak shaving or additional storage for renewable-based generating sources.[54]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Europe has plans for heavy investment in electric vehicle battery development and production, and Indonesia also aims to produce electric vehicle batteries in 2023, inviting Chinese battery firm GEM and Contemporary Amperex Technology Ltd to invest in Indonesia.[136][137][138][139][140][141][142][143]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">BEV technologies lack an established recycling framework in many countries, making the usage of BEV and other battery-operated electrical equipment a large energy expenditure, ultimately increasing CO2 emissions - especially in countries lacking renewable energy resources.[62]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The internal resistance of some batteries may be significantly increased at low temperature[124] which can cause noticeable reduction in the range of the vehicle and on the lifetime of the battery.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, lithium-ion cells containing single wall carbon nanotubes (SWCNTs) show increased mechanical strength, suppressing degradation and leading to a longer battery lifetime.[6][7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At charging states over 50%, charging speed generally slows down.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The downside of traditional NMC batteries includes sensitivity to temperature, low temperature power performance, and performance degradation with age.[25] Due to the volatility of organic electrolytes, the presence of highly oxidized metal oxides, and the thermal instability of the anode SEI layer, traditional lithium-ion batteries pose a fire safety risk if punctured or charged improperly.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With an AC system or advanced DC system, regenerative braking can extend range by up to 50% under extreme traffic conditions without complete stopping.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Battery prices fell, given economies of scale and new cell chemistries improving energy density.[97] However, general inflationary pressures, and rising costs of raw materials and components, inhibited price declines in the early 2020s.[97]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The LMFP battery is a LFP battery that includes manganese as a cathode component.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Geographical distribution of the global battery supply chain[8]:58</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To address the environmental impact of this process, the supply chain is increasingly focusing on sustainability, with efforts to reduce reliance on rare-earth minerals and improve recycling.[52]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Techno-economic analyses show that BEVs with larger energy requirements (e.g., 320km, 200-mile range) benefit from lower per-kWh costs due to the use of thicker electrodes and improved economies of scale.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">By October 2022, billions of dollars of investment had been announced for over two dozen US battery plants, leading some commentators to nickname the Midwest as the &#34;Battery Belt&#34;.[148][149]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Economies of scale play a crucial role in reducing battery costs, though significant reductions plateau beyond production volumes of 200–300 MWh per year.[96] Further reductions may require increases in plant size, improved roll-to-roll electrode manufacturing, and higher equipment utilization rates.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In addition, climatic chambers control environmental conditions during testing and allow simulation of the full automotive temperature range and climatic conditions.[35]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On the other hand, government can set up labeling standard.[54]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lithium vanadium oxide made its way into the Subaru prototype G4e.[41]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of December 2019, billions of euro in research are planned to be invested around the world for improving batteries.[133][134]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Batteries represent a substantial portion of an EV&#39;s overall cost, often accounting for up to 30-40% of the vehicle&#39;s total price.[90] However, the cost of EV batteries has been decreasing steadily over the years due to advancements in technology, economies of scale, and improvements in manufacturing processes.[91] EV batteries typically come with warranties covering a certain number of years or miles, reflecting confidence in their durability and reliability over time.[92]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To electrify all shipping standardized multi-megawatt charging is needed.[104] But sometimes batteries can be swapped, for example for river shipping.[105]As of 2024[update] pure electric large plane ranges of over 1000km are not expected within a decade - meaning that for over half of scheduled flights range parity cannot be achieved.[106]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">If NMC pouch cell is used, the total emission increases to almost 10kg CO2e kg battery−1 while materials manufacturing still contributes to more than 50% of the emission.[61] During the end-of-life management phase, the refurbishing process adds little emission to the lifecycle emission.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Batteries in BEVs must be periodically recharged.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Otherwise, the range is extended by about 10 to 25% in city driving,[125] and only negligibly in highway driving, depending upon terrain.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A number of new chemistries compete to displace Li-NMC with (see solid-state battery) performance above 800Wh/kg in laboratory testing.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The BMS is also responsible for communications with the vehicle outside the battery pack.[108]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When used properly, nickel–metal hydride batteries can have exceptionally long lives, as has been demonstrated in their use in hybrid cars and in the surviving first-generation NiMH Toyota RAV4EVs that still operate well after 100,000 miles (160,000km) and over a decade of service.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Electric double-layer capacitors (or &#34;ultracapacitors&#34;) are used in some electric vehicles, such as AFS Trinity&#39;s concept prototype, to store rapidly available energy with their high specific power, in order to keep batteries within safe resistive heating limits and extend battery life.[144][145]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There are two main types of lead–acid batteries: automobile engine starter batteries, and deep-cycle batteries which provide continuous electricity to run electric vehicles like forklifts or golf carts.[35] Deep-cycle batteries are also used as auxiliary batteries in recreational vehicles, but they require different, multi-stage charging.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The refurbished unit may be less attractive than the new batteries to the market.[54]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For safety reasons these relays are all normally open.[108][109]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The table assumes a typical consumption of 15 kWh per 100km and takes into account that drivers should take a break every 300km anyway.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Recyclability is not currently an important design consideration for battery manufacturers, and in 2019 only 5% of electric vehicle batteries were recycled.[59]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In January 2020, Elon Musk, CEO of Tesla, stated that the advancements in Li-ion battery technology have made ultra-capacitors unnecessary for electric vehicles.[146]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">global 2023 new BEV market share&gt;50%[8]:2640%[8]:267%[8]:26no datano data</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Downsides include finicky charge cycles and poor performance in weather below -20°C.[38] GM Ovonic produced the NiMH battery used in the second generation EV-1.[39] Prototype NiMH-EVs delivered up to 200km (120mi) of range.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of June2024[update], there more than 200,000 locations and 400,000 EV charging stations worldwide.[122]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cell to Body (CTB) - battery cells into vehicle body[42][43][44]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Battery pack between the axles.Cylindrical cell (18650) prior to assemblyLithium ion battery monitoring electronics (overcharge and over-discharge protection)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For instance, pack-level costs can range from approximately $545/kWh for plug-in hybrid electric vehicles (PHEV10) to around $230/kWh for BEV200 vehicles.[95] These reductions are more significant than those achieved by optimistic process improvements alone.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Recycling of EV Batteries helps to recover valuable materials such as lithium, cobalt, nickel, and rare-earth elements, reducing the need for new mining and conserving natural resources and reduces the environmental footprint associated with battery production by minimizing mining impacts, energy consumption, and greenhouse gas emissions.[64][65]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The modern standard for plug-in vehicle charging is the SAE1772 conductive connector (IEC62196 Type1) in the US.[119] The ACEA has chosen the VDE-AR-E 2623-2-2 (IEC62196 Type2) for deployment in Europe, which comes with an automatic locking mechanism instead of a physical latch.[120]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Swapping is far faster than charging: battery swap equipment built by the firm Better Place has demonstrated automated swaps in less than 60seconds;[128]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Demand for EVBs exceeded 750 GWh in 2023.[1] EVBs have much higher capacities than automotive batteries used for starting, lighting, and ignition (SLI) in combustion cars.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A December 2024 study published in Nature Energy has prompted significant discussion within the scientific and automotive communities regarding the longevity of electric vehicle (EV) batteries.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Robots are being used to increase the safety of the dismantling process.[54][58]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2024[update] the range of electric ships and large planes is less than combustion engined ones.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Engineers can mitigate the degradation by engineering the next-generation thermal management system. electrochemical impedance spectroscopy (EIS) can be used to ensure the quality of the battery pack.[54][57]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">American Battery Consortium definition: &#34;End-of-life is clarified to occur when either the net DST delivered capacity or peak power capability at 80% DOD is less than 80% of rated.&#34;[56] One of the waste management methods is to reuse the pack.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Minimum viable plant sizes currently stand below 2 GWh/year but may need to exceed 15 GWh/year in the future to sustain cost efficiency and market growth.[96]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The goal of the Biden administration is to have half of U.S. automobile production electric by 2030.[147]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">While BEV accidents may present unusual problems, such as fires and fumes resulting from rapid battery discharge, many experts agree that BEV batteries are safe in commercially available vehicles and in rear-end collisions, and are safer than gasoline-propelled cars with rear gasoline tanks.[130]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Transition to electric vehicles is estimated to require 87 times more than 2015 of specific metals by 2060 that need to be mined initially, with recycling covering part of the demand in future.[66] According to IEA 2021 study, mineral supplies need to increase from 400 kilotonnes in 2020 to 11,800 kilotonnes in 2040 in order to cover the demand by EV.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Tesla model Y250kW87.7kW (10-90%) [112]31 min</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In early 2024, various Chinese manufacturers began with the delivery of their first models.[2] Analysts saw a high potential for this type especially for the use in small EVs, bikes and three-wheelers;[32] as in early 2024, JAC Yiwe (model Sehol E10X) and JMEV (EV3 Youth Edition) started production on smaller, budget-friendly EVs using these batteries.[33] In 2026, they are installed in mass production cars, as Changan Nevo A06.[34]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Diesel and gasoline have more than the 50-fold energy density of current EV batteries.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This finding challenges the assumption that laboratory tests, conducted under controlled and often harsher conditions, accurately predict battery life in everyday use.[118]</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">200-260 kWh[10]140-160 kWh [12][13]:1235 kWh [14]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Energy density projection300 kWh [15]260 kWh [11]&gt;200 kWh [12]:13[16]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Manufacturers&#39; unwillingness to standardize open-source hardware battery access and implementation details,[129] so users must find a proprietary station</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The combined global production capacity in 2023 reached almost 2000 GWh with 772GWh used for EVs in 2023.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Most production is based in China where capacities increased by 45% that year.[1]:17 With their high energy density and long cycle life, lithium-ion batteries have become the leading battery type for use in EVs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, some commercial passenger car manufacturers are now beginning to use a sodium-ion battery completely avoiding the need for critical minerals.[2]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">EVs with lead–acid batteries are capable of up to 130km (81mi) per charge.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Modules must remain within a specific temperature range for optimal performance.[107] In most cases, modules also allow for monitoring the voltage produced by each battery cell in the stack by using a battery management system (BMS).[108]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The first is a direct electrical connection known as conductive coupling.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The shift to higher nickel cathodes (e.g., NMC811, NCA) was shown to reduce material costs by enhancing energy density and reducing cobalt content.[94]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The solid-state battery could offer high energy density and potential safety improvements.[8]:26</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Functional safety means and protection against failures</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Data from Geotab in 2019 showed that exposure to heat and the use of fast charging promote the degradation of Li-ion batteries more than age and actual use, and that the average electric vehicle battery will retain 90% of its initial capacity after six years and six months of service.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Typical EV batteries in passenger cars have a mass of 300 to 1,000kg (660 to 2,200lb)[102] resulting in ranges from 150 to 500km (90 to 310 miles), depending on temperature, driving style and car type.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Since 2023, LFP has become the leading technology in China while the market share in Europe and North America remains lower than 10%.[1]:86 LFP is the dominant type in grid energy storage.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Inductively coupled power transfer (ICPT) systems are made to transfer power efficiently from a primary source (charging station) to one or more secondary sources (BEVs) in a contactless way via magnetic coupling.[135]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This is called battery swapping and is done in exchange stations.[126]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On the other hand, VTO also set up the battery recycling prize to incentivize American entrepreneurs to find innovative solutions to solve current challenges.[63]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On 2 May 2022, President Biden announced the administration will begin a $3.16 billion plan to boost domestic manufacturing and recycling of batteries, in a larger effort to shift the country away from gas-powered cars to electric vehicles.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Lithium iron phosphate battery has a shorter range but is cheaper, safer and more sustainable than the NMC battery.[26] It does not require the critical minerals manganese and cobalt.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The sodium nickel chloride or &#34;Zebra&#34; battery was used in early EVs between 1997 and 2012.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Inflation Reduction Act, passed on 16 August 2022, aimed to incentivize clean energy manufacturing with a $7,500 consumer tax credit for EVs with US-built batteries, and subsidies for EV plants.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lithium titanate or lithium-titanium-oxide (LTO) batteries are known for their high safety profile, with reduced risk of thermal runaway and effective operation over a wide temperature range.[27] LTO batteries have an impressive cycle life, often exceeding 10,000 charge-discharge cycles.[28] They also have rapid charging capabilities due to their high charge acceptance.[29] However, they have a lower energy density compared to other lithium-ion batteries.[30]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lithium nickel manganese cobalt oxides offer high performance and have become the global standard in BEV production since the 2010s.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">The battery capacity of available EV models reached from 21 to 123kWh in 2023 with an average of 80kWh.[4][5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2019, the cost of electric vehicle batteries was said to have fallen 87% on a per kilowatt-hour basis.[3]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Total cost of ownership of electric cars is often less than petrol or diesel cars.[98] In 2024 Gartner predicted that by 2027, next-generation BEVs will, on average, be cheaper to produce than a comparable ICE&#34;.[99] In China, BEV are now cheaper than comparable combustion cars.[100] The development is driven by subsidies in the Chinese market.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, patents relevant to the use of Nickel metal hydride cells in cars were held by an offshoot of Chevron Corporation, a petroleum company, who maintained veto power over any sale or licensing of NiMH technology.[131][132]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Since the battery must be heated for use, cold weather does not strongly affect its operation except for increasing heating costs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The downsides to the Zebra battery include poor specific power (&lt;300W/kg) and the need to heat the electrolyte to about 270°C (518°F), which wastes some energy, presents difficulties in long-term storage of charge, and is potentially a hazard.[40]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This increase creates a number of key challenges, from supply chain as 60% of production is concentrated in China to significant impact on climate[need quotation to verify] and environment as result of such a large increase in mining operations.[67] However 45% of oil demand in 2022 was for road transport, and batteries may reduce this to 20% by 2050,[68] which would save hundreds of times more raw material than that used to make the batteries.[69]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With the service plug removed, the exposed main terminals of the battery present no high potential electrical danger to service technicians.[108][109]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Duration for refuelling / charging 300km (45 kWh)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The biggest part of the emission came from materials preparation accounting for more than 50% of the emissions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For practicality, however, end of life is commonly defined in repurposing studies as when a battery&#39;s capacity degrades to 80% of its initial capacity.[55] This likely comes from the U.S.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">During the first stage, the materials[45] are mined in different parts of the world, including Australia,[46]Russia,[47]New Caledonia and Indonesia.[48][49] All the following steps are currently dominated by China.[50][51] After the materials are refined by pre-processing factories, battery manufacturing companies buy them, make batteries, and assemble them into packs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, the battery in a contemporaneous Nissan Leaf degraded twice as fast as the battery in a Tesla of the time, because the Leaf did not have an active cooling system for its battery.[116] Furthermore, Geotab data that was cited in 2026 showed that frequent fast-charging can wear out batteries at twice the rate, and that frequently charging to 100% and letting it rest at 0% for extended periods can harm long-term range.[117]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lead–acid batteries powered such early modern EVs as the original 1996 versions of the EV1.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Discharging below 50% can shorten the battery&#39;s life.[36] Flooded batteries require inspection of electrolyte levels and occasional replacement of water, which gases away during the normal charging cycle.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the US, Canada, Japan, and other countries with 120V electricity, a normal household outlet delivers 1.5 kilowatts.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In other countries with 230V electricity between 7 and 14 kilowatts can be delivered (230V single phase and 400V three-phase, respectively).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">According to a 2019 paper, newer models from that era took a bottom-up approach, calculating battery costs from raw metal prices rather than relying on fixed CAM prices.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Sodium-ion battery completely avoids critical materials.[31] Due to the high availability of sodium which is a part of salt water, cost projections are low.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The lithium iron phosphate battery (LFP) is on the rise, reaching 41% global market share by capacity for BEVs in 2023.[1]:85 LFP batteries are heavier but cheaper and more sustainable.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

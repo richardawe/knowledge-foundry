@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BattBee: equivalent circuit modelling and early detection of thermal runaway triggered by internal short circuits — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>BattBee: equivalent circuit modelling and early detection of thermal runaway triggered by internal short circuits</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>arXiv</strong> ·
+  academic · authority 4/5<br>
+Published 2025-06-16 ·   Retrieved 2026-09-18T18:01:02+00:00<br>
+  Licence: arXiv non-exclusive licence to distribute; see paper for author licence<br>
+  <a href="https://arxiv.org/html/2506.13577v1" rel="nofollow noopener">https://arxiv.org/html/2506.13577v1</a><br>
+  <span class="muted">Content hash: <code>7bf0a5c9875854bb1b4766ad86de76e1</code></span>
+</div>
+
+
+<h2>Stored passages (89)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–539</span></h3>
+<pre>#####
+
+arXiv is now an independent nonprofit!Learn more×
+
+Back to arXiv
+
+ License: arXiv.org perpetual non-exclusive license
+
+arXiv:2506.13577v1 [eess.SY] 16 Jun 2025
+
+Conceptualization, Methodology, Validation, Writing - Original draft
+
+1]organization=Department of Mechanical Engineering, The University of Kansas,
+city=Lawrence,
+postcode=66045,
+state=Kansas,
+country=USA
+
+Methodology
+
+\cormark
+[1]
+
+Conceptualization, Methodology, Writing - Review &amp; Editing, Project administration, Funding acquisition
+
+\cortext
+[1]Corresponding author</pre>
+<h3>BattBee: Equivalent Circuit Modeling and Early Detection of Thermal Runaway Triggered by Internal Short Circuits for Lithium-Ion Batteries  <span class="muted small">— chars 682–748</span></h3>
+<pre>Sangwon Kang
+Affiliation: [
+Hao Tu
+Huazhen Fang
+Email: fang@ku.edu</pre>
+<h3>Abstract  <span class="muted small">— chars 767–1967</span></h3>
+<pre>Lithium-ion batteries are the enabling power source for transportation electrification. However, in real-world applications, they remain vulnerable to internal short circuits (ISCs) and the consequential risk of thermal runaway (TR). Toward addressing the challenge of ISCs and TR, we undertake a systematic study that extends from dynamic modeling to fault detection in this paper. First, we develop BattBee, the first equivalent circuit model to specifically describe the onset of ISCs and the evolution of subsequently induced TR. Drawing upon electrochemical modeling, the model can simulate ISCs at different severity levels and predict their impact on the initiation and progression of TR events. With the physics-inspired design, this model offers strong physical interpretability and predictive accuracy, while maintaining structural simplicity to allow fast computation. Then, building upon the BattBee model, we develop fault detection observers and derive detection criteria together with decision-making logics to identify the occurrence and emergence of ISC and TR events. This detection approach is principled in design and fast in computation, lending itself to practical applications.</pre>
+<h3>Abstract  <span class="muted small">— chars 1853–2216</span></h3>
+<pre>This detection approach is principled in design and fast in computation, lending itself to practical applications. Validation based on simulations and experimental data demonstrates the effectiveness of both the BattBee model and the ISC/TR detection approach. The research outcomes underscore this study’s potential for real-world battery safety risk management.</pre>
+<h3>keywords  <span class="muted small">— chars 2235–2344</span></h3>
+<pre>Lithium-ion batteries \sepInternal short circuit \sepThermal runaway \sepDynamic modeling \sepFault detection</pre>
+<h3>1 Introduction  <span class="muted small">— chars 2365–3524</span></h3>
+<pre>Lithium-ion batteries (LiBs) have been propelling forward the global clean energy transition. They power millions of electric vehicles, enable grid-scale energy storage, and facilitate renewable integration into power systems. Despite their significant merits including high energy density and long cycle life, LiBs have yet to be fully safe. The foremost challenge is thermal runaway (TR), a cascading sequence of chemical reactions that causes an uncontrollable temperature rise resulting in fires. Although low in probability, TR-induced fires have occurred to various electric vehicle models and stationary energy storage installations [1, 2, 3]. These incidents have raised a pressing question: How to ensure the safety of LiBs in practical applications? To address this challenge, we designed a new equivalent circuit model, named BattBee111
+
+ The model’s name “BattBee” combines “Batt”, short for battery, with “Bee”, inspired by honeybees’ ability to detect explosives [4, 5]., to capture the electro-thermal behavior in TR triggered by internal short circuits (ISCs). Further, harnessing the model, we develop an observer-based TR detection approach.</pre>
+<h3>1 Introduction  <span class="muted small">— chars 3442–3830</span></h3>
+<pre>Further, harnessing the model, we develop an observer-based TR detection approach. Combined, the BattBee model and fault detection approach offer an accurate and computationally fast method to deal with TR, thereby mitigating its impact on human safety and asset integrity.
+
+Figure 1: Schematic for the formation of ISC-triggered TR (TonsetT_{\mathrm{onset}} is the TR onset temperature).</pre>
+<h3>1.1 Literature Review on TR and ISC Modeling  <span class="muted small">— chars 3882–5071</span></h3>
+<pre>TR within a LiB cell springs from a complex process in which exothermic decomposition and accelerated heat build-up reinforce each other. The decomposition reactions break down the anode’s solid electrolyte interface (SEI) layers, the electrolyte, and cathode, releasing a significant amount of heat. Once the heating melts the separator, the ISC ensues to cause more heat generation. The rising temperature, in turn, increases the rates of the decomposition reactions, creating a vicious cycle. As a result, the cell’s temperature escalates at an ever-increasing pace. During this process, the decomposition releases flammable gases such as ethene and methane from the electrolyte, liberates oxygen from the cathode, and builds up pressure within the cell, ultimately leading to fires and even explosions. TR can be caused by diverse abuse conditions, including: mechanical abuse (e.g., cell deformation or penetration due to collision and crush), electrical abuse (e.g., external short circuit, overcharge, and overdischarge), and thermal abuse (e.g., high ambient temperature, and local overheat) [6, 7].
+Other major reasons include aging, degradation and cell defects in manufacturing.</pre>
+<h3>1.1 Literature Review on TR and ISC Modeling  <span class="muted small">— chars 4990–6114</span></h3>
+<pre>Other major reasons include aging, degradation and cell defects in manufacturing. For almost all TR cases, ISCs represent a key trigger. They typically occur when the separator is ruptured or damaged to cause direct contact between the cell’s cathode and anode—such separator damage can result from mechanical penetration or fracture, melting under high temperature, and piercing by lithium dendrites, due to abuse or degradation. On some occasions, ISCs trace to electrode misalignment in cell manufacturing or other reasons. In general, ISCs either directly initiate TR or drive an ongoing TR event toward an uncontrollable state if happening during this process [6, 8, 9]. Figure 1 shows the schematic of an ISC-triggered TR process.
+
+Dynamic modeling is essential for understanding the occurrence and progression of TR, while providing a foundation for TR monitoring and detection. This subject has attracted a growing body of literature over the past decades. To our knowledge, the earliest study appears in [10], which develops a 1D thermal model that accounts for the reversible heat generated by electrode reactions.</pre>
+<h3>1.1 Literature Review on TR and ISC Modeling  <span class="muted small">— chars 6115–7168</span></h3>
+<pre>However, this model only suits for predicting the onset of a TR event due to its limited consideration of exothermic decomposition. An extension of [10] to 3D thermal abuse modeling is shown in [11], which takes into account the cell shapes, the spatial distributions of materials and temperatures, and the impacts of electrolyte decomposition. Other 3D thermal abuse models appear in [12, 13], which consider different exothermic reactions across the SEI, cathode, anode, and electrolyte. The work in [14] investigates modeling for ISC-triggered TR, proposing an efficiency factor to capture the conversion ofelectric energy into thermal energy when an ISC happens. The literature also includes modeling for TR under mechanical abuse [15] and intertwined with venting of gas [16, 17]. These above studies focus on TR characterization by combining thermal modeling with changes in chemical reaction rates due to reaction kinetics.
+
+Further, coupling electrochemical dynamics with thermal failure allows to enable deeper understanding and modeling of TR.</pre>
+<h3>1.1 Literature Review on TR and ISC Modeling  <span class="muted small">— chars 7047–8093</span></h3>
+<pre>Further, coupling electrochemical dynamics with thermal failure allows to enable deeper understanding and modeling of TR. Taking a lead in this regard, the work in [18] comprehensively incorporates capacity decline under high temperature, ISC due to separator failure, and decomposition reactions that release significant heat for TR prediction. Various other electrochemical-thermal models have also emerged to describe TR caused by high ambient temperature, overcharge, and others [19, 20, 21]. If TR happens to a cell in a LiB pack, it will quickly spread to the adjacent cells in a domino effect, ravaging the pack and causing more hazards. To characterize TR propagation, existing studies have either coupled cell-level 0D or 2D models by accounting for heat conduction between cells [22, 23, 24], or developed 3D models that consider key mechanisms—such as mass loss and electrolyte vaporization—underlying TR propagation [25].
+
+Note that thermal modeling for LiBs under regular operating conditions is another topic of continuous interest.</pre>
+<h3>1.1 Literature Review on TR and ISC Modeling  <span class="muted small">— chars 7982–9001</span></h3>
+<pre>Note that thermal modeling for LiBs under regular operating conditions is another topic of continuous interest. The flourishing literature encompasses a wide range of thermal models coupled with electrochemical, electrical, and mechanical behaviors, e.g., [26, 27, 28, 29, 30], to name just several. Recent years have witnessed growing use of machine learning to achieve data-driven thermal modeling [31, 32, 33].
+
+While many of the TR models reviewed above incorporate ISCs, a few other studies have specifically focused on ISC modeling for the purpose of detection or mechanistic understanding. A common approach involves introducing an ISC resistance into an equivalent circuit model, typically placed in parallel with the open-circuit voltage source [34, 35, 36, 37]. This resistance takes a low value to capture the rapid charge depletion and voltage drop that occur during an ISC event. One can further combine such models with lumped thermal models to describe ISC-induced electro-thermal behaviors [38, 39, 40].</pre>
+<h3>1.1 Literature Review on TR and ISC Modeling  <span class="muted small">— chars 8875–9308</span></h3>
+<pre>One can further combine such models with lumped thermal models to describe ISC-induced electro-thermal behaviors [38, 39, 40]. Beyond equivalent circuit modeling, some studies have rallied around pseudo 2D and 3D electrochemical-thermal modeling to characterize ISCs and their effects [41, 42, 43, 44, 45, 46]. These models provide insights into fundamental mechanisms governing the thermal and electrochemical responses during ISCs.</pre>
+<h3>1.2 Literature Review on TR and ISC Detection  <span class="muted small">— chars 9361–10526</span></h3>
+<pre>Upon its initial formation, TR can quickly spiral into uncontrollable blazes to cause catastrophic failures. Early detection of this stealthy hazard is hence critical for real-world safety of LiB-powered applications and has become an urgent challenge. A straightforward way is to develop and deploy different types of sensors to monitor precursors indicating the emergence of TR [47, 48, 49, 50, 51]. Such precursors include abnormal changes in temperature, voltage, stress, and expansion force, as well as smoke and gas leakage. Useful as its is, this passive detection approach increases the cost, weight, and design complexity of LiB systems, with its accuracy contingent on sensor precision and susceptible to ambient operating conditions. By contrast, active detection seeks to integrate multiples sources of information, like different types of data and models, to identify TR in the nascent stage, promising earlier and more accurate detection. Existing methods generally fall into two categories: data-driven and model-based.
+
+Data-driven detection methods attempt to extract features directly from measured data to find out anomalies leading to TR events.</pre>
+<h3>1.2 Literature Review on TR and ISC Detection  <span class="muted small">— chars 10397–11479</span></h3>
+<pre>Data-driven detection methods attempt to extract features directly from measured data to find out anomalies leading to TR events. The work in [52] employs multi-dimensional statistical analysis to identify and select safety-representative features for LiBs, utilizing metrics such as mean, median, variance, kurtosis, skewness, and entropy, among others. Meanwhile, TR detection is approached by comparing shape similarity between thermal measurements in [53], independent component analysis in [54], and outlier analysis [55, 56]. With the increasing data abundance for LiB systems, machine learning has stood out as a natural choice for data-driven TR detection, thanks to its capability of handling complex data and uncovering latent features or patterns [57, 58]. In this research direction, supervised learning has gained popularity, which uses labeled datasets to predict faults. The studies in [59, 60, 61] use different types of neural networks to predict the surface temperature of LiBs and then compare their predictions against measurements to pinpoint thermal anomalies.</pre>
+<h3>1.2 Literature Review on TR and ISC Detection  <span class="muted small">— chars 11480–12681</span></h3>
+<pre>Neural networks can also be trained directly to learn TR-related patterns directly from the measurements of temperature, current, and voltage [62, 63, 64]. In [65], neural networks are trained to classify thermal safety/risk levels. Integrating physics with neural networks can further enhance the fault detection accuracy [66, 67], with the idea tracing to [68]. Riding on the advances in machine learning, other techniques, such as transfer learning, Gaussian process regression and support vector machines, have found their way into thermal fault prediction or detection [69, 70, 71]. Beyond supervised learning, unsupervised learning also plays a valuable role in TR detection. Instead of relying on labeled data for training, this approach extracts computable features from raw data and applies techniques such as clustering, distance calculations, or hypothesis testing to these features to identify the onset or occurrence of TR or ISCs [72, 73, 74].
+
+Model-based methods provide another powerful means for TR and ISC detection. Dynamic models encapsulate physics-based understanding of LiBs’ behaviors within parsimonious mathematical structures, making them both expressive and generalizable.</pre>
+<h3>1.2 Literature Review on TR and ISC Detection  <span class="muted small">— chars 12682–13806</span></h3>
+<pre>Supplementing these models with real-time operating data makes it possible to develop detection methods with high data efficiency, fast computation, and broad applicability. The work in [75] employs a spatially distributed electro-thermal model with a thermal fault expression and builds observers to estimate the parameter indicative of the thermal fault. Some other studies have applied observers or Kalman filters to spatio-temporal thermal models to estimate and monitor the temperature distribution for LiBs [76, 27, 77, 31], which are extensible to TR detection. Lumped models are often favored for real-time TR detection, as their low-order equivalent circuit structures facilitate both implementation and computation. Such models usually couple the well-known Thevenin model with a thermal model. Based on them, one can evaluate the likelihood of TR by assessing the discrepancy between model predictions and measurements relative to a predefined threshold [78]. As shown in [79, 80, 81, 82], fault observers and Kalman filtering allow to choose and compute thresholds based on a LiB’s immediate operating condition.</pre>
+<h3>1.2 Literature Review on TR and ISC Detection  <span class="muted small">— chars 13807–14748</span></h3>
+<pre>While these studies focus on cell-level fault detection, pack-level detection has attracted growing interest. The method proposed in [34] estimates ISC-related parameters for each cell and then assesses the consistency of these parameters within the pack to enable ISC detection. In [37], observers are designed to estimate the leakage current of individual cells, allowing cell-to-cell comparison to reveal potential ISC incidents. The effectiveness of fault detection often depends on the availability and placement of sensors, as shown by structural analysis in [83]. To meet the practical need of using a minimum number of sensors, the study in [84, 85] proposes to include structural properties inherent to LiBs packs as extra information into a moving horizon estimation strategy for fault detection. Such properties include the behavioral uniformity among the cells under normal operation and the natural sparsity in fault occurrence.</pre>
+<h3>1.3 Statement of Contributions  <span class="muted small">— chars 14786–15905</span></h3>
+<pre>In this paper, we present a systematic study that encompasses: 1) dynamic modeling for ISC-induced TR, 2) early detection of TR events based on the proposed model. The specific contributions are as follows.
+
+First, we develop the first equivalent circuit model to describe a LiB’s electro-thermal behavior during an ISC-triggered TR event. As reviewed in Section 1.1, such a model has been absent from the literature, which to date includes only equivalent circuit models for ISCs or 1D/3D TR models grounded in reaction kinetics.
+While having an equivalent circuit structure, the proposed model—named BattBee—draws inspiration from thermo-electrochemical modeling and is designed to capture multiple key phenomena, including the impacts of a growing ISC on voltage drop, exothermic heat generation, and the resulting rapid temperature rise. With its structural simplicity, the BattBee model is well-suited for efficient TR simulation and detection in real-time usage scenarios.
+
+Second, building on the BattBee model, we develop an ISC and TR detection approach leveraging the notion of observer-based fault detection.</pre>
+<h3>1.3 Statement of Contributions  <span class="muted small">— chars 15766–16775</span></h3>
+<pre>Second, building on the BattBee model, we develop an ISC and TR detection approach leveraging the notion of observer-based fault detection. What makes our approach appealing is its simplicity and rigor in design, along with closed-form detection conditions for the sake of practical implementation. To this end, we perform piecewise linearization of the BattBee model, converting it into a set of linear submodels corresponding to different operating regimes. Given these linear submodels, we design a linear observer-based fault detection system and derive analytical bounds for the observer’s residuals— the actual residuals exceeding these bounds imply an ISC or TR event to occur. By design, the proposed approach is both easy to implement and fast to compute.
+
+We validate both the BattBee model and the proposed fault detection approach using simulations and experimental data. The results demonstrate the effectiveness of the research outcomes, highlighting their potential for a range of applications.</pre>
+<h3>1.4 Organization  <span class="muted small">— chars 16799–17289</span></h3>
+<pre>The remainder of the paper is organized as follows. Section 2describes the BattBee model, showing its governing equations and introducing the rationale underpinning it. Section 3shows the validation of the BattBee model through simulations and experiments under both normal conditions and ISC-induced TR scenarios. Section 4 presents the design of the ISC and TR detection approach, with the validation results reported in Section 5. Finally, Section 6presents the conclusion of this paper.</pre>
+<h3>2 Development of the BattBee Model  <span class="muted small">— chars 17330–17795</span></h3>
+<pre>In this section, we present the development of the BattBee model and provide the rationale behind its design. Briefly, BattBee integrates multiple equivalent circuits to represent the coupled electrical and thermal behaviors under ISC conditions. The model is derived through reducing the single-particle model by incorporating ISC and approximating TR models governed by self-heating chemical reactions.
+
+Figure 2: The BattBee model’s equivalent circuit structure.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 17824–18844</span></h3>
+<pre>As shown in Fig. 2, the BattBee model includes two sub-circuits, labled as A and B, to simulate the electric and thermal behaviors, respectively, when an ISC happens. The following is a detailed explanation for each.
+
+Sub-circuit A extends the nonlinear double-capacitor model from [86] by incorporating two ISC resistors, RISC,1R_{\mathrm{ISC},1} and RISC,2R_{\mathrm{ISC},2}. Nominally, the left part of the circuit approximates the charge transfer dynamics resulting from lithium-ion diffusion in an electrode, and the right part represents the terminal voltage. Under normal operating conditions, RISC,1R_{\mathrm{ISC},1} and RISC,2R_{\mathrm{ISC},2} are effectively infinite. However, in the event of an ISC, their values decrease significantly—approaching zero in the case of a complete ISC. As an interesting third case, though beyond the scope of this paper, the self-discharge effect is tantamount to setting RISC,1R_{\mathrm{ISC},1} to a large but finite value, while keeping RISC,2R_{\mathrm{ISC},2} infinite.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 18846–19794</span></h3>
+<pre>The governing equations of sub-circuit A are given by
+
+V ̇b​(t)\displaystyle{\dot{V}}_{b}(t)=Vs​(t)−Vb​(t)Rb​Cb,\displaystyle=\frac{V_{s}(t)-V_{b}(t)}{R_{b}C_{b}},(1a)
+
+V ̇s​(t)\displaystyle{\dot{V}}_{s}(t)=Vb​(t)−Vs​(t)Rb​Cs−Vs​(t)RISC,1​Cs+I⁡(t)Cs,\displaystyle=\frac{V_{b}(t)-V_{s}(t)}{R_{b}C_{s}}-\frac{V_{s}(t)}{R_{\mathrm{ISC,1}}C_{s}}+\frac{I(t)}{C_{s}},(1b)
+
+V⁡(t)\displaystyle V(t)=11+RoRISC,2​[U⁡(Vs​(t))+I⁡(t)​Ro].\displaystyle=\frac{1}{1+\frac{R_{o}}{R_{\mathrm{ISC,2}}}}\left[U(V_{s}(t))+I(t)R_{o}\right].(1c)
+
+In above, the capacitors CbC_{b} and CsC_{s} store charge; VbV_{b} and VsV_{s} are the voltages across them; II is the applied current, with I&gt;0I&gt;0 for charging and and I&lt;0I&lt;0 for discharging; RbR_{b} is the charge transfer resistance, and RoR_{o} is the internal resistance; U⁡(⋅)U(\cdot) is the open-circuit voltage (OCV) source. We normalize VbV_{b} and VsV_{s} such that 0≤Vb,Vs≤10\leq V_{b},V_{s}\leq 1 for convenience.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 19646–20769</span></h3>
+<pre>U⁡(⋅)U(\cdot) is the open-circuit voltage (OCV) source. We normalize VbV_{b} and VsV_{s} such that 0≤Vb,Vs≤10\leq V_{b},V_{s}\leq 1 for convenience. As such, the LiB’s capacity is Cb+CsC_{b}+C_{s}, and the state-of-charge (SoC) is
+
+SoC⁡(t)=Cb​Vb​(t)+Cs​Vs​(t)Cb+Cs×100%.\displaystyle\mathrm{SoC}(t)=\frac{C_{b}V_{b}\left(t\right)+C_{s}V_{s}\left(t\right)}{C_{b}+C_{s}}\times 100\%.(2)
+
+The LiB is fully charged with SoC=100%\mathrm{SoC}=100\% when Vb=Vs=1V_{b}=V_{s}=1, and fully depleted with SoC=0%\mathrm{SoC}=0\% when Vb=Vs=0V_{b}=V_{s}=0. Note that, at equilibrium state under normal operation, Vb=VsV_{b}=V_{s}, and thus SoC=Vs\mathrm{SoC}=V_{s}. Without loss of generality, we can parameterize U⁡(⋅)U(\cdot) as a polynomial of VsV_{s}:
+
+U⁡(Vs)=∑i=0Nλi​Vsi,U(V_{s})=\sum_{i=0}^{N}\lambda_{i}V_{s}^{i},(3)
+
+where λi\lambda_{i} for i=1,...,Ni=1,\ldots,N are the coefficients, and NN is the polynomial’s order.
+
+When an ISC occurs, the two electrodes of a LiB cell, normally kept apart by the separator, come into direct contact. This would result in high internal currents, fast charge draining, and sharp voltage drop.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 20679–21720</span></h3>
+<pre>This would result in high internal currents, fast charge draining, and sharp voltage drop. These phenomena can be grasped by the introduction of RISC,1R_{\mathrm{ISC},1} and RISC,2R_{\mathrm{ISC},2}, as described in (1). Specifically, when RISC,1R_{\mathrm{ISC},1} decreases from infinity to a small value, the charge stored in CbC_{b} and CsC_{s} is quickly discharged through RISC,1R_{\mathrm{ISC},1}, producing a large internal current. As a consequence of this rapid charge loss, VbV_{b}, VsV_{s} and SoC\mathrm{SoC} all decline, causing a drop in the terminal voltage VV. Further, when RISC,2R_{\mathrm{ISC},2} also becomes small, VV would fall precipitously. Note that the severity of the ISC event determines the values of RISC,1R_{\mathrm{ISC},1} and RISC,2R_{\mathrm{ISC},2}. Compared to this proposed design, existing equivalent circuit models for ISCs in the literature, e.g., [34, 35, 36, 37], are limited to capturing only the voltage drop.
+
+Sub-circuit B approximates the LiB’s thermal dynamics when an ISC triggers a TR event.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 21634–22107</span></h3>
+<pre>Sub-circuit B approximates the LiB’s thermal dynamics when an ISC triggers a TR event. Considering the cylindrical geometry of the cell, the model simplifies the spatial temperature distribution into a heat flow between the cell’s core and surface, following the idea in [30]. However, different from [30], this lumped thermal model accounts for various types of heat generation that dominate the TR process, with particular emphasis on heating due to exothermic reactions.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 22108–22958</span></h3>
+<pre>Sub-circuit C is governed by
+
+T ̇core​(t)\displaystyle{\dot{T}}_{\mathrm{core}}(t)=Tsurf​(t)−Tcore​(t)Rcore​Ccore+Q ̇​(t)Ccore,\displaystyle=\frac{T_{\mathrm{surf}}(t)-T_{\mathrm{core}}(t)}{R_{\mathrm{core}}C_{\mathrm{core}}}+\frac{\dot{Q}(t)}{C_{\mathrm{core}}},(4a)
+
+T ̇surf​(t)\displaystyle{\dot{T}}_{\mathrm{surf}}(t)=Tcore​(t)−Tsurf​(t)Rcore​Csurf−Tsurf​(t)−TambRsurf​Csurf,\displaystyle=\frac{T_{\mathrm{core}}(t)-T_{\mathrm{surf}}(t)}{R_{\mathrm{core}}C_{\mathrm{surf}}}-\frac{T_{\mathrm{surf}}(t)-T_{\mathrm{amb}}}{R_{\mathrm{surf}}C_{\mathrm{surf}}},(4b)
+
+where Tcore/surfT_{\mathrm{core/surf}}, Ccore/surfC_{\mathrm{core/surf}} and Rcore/surfR_{\mathrm{core/surf}} are the temperatures, thermal capacitances, conductive/convective resistances at the LiB’s core and surface, respectively, and TambT_{\mathrm{amb}} is the ambient temperature.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 22960–23490</span></h3>
+<pre>Further, the heat source term Q ̇\dot{Q} sums up the ohmic heat rate Q ̇ohm​(t)\dot{Q}_{\mathrm{ohm}}(t) and the exothermic heat rate Q ̇exo​(t)\dot{Q}_{\mathrm{exo}}(t):
+
+Q ̇​(t)=Q ̇ohm​(t)+Q ̇exo​(t),\displaystyle\dot{Q}(t)=\dot{Q}_{\mathrm{ohm}}(t)+\dot{Q}_{\mathrm{exo}}(t),(5)
+
+Q ̇ohm​(t)=I2​(t)​Ro.\displaystyle{\dot{Q}}_{\mathrm{ohm}}\left(t\right)=I^{2}(t)R_{o}.(6)
+
+Further, Q ̇exo​(t)\dot{Q}_{\mathrm{exo}}(t) accounts for the large amounts of heat released in exothermic reactions that take place during the TR process.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 23491–24432</span></h3>
+<pre>Specifically, it includes Q ̇ec​(t)\dot{Q}_{\mathrm{ec}}(t), the heat rate due to electrochemical reactions, and Q ̇decomp​(t)\dot{Q}_{\mathrm{decomp}}(t), the heat rate due to the decomposition of active materials:
+
+Q ̇exo​(t)=Q ̇ec​(t)+Q ̇decomp​(t).\displaystyle\dot{Q}_{\mathrm{exo}}(t)=\dot{Q}_{\mathrm{ec}}(t)+\dot{Q}_{\mathrm{decomp}}(t).(7)
+
+According to [14], we have
+
+Q ̇ec(t)=−hec⋅SoC ̇(t)=−hec−Vs​(t)+I⁡(t)​RISC,1RISC,1​(Cb+Cs),\displaystyle\dot{Q}_{\mathrm{ec}}(t)=-h_{\mathrm{ec}}\cdot\dot{\mathrm{SoC}}(t)=-h_{\mathrm{ec}}\frac{-V_{s}\left(t\right)+I\left(t\right)R_{\mathrm{ISC,1}}}{R_{\mathrm{ISC,1}}\left(C_{b}+C_{s}\right)},(8)
+
+where hech_{\mathrm{ec}} is an enthalpy-related coefficient for heating caused by the ISC-induced SoC loss. The active material decomposition occurs to the SEI, electrodes, and electrolyte when the LiB’s temperature becomes high. This is a dynamic process resulting in complex heat generation.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 24369–25433</span></h3>
+<pre>This is a dynamic process resulting in complex heat generation. To capture this behavior while maintaining the model’s simplicity, we introduce a lumped description for Q ̇decomp\dot{Q}_{\mathrm{decomp}}:
+
+Q ̇decomp​(t)=α1​exp⁡[α2​(Tcore​(t)−Tonset)]1+α3​exp⁡[α4​(Tcore​(t)−Tonset)],\displaystyle\dot{Q}_{\mathrm{decomp}}(t)=\frac{\alpha_{1}\exp\left[\alpha_{2}\left(T_{\mathrm{core}}(t)-T_{\mathrm{onset}}\right)\right]}{1+\alpha_{3}\exp\left[\alpha_{4}\left(T_{\mathrm{core}}(t)-T_{\mathrm{onset}}\right)\right]},(9)
+
+where TonsetT_{\mathrm{onset}} is the TR onset temperature, and αi\alpha_{i} for i=1,...,4i=1,\ldots,4 are coefficients. These coefficients are chosen such that Q ̇decomp\dot{Q}_{\mathrm{decomp}} is small or negligible when Tcore&lt;TonsetT_{\mathrm{core}}&lt;T_{\mathrm{onset}}, but large when Tcore&gt;TonsetT_{\mathrm{core}}&gt;T_{\mathrm{onset}}. Also, Q ̇decomp\dot{Q}_{\mathrm{decomp}} would take a negligible value after TcoreT_{\mathrm{core}} or TsurfT_{\mathrm{surf}} reaches a pre-specified peak temperature, due to the active material depletion.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 25434–26636</span></h3>
+<pre>The expression for Q ̇decomp\dot{Q}_{\mathrm{decomp}} in (9) represents the best formulation that we identified after exploring various alternatives. Nonetheless, other valid forms may also exist.
+
+Finally, RsurfR_{\mathrm{surf}} varies with Tsurf−TambT_{\mathrm{surf}}-T_{\mathrm{amb}}, due to the dependence of convection and radiation on temperature gradients [87]. To reflect this, we can parameterize RsurfR_{\mathrm{surf}} into a linear form as
+
+Rsurf​(Tsurf​(t))=Rsurf,0⋅(1−β⁡(Tsurf​(t)−Tamb)),{R_{\mathrm{surf}}\left(T_{\mathrm{surf}}\left(t\right)\right)}=R_{\mathrm{surf,0}}\cdot\left(1-\beta\left(T_{\mathrm{surf}}\left(t\right)-T_{\mathrm{amb}}\right)\right),(10)
+
+where Rsurf,0R_{\mathrm{surf,0}} is what RsurfR_{\mathrm{surf}} is under zero temperature gradient, and with β\beta is a coefficient typically taking 1/6001/600.
+
+Putting together (1)-(9), we obtain the mathematical setup of the BattBee model. As highlighted in Section 1.3, this model is the first equivalent circuit model to describe the electro-thermal behavior of a LiB under an ISC-triggered TR event. By design, it presents a concise, low-order structure while effectively capturing various key phenomena underlying TR.</pre>
+<h3>2.1 The BattBee Model  <span class="muted small">— chars 26518–26746</span></h3>
+<pre>By design, it presents a concise, low-order structure while effectively capturing various key phenomena underlying TR. This combination of simplicity and fidelity makes the BattBee model competent for TR detection in real world.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 26789–27521</span></h3>
+<pre>Let us elaborate on the construction of the BattBee model. Note that sub-circuit B builds upon the formulations presented in [30, 14] and has been explained in Section 2.1. Therefore, we focus solely on justifying the design of sub-circuit A. We begin with proposing an ISC-including single particle model (SPM and SPMw/ISC), drawing upon the pseudo-2D ISC model in [44]. We then reduce the SPMw/ISC model to an equivalent circuit representation, which is further simplified to yield sub-circuit A of the BattBee model.
+
+Figure 3: Single particle model with an ISC resistance.
+
+Well-known in the literature, the SPM model idealizes the electrodes of a LiB cells as spherical particles while neglecting the electrolyte dynamics [88].</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 27522–28537</span></h3>
+<pre>Lithium ions move within the spherical particles following Fick’s second law of diffusion:
+
+∂cs±​(r,t)∂t=1r2​∂∂r​[Ds±​r2​∂cs±​(r,t)∂r],\displaystyle\frac{\partial c_{s}^{\pm}(r,t)}{\partial t}=\frac{1}{r^{2}}\frac{\partial}{\partial r}\left[D_{s}^{\pm}r^{2}\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right],(11)
+
+where cs±c_{s}^{\pm} is the lithium-ion concentration within the solid-phase particle, rr is the radial coordinate, Ds±D_{s}^{\pm} is the diffusion coefficient, and the superscripts ++ and −- denote the positive and negative electrodes, respectively. The boundary conditions for (11) are
+
+∂cs±∂r|r=0=0,∂cs±∂r|r=rs±=−1Ds±​j±​(t),\left.\frac{\partial c_{s}^{\pm}}{\partial r}\right|_{r=0}=0,\ \ \ \left.\frac{\partial c_{s}^{\pm}}{\partial r}\right|_{r=r_{s}^{\pm}}=-\frac{1}{D_{s}^{\pm}}j^{\pm}\left(t\right),(12)
+
+where rs±r_{s}^{\pm} is the particle’s radius for each electrode, and j±j^{\pm} is the molar ion flux.
+Given an ISC, electrons can pass through the separator during charging/discharging.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 28454–29444</span></h3>
+<pre>Given an ISC, electrons can pass through the separator during charging/discharging. To make an analogy to this, an ISC resistance, RISC\mathsf{R}_{\mathsf{ISC}}, is introduced to the separator to conduct the electrons, causing an ISC-induced current, IISC\mathsf{I}_{\mathsf{ISC}}, as shown in Fig. 3. By Ohm’s law,
+
+IISC​(t)=Δ​UsepRISC,\displaystyle\mathsf{I}_{\mathsf{ISC}}(t)=\frac{\Delta\mathsf{U}_{\mathsf{sep}}}{\mathsf{R}_{\mathsf{ISC}}},(13)
+
+where Δ​Usep\Delta\mathsf{U}_{\mathsf{sep}} is the voltage across the separator. Note that RISC=∞\mathsf{R}_{\mathsf{ISC}}=\infty in the case of no ISC. Due to the presence of IISC\mathsf{I}_{\mathsf{ISC}}, we have
+
+j±​(t)=±I​(t)−IISC​(t)F​a±​L±​S,\displaystyle j^{\pm}(t)=\pm\frac{I(t)-\mathsf{I}_{\mathsf{ISC}}(t)}{Fa^{\pm}L^{\pm}S},(14)
+
+where II is the applied current, FF is Faraday’s constant, a±a^{\pm} is the volume specific interfacial surface area, L±L^{\pm} is the electrode thickness, and SS is the cell’s cross-sectional area.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 29445–30425</span></h3>
+<pre>The Butler-Volmer equation mandates that
+
+j±​(t)=i0±F​[exp⁡(α​FR​T​η±​(t))−exp⁡(−α​FR​T​η±​(t))],\displaystyle j^{\pm}(t)=\frac{i_{0}^{\pm}}{F}\left[\exp\left(\frac{\alpha F}{\mathcal{R}T}\eta^{\pm}(t)\right)-\exp\left(-\frac{\alpha F}{\mathcal{R}T}\eta^{\pm}(t)\right)\right],(15)
+
+where i0±i_{0}^{\pm} is the exchange current density, α\alpha is the charge transport coefficient, R\mathcal{R} is the universal gas constant, and η±\eta^{\pm} is the overpotential of reaction. Specifically, η±\eta^{\pm} is given by
+
+η±​(t)=φs±​(t)−φe±​(t)−U±​(cs​s±​(t))−F​Rf±​j±​(t),\displaystyle\eta^{\pm}(t)=\phi_{s}^{\pm}(t)-\phi_{e}^{\pm}(t)-U^{\pm}(c^{\pm}_{ss}(t))-FR_{f}^{\pm}j^{\pm}(t),(16)
+
+where φs±\phi_{s}^{\pm} and φe±\phi_{e}^{\pm} are the potential in the solid-phase electrodes and electrolyte, respectively, U±​(⋅)U^{\pm}(\cdot) is the open-circuit potential, Rf±R_{f}^{\pm} is the film resistance, and cs​s±​(t)=cs±​(rs±,t)c_{ss}^{\pm}\left(t\right)=c_{s}^{\pm}(r_{s}^{\pm},t).</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 30426–31600</span></h3>
+<pre>By (15), we have
+
+η±​(t)=R​Tα​F​sinh−1⁡(±I​(t)−IISC​(t)2​i0±​a±​L±​S).\displaystyle\eta^{\pm}(t)=\frac{\mathcal{R}T}{\alpha F}\sinh^{-1}\left(\pm\frac{I(t)-\mathsf{I}_{\mathsf{ISC}}(t)}{2i_{0}^{\pm}a^{\pm}L^{\pm}S}\right).(17)
+
+Here, sinh−1⁡(⋅)\sinh^{-1}(\cdot) is the inverse hyperbolic sine function. From the above, the terminal voltage VV then is
+
+V⁡(t)\displaystyle V(t)=φs+​(t)−φs−​(t)\displaystyle=\phi_{s}^{+}(t)-\phi_{s}^{-}(t)
+
+=U+​(cs​s+​(t))−U−​(cs​s−​(t))−Δ​Usep+φe+​(t)−φe−​(t)\displaystyle=U^{+}(c^{+}_{ss}(t))-U^{-}(c^{-}_{ss}(t))-\Delta\mathsf{U}_{\mathsf{sep}}+\phi_{e}^{+}(t)-\phi_{e}^{-}(t)
+
++η+​(t)−η−​(t)+F​Rf+​j+​(t)−F​Rf−​j−​(t).\displaystyle\quad+\eta^{+}(t)-\eta^{-}(t)+FR_{f}^{+}j^{+}(t)-FR_{f}^{-}j^{-}(t).(18)
+
+Collecting (11)-(18), we develop the SPMw/ISC model, which is the SPM model incorporating an ISC mechanism. Next, we simplify this model towards the BattBee model
+
+The simplification follows similar lines in our prior studies in [89, 86, 90]. We begin by subdividing each spherical particle into two continuous finite volume elements. The first element is a ball with a radius rb±r_{b}^{\pm}, which is an electrode’s bulky inner part;</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 31501–31748</span></h3>
+<pre>The first element is a ball with a radius rb±r_{b}^{\pm}, which is an electrode’s bulky inner part; the second element is a hallow sphere with an outer radius of rs±r_{s}^{\pm} and an inner radius of rb±r_{b}^{\pm}, which is the electrode’s shell.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 31601–32737</span></h3>
+<pre>the second element is a hallow sphere with an outer radius of rs±r_{s}^{\pm} and an inner radius of rb±r_{b}^{\pm}, which is the electrode’s shell. Based on (11), the amounts of lithium ions within each element, ns,b±n_{s,b}^{\pm} and ns,s±n_{s,s}^{\pm}, evolve by
+
+n ̇s,b±​(t)\displaystyle{\dot{n}}_{s,b}^{\pm}(t)=∫0rb±∂cs±​(r,t)∂t​4​π​r2​dr=Ds±​Sb±​∂cs±​(r,t)∂r|rb±,\displaystyle=\int_{0}^{r_{b}^{\pm}}{\frac{\partial c_{s}^{\pm}(r,t)}{\partial t}4\pi r^{2}dr}=D_{s}^{\pm}S_{b}^{\pm}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}},(19a)
+
+n ̇s,s±​(t)\displaystyle{\dot{n}}_{s,s}^{\pm}(t)=∫rb±rs±∂cs±​(r,t)∂t​4​π​r2​dr\displaystyle=\int_{r_{b}^{\pm}}^{r_{s}^{\pm}}{\frac{\partial c_{s}^{\pm}(r,t)}{\partial t}4\pi r^{2}dr}
+
+=Ds±​Ss±​∂cs±​(r,t)∂r|rs±−Ds±​Sb±​∂cs±​(r,t)∂r|rb±,\displaystyle=D_{s}^{\pm}S_{s}^{\pm}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{s}^{\pm}}-D_{s}^{\pm}S_{b}^{\pm}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}},(19b)
+
+where Sb±=4​π​(rb±)2S_{b}^{\pm}=4\pi\left(r_{b}^{\pm}\right)^{2} and Ss±=4​π​(rs±)2S_{s}^{\pm}=4\pi\left(r_{s}^{\pm}\right)^{2}.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 32738–33416</span></h3>
+<pre>To proceed, we consider the average lithium-ion concentration within the bulky inner part as c ̄s,b±​(t)\bar{c}_{s,b}^{\pm}(t) and that within the shell as c ̄s,s±​(t)\bar{c}_{s,s}^{\pm}(t), which are defined as
+
+c ̄s,b±​(t)\displaystyle\bar{c}_{s,b}^{\pm}(t)=ns,b±​(t)Δ​vb±,c ̄s,s±​(t)=ns,s±​(t)Δ​vs±,\displaystyle=\frac{n_{s,b}^{\pm}(t)}{\Delta v_{b}^{\pm}},\ \ \ \ \bar{c}_{s,s}^{\pm}(t)=\frac{n_{s,s}^{\pm}(t)}{\Delta v_{s}^{\pm}},
+
+Δ​vb±\displaystyle\Delta v_{b}^{\pm}=4​π​(rb±)33,Δ​vs±=4π[(rs±)3−(rb±)3)]3.\displaystyle={4\pi\left(r_{b}^{\pm}\right)^{3}\over 3},\ \ \ \Delta v_{s}^{\pm}={4\pi\left[\left(r_{s}^{\pm}\right)^{3}-\left(r_{b}^{\pm}\right)^{3})\right]\over 3}.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 33418–34352</span></h3>
+<pre>Then, it follows from (19) that
+
+c ̄ ̇s,b±​(t)\displaystyle{\dot{\bar{c}}}_{s,b}^{\pm}(t)=Ds±​Sb±Δ​vb±​∂cs±​(r,t)∂r|rb±,\displaystyle=\frac{D_{s}^{\pm}S_{b}^{\pm}}{\Delta v_{b}^{\pm}}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}},(20a)
+
+c ̄ ̇s,s±​(t)\displaystyle{\dot{\bar{c}}}_{s,s}^{\pm}(t)=Ds±​Ss±Δ​vs±​∂cs±​(r,t)∂r|rs±−Ds±​Sb±Δ​vs±​∂cs±​(r,t)∂r|rb±.\displaystyle=\frac{D_{s}^{\pm}S_{s}^{\pm}}{\Delta v_{s}^{\pm}}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{s}^{\pm}}-\frac{D_{s}^{\pm}S_{b}^{\pm}}{\Delta v_{s}^{\pm}}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}}.(20b)
+
+To proceed, we approximate the concentration gradient by
+
+∂cs±​(r,t)∂r|rb±≈c ̄s,s±​(t)−c ̄s,b±​(t)rs±2.\displaystyle\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}}\approx\frac{\bar{c}_{s,s}^{\pm}\left(t\right)-\bar{c}_{s,b}^{\pm}\left(t\right)}{\frac{r_{s}^{\pm}}{2}}.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 34354–35279</span></h3>
+<pre>This approximation, along with (12) and (14), leads to
+
+c ̄ ̇s,b±=\displaystyle\dot{\bar{c}}_{s,b}^{\pm}=2​Ds±​Sb±Δ​vb±​rs±​(c ̄s,s±​(t)−c ̄s,b±​(t)),\displaystyle\frac{2D_{s}^{\pm}S_{b}^{\pm}}{\Delta v_{b}^{\pm}r_{s}^{\pm}}\left(\bar{c}_{s,s}^{\pm}\left(t\right)-\bar{c}_{s,b}^{\pm}\left(t\right)\right),(21a)
+
+c ̄ ̇s,s±=\displaystyle\dot{\bar{c}}_{s,s}^{\pm}=−2​Ds±​Sb±Δ​vs±​rs±​(c ̄s,s±​(t)−c ̄s,b±​(t))\displaystyle-\frac{2D_{s}^{\pm}S_{b}^{\pm}}{\Delta v_{s}^{\pm}r_{s}^{\pm}}\left(\bar{c}_{s,s}^{\pm}\left(t\right)-\bar{c}_{s,b}^{\pm}\left(t\right)\right)
+
+∓Ss±Δ​vs±​F​a±​L±​S​[I⁡(t)−IISC​(t)].\displaystyle\mp\frac{S_{s}^{\pm}}{\Delta v_{s}^{\pm}Fa^{\pm}L^{\pm}S}\left[I(t)-\mathsf{I}_{\mathsf{ISC}}(t)\right].(21b)
+
+A close similarity between (21) and (1a)-(1b) emerges upon comparison, with the following observations:
+
+VbV_{b} and VsV_{s} correspond to c ̄s,b±{\bar{c}}_{s,b}^{\pm} and c ̄s,s±{\bar{c}}_{s,s}^{\pm};</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 35281–36449</span></h3>
+<pre>CbC_{b} and CsC_{s} mirror Δ​vb±\Delta v_{b}^{\pm} and Δ​vs±\Delta v_{s}^{\pm}, respectively, which is reasonable since CbC_{b} and CsC_{s} represents the capacitance for charge storage within the BattBee model, while Δ​vb±\Delta v_{b}^{\pm} and Δ​vs±\Delta v_{s}^{\pm} denotes the volumetric space for lithium-ion storage in the SPMwISC model;
+
+RbR_{b} is related to rs±/Ds±​Sb±r_{s}^{\pm}/D_{s}^{\pm}S_{b}^{\pm}, reflecting that the resistance for lithium-ion diffusion is proportional to rs±r_{s}^{\pm} and inversely proportional to Ds±D_{s}^{\pm} and Sb±S_{b}^{\pm};
+
+RISC,1R_{\mathrm{ISC},1} is interpretable as resulting from RISC\mathsf{R}_{\mathsf{ISC}}, given (13).
+
+Now, let us consider (18). Since sinh−1⁡(⋅)\sinh^{-1}(\cdot) lends itself to linearization, we can approximate η±​(t)\eta^{\pm}(t) as η±​(t)≈±Rη±​[I⁡(t)−IISC​(t)]\eta^{\pm}(t)\approx\pm R_{\eta}^{\pm}\left[I(t)-\mathsf{I}_{\mathsf{ISC}}(t)\right], where Rη±R_{\eta}^{\pm} results from linearizing sinh−1⁡(⋅)\sinh^{-1}(\cdot) and can be viewed as a resistance term. Further, we assume φe±​(t)=Re±​I​(t)\phi_{e}^{\pm}(t)=R_{e}^{\pm}I(t), with Re±R_{e}^{\pm} denoting the electrolyte resistance.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 36322–37147</span></h3>
+<pre>Further, we assume φe±​(t)=Re±​I​(t)\phi_{e}^{\pm}(t)=R_{e}^{\pm}I(t), with Re±R_{e}^{\pm} denoting the electrolyte resistance. Similarly, the term F​Rf+​j+​(t)−F​Rf−​j−​(t)FR_{f}^{+}j^{+}(t)-FR_{f}^{-}j^{-}(t) can be approximated as Rfilm​I​(t)R_{\mathrm{film}}I(t), where RfilmR_{\mathrm{film}} represents an aggregated film resistance. With these approximations, (18) can be rewritten as
+
+V⁡(t)\displaystyle V(t)=U+​(cs​s+​(t))−U−​(cs​s−​(t))−RISC​IISC​(t)\displaystyle=U^{+}(c^{+}_{ss}(t))-U^{-}(c^{-}_{ss}(t))-\mathsf{R}_{\mathsf{ISC}}\mathsf{I}_{\mathsf{ISC}}(t)
+
++Rtotal​I​(t)−Rη​IISC​(t),\displaystyle\quad+R_{\mathrm{total}}I(t)-R_{\eta}\mathsf{I}_{\mathsf{ISC}}(t),(22)
+
+where Rη=Rη+−Rη−R_{\eta}=R_{\eta}^{+}-R_{\eta}^{-} and Rtotal=Rη+Re+−Re−+RfilmR_{\mathrm{total}}=R_{\eta}+R_{e}^{+}-R_{e}^{-}+R_{\mathrm{film}}.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 37148–38329</span></h3>
+<pre>For (1c), we can rewrite it as
+
+V⁡(t)\displaystyle V(t)=U⁡(Vs​(t))+Ro​I​(t)−RISC,2​IISC,2​(t)\displaystyle=U(V_{s}(t))+R_{o}I(t)-R_{\mathrm{ISC},2}I_{\mathrm{ISC},2}(t)
+
+−(Ro−RISC,2)​IISC,2​(t),\displaystyle\quad-\left(R_{o}-R_{\mathrm{ISC},2}\right)I_{\mathrm{ISC},2}(t),(23)
+
+where IISC,2I_{\mathrm{ISC},2} is the current flowing through RISC,2R_{\mathrm{ISC},2}:
+
+IISC,2​(t)=U⁡(Vs​(t))+Ro​I​(t)Ro+RISC,2.\displaystyle I_{\mathrm{ISC},2}(t)=\frac{U(V_{s}(t))+R_{o}I(t)}{R_{o}+R_{\mathrm{ISC},2}}.
+
+Comparing (23) with (22), we can find out the following:
+
+U⁡(⋅)U(\cdot) corresponds to U+​(⋅)−U−​(⋅)U^{+}(\cdot)-U^{-}(\cdot);
+
+RISC,2R_{\mathrm{ISC},2} plays a role analogous to that of RISC\mathsf{R}_{\mathsf{ISC}} in the SPMwISC model;
+
+RoR_{o} corresponds to RtotalR_{\mathrm{total}}.
+
+The above derivation shows that the BattBee model is a simplified version of the SPMwISC model. As such, the BattBee model is justifiable to capture the key dynamics associated with an ISC event, while its low-order circuit structure facilitates real-world model execution. This model can be improved further for better accuracy—for example, we can let RoR_{o} vary with SoC and temperature.</pre>
+<h3>2.2 Rationale for the BattBee Model  <span class="muted small">— chars 38212–38520</span></h3>
+<pre>This model can be improved further for better accuracy—for example, we can let RoR_{o} vary with SoC and temperature. However, its current formulation is accurate enough for the purpose of TR and ISC detection and thus sufficient here, though exploring potential enhancements will be part of our future work.</pre>
+<h3>3 Validation of the BattBee Model  <span class="muted small">— chars 38560–38898</span></h3>
+<pre>In this section, we validate the BattBee model to demonstrate its effectiveness. The first validation is based on simulations using GT-SUITE/GT-AutoLion, a multi-physics simulation tool for LiBs; the second builds on experimental data, partly generated by Sandia National Laboratories [9] and partly collected at the University of Kansas.</pre>
+<h3>3.1 Simulation-Based Validation  <span class="muted small">— chars 38937–39851</span></h3>
+<pre>For the simulation, we consider an NCM811 cell paired with a graphite anode and employing an ethylene carbonate-ethyl methyl carbonate electrolyte. The cell is enclosed in an aluminum casing, with a nominal capacity of 2525 Ah and physical dimensions of 309×117×5.9309\times 117\times 5.9 mm. The cell is configured and simulated using GT-AutoLion.
+
+We begin by identifying the BattBee model under normal operating conditions, where RISC,1,RISC,2=∞R_{\mathrm{ISC},1},R_{\mathrm{ISC},2}=\infty and Q ̇exo=0\dot{Q}_{\mathrm{exo}}=0. To this end, we perform charge/discharge simulations using a range of current profiles, including UDDS, LA92, SC09, and pulse profiles, under an assumed ambient temperature of Tamb=25∘​CT_{\mathrm{amb}}=25^{\circ}\mathrm{C}. Underlying the simulations is a P2D physicochemical model embedded in GT-AutoLion.
+
+Table 1: Parameter values of the BattBee model identified from simulation.</pre>
+<h3>3.1 Simulation-Based Validation  <span class="muted small">— chars 39777–40974</span></h3>
+<pre>Table 1: Parameter values of the BattBee model identified from simulation.
+
+CbC_{b} [F]CsC_{s} [F]RbR_{b} [Ω\Omega]RoR_{o} [Ω\Omega]CcoreC_{\mathrm{core}} [J/K]CsurfC_{\mathrm{surf}} [J/K]RcoreR_{\mathrm{core}} [K/W]Rsurf,0R_{\mathrm{surf,0}} [K/W]
+
+76900.8878115.7721.236×10−3\times 10^{-3}4.322×10−3\times 10^{-3}162.760168.1290.0203.865
+
+From the simulation data, we extract the full SoC–OCV relationship represented by U⁡(⋅)U(\cdot), and estimate the remaining parameters of the BattBee model using a Bayesian-optimization-based approach proposed in [91]. The estimated parameter values are summarized in Table 1.
+
+Figure 4: UDDS current profile.
+
+(a)BattBee’s voltage prediction versus measurement under normal conditions.
+
+(b)BattBee’s temperature prediction versus measurement under normal conditions.Figure 5: Simulation-based validation of the BattBee model under normal operating conditions.
+
+To evaluate predictive accuracy, we compare the BattBee model’s voltage and temperature predictions with GT-AutoLion simulation results under a UDDS profile scaled to peak at 1 C. Figure 5 presents this comparison. Overall, the BattBee model demonstrates good agreement with the reference data.</pre>
+<h3>3.1 Simulation-Based Validation  <span class="muted small">— chars 40860–42032</span></h3>
+<pre>Figure 5 presents this comparison. Overall, the BattBee model demonstrates good agreement with the reference data. The average root mean squared error (RMSE) for voltage prediction is 3333 mV, and that for surface temperature prediction is 0.220.22 K. Some discrepancies are observed at low SoC, resulting from the use of a constant RoR_{o}. We have adopted the choice of a fixed RoR_{o} so that the BattBee models strikes a balance between model simplicity and accuracy. However, despite this simplification, the resulting level of accuracy still remains well within acceptable bounds for the purpose of TR and ISC detection.
+
+We proceed forward to evaluate the BattBee model under ISC-induced TR conditions. To this end, we first simulate an ISC event within GT-AutoLion-3D by introducing an electrically conductive element between the electrodes. This configuration leads to ISC-induced currents across the separator, causing charge losses and localized heating within the cell. As the ISC worsens and the cell’s temperature exceeds a pre-set TonsetT_{\mathrm{onset}}, the simulation is continued in GT-AutoLion-1D to capture the subsequent evolution of the TR process.</pre>
+<h3>3.1 Simulation-Based Validation  <span class="muted small">— chars 42033–43138</span></h3>
+<pre>Based on the simulation data, we perform fine-tuning of the BattBee model’s ISC- and TR-related parameters, including RISC,1R_{\mathrm{ISC},1}, RISC,2R_{\mathrm{ISC},2}, hech_{\mathrm{ec}}, and αi\alpha_{i} for i=1,...,4i=1,\ldots,4.
+
+(a)BattBee’s voltage and temperature prediction versus truth.
+
+(b)BattBee’s heat generation rates in TR.Figure 6: Simulation-based validation of the BattBee model in an ISC-induced TR event.
+
+Figure 6 present the simulation and comparison. The cell, initially fully charged, experiences an ISC beginning at the 300300-th second. This triggers a voltage dip followed by a slight recovery. Subsequently, the voltage continues to decline gradually. Meanwhile, the surface temperature begins to increase at a fast pace. At the 26232623-th second, the ISC intensifies to a critical point, leading to an abrupt voltage collapse. Beyond this point, the temperature increases exponentially, driven by the onset of exothermic decomposition reactions that generate substantial heat. As shown in Fig. 6, the BattBee model accurately predicts both voltage and temperature responses.</pre>
+<h3>3.1 Simulation-Based Validation  <span class="muted small">— chars 43041–43990</span></h3>
+<pre>As shown in Fig. 6, the BattBee model accurately predicts both voltage and temperature responses. The predictions not only closely follow the overall trends, but also capture all critical events with precision, including the ISC occurrence and the onset of the TR. Further, Fig. 6 illustrates the BattBee model’s prediction of heat generation rates underlying the TR formation. After the ISC starts, the ISC-induced heat generation term, Q ̇ec\dot{Q}_{\mathrm{ec}}, contributes significantly to the cell’s self-heating, while Q ̇decomp\dot{Q}_{\mathrm{decomp}} begins to increase rapidly from a negligible level. Following the onset of the TR, Q ̇decomp\dot{Q}_{\mathrm{decomp}} becomes the dominant contributor to heat generation. The total exothermic heat, Q ̇exo\dot{Q}_{\mathrm{exo}}, summing up both Q ̇ec\dot{Q}_{\mathrm{ec}} and Q ̇decomp\dot{Q}_{\mathrm{decomp}}, closely matches the overall heat generation in the simulation by GT-AutoLion.</pre>
+<h3>3.2 Experimental Validation  <span class="muted small">— chars 44025–44957</span></h3>
+<pre>To further validate the BattBee model, we utilize open-source experimental datasets shared by Sandia National Laboratories [9]. These datasets were collected by indentation testing to induce ISCs, followed by TR events, for various cell types. They include measurements of cell voltage and temperature, among others. Our validation has involved two cells from the datasets, a LiNi0.8​Mn0.1​Co0.1​O2\mathrm{LiNi_{0.8}Mn_{0.1}Co_{0.1}O_{2}} cell with a capacity of 1010 Ah and dimensions of 60×162×1160\times 162\times 11 mm, and a LiCoO2\mathrm{LiCoO_{2}} cell with a capacity of 6.46.4 Ah and dimensions of 49×169×849\times 169\times 8 mm. Since the results for both cells are qualitatively similar, we present here the results for only the LiNi0.8​Mn0.1​Co0.1​O2\mathrm{LiNi_{0.8}Mn_{0.1}Co_{0.1}O_{2}} cell.
+
+Figure 7: PEC® SBT4050 battery testing system.Table 2: Parameter values of the BattBee model identified from experiments.</pre>
+<h3>3.2 Experimental Validation  <span class="muted small">— chars 44836–45993</span></h3>
+<pre>Figure 7: PEC® SBT4050 battery testing system.Table 2: Parameter values of the BattBee model identified from experiments.
+
+CbC_{b} [F]CsC_{s} [F]RbR_{b} [Ω\Omega]RoR_{o} [Ω\Omega]CcoreC_{\mathrm{core}} [J/K]CsurfC_{\mathrm{surf}} [J/K]RcoreR_{\mathrm{core}} [K/W]Rsurf,0R_{\mathrm{surf,0}} [K/W]
+
+13991.75120003.4074.721×10−3\times 10^{-3}4.726×10−3\times 10^{-3}85.53910.5190.8349.936
+
+As a first step, we acquired the same cell and conducted a series of charge/discharge tests at the University of Kansas. Performed on a PEC® SBT4050 battery testing system (see Fig. 7), these tests included constant-current constant-voltage (CC/CV) charging and discharging by UDDS, LA92, SC09, and pulses. With the obtained data, we identify the BattBee model for the cell under normal fault-free operating conditions using the approach proposed in [91]. Table 2 summarizes the parameter estimation results.
+
+(a)BattBee’s voltage prediction versus measurement under normal conditions.
+
+(b)BattBee’s temperature prediction versus measurement under normal conditions.Figure 8: Experimental validation of the BattBee model under normal operating conditions.
+
+Further, Fig.</pre>
+<h3>3.2 Experimental Validation  <span class="muted small">— chars 45980–47101</span></h3>
+<pre>Further, Fig. 8 compares the model predictions with the experimental data. Overall, the BattBee model demonstrates satisfactory accuracy in predicting both voltage and temperature. The minor discrepancy observed in the temperature prediction is attributed to the use of a constant RoR_{o}, which is acceptable given the model’s primary purpose of detecting ISC and TR events.
+
+Figure 9: Hydraulically-driven mechanical indentation system at Sandia National Laboratories [9].
+
+We next evaluate the BattBee model’s predictive capability under ISC and TR conditions. Figure 9 shows the mechanically actuated, hydraulically driven indentation system at Sandia National Laboratories. This system drives an indenter to penetrate cells and induce ISCs.
+
+Figure 10: Indenter’s displacement, and compressive force applied to the cell.
+
+Figure 10 presents displacement of the indenter and the corresponding compressive force applied to the cell. Upon penetration, an ISC is initiated and progressively intensifies.
+
+(a)BattBee’s voltage and temperature prediction versus truth.
+
+(b)Zoomed-in view of BattBee’s voltage versus truth.</pre>
+<h3>3.2 Experimental Validation  <span class="muted small">— chars 46986–47893</span></h3>
+<pre>(a)BattBee’s voltage and temperature prediction versus truth.
+
+(b)Zoomed-in view of BattBee’s voltage versus truth.
+
+(c)Zoomed-in view of BattBee’s temperature prediction versus truth.Figure 11: Experimental validation of the BattBee model under ISC-induced TR, with BattBee’s prediction versus measurement in voltage and temperature.
+
+The resulting terminal voltage and surface temperature profiles are illustrated in Fig. 11. As observed, the voltage drops rapidly, exhibiting distinct phases due to the growing severity of the ISC. Meanwhile, the temperature rises sharply. With fine-tuned parameters RISC,1R_{\mathrm{ISC},1} and RISC,2R_{\mathrm{ISC},2}, the BattBee model accurately captures both voltage and temperature behaviors throughout the event, as shown in Fig. 11. This validation demonstrates the model’s effectiveness. Next up is the utilization of the model for TR and ISC detection design.</pre>
+<h3>4 Model-Based TR and ISC Fault Detection  <span class="muted small">— chars 47940–48578</span></h3>
+<pre>Based on the BattBee model, we now develop a TR and ISC detection framework in this section. The proposed framework entails two key components: the design of a detection observer for residual signal generation, and the evaluation of residuals for fault identification. We perform the development for the BattBee model in its original form, and then specialize the results to a linearized case so as to obtain closed-form residual thresholds. We first carry out the development using the original nonlinear BattBee model and then specialize the results to a linearized version in order to derive closed-form conditions for fault detection.</pre>
+<h3>4 Model-Based TR and ISC Fault Detection  <span class="muted small">— chars 48580–49661</span></h3>
+<pre>To start with, we rewrite the BattBee model into a compact fault-explicit form as below:
+
+{x ̇=(A+Af​f1)​x+B​u+Bf​f2,y=h⁡(x)+D​u+Df​f3,\displaystyle\left\{\begin{aligned} \dot{x}&amp;=(A+A_{f}f_{1})x+Bu+B_{f}f_{2},\\
+y&amp;=h(x)+Du+D_{f}f_{3},\end{aligned}\right.(24)
+
+where all the matrices are defined in (⋆\star), and
+
+x\displaystyle x=[VbVsTcoreTsurf]⊤,u=[ITambI2]⊤,\displaystyle=\left[\begin{matrix}V_{b}&amp;V_{s}&amp;T_{\mathrm{core}}&amp;T_{\mathrm{surf}}\end{matrix}\right]^{\top},\;u=\left[\begin{matrix}I&amp;T_{\mathrm{amb}}&amp;I^{2}\end{matrix}\right]^{\top},
+
+y\displaystyle y=[VTsurf]⊤,h⁡(x)=[U⁡(e2​x)e4​x]⊤,f1=1RISC,1,\displaystyle=\left[\begin{matrix}V&amp;T_{\mathrm{surf}}\end{matrix}\right]^{\top},\;h(x)=\left[\begin{matrix}U(\mathbf{e}_{2}x)&amp;\mathbf{e}_{4}x\end{matrix}\right]^{\top},\;f_{1}={1\over R_{\mathrm{ISC},1}},
+
+f2\displaystyle f_{2}=Q ̇exo,f3=−RoRo+RISC,2​[U⁡(e2​x)+Ro​I].\displaystyle=\dot{Q}_{\mathrm{exo}},\;f_{3}=-\frac{R_{o}}{R_{o}+R_{\mathrm{ISC},2}}\left[U(\mathbf{e}_{2}x)+R_{o}I\right].
+
+Here, fif_{i} for i=1,2,3i=1,2,3 are fault signals associated with the ISC and TR.</pre>
+<h3>4 Model-Based TR and ISC Fault Detection  <span class="muted small">— chars 49579–49901</span></h3>
+<pre>Here, fif_{i} for i=1,2,3i=1,2,3 are fault signals associated with the ISC and TR. They are zero or close to zero under normal operating conditions and become distinctly nonzero in the presence of a fault. Finally, ei\mathbf{e}_{i} denotes the unit vector with a value of 11 in the
+ii-th entry and 00 in all other entries.</pre>
+<h3>4 Model-Based TR and ISC Fault Detection  <span class="muted small">— chars 49785–51327</span></h3>
+<pre>Finally, ei\mathbf{e}_{i} denotes the unit vector with a value of 11 in the
+ii-th entry and 00 in all other entries.
+
+A=[−1Rb​Cb1Rb​Cb001Rb​Cs−1Rb​Cs0000−1Rcore​Ccore1Rcore​Ccore001Rcore​Csurf−1Rcore​Csurf−1Rsurf​Csurf],Af=[00000−1Cs0000000000],B=[0001Cs0000RoCcore01Rsurf​Csurf0],Bf=[001Ccore0],D=[Ro00000],Df=[10].\displaystyle\begin{aligned} A&amp;=\left[\begin{matrix}-\frac{1}{R_{b}C_{b}}&amp;\frac{1}{R_{b}C_{b}}&amp;0&amp;0\\
+\frac{1}{R_{b}C_{s}}&amp;-\frac{1}{R_{b}C_{s}}&amp;0&amp;0\\
+0&amp;0&amp;-\frac{1}{R_{\mathrm{core}}C_{\mathrm{core}}}&amp;\frac{1}{R_{\mathrm{core}}C_{\mathrm{core}}}\\
+0&amp;0&amp;\frac{1}{R_{\mathrm{core}}C_{\mathrm{surf}}}&amp;-\frac{1}{R_{\mathrm{core}}C_{\mathrm{surf}}}-\frac{1}{R_{\mathrm{surf}}C_{\mathrm{surf}}}\end{matrix}\right],\ \ \ A_{f}=\left[\begin{matrix}0&amp;0&amp;0&amp;0\cr 0&amp;-{1\over C_{s}}&amp;0&amp;0\cr 0&amp;0&amp;0&amp;0\cr 0&amp;0&amp;0&amp;0\end{matrix}\right],\\
+B&amp;=\left[\begin{matrix}0&amp;0&amp;0\\
+\frac{1}{C_{s}}&amp;0&amp;0\\
+0&amp;0&amp;\frac{R_{o}}{C_{\mathrm{core}}}\\
+0&amp;\frac{1}{R_{\mathrm{surf}}C_{\mathrm{surf}}}&amp;0\end{matrix}\right],\ \ \ B_{f}=\left[\begin{matrix}0\cr 0\cr{1\over C_{\mathrm{core}}}\cr 0\end{matrix}\right],\ \ \ D=\left[\begin{matrix}R_{o}&amp;0&amp;0\cr 0&amp;0&amp;0\end{matrix}\right],\ \ \ D_{f}=\left[\begin{matrix}1\cr 0\end{matrix}\right].\end{aligned}(⋆\star)
+
+Following [92, 93], we consider the following fault detection observer for (24):
+
+x^ ̇\displaystyle\dot{\hat{x}}=A​x^+B​u+L​r,\displaystyle=A\hat{x}+Bu+Lr,(25a)
+
+r\displaystyle r=y−h⁡(x^)−D​u,\displaystyle=y-h(\hat{x})-Du,(25b)
+
+where x^\hat{x} is the observer’s state, and rr is the residual in prediction of yy.</pre>
+<h3>4 Model-Based TR and ISC Fault Detection  <span class="muted small">— chars 51328–52355</span></h3>
+<pre>When there is no fault, x^\hat{x} is an estimate of xx, and rr is small in general. Defining x~=x−x^\tilde{x}=x-\hat{x} and using (24)-(25), we have
+
+x~ ̇\displaystyle\dot{\tilde{x}}=A​x~−L​Ψ​(x,x^)​x~,\displaystyle=A\tilde{x}-L\Psi(x,\hat{x})\tilde{x},(26a)
+
+r\displaystyle r=Ψ⁡(x,x^)​x~,\displaystyle=\Psi(x,\hat{x})\tilde{x},(26b)
+
+when fi=0f_{i}=0 for i=1,2,3i=1,2,3, where LL is a gain matrix, and
+
+Ψ⁡(x,x^)\displaystyle\Psi(x,\hat{x})=[0ψ⁡(x,x^)000001],\displaystyle=\begin{bmatrix}0&amp;\psi(x,\hat{x})&amp;0&amp;0\cr 0&amp;0&amp;0&amp;1\end{bmatrix},
+
+ψ⁡(x,x^)\displaystyle\psi(x,\hat{x})=U⁡(e2​x)−U⁡(e2​x^)e2​(x−x^).\displaystyle={U(\mathbf{e}_{2}x)-U\left(\mathbf{e}_{2}\hat{x}\right)\over\mathbf{e}_{2}\left(x-\hat{x}\right)}.
+
+For a LiB cell, the OCV function U⁡(⋅)U(\cdot) is inherently Lipschitz-continuous and monotonically increasing. It hence holds that
+
+ψ ̄≤ψ⁡(x,x^)≤ψ ̄,\displaystyle\underline{\psi}\leq\psi(x,\hat{x})\leq\bar{\psi},
+
+where ψ ̄,ψ ̄&gt;0\underline{\psi},\bar{\psi}&gt;0 are the minimum and maximum slopes of U⁡(⋅)U(\cdot).</pre>
+<h3>Theorem 1.  <span class="muted small">— chars 52376–52803</span></h3>
+<pre>When fi=0f_{i}=0 for i=1,2,3i=1,2,3, the fault detection observer in (25) is asymptotically stable if there exist P&gt;0P&gt;0, Q&gt;0Q&gt;0, and LL such that
+
+A⊤​P+P​A−H⊤​L⊤​P−P​L​H+Q≤0,\displaystyle A^{\top}P+PA-H^{\top}L^{\top}P-PLH+Q\leq 0,(27)
+
+for
+
+H=[0ψ ̄000001],and​H=[0ψ ̄000001].\displaystyle H=\begin{bmatrix}0&amp;\underline{\psi}&amp;0&amp;0\cr 0&amp;0&amp;0&amp;1\end{bmatrix},\ \mbox{and}\ H=\begin{bmatrix}0&amp;\bar{\psi}&amp;0&amp;0\cr 0&amp;0&amp;0&amp;1\end{bmatrix}.</pre>
+<h3>Proof.  <span class="muted small">— chars 52820–53957</span></h3>
+<pre>Consider the Lyapunov function candidate V⁡(x~)=12​x~⊤​P​x~V(\tilde{x})={1\over 2}\tilde{x}^{\top}P\tilde{x}. Given (26), V ̇\dot{V} is
+
+V ̇=x~⊤​[A−L​Ψ​(x,x^)]⊤​P​x~+x~⊤​P​[A−L​Ψ​(x,x^)]​x~.\displaystyle\dot{V}=\tilde{x}^{\top}\left[A-L\Psi(x,\hat{x})\right]^{\top}P\tilde{x}+\tilde{x}^{\top}P\left[A-L\Psi(x,\hat{x})\right]\tilde{x}.
+
+According to [94], if (27) holds, we have
+
+V ̇≤−x~⊤​Q​x~&lt;0,\displaystyle\dot{V}\leq-\tilde{x}^{\top}Q\tilde{x}&lt;0,
+
+for x~≠0\tilde{x}\neq 0. Therefore, the observer in (25) is asymptotically stable.
+
+Theorem 1 indicates that, when there is no fault, r→0r\rightarrow 0 when t→∞t\rightarrow\infty. But it is often inadequate to compare rr to zero in practice to identify the occurrence of a fault, due to the transient behavior of rr. To overcome this issue, we instead consider the following residual evaluation functions:
+
+J2​(t)\displaystyle J_{2}(t)=∫0t‖r⁡(τ)‖2​dτ,\displaystyle=\sqrt{\int_{0}^{t}\|r(\tau)\|^{2}d\tau},(28a)
+
+J∞​(t)\displaystyle J_{\infty}(t)=sup{∥r(τ)∥,0≤τ&lt;t},\displaystyle=\sup\left\{\|r(\tau)\|,0\leq\tau&lt;t\right\},(28b)
+
+where ∥⋅∥\|\cdot\| denotes the Euclidean norm of a vector.</pre>
+<h3>Proof.  <span class="muted small">— chars 53958–54316</span></h3>
+<pre>The design of J2J_{2} and J∞J_{\infty} is inspired by norms for signals—specifically, J2​(∞)J_{2}(\infty) and J∞​(∞)J_{\infty}(\infty) are the L2\mathcal{L}_{2}- and L∞\mathcal{L}_{\infty}-norms of the residual signal r⁡(0→t)r(0\rightarrow t) under fault-free conditions, respectively. The following lemma shows the upper bounds for J2J_{2} and J∞J_{\infty}.</pre>
+<h3>Lemma 2.  <span class="muted small">— chars 54335–55069</span></h3>
+<pre>Suppose that fi=0f_{i}=0 for i=1,2,3i=1,2,3 for (24), and that Theorem 1 holds. If ‖x~​(0)‖≤δ\|\tilde{x}(0)\|\leq\delta and ε​P−Q≤0\epsilon P-Q\leq 0 for some ε&gt;0\epsilon&gt;0, then
+
+J2​(t)≤J2,threshold,J∞​(t)≤J∞,threshold,\displaystyle J_{2}(t)\leq J_{2,\mathrm{threshold}},\ \ \ J_{\infty}(t)\leq J_{\infty,\mathrm{threshold}},(29)
+
+J2,threshold\displaystyle J_{2,\mathrm{threshold}}=max⁡{ψ ̄2,1}⋅λmax​(P)ε⋅λmin​(P)​δ,\displaystyle=\sqrt{\max\left\{\bar{\psi}^{2},1\right\}\cdot\lambda_{\max}(P)\over\epsilon\cdot\lambda_{\min}(P)}\delta,
+
+J∞,threshold\displaystyle J_{\infty,\mathrm{threshold}}=max⁡{ψ ̄2,1}⋅λmax​(P)λmin​(P)​δ.\displaystyle=\sqrt{\max\left\{\bar{\psi}^{2},1\right\}\cdot\lambda_{\max}(P)\over\lambda_{\min}(P)}\delta.</pre>
+<h3>Proof.  <span class="muted small">— chars 55086–55346</span></h3>
+<pre>Following Theorem 1, there exists ε&gt;0\epsilon&gt;0 such that ε​P−Q≤0\epsilon P-Q\leq 0. We thus have
+
+V ̇≤−x~⊤​Q​x~≤−ε​V.\displaystyle\dot{V}\leq-\tilde{x}^{\top}Q\tilde{x}\leq-\epsilon V.
+
+By the comparison principle [95], V≤e−ε​t​V​(0)V\leq e^{-\epsilon t}V(0).</pre>
+<h3>Proof.  <span class="muted small">— chars 55273–56337</span></h3>
+<pre>By the comparison principle [95], V≤e−ε​t​V​(0)V\leq e^{-\epsilon t}V(0). Since V≥λmin​(P)⋅‖x~‖2V\geq\lambda_{\min}(P)\cdot\|\tilde{x}\|^{2}, we have
+
+‖x~‖2≤e−ε​tλmin​(P)​V​(0)≤λmax​(P)λmin​(P)​δ2​e−ε​t\displaystyle\|\tilde{x}\|^{2}\leq{e^{-\epsilon t}\over\lambda_{\min}(P)}V(0)\leq{\lambda_{\max}(P)\over\lambda_{\min}(P)}\delta^{2}e^{-\epsilon t}
+
+Then, by (26b), we have
+
+‖r‖2\displaystyle\|r\|^{2}=x~⊤​Ψ⊤​(x,x^)​Ψ​(x,x^)​x~≤x~⊤​Ψ ̄⊤​Ψ ̄​x~\displaystyle=\tilde{x}^{\top}\Psi^{\top}(x,\hat{x})\Psi(x,\hat{x})\tilde{x}\leq\tilde{x}^{\top}\bar{\Psi}^{\top}\bar{\Psi}\tilde{x}
+
+≤max⁡{ψ ̄2,1}⋅‖x~‖2\displaystyle\leq\max\left\{\bar{\psi}^{2},1\right\}\cdot\|\tilde{x}\|^{2}
+
+≤max⁡{ψ ̄2,1}⋅λmax​(P)λmin​(P)​δ2​e−ε​t\displaystyle\leq{\max\left\{\bar{\psi}^{2},1\right\}\cdot\lambda_{\max}(P)\over\lambda_{\min}(P)}\delta^{2}e^{-\epsilon t}
+
+With this, we can obtain J2​(t)≤J2​(∞)≤J2,thresholdJ_{2}(t)\leq J_{2}(\infty)\leq J_{2,\mathrm{threshold}} and J∞​(t)≤J∞​(∞)≤J∞,thresholdJ_{\infty}(t)\leq J_{\infty}(\infty)\leq J_{\infty,\mathrm{threshold}}, thus proving (29).</pre>
+<h3>Proof.  <span class="muted small">— chars 56339–57213</span></h3>
+<pre>Based on Lemma 2, we introduce the following decision logic for fault detection:
+
+Jp​(t)\displaystyle J_{p}(t)≤Jp,threshold⇒no TR/ISC fault has occurred,\displaystyle\leq J_{p,\mathrm{threshold}}\ \Rightarrow\ \mbox{no TR/ISC fault has occurred},(30)
+
+Jp​(t)\displaystyle J_{p}(t)&gt;Jp,threshold⇒a TR/ISC fault has occurred,\displaystyle&gt;J_{p,\mathrm{threshold}}\ \Rightarrow\ \mbox{a TR/ISC fault has occurred},
+
+where p=2p=2 or ∞\infty. By applying this logic in conjunction with continuous residual evaluation by computing J2​(t)J_{2}(t) or J∞​(t)J_{\infty}(t), fault occurrence can be monitored and identified.
+
+For the BattBee model, the only nonlinearity appears in the OCV function U⁡(⋅)U(\cdot). This function is amenable to piecewise linearization for LiBs [96]. Leveraging this property, we can derive some direct and tighter thresholds for J2J_{2} and J∞J_{\infty}.</pre>
+<h3>Proof.  <span class="muted small">— chars 57109–57941</span></h3>
+<pre>Leveraging this property, we can derive some direct and tighter thresholds for J2J_{2} and J∞J_{\infty}. Along this line, we approximate U⁡(Vs)U(V_{s}) as a set of mm linear functions:
+
+U⁡(Vs)=ai​Vs+bi,\displaystyle U(V_{s})=a_{i}V_{s}+b_{i},
+
+where aia_{i} and bib_{i} are the slope and intercept of the ii-th segment when V ̄​Vs,i≤Vs&lt;V ̄​Vs,i\underline{\hbox to6.44446pt{\vphantom{\hbox{$V$}}}}\hskip-6.44446pt\hbox{$V$}_{s,i}\leq V_{s}&lt;\hskip 1.61108pt\overline{\hbox to6.44446pt{\vphantom{\hbox{$V$}}}}\hskip-8.05556pt\hbox{$V$}_{s,i} for i=1,2,...,mi=1,2,\ldots,m. Here V ̄​Vs,i\underline{\hbox to6.44446pt{\vphantom{\hbox{$V$}}}}\hskip-6.44446pt\hbox{$V$}_{s,i} and V ̄​Vs,i\hskip 1.61108pt\overline{\hbox to6.44446pt{\vphantom{\hbox{$V$}}}}\hskip-8.05556pt\hbox{$V$}_{s,i} are the lower and upper bounds of the ii-th segment.</pre>
+<h3>Proof.  <span class="muted small">— chars 57942–59066</span></h3>
+<pre>Then, we can translate (24) into a collection of linear models, Mi\mathcal{M}_{i} for i=1,2,...,mi=1,2,\ldots,m:
+
+Mi:{x ̇=(A+Af​f1)​x+B​u+Bf​f2,z=Ci​x+D​u+Df​f3,\displaystyle\mathcal{M}_{i}:\left\{\begin{aligned} \dot{x}&amp;=(A+A_{f}f_{1})x+Bu+B_{f}f_{2},\\
+z&amp;=C_{i}x+Du+D_{f}f_{3},\end{aligned}\right.(31)
+
+z\displaystyle z=[V−biTs],Ci=[0ai000001].\displaystyle=\begin{bmatrix}V-b_{i}\cr T_{s}\end{bmatrix},\ \ \ C_{i}=\begin{bmatrix}0&amp;a_{i}&amp;0&amp;0\cr 0&amp;0&amp;0&amp;1\end{bmatrix}.
+
+Given Mi\mathcal{M}_{i}, a linear fault detection observer can be designed following (25) and [97, 98, 99]:
+
+x^ ̇\displaystyle\dot{\hat{x}}=A​x^+B​u+Li​(y−Ci​x−D​u),\displaystyle=A\hat{x}+Bu+L_{i}\left(y-C_{i}x-Du\right),(32a)
+
+r\displaystyle r=z−Ci​x−D​u.\displaystyle=z-C_{i}x-Du.(32b)
+
+In the case of no fault, we have
+
+x~ ̇\displaystyle\dot{\tilde{x}}=A~i​x~,r=Ci​x~,\displaystyle=\tilde{A}_{i}\tilde{x},\ \ \ r=C_{i}\tilde{x},
+
+where A~i=A−Li​Ci\tilde{A}_{i}=A-L_{i}C_{i}. As a result,
+
+r=Ci​eA~i​t​x~​(0).\displaystyle r=C_{i}e^{\tilde{A}_{i}t}\tilde{x}(0).
+
+To evaluate the residual’s behavior, we continue to use J2J_{2} and J∞J_{\infty} in (28).</pre>
+<h3>Lemma 3.  <span class="muted small">— chars 59085–59881</span></h3>
+<pre>Suppose that fi=0f_{i}=0 for i=1,2,3i=1,2,3 for (31), that (A,Ci)(A,C_{i}) is detectable for i=1,2,...,mi=1,2,\ldots,m, and that ‖x~​(0)‖≤δ\|\tilde{x}(0)\|\leq\delta. Then, in the regime of Mi\mathcal{M}_{i},
+
+J2​(t)≤J2,thresholdi,J∞​(t)≤J∞,thresholdi,\displaystyle J_{2}(t)\leq J_{2,\mathrm{threshold}}^{i},\ \ \ J_{\infty}(t)\leq J_{\infty,\mathrm{threshold}}^{i},(33)
+
+J2,thresholdi\displaystyle J_{2,\mathrm{threshold}}^{i}=‖Wi‖​δ,Wi=∫0∞eA~i⊤​t​Ci⊤​Ci​eA~i​t​dt,\displaystyle=\left\|\sqrt{W_{i}}\right\|\delta,\ \ W_{i}=\int_{0}^{\infty}e^{\tilde{A}_{i}^{\top}t}C_{i}^{\top}C_{i}e^{\tilde{A}_{i}t}dt,
+
+J∞,thresholdi\displaystyle J_{\infty,\mathrm{threshold}}^{i}=supτ{‖CieA~i​τ‖δ, 0&lt;τ&lt;∞}.\displaystyle=\sup_{\tau}\left\{\left\|C_{i}e^{\tilde{A}_{i}\tau}\right\|\delta,\;0&lt;\tau&lt;\infty\right\}.</pre>
+<h3>Proof.  <span class="muted small">— chars 59898–61127</span></h3>
+<pre>We have
+
+J2​(t)\displaystyle J_{2}(t)≤sup‖x~​(0)‖≤δ∫0∞‖r⁡(τ)‖2​dτ\displaystyle\leq\sup_{\|\tilde{x}(0)\|\leq\delta}\sqrt{\int_{0}^{\infty}\|r(\tau)\|^{2}d\tau}
+
+=sup‖x~​(0)‖≤δ∫0∞x~⊤​(0)​eA~i⊤​t​Ci⊤​Ci​eA~i​t​x~​(0)​dt\displaystyle=\sup_{\|\tilde{x}(0)\|\leq\delta}\sqrt{\int_{0}^{\infty}\tilde{x}^{\top}(0)e^{\tilde{A}_{i}^{\top}t}C_{i}^{\top}C_{i}e^{\tilde{A}_{i}t}\tilde{x}(0)dt}
+
+=sup‖x~​(0)‖≤δx~⊤​(0)​∫0∞eA~i⊤​t​Ci⊤​Ci​eA~i​t​dt⏟Wi​x~​(0)\displaystyle=\sup_{\|\tilde{x}(0)\|\leq\delta}\sqrt{\tilde{x}^{\top}(0)\underbrace{\int_{0}^{\infty}e^{\tilde{A}_{i}^{\top}t}C_{i}^{\top}C_{i}e^{\tilde{A}_{i}t}dt}_{W_{i}}\tilde{x}(0)}
+
+=‖Wi‖​δ\displaystyle=\left\|\sqrt{W_{i}}\right\|\delta
+
+Similarly,
+
+J∞​(t)\displaystyle J_{\infty}(t)≤sup‖x~​(0)‖≤δ{∥r(τ)∥,0≤τ&lt;∞}\displaystyle\leq\sup_{\|\tilde{x}(0)\|\leq\delta}\left\{\|r(\tau)\|,0\leq\tau&lt;\infty\right\}
+
+=sup‖x~​(0)‖≤δ{x~⊤​(0)​eA~i⊤​τ​Ci⊤​Ci​eA~i​τ​x~​(0),0≤τ&lt;∞}\displaystyle=\sup_{\|\tilde{x}(0)\|\leq\delta}\left\{\sqrt{\tilde{x}^{\top}(0)e^{\tilde{A}_{i}^{\top}\tau}C_{i}^{\top}C_{i}e^{\tilde{A}_{i}\tau}\tilde{x}(0)},0\leq\tau&lt;\infty\right\}
+
+≤supτ{‖CieA~i​τ‖δ,0≤τ&lt;∞}.\displaystyle\leq\sup_{\tau}\left\{\left\|C_{i}e^{\tilde{A}_{i}\tau}\right\|\delta,0\leq\tau&lt;\infty\right\}.</pre>
+<h3>Proof.  <span class="muted small">— chars 61129–62143</span></h3>
+<pre>This completes the proof.
+
+Note that the notation ∥⋅∥\|\cdot\| is slightly abused above to also represent the induced 2-norm of a matrix, without causing confusion from the context. Furthermore, it is known that WiW_{i} is the observability Gramian for Mi\mathcal{M}_{i} with no fault, satisfying the following Lyapunov equation:
+
+A~i⊤​Wi+Wi​A~i=−Ci⊤​Ci.\displaystyle\tilde{A}_{i}^{\top}W_{i}+W_{i}\tilde{A}_{i}=-C_{i}^{\top}C_{i}.
+
+By solving this Lyapunov equation, one can directly compute WiW_{i} and then J2,thresholdiJ_{2,\mathrm{threshold}}^{i}. Finally, by leveraging Lemma 3, we can employ the decision logic in (30) to perform TR and ISC detection.
+
+We have the following remarks to address some practical considerations in implementing the above fault detection approach based on the piecewise linearized models. First, to determine Mi\mathcal{M}_{i} corresponding to the operating condition of the LiB cell, the current state can be continuously estimated using (32a) when no fault has been identified.</pre>
+<h3>Proof.  <span class="muted small">— chars 62144–63322</span></h3>
+<pre>Second, inevitable model inaccuracy and measurement noises can mildly alter the behavior of the residual signals to cause J2J_{2} and J∞J_{\infty} to exceed their theoretical values under normal operating conditions, potentially triggering false alarms. To alleviate this, we suggest to modify J2J_{2} as
+
+J2​(t)=∫0tη(t−τ)​‖r⁡(τ)‖2​dτ,\displaystyle J_{2}(t)=\sqrt{\int_{0}^{t}\eta^{(t-\tau)}\|r(\tau)\|^{2}\,d\tau},(34)
+
+where 0&lt;η&lt;10&lt;\eta&lt;1 is a forgetting factor to give exponentially decreasing weight to older residual values. In the discrete-time domain, J2J_{2} can be recursively computed via
+
+J2​(k+1)=η​J22​(k)+‖r⁡(k+1)‖2​Δ​t,\displaystyle J_{2}(k+1)=\sqrt{\eta J_{2}^{2}(k)+\|r(k+1)\|^{2}\Delta t},
+
+where kk is the discrete time index and Δ​t\Delta t is the sampling period. The choice of η\eta should balance the accuracy and robustness against uncertainty in fault detection; typically, η\eta is chosen to be slightly less than 1. In general, J∞J_{\infty} is less sensitive to the impact of model and measurement uncertainty. However, it is still beneficial to slightly increase J∞,thresholdiJ_{\infty,\mathrm{threshold}}^{i} to make the fault detection more robust.</pre>
+<h3>Proof.  <span class="muted small">— chars 63182–63691</span></h3>
+<pre>However, it is still beneficial to slightly increase J∞,thresholdiJ_{\infty,\mathrm{threshold}}^{i} to make the fault detection more robust. Finally, for the sake of conservatism, one can select Jp,thresholdJ_{p,\mathrm{threshold}} for p=2p=2 or ∞\infty as
+
+Jp,threshold=maxi⁡{Jp,thresholdi,i=1,2,...,m}.\displaystyle J_{p,\mathrm{threshold}}=\max_{i}\left\{J_{p,\mathrm{threshold}}^{i},i=1,2,\ldots,m\right\}.
+
+This conservative choice will help reduce the chance of false alarming in practical applications.</pre>
+<h3>5 Validation of TR and ISC Detection  <span class="muted small">— chars 63734–63942</span></h3>
+<pre>This section validates the TR and ISC detection approach proposed in Section 4. We perform the validation using both simulation and experimental data, aligned with the model validation presented in Section 3.</pre>
+<h3>5.1 Simulation-Based Validation of TR and ISC Detection  <span class="muted small">— chars 64005–65127</span></h3>
+<pre>Our first validation leverages the BattBee model identified in Section 3.1 as well as the corresponding simulation datasets. We focus on evaluating J2​(t)J_{2}(t) and choose J2,thresholdJ_{2,\mathrm{threshold}} as in Lemma 3 using the piecewise-linearized version of the BattBee model. The evaluation of J2​(t)J_{2}(t) follows (34), employing a forgetting factor η=0.95\eta=0.95 to enhance the robustness of the detection against model and measurement uncertainty, as highlighted in Section 4. In the simulation, the initial estimation error is upper bounded by δ=[0.01;0.01;0.1;0.1]\delta=[0.01;0.01;0.1;0.1]. The fault detection observer follows (34), where a Kalman gain is used for its optimality and convenience.
+
+(a)Residual signals for voltage and temperature estimates.
+
+(b)Fault detection result based on the residual evaluation function (J2J_{2}) and threshold.
+
+(c)Fault detection result based on the residual evaluation function (J∞J_{\infty}) and threshold.Figure 12: Simulation-based validation of the model-based fault detection system in an ISC-induced TR event.
+
+Figure 12 presents the validation results.</pre>
+<h3>5.1 Simulation-Based Validation of TR and ISC Detection  <span class="muted small">— chars 65085–66274</span></h3>
+<pre>Figure 12 presents the validation results.
+The ISC begins at the 300300-th second, causing a gradual decline in terminal voltage decline and a rise in the surface temperature. The ISC becomes crucially severe at the 26232623-th second to induce exothermic reactions, with the TR unfolding completely. Figure 12 illustrates the residual signals for the terminal voltage and surface temperature, generated by the fault detection observer. On the initial occurrence of the ISC, the residuals for both exhibit a noticeable jump and remain higher than usual during the process. When the ISC becomes fully fledged, the residual for the terminal voltage plummets; meanwhile, the residual for the temperature shows a sharp increase, albeit with a delay of about 100100 seconds. The fault detection results are displayed in Fig. 12 and 12. As can be seen, J2J_{2} and J∞J_{\infty} immediately exceed J2,thresholdJ_{2,\mathrm{threshold}} and J∞,thresholdJ_{\infty,\mathrm{threshold}} immediately upon the initial ISC occurrence, thereby triggering a fault alarm. Subsequently, J&gt;JthresholdJ&gt;J_{\mathrm{threshold}} hold continuously, providing persistent indication of the ISC and impending TR event.</pre>
+<h3>5.1 Simulation-Based Validation of TR and ISC Detection  <span class="muted small">— chars 66138–66587</span></h3>
+<pre>Subsequently, J&gt;JthresholdJ&gt;J_{\mathrm{threshold}} hold continuously, providing persistent indication of the ISC and impending TR event. When the full ISC occurs, J2J_{2} and J∞J_{\infty} exceed J2,thresholdJ_{2,\mathrm{threshold}} and J∞,thresholdJ_{\infty,\mathrm{threshold}} by an even larger margin. We emphasize that the fault is detected well before the TR fully unfolds, implying the model’s capability for early and reliable fault detection.</pre>
+<h3>5.2 Experimental Validation of TR and ISC Detection  <span class="muted small">— chars 66646–67840</span></h3>
+<pre>For this validation, we use experimental datasets collected by Sandia National Laboratories [9], along with the BattBee model identified in Section 2.1. The detection approach uses the piecewise linearized version of the BattBee model and evaluates J2J_{2} according to (34) with a forgetting factor of η=0.95\eta=0.95.
+
+(a)Residual signals for voltage and temperature estimates.
+
+(b)Fault detection result based on the residual evaluation function (J2J_{2}) and threshold.
+
+(c)Fault detection result based on the residual evaluation function (J∞J_{\infty}) and threshold.Figure 13: Experimental validation of the model-based fault detection system in an ISC-induced TR event.
+
+Figure 13 presents the validation results.
+The indenter induces an ISC condition the cell at around the 182182-th second. This condition deteriorates, ultimately leading to a complete failure, as evidenced by the rapid voltage drop. Concurrently, the cell temperature rises sharply, initiating a TR event. The BattBee model demonstrates strong agreement with the experimental data, confirming its predictive accuracy. When the fault detection observer is applied to the BattBee model with the experimental data, Fig.</pre>
+<h3>5.2 Experimental Validation of TR and ISC Detection  <span class="muted small">— chars 67742–68875</span></h3>
+<pre>When the fault detection observer is applied to the BattBee model with the experimental data, Fig. 13 displays the resulting residuals for terminal voltage and surface temperature. Although the residuals exhibit fluctuations due to model and measurement uncertainty, they consistently rise to higher levels following the onset of the ISC. In Fig. 13 and 13, J2J_{2} and J∞J_{\infty} are evaluated continuously, which surpass J2,thresholdJ_{2,\mathrm{threshold}} and J∞,thresholdJ_{\infty,\mathrm{threshold}} right after the ISC occurs, leading to an effective detection of both the ISC and the subsequent TR event.
+
+For the pouch cell under testing, the surface temperature was measured at six different locations: Tsurf,1T_{\mathrm{surf,1}} near the positive terminal, Tsurf,2T_{\mathrm{surf,2}} near the negative terminal, Tsurf,3T_{\mathrm{surf,3}} at the bottom, Tsurf,4T_{\mathrm{surf,4}} at the top, Tsurf,5T_{\mathrm{surf,5}} above the penetration point, and Tsurf,6T_{\mathrm{surf,6}} below the penetration point.
+
+Figure 14: Temperature evolution at six surface locations of a pouch cell under localized ISC-induced heating.</pre>
+<h3>5.2 Experimental Validation of TR and ISC Detection  <span class="muted small">— chars 68765–69807</span></h3>
+<pre>Figure 14: Temperature evolution at six surface locations of a pouch cell under localized ISC-induced heating.
+
+Figure 14 illustrates the temperature evolution at these six locations. Each measurement exhibits different response speeds and magnitudes of temperature rise, reflecting the localized heating effects caused by the ISC. In general, the closer a sensor is to the penetration point, the more rapidly the temperature increases. Nonetheless, all locations experience substantial temperature escalation.
+
+(a)Fault detection result based on the residual evaluation function (J2J_{2}) and threshold.
+
+(b)Fault detection result based on the residual evaluation function (J∞J_{\infty}) and threshold.Figure 15: Fault detection results using temperature measurements from six surface locations.
+
+Figure 15 presents the fault detection performance using the temperature measurements from each of these locations by evaluating the corresponding residual evaluation functions. In all cases, the ISC and subsequent TR are successfully detected.</pre>
+<h3>5.2 Experimental Validation of TR and ISC Detection  <span class="muted small">— chars 69741–70409</span></h3>
+<pre>In all cases, the ISC and subsequent TR are successfully detected. Notably, detection is achieved even with relatively milder temperature increases observed in Tsurf,1T_{\mathrm{surf,1}}, Tsurf,2T_{\mathrm{surf,2}}, Tsurf,3T_{\mathrm{surf,3}}, and Tsurf,4T_{\mathrm{surf,4}}, despite their locations farther from the penetration point. Across all locations, detection occurs more than 3030 seconds prior to the cell reaching its peak temperature. This lead time enhances safety assurance and helps mitigate the consequences of TR on users and surrounding assets. These validation results demonstrate the robustness and effectiveness of the proposed detection approach.</pre>
+<h3>6 Conclusion  <span class="muted small">— chars 70428–71599</span></h3>
+<pre>Safety is at high stakes, as LiBs are enabling the sweeping advancement of electric vehicles and will continue to power future industries and societies. However, LiBs have yet to fully meet this need, while they are widely recognized as the leading energy storage technology with high energy density and long cycle life. Critical concerns lie in the threat of TR events that are often triggered by ISCs. This challenge has prompted ever-growing research aimed at developing effective solutions. Even though the literature on ISC-induced TR modeling is increasing, there is still a lack of dynamic models with structural simplicity and computational efficiency necessary for practical battery management systems. In this paper, we propose a novel equivalent circuit model called BattBee to fill this gap. By design, the BattBee model is a circuit analog simplifying an electrochemical model (SPM) coupled with an ISC mechanism. With this physical interpretability, the model is capable of simulating various key phenomena arising in TR initiated by ISC conditions—including rapid charge depletion, voltage collapse, heat generation and buildup, and temperature escalation.</pre>
+<h3>6 Conclusion  <span class="muted small">— chars 71600–72358</span></h3>
+<pre>Building on the BattBee model, we further propose an observer-based fault detection approach to achieve real-time monitoring and identification of ISC and TR events. This approach includes explicit detection criteria and decision logics, well-suited for practical implementation. Validation using both simulation and experimental data demonstrates that the BattBee model delivers high fidelity and predictive accuracy, while the detection framework effectively enables early identification of ISC and TR conditions. Looking ahead, we aim to enhance the descriptive capabilities of the BattBee model more, improve the detection methodology accordingly, and conduct experimental validation to LiB cells with different geometries and chemistries.
+
+\printcredits</pre>
+<h3>Declaration of Competing Interest  <span class="muted small">— chars 72398–72568</span></h3>
+<pre>The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.</pre>
+<h3>Data Availability  <span class="muted small">— chars 72592–72631</span></h3>
+<pre>Data will be made available on request.</pre>
+<h3>Acknowledgement  <span class="muted small">— chars 72653–72836</span></h3>
+<pre>This work was supported in part by the U.S. Department of Energy under Award DE-EE0010404, by the U.S. National Science Foundation under Award CMMI-1847651, and by Gamma Technologies.</pre>
+
+<h2>Extracted claims (200)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A common approach involves introducing an ISC resistance into an equivalent circuit model, typically placed in parallel with the open-circuit voltage source [34, 35, 36, 37].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Instead of relying on labeled data for training, this approach extracts computable features from raw data and applies techniques such as clustering, distance calculations, or hypothesis testing to these features to identify the onset or occurrence of TR or ISCs [72, 73, 74].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As can be seen, J2J_{2} and J∞J_{\infty} immediately exceed J2,thresholdJ_{2,\mathrm{threshold}} and J∞,thresholdJ_{\infty,\mathrm{threshold}} immediately upon the initial ISC occurrence, thereby triggering a fault alarm.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Leveraging this property, we can derive some direct and tighter thresholds for J2J_{2} and J∞J_{\infty}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">c ̄ ̇s,b±​(t)\displaystyle{\dot{\bar{c}}}_{s,b}^{\pm}(t)=Ds±​Sb±Δ​vb±​∂cs±​(r,t)∂r|rb±,\displaystyle=\frac{D_{s}^{\pm}S_{b}^{\pm}}{\Delta v_{b}^{\pm}}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}},(20a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J2​(t)\displaystyle J_{2}(t)=∫0t‖r⁡(τ)‖2​dτ,\displaystyle=\sqrt{\int_{0}^{t}\|r(\tau)\|^{2}d\tau},(28a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When fi=0f_{i}=0 for i=1,2,3i=1,2,3, the fault detection observer in (25) is asymptotically stable if there exist P&gt;0P&gt;0, Q&gt;0Q&gt;0, and LL such that</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">η±​(t)=R​Tα​F​sinh−1⁡(±I​(t)−IISC​(t)2​i0±​a±​L±​S).\displaystyle\eta^{\pm}(t)=\frac{\mathcal{R}T}{\alpha F}\sinh^{-1}\left(\pm\frac{I(t)-\mathsf{I}_{\mathsf{ISC}}(t)}{2i_{0}^{\pm}a^{\pm}L^{\pm}S}\right).(17)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As shown in [79, 80, 81, 82], fault observers and Kalman filtering allow to choose and compute thresholds based on a LiB’s immediate operating condition.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J∞​(t)\displaystyle J_{\infty}(t)=sup{∥r(τ)∥,0≤τ&lt;t},\displaystyle=\sup\left\{\|r(\tau)\|,0\leq\tau&lt;t\right\},(28b)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sub-circuit A extends the nonlinear double-capacitor model from [86] by incorporating two ISC resistors, RISC,1R_{\mathrm{ISC},1} and RISC,2R_{\mathrm{ISC},2}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The studies in [59, 60, 61] use different types of neural networks to predict the surface temperature of LiBs and then compare their predictions against measurements to pinpoint thermal anomalies.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The evaluation of J2​(t)J_{2}(t) follows (34), employing a forgetting factor η=0.95\eta=0.95 to enhance the robustness of the detection against model and measurement uncertainty, as highlighted in Section 4.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">y\displaystyle y=[VTsurf]⊤,h⁡(x)=[U⁡(e2​x)e4​x]⊤,f1=1RISC,1,\displaystyle=\left[\begin{matrix}V&amp;T_{\mathrm{surf}}\end{matrix}\right]^{\top},\;h(x)=\left[\begin{matrix}U(\mathbf{e}_{2}x)&amp;\mathbf{e}_{4}x\end{matrix}\right]^{\top},\;f_{1}={1\over R_{\mathrm{ISC},1}},</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">0&amp;\frac{1}{R_{\mathrm{surf}}C_{\mathrm{surf}}}&amp;0\end{matrix}\right],\ \ \ B_{f}=\left[\begin{matrix}0\cr 0\cr{1\over C_{\mathrm{core}}}\cr 0\end{matrix}\right],\ \ \ D=\left[\begin{matrix}R_{o}&amp;0&amp;0\cr 0&amp;0&amp;0\end{matrix}\right],\ \ \ D_{f}=\left[\begin{matrix}1\cr 0\end{matrix}\right].\end{aligned}(⋆\star)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Leveraging this property, we can derive some direct and tighter thresholds for J2J_{2} and J∞J_{\infty}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(b)BattBee’s temperature prediction versus measurement under normal conditions.Figure 5: Simulation-based validation of the BattBee model under normal operating conditions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">T ̇core​(t)\displaystyle{\dot{T}}_{\mathrm{core}}(t)=Tsurf​(t)−Tcore​(t)Rcore​Ccore+Q ̇​(t)Ccore,\displaystyle=\frac{T_{\mathrm{surf}}(t)-T_{\mathrm{core}}(t)}{R_{\mathrm{core}}C_{\mathrm{core}}}+\frac{\dot{Q}(t)}{C_{\mathrm{core}}},(4a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fault detection results are displayed in Fig. 12 and 12.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Following [92, 93], we consider the following fault detection observer for (24):</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ψ⁡(x,x^)\displaystyle\Psi(x,\hat{x})=[0ψ⁡(x,x^)000001],\displaystyle=\begin{bmatrix}0&amp;\psi(x,\hat{x})&amp;0&amp;0\cr 0&amp;0&amp;0&amp;1\end{bmatrix},</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In Fig. 13 and 13, J2J_{2} and J∞J_{\infty} are evaluated continuously, which surpass J2,thresholdJ_{2,\mathrm{threshold}} and J∞,thresholdJ_{\infty,\mathrm{threshold}} right after the ISC occurs, leading to an effective detection of both the ISC and the subsequent TR event.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J2​(t)\displaystyle J_{2}(t)≤sup‖x~​(0)‖≤δ∫0∞‖r⁡(τ)‖2​dτ\displaystyle\leq\sup_{\|\tilde{x}(0)\|\leq\delta}\sqrt{\int_{0}^{\infty}\|r(\tau)\|^{2}d\tau}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To this end, we perform charge/discharge simulations using a range of current profiles, including UDDS, LA92, SC09, and pulse profiles, under an assumed ambient temperature of Tamb=25∘​CT_{\mathrm{amb}}=25^{\circ}\mathrm{C}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J2,thresholdi\displaystyle J_{2,\mathrm{threshold}}^{i}=‖Wi‖​δ,Wi=∫0∞eA~i⊤​t​Ci⊤​Ci​eA~i​t​dt,\displaystyle=\left\|\sqrt{W_{i}}\right\|\delta,\ \ W_{i}=\int_{0}^{\infty}e^{\tilde{A}_{i}^{\top}t}C_{i}^{\top}C_{i}e^{\tilde{A}_{i}t}dt,</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">+Rtotal​I​(t)−Rη​IISC​(t),\displaystyle\quad+R_{\mathrm{total}}I(t)-R_{\eta}\mathsf{I}_{\mathsf{ISC}}(t),(22)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The ISC begins at the 300300-th second, causing a gradual decline in terminal voltage decline and a rise in the surface temperature.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Considering the cylindrical geometry of the cell, the model simplifies the spatial temperature distribution into a heat flow between the cell’s core and surface, following the idea in [30].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Jp,threshold=maxi⁡{Jp,thresholdi,i=1,2,...,m}.\displaystyle J_{p,\mathrm{threshold}}=\max_{i}\left\{J_{p,\mathrm{threshold}}^{i},i=1,2,\ldots,m\right\}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Based on the simulation data, we perform fine-tuning of the BattBee model’s ISC- and TR-related parameters, including RISC,1R_{\mathrm{ISC},1}, RISC,2R_{\mathrm{ISC},2}, hech_{\mathrm{ec}}, and αi\alpha_{i} for i=1,...,4i=1,\ldots,4.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Meanwhile, TR detection is approached by comparing shape similarity between thermal measurements in [53], independent component analysis in [54], and outlier analysis [55, 56].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Our first validation leverages the BattBee model identified in Section 3.1 as well as the corresponding simulation datasets.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With this, we can obtain J2​(t)≤J2​(∞)≤J2,thresholdJ_{2}(t)\leq J_{2}(\infty)\leq J_{2,\mathrm{threshold}} and J∞​(t)≤J∞​(∞)≤J∞,thresholdJ_{\infty}(t)\leq J_{\infty}(\infty)\leq J_{\infty,\mathrm{threshold}}, thus proving (29).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Beyond equivalent circuit modeling, some studies have rallied around pseudo 2D and 3D electrochemical-thermal modeling to characterize ISCs and their effects [41, 42, 43, 44, 45, 46].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 14: Temperature evolution at six surface locations of a pouch cell under localized ISC-induced heating.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To evaluate the residual’s behavior, we continue to use J2J_{2} and J∞J_{\infty} in (28).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Here, sinh−1⁡(⋅)\sinh^{-1}(\cdot) is the inverse hyperbolic sine function.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">z\displaystyle z=[V−biTs],Ci=[0ai000001].\displaystyle=\begin{bmatrix}V-b_{i}\cr T_{s}\end{bmatrix},\ \ \ C_{i}=\begin{bmatrix}0&amp;a_{i}&amp;0&amp;0\cr 0&amp;0&amp;0&amp;1\end{bmatrix}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Integrating physics with neural networks can further enhance the fault detection accuracy [66, 67], with the idea tracing to [68].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This function is amenable to piecewise linearization for LiBs [96].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To further validate the BattBee model, we utilize open-source experimental datasets shared by Sandia National Laboratories [9].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The ISC becomes crucially severe at the 26232623-th second to induce exothermic reactions, with the TR unfolding completely.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The cell is enclosed in an aluminum casing, with a nominal capacity of 2525 Ah and physical dimensions of 309×117×5.9309\times 117\times 5.9 mm.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Here, fif_{i} for i=1,2,3i=1,2,3 are fault signals associated with the ISC and TR.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">c ̄ ̇s,s±=\displaystyle\dot{\bar{c}}_{s,s}^{\pm}=−2​Ds±​Sb±Δ​vs±​rs±​(c ̄s,s±​(t)−c ̄s,b±​(t))\displaystyle-\frac{2D_{s}^{\pm}S_{b}^{\pm}}{\Delta v_{s}^{\pm}r_{s}^{\pm}}\left(\bar{c}_{s,s}^{\pm}\left(t\right)-\bar{c}_{s,b}^{\pm}\left(t\right)\right)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">By applying this logic in conjunction with continuous residual evaluation by computing J2​(t)J_{2}(t) or J∞​(t)J_{\infty}(t), fault occurrence can be monitored and identified.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ii-th entry and 00 in all other entries.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">{x ̇=(A+Af​f1)​x+B​u+Bf​f2,y=h⁡(x)+D​u+Df​f3,\displaystyle\left\{\begin{aligned} \dot{x}&amp;=(A+A_{f}f_{1})x+Bu+B_{f}f_{2},\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Table 2 summarizes the parameter estimation results.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">IISC​(t)=Δ​UsepRISC,\displaystyle\mathsf{I}_{\mathsf{ISC}}(t)=\frac{\Delta\mathsf{U}_{\mathsf{sep}}}{\mathsf{R}_{\mathsf{ISC}}},(13)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where λi\lambda_{i} for i=1,...,Ni=1,\ldots,N are the coefficients, and NN is the polynomial’s order.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where Sb±=4​π​(rb±)2S_{b}^{\pm}=4\pi\left(r_{b}^{\pm}\right)^{2} and Ss±=4​π​(rs±)2S_{s}^{\pm}=4\pi\left(r_{s}^{\pm}\right)^{2}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">‖r‖2\displaystyle\|r\|^{2}=x~⊤​Ψ⊤​(x,x^)​Ψ​(x,x^)​x~≤x~⊤​Ψ ̄⊤​Ψ ̄​x~\displaystyle=\tilde{x}^{\top}\Psi^{\top}(x,\hat{x})\Psi(x,\hat{x})\tilde{x}\leq\tilde{x}^{\top}\bar{\Psi}^{\top}\bar{\Psi}\tilde{x}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J∞​(t)\displaystyle J_{\infty}(t)≤sup‖x~​(0)‖≤δ{∥r(τ)∥,0≤τ&lt;∞}\displaystyle\leq\sup_{\|\tilde{x}(0)\|\leq\delta}\left\{\|r(\tau)\|,0\leq\tau&lt;\infty\right\}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">CbC_{b} [F]CsC_{s} [F]RbR_{b} [Ω\Omega]RoR_{o} [Ω\Omega]CcoreC_{\mathrm{core}} [J/K]CsurfC_{\mathrm{surf}} [J/K]RcoreR_{\mathrm{core}} [K/W]Rsurf,0R_{\mathrm{surf,0}} [K/W]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Based on (11), the amounts of lithium ions within each element, ns,b±n_{s,b}^{\pm} and ns,s±n_{s,s}^{\pm}, evolve by</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To alleviate this, we suggest to modify J2J_{2} as</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Recent years have witnessed growing use of machine learning to achieve data-driven thermal modeling [31, 32, 33].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(b)Fault detection result based on the residual evaluation function (J2J_{2}) and threshold.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">\frac{1}{R_{b}C_{s}}&amp;-\frac{1}{R_{b}C_{s}}&amp;0&amp;0\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Section 4 presents the design of the ISC and TR detection approach, with the validation results reported in Section 5.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 10: Indenter’s displacement, and compressive force applied to the cell.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When the fault detection observer is applied to the BattBee model with the experimental data, Fig. 13 displays the resulting residuals for terminal voltage and surface temperature.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Second, inevitable model inaccuracy and measurement noises can mildly alter the behavior of the residual signals to cause J2J_{2} and J∞J_{\infty} to exceed their theoretical values under normal operating conditions, potentially triggering false alarms.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As an interesting third case, though beyond the scope of this paper, the self-discharge effect is tantamount to setting RISC,1R_{\mathrm{ISC},1} to a large but finite value, while keeping RISC,2R_{\mathrm{ISC},2} infinite.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the simulation, the initial estimation error is upper bounded by δ=[0.01;0.01;0.1;0.1]\delta=[0.01;0.01;0.1;0.1].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We normalize VbV_{b} and VsV_{s} such that 0≤Vb,Vs≤10\leq V_{b},V_{s}\leq 1 for convenience.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This approximation, along with (12) and (14), leads to</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">n ̇s,b±​(t)\displaystyle{\dot{n}}_{s,b}^{\pm}(t)=∫0rb±∂cs±​(r,t)∂t​4​π​r2​dr=Ds±​Sb±​∂cs±​(r,t)∂r|rb±,\displaystyle=\int_{0}^{r_{b}^{\pm}}{\frac{\partial c_{s}^{\pm}(r,t)}{\partial t}4\pi r^{2}dr}=D_{s}^{\pm}S_{b}^{\pm}\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}},(19a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The average root mean squared error (RMSE) for voltage prediction is 3333 mV, and that for surface temperature prediction is 0.220.22 K.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Comparing (23) with (22), we can find out the following:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To this end, we first simulate an ISC event within GT-AutoLion-3D by introducing an electrically conductive element between the electrodes.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">y&amp;=h(x)+Du+D_{f}f_{3},\end{aligned}\right.(24)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Q ̇decomp​(t)=α1​exp⁡[α2​(Tcore​(t)−Tonset)]1+α3​exp⁡[α4​(Tcore​(t)−Tonset)],\displaystyle\dot{Q}_{\mathrm{decomp}}(t)=\frac{\alpha_{1}\exp\left[\alpha_{2}\left(T_{\mathrm{core}}(t)-T_{\mathrm{onset}}\right)\right]}{1+\alpha_{3}\exp\left[\alpha_{4}\left(T_{\mathrm{core}}(t)-T_{\mathrm{onset}}\right)\right]},(9)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">CbC_{b} [F]CsC_{s} [F]RbR_{b} [Ω\Omega]RoR_{o} [Ω\Omega]CcoreC_{\mathrm{core}} [J/K]CsurfC_{\mathrm{surf}} [J/K]RcoreR_{\mathrm{core}} [K/W]Rsurf,0R_{\mathrm{surf,0}} [K/W]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With fine-tuned parameters RISC,1R_{\mathrm{ISC},1} and RISC,2R_{\mathrm{ISC},2}, the BattBee model accurately captures both voltage and temperature behaviors throughout the event, as shown in Fig. 11.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(c)Zoomed-in view of BattBee’s temperature prediction versus truth.Figure 11: Experimental validation of the BattBee model under ISC-induced TR, with BattBee’s prediction versus measurement in voltage and temperature.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">From the simulation data, we extract the full SoC–OCV relationship represented by U⁡(⋅)U(\cdot), and estimate the remaining parameters of the BattBee model using a Bayesian-optimization-based approach proposed in [91].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Well-known in the literature, the SPM model idealizes the electrodes of a LiB cells as spherical particles while neglecting the electrolyte dynamics [88].</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Underlying the simulations is a P2D physicochemical model embedded in GT-AutoLion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J2​(k+1)=η​J22​(k)+‖r⁡(k+1)‖2​Δ​t,\displaystyle J_{2}(k+1)=\sqrt{\eta J_{2}^{2}(k)+\|r(k+1)\|^{2}\Delta t},</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">0&amp;0&amp;-\frac{1}{R_{\mathrm{core}}C_{\mathrm{core}}}&amp;\frac{1}{R_{\mathrm{core}}C_{\mathrm{core}}}\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Mi:{x ̇=(A+Af​f1)​x+B​u+Bf​f2,z=Ci​x+D​u+Df​f3,\displaystyle\mathcal{M}_{i}:\left\{\begin{aligned} \dot{x}&amp;=(A+A_{f}f_{1})x+Bu+B_{f}f_{2},\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Note that sub-circuit B builds upon the formulations presented in [30, 14] and has been explained in Section 2.1.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">−(Ro−RISC,2)​IISC,2​(t),\displaystyle\quad-\left(R_{o}-R_{\mathrm{ISC},2}\right)I_{\mathrm{ISC},2}(t),(23)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">∂cs±​(r,t)∂r|rb±≈c ̄s,s±​(t)−c ̄s,b±​(t)rs±2.\displaystyle\left.\frac{\partial c_{s}^{\pm}(r,t)}{\partial r}\right|_{r_{b}^{\pm}}\approx\frac{\bar{c}_{s,s}^{\pm}\left(t\right)-\bar{c}_{s,b}^{\pm}\left(t\right)}{\frac{r_{s}^{\pm}}{2}}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">c ̄ ̇s,b±=\displaystyle\dot{\bar{c}}_{s,b}^{\pm}=2​Ds±​Sb±Δ​vb±​rs±​(c ̄s,s±​(t)−c ̄s,b±​(t)),\displaystyle\frac{2D_{s}^{\pm}S_{b}^{\pm}}{\Delta v_{b}^{\pm}r_{s}^{\pm}}\left(\bar{c}_{s,s}^{\pm}\left(t\right)-\bar{c}_{s,b}^{\pm}\left(t\right)\right),(21a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The work in [14] investigates modeling for ISC-triggered TR, proposing an efficiency factor to capture the conversion ofelectric energy into thermal energy when an ISC happens.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The cell, initially fully charged, experiences an ISC beginning at the 300300-th second.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where i0±i_{0}^{\pm} is the exchange current density, α\alpha is the charge transport coefficient, R\mathcal{R} is the universal gas constant, and η±\eta^{\pm} is the overpotential of reaction.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The effectiveness of fault detection often depends on the availability and placement of sensors, as shown by structural analysis in [83].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(b)Fault detection result based on the residual evaluation function (J∞J_{\infty}) and threshold.Figure 15: Fault detection results using temperature measurements from six surface locations.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">V⁡(t)\displaystyle V(t)=11+RoRISC,2​[U⁡(Vs​(t))+I⁡(t)​Ro].\displaystyle=\frac{1}{1+\frac{R_{o}}{R_{\mathrm{ISC,2}}}}\left[U(V_{s}(t))+I(t)R_{o}\right].(1c)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">According to [94], if (27) holds, we have</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With these approximations, (18) can be rewritten as</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Section 2describes the BattBee model, showing its governing equations and introducing the rationale underpinning it.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">IISC,2​(t)=U⁡(Vs​(t))+Ro​I​(t)Ro+RISC,2.\displaystyle I_{\mathrm{ISC},2}(t)=\frac{U(V_{s}(t))+R_{o}I(t)}{R_{o}+R_{\mathrm{ISC},2}}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To make an analogy to this, an ISC resistance, RISC\mathsf{R}_{\mathsf{ISC}}, is introduced to the separator to conduct the electrons, causing an ISC-induced current, IISC\mathsf{I}_{\mathsf{ISC}}, as shown in Fig. 3.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Table 1: Parameter values of the BattBee model identified from simulation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We focus on evaluating J2​(t)J_{2}(t) and choose J2,thresholdJ_{2,\mathrm{threshold}} as in Lemma 3 using the piecewise-linearized version of the BattBee model.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Specifically, when RISC,1R_{\mathrm{ISC},1} decreases from infinity to a small value, the charge stored in CbC_{b} and CsC_{s} is quickly discharged through RISC,1R_{\mathrm{ISC},1}, producing a large internal current.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Table 1: Parameter values of the BattBee model identified from simulation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Finally, by leveraging Lemma 3, we can employ the decision logic in (30) to perform TR and ISC detection.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The above derivation shows that the BattBee model is a simplified version of the SPMwISC model.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Following Theorem 1, there exists ε&gt;0\epsilon&gt;0 such that ε​P−Q≤0\epsilon P-Q\leq 0.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To our knowledge, the earliest study appears in [10], which develops a 1D thermal model that accounts for the reversible heat generated by electrode reactions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">j±​(t)=i0±F​[exp⁡(α​FR​T​η±​(t))−exp⁡(−α​FR​T​η±​(t))],\displaystyle j^{\pm}(t)=\frac{i_{0}^{\pm}}{F}\left[\exp\left(\frac{\alpha F}{\mathcal{R}T}\eta^{\pm}(t)\right)-\exp\left(-\frac{\alpha F}{\mathcal{R}T}\eta^{\pm}(t)\right)\right],(15)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">U⁡(Vs)=∑i=0Nλi​Vsi,U(V_{s})=\sum_{i=0}^{N}\lambda_{i}V_{s}^{i},(3)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The LiB is fully charged with SoC=100%\mathrm{SoC}=100\% when Vb=Vs=1V_{b}=V_{s}=1, and fully depleted with SoC=0%\mathrm{SoC}=0\% when Vb=Vs=0V_{b}=V_{s}=0.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Given Mi\mathcal{M}_{i}, a linear fault detection observer can be designed following (25) and [97, 98, 99]:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Rsurf​(Tsurf​(t))=Rsurf,0⋅(1−β⁡(Tsurf​(t)−Tamb)),{R_{\mathrm{surf}}\left(T_{\mathrm{surf}}\left(t\right)\right)}=R_{\mathrm{surf,0}}\cdot\left(1-\beta\left(T_{\mathrm{surf}}\left(t\right)-T_{\mathrm{amb}}\right)\right),(10)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">76900.8878115.7721.236×10−3\times 10^{-3}4.322×10−3\times 10^{-3}162.760168.1290.0203.865</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">r\displaystyle r=y−h⁡(x^)−D​u,\displaystyle=y-h(\hat{x})-Du,(25b)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Q ̇ohm​(t)=I2​(t)​Ro.\displaystyle{\dot{Q}}_{\mathrm{ohm}}\left(t\right)=I^{2}(t)R_{o}.(6)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 14: Temperature evolution at six surface locations of a pouch cell under localized ISC-induced heating.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, different from [30], this lumped thermal model accounts for various types of heat generation that dominate the TR process, with particular emphasis on heating due to exothermic reactions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Based on Lemma 2, we introduce the following decision logic for fault detection:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">By the comparison principle [95], V≤e−ε​t​V​(0)V\leq e^{-\epsilon t}V(0).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J2,threshold\displaystyle J_{2,\mathrm{threshold}}=max⁡{ψ ̄2,1}⋅λmax​(P)ε⋅λmin​(P)​δ,\displaystyle=\sqrt{\max\left\{\bar{\psi}^{2},1\right\}\cdot\lambda_{\max}(P)\over\epsilon\cdot\lambda_{\min}(P)}\delta,</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Jp​(t)\displaystyle J_{p}(t)≤Jp,threshold⇒no TR/ISC fault has occurred,\displaystyle\leq J_{p,\mathrm{threshold}}\ \Rightarrow\ \mbox{no TR/ISC fault has occurred},(30)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">T ̇surf​(t)\displaystyle{\dot{T}}_{\mathrm{surf}}(t)=Tcore​(t)−Tsurf​(t)Rcore​Csurf−Tsurf​(t)−TambRsurf​Csurf,\displaystyle=\frac{T_{\mathrm{core}}(t)-T_{\mathrm{surf}}(t)}{R_{\mathrm{core}}C_{\mathrm{surf}}}-\frac{T_{\mathrm{surf}}(t)-T_{\mathrm{amb}}}{R_{\mathrm{surf}}C_{\mathrm{surf}}},(4b)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(b)Fault detection result based on the residual evaluation function (J2J_{2}) and threshold.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Based on them, one can evaluate the likelihood of TR by assessing the discrepancy between model predictions and measurements relative to a predefined threshold [78].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Various other electrochemical-thermal models have also emerged to describe TR caused by high ambient temperature, overcharge, and others [19, 20, 21].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The choice of η\eta should balance the accuracy and robustness against uncertainty in fault detection; typically, η\eta is chosen to be slightly less than 1.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We begin by identifying the BattBee model under normal operating conditions, where RISC,1,RISC,2=∞R_{\mathrm{ISC},1},R_{\mathrm{ISC},2}=\infty and Q ̇exo=0\dot{Q}_{\mathrm{exo}}=0.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For the pouch cell under testing, the surface temperature was measured at six different locations: Tsurf,1T_{\mathrm{surf,1}} near the positive terminal, Tsurf,2T_{\mathrm{surf,2}} near the negative terminal, Tsurf,3T_{\mathrm{surf,3}} at the bottom, Tsurf,4T_{\mathrm{surf,4}} at the top, Tsurf,5T_{\mathrm{surf,5}} above the penetration point, and Tsurf,6T_{\mathrm{surf,6}} below the penetration point.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 12 presents the validation results.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">This is a dynamic process resulting in complex heat generation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">x^ ̇\displaystyle\dot{\hat{x}}=A​x^+B​u+Li​(y−Ci​x−D​u),\displaystyle=A\hat{x}+Bu+L_{i}\left(y-C_{i}x-Du\right),(32a)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where Rsurf,0R_{\mathrm{surf,0}} is what RsurfR_{\mathrm{surf}} is under zero temperature gradient, and with β\beta is a coefficient typically taking 1/6001/600.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The first element is a ball with a radius rb±r_{b}^{\pm}, which is an electrode’s bulky inner part; the second element is a hallow sphere with an outer radius of rs±r_{s}^{\pm} and an inner radius of rb±r_{b}^{\pm}, which is the electrode’s shell.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The model’s name “BattBee” combines “Batt”, short for battery, with “Bee”, inspired by honeybees’ ability to detect explosives [4, 5]., to capture the electro-thermal behavior in TR triggered by internal short circuits (ISCs).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 15 presents the fault detection performance using the temperature measurements from each of these locations by evaluating the corresponding residual evaluation functions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">=sup‖x~​(0)‖≤δ∫0∞x~⊤​(0)​eA~i⊤​t​Ci⊤​Ci​eA~i​t​x~​(0)​dt\displaystyle=\sup_{\|\tilde{x}(0)\|\leq\delta}\sqrt{\int_{0}^{\infty}\tilde{x}^{\top}(0)e^{\tilde{A}_{i}^{\top}t}C_{i}^{\top}C_{i}e^{\tilde{A}_{i}t}\tilde{x}(0)dt}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The indenter induces an ISC condition the cell at around the 182182-th second.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where aia_{i} and bib_{i} are the slope and intercept of the ii-th segment when V ̄​Vs,i≤Vs&lt;V ̄​Vs,i\underline{\hbox to6.44446pt{\vphantom{\hbox{$V$}}}}\hskip-6.44446pt\hbox{$V$}_{s,i}\leq V_{s}&lt;\hskip 1.61108pt\overline{\hbox to6.44446pt{\vphantom{\hbox{$V$}}}}\hskip-8.05556pt\hbox{$V$}_{s,i} for i=1,2,...,mi=1,2,\ldots,m.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Suppose that fi=0f_{i}=0 for i=1,2,3i=1,2,3 for (24), and that Theorem 1 holds.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">By design, the BattBee model is a circuit analog simplifying an electrochemical model (SPM) coupled with an ISC mechanism.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The fault detection observer follows (34), where a Kalman gain is used for its optimality and convenience.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">z&amp;=C_{i}x+Du+D_{f}f_{3},\end{aligned}\right.(31)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">If ‖x~​(0)‖≤δ\|\tilde{x}(0)\|\leq\delta and ε​P−Q≤0\epsilon P-Q\leq 0 for some ε&gt;0\epsilon&gt;0, then</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 12 presents the validation results.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where IISC,2I_{\mathrm{ISC},2} is the current flowing through RISC,2R_{\mathrm{ISC},2}:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">To meet the practical need of using a minimum number of sensors, the study in [84, 85] proposes to include structural properties inherent to LiBs packs as extra information into a moving horizon estimation strategy for fault detection.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Finally, ei\mathbf{e}_{i} denotes the unit vector with a value of 11 in the</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">RISC,2R_{\mathrm{ISC},2} plays a role analogous to that of RISC\mathsf{R}_{\mathsf{ISC}} in the SPMwISC model;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">≤max⁡{ψ ̄2,1}⋅λmax​(P)λmin​(P)​δ2​e−ε​t\displaystyle\leq{\max\left\{\bar{\psi}^{2},1\right\}\cdot\lambda_{\max}(P)\over\lambda_{\min}(P)}\delta^{2}e^{-\epsilon t}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A⊤​P+P​A−H⊤​L⊤​P−P​L​H+Q≤0,\displaystyle A^{\top}P+PA-H^{\top}L^{\top}P-PLH+Q\leq 0,(27)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In [65], neural networks are trained to classify thermal safety/risk levels.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(c)Fault detection result based on the residual evaluation function (J∞J_{\infty}) and threshold.Figure 12: Simulation-based validation of the model-based fault detection system in an ISC-induced TR event.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">V⁡(t)\displaystyle V(t)=U⁡(Vs​(t))+Ro​I​(t)−RISC,2​IISC,2​(t)\displaystyle=U(V_{s}(t))+R_{o}I(t)-R_{\mathrm{ISC},2}I_{\mathrm{ISC},2}(t)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ψ⁡(x,x^)\displaystyle\psi(x,\hat{x})=U⁡(e2​x)−U⁡(e2​x^)e2​(x−x^).\displaystyle={U(\mathbf{e}_{2}x)-U\left(\mathbf{e}_{2}\hat{x}\right)\over\mathbf{e}_{2}\left(x-\hat{x}\right)}.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Neural networks can also be trained directly to learn TR-related patterns directly from the measurements of temperature, current, and voltage [62, 63, 64].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Finally, RsurfR_{\mathrm{surf}} varies with Tsurf−TambT_{\mathrm{surf}}-T_{\mathrm{amb}}, due to the dependence of convection and radiation on temperature gradients [87].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Further, when RISC,2R_{\mathrm{ISC},2} also becomes small, VV would fall precipitously.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Figure 10 presents displacement of the indenter and the corresponding compressive force applied to the cell.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Then, we can translate (24) into a collection of linear models, Mi\mathcal{M}_{i} for i=1,2,...,mi=1,2,\ldots,m:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The expression for Q ̇decomp\dot{Q}_{\mathrm{decomp}} in (9) represents the best formulation that we identified after exploring various alternatives.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Performed on a PEC® SBT4050 battery testing system (see Fig. 7), these tests included constant-current constant-voltage (CC/CV) charging and discharging by UDDS, LA92, SC09, and pulses.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As reviewed in Section 1.1, such a model has been absent from the literature, which to date includes only equivalent circuit models for ISCs or 1D/3D TR models grounded in reaction kinetics.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Riding on the advances in machine learning, other techniques, such as transfer learning, Gaussian process regression and support vector machines, have found their way into thermal fault prediction or detection [69, 70, 71].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Although low in probability, TR-induced fires have occurred to various electric vehicle models and stationary energy storage installations [1, 2, 3].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A=[−1Rb​Cb1Rb​Cb001Rb​Cs−1Rb​Cs0000−1Rcore​Ccore1Rcore​Ccore001Rcore​Csurf−1Rcore​Csurf−1Rsurf​Csurf],Af=[00000−1Cs0000000000],B=[0001Cs0000RoCcore01Rsurf​Csurf0],Bf=[001Ccore0],D=[Ro00000],Df=[10].\displaystyle\begin{aligned} A&amp;=\left[\begin{matrix}-\frac{1}{R_{b}C_{b}}&amp;\frac{1}{R_{b}C_{b}}&amp;0&amp;0\\</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Q ̇exo​(t)=Q ̇ec​(t)+Q ̇decomp​(t).\displaystyle\dot{Q}_{\mathrm{exo}}(t)=\dot{Q}_{\mathrm{ec}}(t)+\dot{Q}_{\mathrm{decomp}}(t).(7)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">η±​(t)=φs±​(t)−φe±​(t)−U±​(cs​s±​(t))−F​Rf±​j±​(t),\displaystyle\eta^{\pm}(t)=\phi_{s}^{\pm}(t)-\phi_{e}^{\pm}(t)-U^{\pm}(c^{\pm}_{ss}(t))-FR_{f}^{\pm}j^{\pm}(t),(16)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">An extension of [10] to 3D thermal abuse modeling is shown in [11], which takes into account the cell shapes, the spatial distributions of materials and temperatures, and the impacts of electrolyte decomposition.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1]organization=Department of Mechanical Engineering, The University of Kansas,</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where 0&lt;η&lt;10&lt;\eta&lt;1 is a forgetting factor to give exponentially decreasing weight to older residual values.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Notably, detection is achieved even with relatively milder temperature increases observed in Tsurf,1T_{\mathrm{surf,1}}, Tsurf,2T_{\mathrm{surf,2}}, Tsurf,3T_{\mathrm{surf,3}}, and Tsurf,4T_{\mathrm{surf,4}}, despite their locations farther from the penetration point.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The design of J2J_{2} and J∞J_{\infty} is inspired by norms for signals—specifically, J2​(∞)J_{2}(\infty) and J∞​(∞)J_{\infty}(\infty) are the L2\mathcal{L}_{2}- and L∞\mathcal{L}_{\infty}-norms of the residual signal r⁡(0→t)r(0\rightarrow t) under fault-free conditions, respectively.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Putting together (1)-(9), we obtain the mathematical setup of the BattBee model.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As shown in Fig. 6, the BattBee model accurately predicts both voltage and temperature responses.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This section validates the TR and ISC detection approach proposed in Section 4.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">13991.75120003.4074.721×10−3\times 10^{-3}4.726×10−3\times 10^{-3}85.53910.5190.8349.936</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">x\displaystyle x=[VbVsTcoreTsurf]⊤,u=[ITambI2]⊤,\displaystyle=\left[\begin{matrix}V_{b}&amp;V_{s}&amp;T_{\mathrm{core}}&amp;T_{\mathrm{surf}}\end{matrix}\right]^{\top},\;u=\left[\begin{matrix}I&amp;T_{\mathrm{amb}}&amp;I^{2}\end{matrix}\right]^{\top},</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The first element is a ball with a radius rb±r_{b}^{\pm}, which is an electrode’s bulky inner part;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Across all locations, detection occurs more than 3030 seconds prior to the cell reaching its peak temperature.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Other 3D thermal abuse models appear in [12, 13], which consider different exothermic reactions across the SEI, cathode, anode, and electrolyte.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Note that the notation ∥⋅∥\|\cdot\| is slightly abused above to also represent the induced 2-norm of a matrix, without causing confusion from the context.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The flourishing literature encompasses a wide range of thermal models coupled with electrochemical, electrical, and mechanical behaviors, e.g., [26, 27, 28, 29, 30], to name just several.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Q ̇ec(t)=−hec⋅SoC ̇(t)=−hec−Vs​(t)+I⁡(t)​RISC,1RISC,1​(Cb+Cs),\displaystyle\dot{Q}_{\mathrm{ec}}(t)=-h_{\mathrm{ec}}\cdot\dot{\mathrm{SoC}}(t)=-h_{\mathrm{ec}}\frac{-V_{s}\left(t\right)+I\left(t\right)R_{\mathrm{ISC,1}}}{R_{\mathrm{ISC,1}}\left(C_{b}+C_{s}\right)},(8)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">TR can be caused by diverse abuse conditions, including: mechanical abuse (e.g., cell deformation or penetration due to collision and crush), electrical abuse (e.g., external short circuit, overcharge, and overdischarge), and thermal abuse (e.g., high ambient temperature, and local overheat) [6, 7].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where ψ ̄,ψ ̄&gt;0\underline{\psi},\bar{\psi}&gt;0 are the minimum and maximum slopes of U⁡(⋅)U(\cdot).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Since V≥λmin​(P)⋅‖x~‖2V\geq\lambda_{\min}(P)\cdot\|\tilde{x}\|^{2}, we have</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At the 26232623-th second, the ISC intensifies to a critical point, leading to an abrupt voltage collapse.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Our validation has involved two cells from the datasets, a LiNi0.8​Mn0.1​Co0.1​O2\mathrm{LiNi_{0.8}Mn_{0.1}Co_{0.1}O_{2}} cell with a capacity of 1010 Ah and dimensions of 60×162×1160\times 162\times 11 mm, and a LiCoO2\mathrm{LiCoO_{2}} cell with a capacity of 6.46.4 Ah and dimensions of 49×169×849\times 169\times 8 mm.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">This is a dynamic process resulting in complex heat generation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Q ̇​(t)=Q ̇ohm​(t)+Q ̇exo​(t),\displaystyle\dot{Q}(t)=\dot{Q}_{\mathrm{ohm}}(t)+\dot{Q}_{\mathrm{exo}}(t),(5)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">∓Ss±Δ​vs±​F​a±​L±​S​[I⁡(t)−IISC​(t)].\displaystyle\mp\frac{S_{s}^{\pm}}{\Delta v_{s}^{\pm}Fa^{\pm}L^{\pm}S}\left[I(t)-\mathsf{I}_{\mathsf{ISC}}(t)\right].(21b)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">J2​(t)≤J2,threshold,J∞​(t)≤J∞,threshold,\displaystyle J_{2}(t)\leq J_{2,\mathrm{threshold}},\ \ \ J_{\infty}(t)\leq J_{\infty,\mathrm{threshold}},(29)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">By solving this Lyapunov equation, one can directly compute WiW_{i} and then J2,thresholdiJ_{2,\mathrm{threshold}}^{i}.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Model-based methods provide another powerful means for TR and ISC detection.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In general, ISCs either directly initiate TR or drive an ongoing TR event toward an uncontrollable state if happening during this process [6, 8, 9].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Some other studies have applied observers or Kalman filters to spatio-temporal thermal models to estimate and monitor the temperature distribution for LiBs [76, 27, 77, 31], which are extensible to TR detection.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">V ̇≤−x~⊤​Q​x~&lt;0,\displaystyle\dot{V}\leq-\tilde{x}^{\top}Q\tilde{x}&lt;0,</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Theorem 1 indicates that, when there is no fault, r→0r\rightarrow 0 when t→∞t\rightarrow\infty.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A close similarity between (21) and (1a)-(1b) emerges upon comparison, with the following observations:</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">when fi=0f_{i}=0 for i=1,2,3i=1,2,3, where LL is a gain matrix, and</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We begin with proposing an ISC-including single particle model (SPM and SPMw/ISC), drawing upon the pseudo-2D ISC model in [44].</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

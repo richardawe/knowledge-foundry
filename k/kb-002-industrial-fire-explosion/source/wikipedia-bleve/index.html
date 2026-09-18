@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boiling liquid expanding vapour explosion (BLEVE) — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Boiling liquid expanding vapour explosion (BLEVE)</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:44+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Boiling_liquid_expanding_vapor_explosion" rel="nofollow noopener">https://en.wikipedia.org/wiki/Boiling_liquid_expanding_vapor_explosion</a><br>
+  <span class="muted">Content hash: <code>4f3821d000f99a4943b62bfb4d72c102</code></span>
+</div>
+
+
+<h2>Stored passages (23)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Boiling liquid expanding vapor explosion  <span class="muted small">— chars 72–1227</span></h3>
+<pre>16 languages
+
+Català
+
+Deutsch
+
+Español
+
+Euskara
+
+Suomi
+
+Français
+
+עברית
+
+Italiano
+
+日本語
+
+한국어
+
+Nederlands
+
+Norsk bokmål
+
+Occitan
+
+Polski
+
+Português
+
+Русский
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Explosion of a vessel containing liquid above and beyond boiling point
+
+&#34;Bleve&#34; redirects here. For other uses, see Bleve (disambiguation).
+
+See also: Boiler explosion, Gas explosion, and Steam explosion
+
+A BLEVE–fireball in the 2019 Philadelphia refinery explosion, as rendered by the U.S. Chemical Safety Board
+A boiling liquid expanding vapor explosion (BLEVE; /ˈblɛvi/BLEV-ee) is an explosion caused by the rupture of a vessel containing a pressurized liquid that has attained a temperature sufficiently higher than its boiling point at atmospheric pressure.[1][2] Because the boiling point of a liquid rises with pressure, the contents of the pressurized vessel can remain a liquid as long as the vessel is intact. If the vessel&#39;s integrity is compromised, the loss of pressure drops the boiling point, which can cause a portion of the liquid to boil and form a cloud of rapidly expanding vapor. BLEVEs are manifestations of explosive boiling.</pre>
+<h3>Boiling liquid expanding vapor explosion  <span class="muted small">— chars 1180–1483</span></h3>
+<pre>BLEVEs are manifestations of explosive boiling.
+
+If the vapor is flammable (as is the case with compounds such as hydrocarbons and alcohols) and comes in contact with an ignition source, further damage can be caused by the ensuing explosion and fireball. However, BLEVEs do not necessarily involve fire.</pre>
+<h3>Name  <span class="muted small">— chars 1494–2197</span></h3>
+<pre>On 24 April 1957, a process reactor at a Factory Mutual (FM) facility underwent a powerful explosion as a consequence of a rapid depressurization. It contained formalin mixed with phenol. The burst damaged the plant. However, no fire developed as the mixture was not flammable. In the wake of the accident, researchers James B. Smith, William S. Marsh, and Wilbur L. Walls, who were employed with FM, came up with the terms &#34;boiling liquid expanding vapor explosion&#34; and its acronym &#34;BLEVE&#34;.[3][4] The expressions did not become of common use until the early 1970s, when the National Fire Protection Association&#39;s (NFPA) Fire Command and Fire Journal magazines started publishing articles using them.[5]</pre>
+<h3>Mechanism  <span class="muted small">— chars 2213–3354</span></h3>
+<pre>There are three key elements in the formation of a BLEVE:[6]
+
+A material in liquid form at a temperature sufficiently above its normal atmospheric pressure boiling point.
+
+A containment vessel maintaining the pressure that keeps the substance in liquid form.
+
+A sudden loss of containment that rapidly drops the pressure.
+
+Typically, a BLEVE starts with a vessel containing liquid held above its atmospheric-pressure boiling temperature. Many substances normally stored as liquids, such as carbon dioxide, propane, and other industrial gases have boiling temperatures below room temperature when at atmospheric pressure. In the case of water, a BLEVE could occur if a pressure vessel is heated beyond 100°C (212°F). That container, because the boiling water pressurizes it, must be capable of holding liquid water at very high temperatures.
+BLEVE mechanism
+If the pressurized vessel ruptures, the pressure which prevents the liquid from boiling is lost. If the rupture is catastrophic, i.e., the vessel becomes suddenly no longer capable of holding any pressure, then the liquid will find itself at a temperature far above its boiling point.</pre>
+<h3>Mechanism  <span class="muted small">— chars 3355–4503</span></h3>
+<pre>This causes a portion of the liquid to instantaneously vaporize with extremely rapid expansion. Depending on temperatures, pressures, and the material involved, the expansion may be so rapid that it can be classified as an explosion, fully capable of inflicting severe damage on its surroundings.
+
+For example, a tank of pressurized liquid water held at 350°C (662°F) might be pressurized to 10MPa (1,500psi) above atmospheric (or gauge) pressure. If the tank containing the water were to rupture, there would for a brief moment exist a volume of liquid water which would be at:
+
+Atmospheric pressure
+
+Temperature of 350°C (662°F).
+
+At atmospheric pressure the boiling point of water is 100°C (212°F). Liquid water at atmospheric pressure does not exist at temperatures higher than 100°C (212°F). At that moment, the water would boil and turn to vapor explosively, and the 350°C (662°F) liquid water turned to gas would take up significantly more volume (≈1,600-fold) than it did as liquid, causing a vapor explosion. Such explosions can happen when the superheated water of a boiler escapes through a crack in a boiler, causing a boiler explosion.</pre>
+<h3>Mechanism  <span class="muted small">— chars 4373–4634</span></h3>
+<pre>Such explosions can happen when the superheated water of a boiler escapes through a crack in a boiler, causing a boiler explosion.
+
+The vaporization of liquid resulting in a BLEVE typically occurs within 1millisecond after a catastrophic loss of containment.[7]</pre>
+<h3>Superheat limit theory  <span class="muted small">— chars 4664–5712</span></h3>
+<pre>In this diagram for propane, the orange curve represents its vapor pressure as a function of temperature. The minimum temperature above which a BLEVE can occur is the abscissa of the intersection between the atmospheric pressure horizontal line (blue) and a curve here called the superheat-limit locus. This is roughly a straight line with its upper limit at the gas critical conditions. A liquid expanding along AA&#39; does not cross the superheat-limit locus and will not BLEVE. Conversely, for sufficiently high temperatures, as in the BB&#39; expansion, the superheat-limit locus is crossed and a BLEVE will occur.[8]
+For a BLEVE to occur, the boiling liquid must be sufficiently superheated upon loss of containment. For example, at a pressure of approximately 1MPa (150psi), water boils at 177°C (351°F). Superheated water released from a closed container at these conditions will not generate a BLEVE, as homogeneous nucleation of vapor bubbles is not possible.[8] There is no consensus about the minimal temperature above which a BLEVE will occur.</pre>
+<h3>Superheat limit theory  <span class="muted small">— chars 5713–6811</span></h3>
+<pre>A formula proposed by Robert Reid to predict it is:
+
+Tmin,BLEVE=0.895TC{\displaystyle T_{\text{min,BLEVE}}=0.895\ T_{\text{C}}}
+
+where TC is the critical temperature of the fluid (expressed in kelvin). The minimum BLEVE temperatures of some fluids, based on this formula, are as follows:[9]
+
+SubstanceTmin,BLEVE
+
+K°C°F
+
+Water579306583
+
+n-Octane509236457
+
+n-Heptane483210410
+
+n-Hexane454181358
+
+n-Pentane421148298
+
+Ethyl ether418145293
+
+Phosgene407134273
+
+n-Butane381108226
+
+Chlorine375102216
+
+Ammonia36390194
+
+Propane33158136
+
+Propylene32754129
+
+Ethane273032
+
+Carbon dioxide272−130
+
+Ethylene253−20−4
+
+Methane171−102−152
+
+According to Reid, BLEVE will occur, more in general, if the expansion crosses a &#34;superheat-limit locus&#34;. In Reid&#39;s model, this curve is essentially the fluid&#39;s spinodal curve as represented in a pressure–temperature diagram, and the BLEVE onset is a manifestation of explosive boiling, where the spinodal is crossed &#34;from above&#34;, i.e., via sudden depressurization. However, direct correspondence between the superheat limit and the spinodal has not been proven experimentally.</pre>
+<h3>Superheat limit theory  <span class="muted small">— chars 6700–7196</span></h3>
+<pre>However, direct correspondence between the superheat limit and the spinodal has not been proven experimentally. In practical BLEVEs, the way the pressure vessel fails may influence decisively the way the expansion takes place, for example causing pressure waves and non-uniformities. Additionally, there may be stratification in the liquid, due to local temperature variations. Because of this, it is possible for BLEVEs to occur at temperatures less than those predicted with Reid&#39;s formula.[10]</pre>
+<h3>Physical BLEVEs  <span class="muted small">— chars 7218–8071</span></h3>
+<pre>The term BLEVE is often associated to explosive fires from pressure vessels containing a flammable liquid. However, a BLEVE can occur even with a non-flammable substance such as water,[11]liquid nitrogen, liquid helium or other refrigerants or cryogenics. Such materials can go through purely physical BLEVEs, not entailing flames or other chemical reactions. In the case of unignited BLEVEs of liquefied gases, rapid cooling due to the absorption of the enthalpy of vaporization is a hazard that can cause frostbite. Asphyxiation from the expanding vapors is also possible, if the vapor cloud is not rapidly dispersed, as can be the case inside a building, or in a trough in the case of heavier-than-air gasses. The vapors can also be toxic, in which case harm and possibly death can occur at relatively low concentrations and even far from the source.</pre>
+<h3>BLEVE–fireball  <span class="muted small">— chars 8093–8783</span></h3>
+<pre>If a flammable substance is subject to a BLEVE, it can ignite upon release, either due to friction, mechanical spark or other point sources, or from a pre-existing fire that had engulfed the pressure vessel and caused it to fail in the first place. In such a case, the burning vapors will further expand, adding to the force of the explosion. Furthermore, a very significant amount of the escaped fluid will burn in a matter of seconds in a raising fireball, which will generate extremely high levels of thermal radiation. While the blast effects can be devastating, a flammable substance BLEVE typically causes more damage due to the fireball thermal radiation than the blast overpressure.</pre>
+<h3>Effect of impinging fires  <span class="muted small">— chars 8815–10019</span></h3>
+<pre>BLEVEs are often caused by an external fire near the storage vessel causing heating of the contents and pressure build-up. While tanks are often designed to withstand great pressure, constant heating can cause the metal to weaken and eventually fail. If the tank is being heated in an area where there is no liquid (such as near its top), it may rupture faster because the boiling liquid does not afford cooling in that area. Pressure vessels are usually equipped with relief valves that vent off excess pressure, but the tank can still fail if the pressure is not released quickly enough.[1] A pressure vessel is designed to withstand the set pressure of its relief valves, but only if its mechanical integrity is not weakened as it can be in the case of an impinging fire.[12] In an impinging fire scenario, flammable vapors released in the BLEVE will ignite upon release, forming a fireball. The origin of the impinging fire may be from a release of flammable fluid from the vessel itself, or from an external source, including releases from nearby tanks and equipment. For example, rail tank cars have BLEVEd under the effect of a jet fire from the open relief valve of another derailed tank car.[13]</pre>
+<h3>Hazards  <span class="muted small">— chars 10033–11121</span></h3>
+<pre>The main damaging effects of a BLEVE are three: the blast wave from the explosion; the projection of fragments, or missiles, from the pressure vessel; and the thermal radiation from the fireball, where one occurs.[12]
+
+Horizontal cylindrical (&#34;bullet&#34;) tanks tend to rupture longitudinally. This causes the failed tank and its fragments to get propelled like rockets and travel long distances.[14] At Feyzin, three of the propelled fragments weighed in excess of 100tons and were thrown 150–350 meters (490–1,150ft) from the source of the explosion. One bullet tank at San Juanico travelled 1,200 meters (0.75mi) in the air before landing, possibly the farthest ever for a BLEVE missile.[15] Fragments can impact on other tanks or equipment, which may result in a domino effect propagation of the accidental sequence.[7]
+
+Fireballs can rise to significant heights above ground.[14] They are spheroidal when developed and rise from the ground in a mushroom shape.[7] The diameter of fireballs at San Juanico was estimated at 200–300 meters (660–980ft), with a duration of around 20seconds.</pre>
+<h3>Hazards  <span class="muted small">— chars 11122–11841</span></h3>
+<pre>Such massive fires can injure people at distances of hundreds of meters (e.g., 300 metres (980 feet) at Feyzin and 400 metres (1,300 feet) at San Juanico).[14]
+
+An additional hazard from BLEVE-fireball events is the formation of secondary fires, by direct exposure to the fireball thermal radiation, as pool fires from fuel that does not get combusted in the fireball, or from the scattering of blazing tank fragments.[15][7] Another secondary effect of importance is the dispersion of a toxic gas cloud, if the vapors involved are toxic and do not catch fire upon release.[7]Chlorine, ammonia and phosgene are example of toxic gases that underwent BLEVE in past accidents and produced toxic clouds as a consequence.[7]</pre>
+<h3>Safety measures  <span class="muted small">— chars 11863–12117</span></h3>
+<pre>See also: Liquefied petroleum gas §Fire/explosion risk and mitigation
+
+Maintenance of pressure tanks to avoid damage or corrosion[16]
+
+Emergency depressurization[6]
+
+Pressure relief valves[17]
+
+Passive fire protection[17][16]
+
+Water spray cooling[17][16]</pre>
+<h3>Notable accidents  <span class="muted small">— chars 12141–13330</span></h3>
+<pre>Main article: List of boiling liquid expanding vapor explosions
+
+Notable BLEVE accidents include:
+
+13 December 1926, Saint-Auban, France – A 25-ton chlorine BLEVE killed 19 in the first accident recognized as a boiling liquid expanding vapor explosion.[18][19]
+
+24 December 1939, Zărnești, Romania – A rail tank car containing a butadiene (80%) and butene (20%) mixture BLEVEd and caused a fireball. It killed 60 people.[18][20]
+
+29 July 1943, Ludwigshafen, Germany – A chlorine tank car exploded at a BASF plant, killing 57.[18][21]
+
+28 July 1948, Ludwigshafen, Germany – Another tank car in the same plant, this time containing diethyl ether, exploded killing 209.[18][22][23]
+
+7 July 1951, Newark, New Jersey, U.S. – Seventy tanks of liquefied petroleum gas (LPG), for a total of 2600tons, exploded at Port Newark. There were no fatalities.[18][24]
+
+8 January 1957, Montreal, Quebec, Canada – At a Shell refinery, 5100tons of LPG stored in several tanks exploded, causing one fatality.[7][25][26]
+
+28 March 1960, Glasgow, Scotland, United Kingdom – The Cheapside Street whisky bond fire: A warehouse storing 3900tons of whisky experienced a fire in which several casks underwent BLEVEs.</pre>
+<h3>Notable accidents  <span class="muted small">— chars 13331–14529</span></h3>
+<pre>There were 19 fatalities.[27]
+
+4 January 1966, Feyzin, France – The Feyzin disaster: 1000tons of LPG exploded at an Elf refinery, causing 18 fatalities.[18]
+
+21 June 1970, Crescent City, Illinois - An eastbound Toledo, Peoria and Western Railway freight train derailed. The train had 109 cars, and ten of them were carrying liquid propane, which quickly ignited and led to numerous explosions. Much of the downtown area was destroyed, but miraculously, there were no fatalities.
+
+30 March 1972, Rio de Janeiro, Brazil – 1972 Reduc explosion[pt]: 1000tons of LPG exploded at a refinery, killing 28.[18][28]
+
+5 July 1973, Kingman, Arizona, U.S. – The Kingman explosion: An LPG-laden tank car BLEVEd, causing 13 fatalities.[18][29]
+
+8 December 1977, Cartagena, Colombia – A process reactor burst in an ammonia BLEVE that killed 30.[18][30]
+
+23 February 1978, Waverly, Tennessee, U.S. – The Waverly tank car explosion: An LPG tank car exploded, killing 16.
+
+11 July 1978, Alcanar, Spain – The Los Alfaques disaster: In the worst ever tank truck BLEVE and road accident involving hazardous materials, a vehicle laden with 25tons of propylene suffered a mechanical failure next to a crowded camping site.</pre>
+<h3>Notable accidents  <span class="muted small">— chars 14530–15647</span></h3>
+<pre>The BLEVE killed 216 people.
+
+30 May 1978, Texas City, Texas, U.S. – Multiple storage tanks holding 1500tons of LPG exploded, killing seven people.[18][31]
+
+30 August 1972, Good Hope, Louisiana, U.S. – A BLEVE developed after a ship collision between MVInca Tupac Yupanqui and butane-laden barge TBPanama City. There were 12 fatalities.[18][32]
+
+1 August 1981, Cerritos, San Luis Potosí, Mexico – A rail tank car carrying chlorine exploded, causing 29 fatalities.[18][33]
+
+23 July 1984, Romeoville, Illinois, U.S. – The Romeoville petroleum refinery disaster killed 15 people.[7]
+
+19 November 1984, San Juan Ixhuatepec, Mexico – The San Juanico disaster: In the worst ever BLEVE accident, as well as one of the deadliest industrial disasters ever occurred, more than 500 people died when a series of BLEVEs hit a Pemex LPG storage terminal.[18][34]
+
+28 January 1986, above Merritt Island, Florida, U.S. – The Space Shuttle Challenger disaster: The disintegration of the spacecraft was caused by the BLEVE of the liquid hydrogen and oxygenexternal tank compartments.[18][35]
+
+23 December 1988, Memphis, Tennessee, U.S.</pre>
+<h3>Notable accidents  <span class="muted small">— chars 15648–15870</span></h3>
+<pre>– The Memphis LPG tank truck disaster killed nine people.[36]
+
+19 April 1993, Waco, Texas, U.S. – A contributor to the aftermath of the Waco siege was the BLEVE of an LPG cylinder caused by the intervention of the FBI.[37]</pre>
+<h3>4 March 1994, Weyauwega, Wisconsin, U.S. – The Weyauwega derailment, no fatalities.  <span class="muted small">— chars 15957–16550</span></h3>
+<pre>22 June 2002, Tivissa, Spain – In the first ever reported liquefied natural gas (LNG) BLEVE, a tank truck exploded. Only the driver perished.[38]
+
+10 August 2008, Toronto, Ontario, Canada – The Toronto propane explosion at the Sunrise Propane Industrial Gases killed two people.[39]
+
+27 August 2012, Chala, India – The Chala LPG tank truck disaster: An LPG tank truck road accident in the state of Kerala caused 20 fatalities among the bystanders.
+
+13 June 2013, Geismar, Louisiana, U.S. – The Williams Olefins explosion killed two plant operators when a propane heat exchanger burst open.[40]</pre>
+<h3>21 July 2014, Lice, Turkey – An LPG tank truck explosion caused the death of 34 people.[41]  <span class="muted small">— chars 16645–16784</span></h3>
+<pre>6 August 2018, Bologna, Italy – Two people perished in the Borgo Panigale explosion, an LPG tank truck blast caused by a road accident.[42]</pre>
+<h3>See also  <span class="muted small">— chars 16799–16889</span></h3>
+<pre>Boiler explosion
+
+Steam explosion
+
+Deflagration
+
+Explosive boiling
+
+Rapid phase transition</pre>
+
+<h2>Extracted claims (59)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fireballs can rise to significant heights above ground.[14] They are spheroidal when developed and rise from the ground in a mushroom shape.[7] The diameter of fireballs at San Juanico was estimated at 200–300 meters (660–980ft), with a duration of around 20seconds.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4 January 1966, Feyzin, France – The Feyzin disaster: 1000tons of LPG exploded at an Elf refinery, causing 18 fatalities.[18]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">28 March 1960, Glasgow, Scotland, United Kingdom – The Cheapside Street whisky bond fire: A warehouse storing 3900tons of whisky experienced a fire in which several casks underwent BLEVEs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Superheated water released from a closed container at these conditions will not generate a BLEVE, as homogeneous nucleation of vapor bubbles is not possible.[8] There is no consensus about the minimal temperature above which a BLEVE will occur.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">On 24 April 1957, a process reactor at a Factory Mutual (FM) facility underwent a powerful explosion as a consequence of a rapid depressurization.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, a tank of pressurized liquid water held at 350°C (662°F) might be pressurized to 10MPa (1,500psi) above atmospheric (or gauge) pressure.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A BLEVE–fireball in the 2019 Philadelphia refinery explosion, as rendered by the U.S.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">For a BLEVE to occur, the boiling liquid must be sufficiently superheated upon loss of containment.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">28 July 1948, Ludwigshafen, Germany – Another tank car in the same plant, this time containing diethyl ether, exploded killing 209.[18][22][23]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">6 August 2018, Bologna, Italy – Two people perished in the Borgo Panigale explosion, an LPG tank truck blast caused by a road accident.[42]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1 August 1981, Cerritos, San Luis Potosí, Mexico – A rail tank car carrying chlorine exploded, causing 29 fatalities.[18][33]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">23 December 1988, Memphis, Tennessee, U.S.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At atmospheric pressure the boiling point of water is 100°C (212°F).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, at a pressure of approximately 1MPa (150psi), water boils at 177°C (351°F).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">5 July 1973, Kingman, Arizona, U.S. – The Kingman explosion: An LPG-laden tank car BLEVEd, causing 13 fatalities.[18][29]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Conversely, for sufficiently high temperatures, as in the BB&#39; expansion, the superheat-limit locus is crossed and a BLEVE will occur.[8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">However, a BLEVE can occur even with a non-flammable substance such as water,[11]liquid nitrogen, liquid helium or other refrigerants or cryogenics.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">28 January 1986, above Merritt Island, Florida, U.S. – The Space Shuttle Challenger disaster: The disintegration of the spacecraft was caused by the BLEVE of the liquid hydrogen and oxygenexternal tank compartments.[18][35]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">30 March 1972, Rio de Janeiro, Brazil – 1972 Reduc explosion[pt]: 1000tons of LPG exploded at a refinery, killing 28.[18][28]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">30 May 1978, Texas City, Texas, U.S. – Multiple storage tanks holding 1500tons of LPG exploded, killing seven people.[18][31]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">In the case of unignited BLEVEs of liquefied gases, rapid cooling due to the absorption of the enthalpy of vaporization is a hazard that can cause frostbite.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">23 July 1984, Romeoville, Illinois, U.S. – The Romeoville petroleum refinery disaster killed 15 people.[7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This causes the failed tank and its fragments to get propelled like rockets and travel long distances.[14] At Feyzin, three of the propelled fragments weighed in excess of 100tons and were thrown 150–350 meters (490–1,150ft) from the source of the explosion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The train had 109 cars, and ten of them were carrying liquid propane, which quickly ignited and led to numerous explosions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">– The Memphis LPG tank truck disaster killed nine people.[36]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Walls, who were employed with FM, came up with the terms &#34;boiling liquid expanding vapor explosion&#34; and its acronym &#34;BLEVE&#34;.[3][4] The expressions did not become of common use until the early 1970s, when the National Fire Protection Association&#39;s (NFPA) Fire Command and Fire Journal magazines started publishing articles using them.[5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There are three key elements in the formation of a BLEVE:[6]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">In Reid&#39;s model, this curve is essentially the fluid&#39;s spinodal curve as represented in a pressure–temperature diagram, and the BLEVE onset is a manifestation of explosive boiling, where the spinodal is crossed &#34;from above&#34;, i.e., via sudden depressurization.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">13 December 1926, Saint-Auban, France – A 25-ton chlorine BLEVE killed 19 in the first accident recognized as a boiling liquid expanding vapor explosion.[18][19]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">29 July 1943, Ludwigshafen, Germany – A chlorine tank car exploded at a BASF plant, killing 57.[18][21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Liquid water at atmospheric pressure does not exist at temperatures higher than 100°C (212°F).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">24 December 1939, Zărnești, Romania – A rail tank car containing a butadiene (80%) and butene (20%) mixture BLEVEd and caused a fireball.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Because of this, it is possible for BLEVEs to occur at temperatures less than those predicted with Reid&#39;s formula.[10]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">8 December 1977, Cartagena, Colombia – A process reactor burst in an ammonia BLEVE that killed 30.[18][30]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A boiling liquid expanding vapor explosion (BLEVE; /ˈblɛvi/BLEV-ee) is an explosion caused by the rupture of a vessel containing a pressurized liquid that has attained a temperature sufficiently higher than its boiling point at atmospheric pressure.[1][2] Because the boiling point of a liquid rises with pressure, the contents of the pressurized vessel can remain a liquid as long as the vessel is intact.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, rail tank cars have BLEVEd under the effect of a jet fire from the open relief valve of another derailed tank car.[13]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In the case of water, a BLEVE could occur if a pressure vessel is heated beyond 100°C (212°F).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Tmin,BLEVE=0.895TC{\displaystyle T_{\text{min,BLEVE}}=0.895\ T_{\text{C}}}</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">7 July 1951, Newark, New Jersey, U.S. – Seventy tanks of liquefied petroleum gas (LPG), for a total of 2600tons, exploded at Port Newark.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">21 June 1970, Crescent City, Illinois - An eastbound Toledo, Peoria and Western Railway freight train derailed.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Maintenance of pressure tanks to avoid damage or corrosion[16]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">That container, because the boiling water pressurizes it, must be capable of holding liquid water at very high temperatures.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The main damaging effects of a BLEVE are three: the blast wave from the explosion; the projection of fragments, or missiles, from the pressure vessel; and the thermal radiation from the fireball, where one occurs.[12]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">27 August 2012, Chala, India – The Chala LPG tank truck disaster: An LPG tank truck road accident in the state of Kerala caused 20 fatalities among the bystanders.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">8 January 1957, Montreal, Quebec, Canada – At a Shell refinery, 5100tons of LPG stored in several tanks exploded, causing one fatality.[7][25][26]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">19 November 1984, San Juan Ixhuatepec, Mexico – The San Juanico disaster: In the worst ever BLEVE accident, as well as one of the deadliest industrial disasters ever occurred, more than 500 people died when a series of BLEVEs hit a Pemex LPG storage terminal.[18][34]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">23 February 1978, Waverly, Tennessee, U.S. – The Waverly tank car explosion: An LPG tank car exploded, killing 16.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The vaporization of liquid resulting in a BLEVE typically occurs within 1millisecond after a catastrophic loss of containment.[7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">11 July 1978, Alcanar, Spain – The Los Alfaques disaster: In the worst ever tank truck BLEVE and road accident involving hazardous materials, a vehicle laden with 25tons of propylene suffered a mechanical failure next to a crowded camping site.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Pressure vessels are usually equipped with relief valves that vent off excess pressure, but the tank can still fail if the pressure is not released quickly enough.[1] A pressure vessel is designed to withstand the set pressure of its relief valves, but only if its mechanical integrity is not weakened as it can be in the case of an impinging fire.[12] In an impinging fire scenario, flammable vapors released in the BLEVE will ignite upon release, forming a fireball.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">22 June 2002, Tivissa, Spain – In the first ever reported liquefied natural gas (LNG) BLEVE, a tank truck exploded.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The minimum BLEVE temperatures of some fluids, based on this formula, are as follows:[9]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">One bullet tank at San Juanico travelled 1,200 meters (0.75mi) in the air before landing, possibly the farthest ever for a BLEVE missile.[15] Fragments can impact on other tanks or equipment, which may result in a domino effect propagation of the accidental sequence.[7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At that moment, the water would boil and turn to vapor explosively, and the 350°C (662°F) liquid water turned to gas would take up significantly more volume (≈1,600-fold) than it did as liquid, causing a vapor explosion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Such massive fires can injure people at distances of hundreds of meters (e.g., 300 metres (980 feet) at Feyzin and 400 metres (1,300 feet) at San Juanico).[14]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">10 August 2008, Toronto, Ontario, Canada – The Toronto propane explosion at the Sunrise Propane Industrial Gases killed two people.[39]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">30 August 1972, Good Hope, Louisiana, U.S. – A BLEVE developed after a ship collision between MVInca Tupac Yupanqui and butane-laden barge TBPanama City.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">19 April 1993, Waco, Texas, U.S. – A contributor to the aftermath of the Waco siege was the BLEVE of an LPG cylinder caused by the intervention of the FBI.[37]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">13 June 2013, Geismar, Louisiana, U.S. – The Williams Olefins explosion killed two plant operators when a propane heat exchanger burst open.[40]</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

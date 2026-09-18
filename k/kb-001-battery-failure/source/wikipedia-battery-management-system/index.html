@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Battery management system — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Battery management system</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:10+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Battery_management_system" rel="nofollow noopener">https://en.wikipedia.org/wiki/Battery_management_system</a><br>
+  <span class="muted">Content hash: <code>1a45e4799188221efa42ffff1c9f75ff</code></span>
+</div>
+
+
+<h2>Stored passages (18)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Battery management system  <span class="muted small">— chars 57–935</span></h3>
+<pre>12 languages
+
+العربية
+
+Català
+
+Dansk
+
+Deutsch
+
+Español
+
+Suomi
+
+Français
+
+עברית
+
+Italiano
+
+한국어
+
+Norsk bokmål
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Electronic system managing a rechargeable battery
+
+A battery management system (BMS) is any electronic system that manages a rechargeable battery (cell or battery pack) by facilitating the safe usage and a long life of the battery in practical scenarios while monitoring and estimating its various states (such as state of health and state of charge),[1] calculating secondary data, reporting that data, controlling its environment, authenticating or balancing it.[2]
+
+Protection circuit module (PCM) is a simpler alternative to BMS.[3]
+
+A battery pack built together with a BMS with an external communication data bus is a smart battery pack. A smart battery pack must be charged by a smart battery charger.[1][4]</pre>
+<h3>Functions  <span class="muted small">— chars 951–1013</span></h3>
+<pre>Safety circuit for four-cell LiFePO4 batteries with a balancer</pre>
+<h3>Monitor  <span class="muted small">— chars 1027–1484</span></h3>
+<pre>A BMS may monitor the state of the battery as represented by various items, such as:
+
+Voltage: total voltage, voltages of individual cells, or voltage of periodic taps[clarification needed]
+
+Temperature: average temperature, coolant intake temperature, coolant output temperature, or temperatures of individual cells
+
+Coolant flow: for liquid cooled batteries
+
+Current: current in or out of the battery
+
+Health of individual cells
+
+State of balance of cells</pre>
+<h3>Electric vehicle systems: energy recovery  <span class="muted small">— chars 1533–2669</span></h3>
+<pre>The BMS will also control the recharging of the battery by redirecting the recovered energy (i.e., from regenerative braking) back into the battery pack (typically composed of a number of battery modules, each composed of a number of cells).
+
+Battery thermal management systems can be either passive or active, and the cooling medium can either be air, liquid, or some form of phase change.[5] Air cooling is advantageous in its simplicity. Such systems can be passive, relying only on the convection of the surrounding air, or active, using fans for airflow. Commercially, the Honda Insight and Toyota Prius both use active air cooling of their battery systems.[6] The major disadvantage of air cooling is its inefficiency. Large amounts of power must be used to operate the cooling mechanism, far more than active liquid cooling.[7] The additional components of the cooling mechanism also add weight to the BMS, reducing the efficiency of batteries used for transportation.[citation needed]
+
+Liquid cooling has a higher natural cooling potential than air cooling as liquid coolants tend to have higher thermal conductivities than air.</pre>
+<h3>Electric vehicle systems: energy recovery  <span class="muted small">— chars 2670–3089</span></h3>
+<pre>The batteries can either be directly submerged in the coolant or the coolant can flow through the BMS without directly contacting the battery. Indirect cooling has the potential to create large thermal gradients across the BMS due to the increased length of the cooling channels. This can be reduced by pumping the coolant faster through the system, creating a tradeoff between pumping speed and thermal consistency.[7]</pre>
+<h3>Computation  <span class="muted small">— chars 3108–4096</span></h3>
+<pre>Additionally, a BMS may calculate values based on the items listed below, such as:[1][4]
+
+Voltage: minimum and maximum cell voltage
+
+State of charge (SoC) or depth of discharge (DoD), to indicate the charge level of the battery
+
+State of health (SoH), is a variously defined measurement of the remaining capacity of the battery as a fraction of the original capacity
+
+State of power (SoP), is the amount of power available for a defined time interval given the current power usage, temperature and other conditions
+
+State of Safety (SOS)
+
+Maximum charge current as a charge current limit (CCL)
+
+Maximum discharge current as a discharge current limit (DCL)
+
+Energy delivered since last charge or charge cycle
+
+Internal impedance of a cell (to determine open circuit voltage)
+
+Charge delivered or stored (sometimes this feature is called coulomb counting)
+
+Total operating time since first use
+
+Total number of cycles
+
+Temperature monitoring
+
+Coolant flow for air or liquid cooled batteries</pre>
+<h3>Communication  <span class="muted small">— chars 4117–5265</span></h3>
+<pre>The central controller of a BMS communicates internally with its hardware operating at a cell level, or externally with high level hardware such as laptops or an HMI.[clarification needed]
+
+High level external communication is simple and uses several methods:[citation needed]
+
+Different types of serial communications.
+
+CAN bus communications, are commonly used in automotive environments.
+
+Different types of wireless communications.[8]
+
+Low-voltage centralized BMSes mostly do not have any internal communications.
+
+Distributed or modular BMSes must use some low-level internal cell–controller (modular architecture) or controller–controller (distributed architecture) communication. These types of communications are difficult, especially for high-voltage systems. The problem is the voltage shift between cells.The first cell ground signal may be hundreds of volts higher than the other cell ground signal. Apart from software protocols, there are two known ways of hardware communication for voltage shifting systems, optical-isolator and wireless communication. Another restriction for internal communications is the maximum number of cells.</pre>
+<h3>Communication  <span class="muted small">— chars 5186–6032</span></h3>
+<pre>Another restriction for internal communications is the maximum number of cells. For modular architecture, most hardware is limited to a maximum of 255 nodes. For high-voltage systems the seeking time of all cells is another restriction, limiting minimum bus speeds and losing some hardware options. The cost of modular systems is important, because it may be comparable to the cell price.[9] Combination of hardware and software restrictions results in a few options for internal communication:
+
+Isolated serial communications
+
+Wireless serial communications
+
+To bypass power limitations of existing USB cables due to heat from electric current, communication protocols implemented in mobile phone chargers for negotiating an elevated voltage have been developed, the most widely used of which are Qualcomm Quick Charge and MediaTek Pump Express.</pre>
+<h3>Communication  <span class="muted small">— chars 6033–6556</span></h3>
+<pre>&#34;VOOC&#34; by Oppo (also branded as &#34;Dash Charge&#34; with &#34;OnePlus&#34;) increases the current instead of voltage with the aim to reduce heat produced in the device from internally converting an elevated voltage down to the battery&#39;s terminal charging voltage, which however makes it incompatible with existing USB cables and relies on special high-current USB cables with accordingly thicker copper wires. More recently, the USB Power Delivery standard aims for a universal negotiation protocol across devices of up to 240 watts.[10]</pre>
+<h3>Protection  <span class="muted small">— chars 6574–7661</span></h3>
+<pre>BMS main controller
+A BMS may protect its battery by preventing it from operating outside its safe operating area, such as:[1][11]
+
+Over-charging
+
+Over-discharging
+
+Over-current during charging
+
+Over-current during discharging
+
+Over-voltage during charging, especially important for lead–acid, Li-ion, and LiFePO4 cells
+
+Under-voltage during discharging, especially important for Li-ion, and LiFePO4 cells
+
+Over-temperature
+
+Under-temperature
+
+Over-pressure (NiMH batteries)
+
+Ground fault or leakage current detection (system monitoring that the high voltage battery is electrically disconnected from any conductive object touchable to use like vehicle body)
+
+The BMS may prevent operation outside the battery&#39;s safe operating area by:
+
+Including an internal switch (such as a relay or MOSFET) which is opened if the battery is operated outside its safe operating area
+
+Asking the devices to reduce or even stop using or charging the battery.
+
+Actively controlling the environment, such as through heaters, fans, air conditioning or liquid cooling
+
+Reduce processor speed to reduce heat.</pre>
+<h3>Battery connection to load circuit  <span class="muted small">— chars 7702–8506</span></h3>
+<pre>A BMS may also feature a precharge system allowing a safe way to connect the battery to different loads and eliminating the excessive inrush currents to load capacitors.
+
+The connection to loads is normally controlled through electromagnetic relays called contactors. The precharge circuit can be either power resistors connected in series with the loads until the capacitors are charged. Alternatively, a switched mode power supply connected in parallel to loads can be used to charge the voltage of the load circuit up to a level close enough to the battery voltage in to allow closing the contactors between the battery and load circuit. A BMS may have a circuit that can check whether a relay is already closed before recharging (due to welding for example) to prevent inrush currents from occurring.</pre>
+<h3>Balancing  <span class="muted small">— chars 8523–9515</span></h3>
+<pre>Distributed battery management system
+In order to maximize the battery&#39;s capacity, and to prevent localized under-charging or over-charging, the BMS may actively ensure that all the cells that compose the battery are kept at the same voltage or State of Charge, through balancing. The BMS can balance the cells by:
+
+Dissipating energy from the most charged cells by connecting them to a load (such as through passive regulators)
+
+Shuffling energy from the most charged cells to the least charged cells (balancers)
+
+Reducing the charging current to a sufficiently low level that will not damage fully charged cells, while less charged cells may continue to charge (does not apply to Lithium chemistry cells)
+
+Some chargers accomplish the balance by charging each cell independently. This is often performed by the BMS and not the charger (which typically provides only the bulk charge current, and does not interact with the pack at the cell-group level), e.g., e-bike and hoverboard chargers.</pre>
+<h3>Balancing  <span class="muted small">— chars 9516–9772</span></h3>
+<pre>In this method, the BMS will request a lower charge current (such as EV batteries), or will shut-off the charging input (typical in portable electronics) through the use of transistor circuitry while balancing is in effect (to prevent over-charging cells).</pre>
+<h3>Topologies  <span class="muted small">— chars 9788–10736</span></h3>
+<pre>Cable data transfer moduleBMS wireless communication
+BMS technology varies in complexity and performance:
+
+Simple passive regulators achieve balancing across batteries or cells by bypassing the charging current when the cell&#39;s voltage reaches a certain level. The cell voltage is a poor indicator of the cell&#39;s SoC (and for certain lithium chemistries, such as LiFePO
+
+4, it is no indicator at all), thus, making cell voltages equal using passive regulators does not balance SoC, which is the goal of a BMS. Therefore, such devices, while certainly beneficial, have severe limitations in their effectiveness.
+
+Active regulators intelligently turn on and off a load when appropriate, again to achieve balancing. If only the cell voltage is used as a parameter to enable the active regulators, the same constraints noted above for passive regulators apply.
+
+A complete BMS also reports the state of the battery to a display, and protects the battery.</pre>
+<h3>Topologies  <span class="muted small">— chars 10644–11832</span></h3>
+<pre>A complete BMS also reports the state of the battery to a display, and protects the battery.
+
+BMS topologies fall into three categories:
+
+Centralized: a single controller is connected to the battery cells through a multitude of wires
+
+Distributed: a BMS board is installed at each cell, with just a single communication cable between the battery and a controller
+
+Modular: a few controllers, each handling a certain number of cells, with communication between the controllers
+
+Centralized BMSs are the most economical, least expandable, and are plagued by a multitude of wires.
+Distributed BMSs are the most expensive, simplest to install, and offer the cleanest assembly.
+Modular BMSes offer a compromise of the features and problems of the other two topologies.
+
+The requirements for a BMS in mobile applications (such as electric vehicles) and stationary applications (like stand-by UPSes in a server room) are quite different, especially from the space and weight constraint requirements, so the hardware and software implementations must be tailored to the specific use. In the case of electric or hybrid vehicles, the BMS is only a subsystem and cannot work as a stand-alone device.</pre>
+<h3>Topologies  <span class="muted small">— chars 11720–12395</span></h3>
+<pre>In the case of electric or hybrid vehicles, the BMS is only a subsystem and cannot work as a stand-alone device. It must communicate with at least a charger (or charging infrastructure), a load, thermal management and emergency shutdown subsystems. Therefore, in a good vehicle design the BMS is tightly integrated with those subsystems. Some small mobile applications (such as medical equipment carts, motorized wheelchairs, scooters, and forklifts) often have external charging hardware, however the on board BMS must still have tight design integration with the external charger.
+
+Various battery balancing methods are in use, some of them based on state of charge theory.</pre>
+<h3>See also  <span class="muted small">— chars 12409–12499</span></h3>
+<pre>Battery balancing
+
+Smart battery
+
+Battery charger
+
+Charge controller
+
+Undervoltage lockout</pre>
+
+<h2>Extracted claims (21)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Distributed or modular BMSes must use some low-level internal cell–controller (modular architecture) or controller–controller (distributed architecture) communication.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Battery thermal management systems can be either passive or active, and the cooling medium can either be air, liquid, or some form of phase change.[5] Air cooling is advantageous in its simplicity.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">It must communicate with at least a charger (or charging infrastructure), a load, thermal management and emergency shutdown subsystems.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Different types of wireless communications.[8]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">More recently, the USB Power Delivery standard aims for a universal negotiation protocol across devices of up to 240 watts.[10]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">The cell voltage is a poor indicator of the cell&#39;s SoC (and for certain lithium chemistries, such as LiFePO</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Large amounts of power must be used to operate the cooling mechanism, far more than active liquid cooling.[7] The additional components of the cooling mechanism also add weight to the BMS, reducing the efficiency of batteries used for transportation.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This can be reduced by pumping the coolant faster through the system, creating a tradeoff between pumping speed and thermal consistency.[7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For modular architecture, most hardware is limited to a maximum of 255 nodes.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">The requirements for a BMS in mobile applications (such as electric vehicles) and stationary applications (like stand-by UPSes in a server room) are quite different, especially from the space and weight constraint requirements, so the hardware and software implementations must be tailored to the specific use.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The cost of modular systems is important, because it may be comparable to the cell price.[9] Combination of hardware and software restrictions results in a few options for internal communication:</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">A battery pack built together with a BMS with an external communication data bus is a smart battery pack.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A battery management system (BMS) is any electronic system that manages a rechargeable battery (cell or battery pack) by facilitating the safe usage and a long life of the battery in practical scenarios while monitoring and estimating its various states (such as state of health and state of charge),[1] calculating secondary data, reporting that data, controlling its environment, authenticating or balancing it.[2]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Some small mobile applications (such as medical equipment carts, motorized wheelchairs, scooters, and forklifts) often have external charging hardware, however the on board BMS must still have tight design integration with the external charger.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Protection circuit module (PCM) is a simpler alternative to BMS.[3]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Commercially, the Honda Insight and Toyota Prius both use active air cooling of their battery systems.[6] The major disadvantage of air cooling is its inefficiency.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Additionally, a BMS may calculate values based on the items listed below, such as:[1][4]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">A smart battery pack must be charged by a smart battery charger.[1][4]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">State of health (SoH), is a variously defined measurement of the remaining capacity of the battery as a fraction of the original capacity</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A BMS may protect its battery by preventing it from operating outside its safe operating area, such as:[1][11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4, it is no indicator at all), thus, making cell voltages equal using passive regulators does not balance SoC, which is the goal of a BMS.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

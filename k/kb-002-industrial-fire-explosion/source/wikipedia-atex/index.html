@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATEX directive — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>ATEX directive</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:46+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/ATEX_directive" rel="nofollow noopener">https://en.wikipedia.org/wiki/ATEX_directive</a><br>
+  <span class="muted">Content hash: <code>8b0364c9f451c097bc8bb655cdeeadbe</code></span>
+</div>
+
+
+<h2>Stored passages (15)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>ATEX directives  <span class="muted small">— chars 47–1225</span></h3>
+<pre>15 languages
+
+العربية
+
+Čeština
+
+Deutsch
+
+Español
+
+فارسی
+
+Suomi
+
+Français
+
+Italiano
+
+Nederlands
+
+Norsk nynorsk
+
+Norsk bokmål
+
+Polski
+
+Русский
+
+Svenska
+
+Українська
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+(Redirected from ATEX directive)
+
+EU ATEX Directive on workplaces with an explosive atmosphere
+
+This article has multiple issues. Please help improve it or discuss these issues on the talk page. (Learn how and when to remove these messages)
+
+This article may be in need of reorganization to comply with Wikipedia&#39;s layout guidelines. Please help by editing the article to make improvements to the overall structure.(June 2013) (Learn how and when to remove this message)
+
+This article may be confusing or unclear to readers. Please help clarify the article. There might be a discussion about this on the talk page.(June 2013) (Learn how and when to remove this message)
+
+This article&#39;s style of writing may not reflect the encyclopedic tone used on Wikipedia. See Wikipedia&#39;s guide to writing better articles for suggestions.(April 2014) (Learn how and when to remove this message)
+
+ (Learn how and when to remove this message)
+
+Not to be confused with CE marking.</pre>
+<h3>ATEX directives  <span class="muted small">— chars 1227–1968</span></h3>
+<pre>Directive 2014/34/EU
+European Union directive
+
+Text with EEA relevance
+
+TitleEquipment and protective systems intended for use in potentially explosive atmospheres
+
+History
+
+Entry into force18 April 2014
+
+Other legislation
+
+Replaces94/9/EC
+
+Current legislation
+
+Directive 1999/92/EC
+European Union directive
+
+Text with EEA relevance
+
+TitleMinimum requirements for improving the safety and health protection of workers potentially at risk from explosive atmospheres
+
+Current legislation
+
+The ATEX directives are two of the EU directives describing the minimum safety requirements for workplaces and equipment used in explosive atmospheres. The name is an initialization of the term ATmosphères EXplosives (French for &#34;explosive atmospheres&#34;).</pre>
+<h3>Directives  <span class="muted small">— chars 1985–3132</span></h3>
+<pre>Community Mark affixed on ATEX certified equipment intended for use in potentially explosive atmospheres.
+Organizations in the EU must follow Directives to protect employees from explosion risk in areas with an explosive atmosphere.
+
+There are two ATEX Directives (one for the manufacturer and one for the user of the equipment):
+
+The ATEX 114 &#34;equipment&#34; Directive 2014/34/EU - Equipment and protective systems intended for use in potentially explosive atmospheres
+
+The ATEX 153 &#34;workplace&#34; Directive 1999/92/EC - Minimum requirements for improving the safety and health protection of workers potentially at risk from explosive atmospheres.
+
+Note: The ATEX 95 &#34;equipment&#34; Directive 94/9/EC, was withdrawn on 20 April 2016 when it was replaced by ATEX 114 Directive 2014/34/EU. ATEX Directive 2014/34/EU is mandatory for manufacturers as of 20 April 2016 as stated in article 44 of the Directive.
+
+ATEX Directive 2014/34/EU was published on 29 March 2014, by the European Parliament. It refers to the harmonization of the laws of the Member States relating to equipment and protective systems intended for use in potentially explosive atmospheres.</pre>
+<h3>Directives  <span class="muted small">— chars 3134–4245</span></h3>
+<pre>Regarding ATEX 99/92/EC Directive, the requirement is that Employers must classify areas where potentially explosive atmospheres may occur, into zones. The classification given to a particular zone, and its size and location, depends on the likelihood of an explosive atmosphere occurring and its persistence if it does.
+
+Equipment in use before July 2003 is allowed to be used indefinitely provided a risk assessment shows it is safe to do so.
+
+The aim of Directive 2014/34/EU is to allow the free trade of ‘ATEX’ equipment and protective systems within the EU by removing the need for separate testing and documentation for each member state.
+
+The regulations apply to all equipment intended for use in explosive atmospheres, whether electrical or mechanical, including protective systems. There are two categories of equipment: &#39;I&#39; for mining and &#39;II&#39; for surface industries. Manufacturers who apply its provisions and affix the CE marking and the Ex marking are able to sell their equipment anywhere within the European Union without any further requirements with respect to the risks covered being applied.</pre>
+<h3>Directives  <span class="muted small">— chars 4246–5297</span></h3>
+<pre>The directive covers a large range of equipment, potentially including equipment used on fixed offshore platforms, in petrochemical plants, mines, flour mills, and other areas where a potentially explosive atmosphere may be present.
+
+In very broad terms, there are three preconditions for the directive to apply: the equipment must (a) have its own effective source of ignition, (b) be intended for use in a potentially explosive atmosphere (air mixtures), and (c) be under normal atmospheric conditions.
+
+The directive also covers components essential for the safe use and safety devices directly contributing to the safe use of the equipment in scope. These latter devices may be outside the potentially explosive environment.
+
+Manufacturers/suppliers (or importers, if the manufacturers are outside the EU) must ensure that their products meet essential health and safety requirements and undergo appropriate conformity procedures. This usually involves testing and certification by a ‘third-party’ certification body (known as a Notified Body e.g.</pre>
+<h3>Directives  <span class="muted small">— chars 5181–6244</span></h3>
+<pre>This usually involves testing and certification by a ‘third-party’ certification body (known as a Notified Body e.g. UL, Vinçotte, Intertek, Sira, Baseefa, Lloyd&#39;s, TUV ICQC) but manufacturers/suppliers can ‘self-certify’ Category 3 equipment (technical dossier including drawings, hazard analysis and users manual in the local language) and Category 2 non-electrical equipment. Still, for Category 2 the technical dossier must be lodged with a notified body. Once certified, the equipment is marked by the ‘CE’ (meaning it complies with ATEX and all other relevant directives) and the ‘Ex’ symbol to identify it as approved under the ATEX directive. The technical dossier must be kept for a period of 10 years.
+
+Certification ensures that the equipment or protective system is fit for its intended purpose and that adequate information is supplied with it to ensure that it can be used safely. There are four ATEX classifications to ensure that a specific piece of equipment or protective system is appropriate and can be safely used in a particular application:</pre>
+<h3>4 Temperature  <span class="muted small">— chars 6336–6561</span></h3>
+<pre>The ATEX as an EU directive finds its US equivalent under the HAZLOC standard. This standard given by the Occupational Safety and Health Administration defines and classifies hazardous locations such as explosive atmospheres.</pre>
+<h3>Explosive atmospheres  <span class="muted small">— chars 6589–6986</span></h3>
+<pre>In DSEAR, an explosive atmosphere is defined as a mixture of dangerous substances under certain atmospheric conditions that are part of the air. They are in the form of gases or airborne particulates, in which, after ignition has occurred, combustion will spread to the entire mixture.
+
+The aforementioned atmospheric conditions are temperatures of −20 to 40°C, and pressures of 0.8 to 1.1 bar.[1]</pre>
+<h3>Zone classification  <span class="muted small">— chars 7012–8103</span></h3>
+<pre>The ATEX Directive covers explosions from flammable gas/vapors and combustible dust/fibers (which, contrary to common belief, can lead to hazardous explosions[2]).
+
+The following are classifications for zones that can produce explosive atmospheres.
+
+Gas/Vapor/Mist:
+
+The following zones are each defined as a place in which an explosive atmosphere consisting of a mixture of air or dangerous substances in the form of gas, vapor, or mist...
+
+Zone 0 – ...is present continuously or for long periods or frequently.
+
+Zone 1 – ...is likely to occur in normal operation occasionally.
+
+Zone 2 – ...is not likely to occur in normal operation, and if it does occur, will persist for a short period only.
+
+Dust/Fibers:
+
+These are defined as a place in which an explosive atmosphere is in the form of a cloud of combustible dust in the air...
+
+Zone 20 – ...is present continuously, or for long periods or frequently.
+
+Zone 21 – ...is likely to occur in normal operation occasionally.
+
+Zone 22 – ...is not likely to occur in normal operation but, if it does occur, will persist for a short period only.</pre>
+<h3>Zone classification  <span class="muted small">— chars 7987–9067</span></h3>
+<pre>Zone 22 – ...is not likely to occur in normal operation but, if it does occur, will persist for a short period only.
+
+Effective ignition source
+
+&#34;Effective ignition source&#34; is a term defined in the European ATEX directive as an event that, in combination with sufficient oxygen and fuel, can cause an explosion. Methane, hydrogen, and coal dust are good examples of possible fuels.[3]
+
+Effective ignition sources are:[4]
+
+Lightning strikes
+
+Stray currents
+
+Static electricity
+
+Some frequencies of electromagnetic waves (Light waves)
+
+Ultrasound (Sound waves above the human hearing range, generally above 20 kHz)
+
+Electrical switches (Toggling an electrical switch (particularly turning it off) can cause arcing inside the switch)
+
+Open flames (This may range from a lit cigarette to welding activity)
+
+Hot gasses (This can include a gas that just has hot particulates in it)
+
+Mechanically generated impact spark (For example, a hammer blow on a rusty steel surface compared to a hammer blow on a flint stone. The speed and impact angle (between surface and hammer) are important;</pre>
+<h3>Zone classification  <span class="muted small">— chars 8997–9427</span></h3>
+<pre>The speed and impact angle (between surface and hammer) are important; a 90-degree blow on a surface is relatively harmless)
+
+Mechanically generated friction sparks (The combination of materials and speed determine the effectiveness of the ignition source. For example, 4.5 m/s steel-steel friction with a force greater than 2 kN is an effective ignition source. The combination of aluminum and rust is also notoriously dangerous.</pre>
+<h3>Zone classification  <span class="muted small">— chars 9360–10390</span></h3>
+<pre>The combination of aluminum and rust is also notoriously dangerous. More than one red hot spark is often necessary in order to have an effective ignition source)
+
+Electric sparks (For example, a bad electrical connection or a faulty pressure transmitter)
+
+Electrostatic discharge (Static electricity can be generated by air sliding over a wing, or a non-conductive liquid flowing through a filter screen)
+
+Ionizing radiation
+
+Hot surfaces
+
+Exothermic reactions (A chemical reaction that expels heat from the involved substances, into the surrounding area)
+
+Adiabatic compression (When air is pushed through a narrow passage quickly, causing the passage&#39;s surface to heat up)
+
+GasgroupHazardous Substance
+
+IIAAcetic Acid, Acetone, Ammonia, Butane, Cyclohexane, Propane, Gasoline (petrol), Diesel, Methane (natural gas, non-mining), Toluene, Xylene, Methanol (methyl alcohol), Propane-2-ol (iso-propyl alcohol)
+
+IIBDi-ethyl ether, Ethylene, Ethanol, Methyl ethyl ketone (MEK), Propane-1-ol (n-propyl alcohol)
+
+IICAcetylene, Hydrogen</pre>
+<h3>Implementation  <span class="muted small">— chars 10411–11594</span></h3>
+<pre>Dangerous Substances and Explosive Atmospheres Regulations 2002
+Statutory Instrument
+
+Parliament of the United Kingdom
+
+CitationSI 2002/2776
+
+Dates
+
+Made7 November 2002
+
+Laid before Parliament15 November 2002
+
+Commencement9 December 2002
+
+Other legislation
+
+Made under
+
+Health and Safety at Work etc. Act 1974
+
+Text of statute as originally enacted
+
+Text of the Dangerous Substances and Explosive Atmospheres Regulations 2002 as in force today (including any amendments) within the United Kingdom, from legislation.gov.uk.
+
+The Dangerous Substances and Explosive Atmospheres Regulations 2002 (SI 2002/2776), or DSEAR, is the United Kingdom&#39;s implementation of the ATEX directive. The intention of the Regulations is to reduce the risk of a fatality or serious injury resulting from a &#34;dangerous substance&#34; igniting and potentially exploding. Examples of a &#34;dangerous substance&#34;, as defined by DSEAR, include sawdust, ethanol vapours, and hydrogen gas. The regulation is enforceable by the HSE or local authorities.
+
+From June 2015, DSEAR incorporated changes in the EU Chemical Agents Directive and now also covers gases under pressure and substances that are corrosive to metals.[5]</pre>
+<h3>See also  <span class="muted small">— chars 11609–11693</span></h3>
+<pre>Area classification
+
+Electrical equipment in hazardous areas
+
+Intrinsic safety
+
+HSEQ</pre>
+
+<h2>Extracted claims (40)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Regarding ATEX 99/92/EC Directive, the requirement is that Employers must classify areas where potentially explosive atmospheres may occur, into zones.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Text of the Dangerous Substances and Explosive Atmospheres Regulations 2002 as in force today (including any amendments) within the United Kingdom, from legislation.gov.uk.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Zone 0 – ...is present continuously or for long periods or frequently.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Zone 21 – ...is likely to occur in normal operation occasionally.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">There might be a discussion about this on the talk page.(June 2013) (Learn how and when to remove this message)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Please help by editing the article to make improvements to the overall structure.(June 2013) (Learn how and when to remove this message)</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Still, for Category 2 the technical dossier must be lodged with a notified body.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Zone 1 – ...is likely to occur in normal operation occasionally.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">IIAAcetic Acid, Acetone, Ammonia, Butane, Cyclohexane, Propane, Gasoline (petrol), Diesel, Methane (natural gas, non-mining), Toluene, Xylene, Methanol (methyl alcohol), Propane-2-ol (iso-propyl alcohol)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">IIBDi-ethyl ether, Ethylene, Ethanol, Methyl ethyl ketone (MEK), Propane-1-ol (n-propyl alcohol)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Methane, hydrogen, and coal dust are good examples of possible fuels.[3]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The aim of Directive 2014/34/EU is to allow the free trade of ‘ATEX’ equipment and protective systems within the EU by removing the need for separate testing and documentation for each member state.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">This article&#39;s style of writing may not reflect the encyclopedic tone used on Wikipedia.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">The technical dossier must be kept for a period of 10 years.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Organizations in the EU must follow Directives to protect employees from explosion risk in areas with an explosive atmosphere.</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">The aforementioned atmospheric conditions are temperatures of −20 to 40°C, and pressures of 0.8 to 1.1 bar.[1]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The speed and impact angle (between surface and hammer) are important; a 90-degree blow on a surface is relatively harmless)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Zone 2 – ...is not likely to occur in normal operation, and if it does occur, will persist for a short period only.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Zone 22 – ...is not likely to occur in normal operation but, if it does occur, will persist for a short period only.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Dangerous Substances and Explosive Atmospheres Regulations 2002</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Equipment in use before July 2003 is allowed to be used indefinitely provided a risk assessment shows it is safe to do so.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">From June 2015, DSEAR incorporated changes in the EU Chemical Agents Directive and now also covers gases under pressure and substances that are corrosive to metals.[5]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Ultrasound (Sound waves above the human hearing range, generally above 20 kHz)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">See Wikipedia&#39;s guide to writing better articles for suggestions.(April 2014) (Learn how and when to remove this message)</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">&#34;Effective ignition source&#34; is a term defined in the European ATEX directive as an event that, in combination with sufficient oxygen and fuel, can cause an explosion.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Manufacturers/suppliers (or importers, if the manufacturers are outside the EU) must ensure that their products meet essential health and safety requirements and undergo appropriate conformity procedures.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The ATEX Directive covers explosions from flammable gas/vapors and combustible dust/fibers (which, contrary to common belief, can lead to hazardous explosions[2]).</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">In DSEAR, an explosive atmosphere is defined as a mixture of dangerous substances under certain atmospheric conditions that are part of the air.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The ATEX 153 &#34;workplace&#34; Directive 1999/92/EC - Minimum requirements for improving the safety and health protection of workers potentially at risk from explosive atmospheres.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The ATEX 114 &#34;equipment&#34; Directive 2014/34/EU - Equipment and protective systems intended for use in potentially explosive atmospheres</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ATEX Directive 2014/34/EU is mandatory for manufacturers as of 20 April 2016 as stated in article 44 of the Directive.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Note: The ATEX 95 &#34;equipment&#34; Directive 94/9/EC, was withdrawn on 20 April 2016 when it was replaced by ATEX 114 Directive 2014/34/EU.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">In very broad terms, there are three preconditions for the directive to apply: the equipment must (a) have its own effective source of ignition, (b) be intended for use in a potentially explosive atmosphere (air mixtures), and (c) be under normal atmospheric conditions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">For example, 4.5 m/s steel-steel friction with a force greater than 2 kN is an effective ignition source.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">It refers to the harmonization of the laws of the Member States relating to equipment and protective systems intended for use in potentially explosive atmospheres.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ATEX Directive 2014/34/EU was published on 29 March 2014, by the European Parliament.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Zone 22 – ...is not likely to occur in normal operation but, if it does occur, will persist for a short period only.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Dangerous Substances and Explosive Atmospheres Regulations 2002 (SI 2002/2776), or DSEAR, is the United Kingdom&#39;s implementation of the ATEX directive.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL, Vinçotte, Intertek, Sira, Baseefa, Lloyd&#39;s, TUV ICQC) but manufacturers/suppliers can ‘self-certify’ Category 3 equipment (technical dossier including drawings, hazard analysis and users manual in the local language) and Category 2 non-electrical equipment.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Zone 20 – ...is present continuously, or for long periods or frequently.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lithium-Ion Battery Failure Intelligence — evidence</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Lithium-Ion Battery Failure Intelligence</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav>
+<div class="grid" style="margin-top:18px">
+  <div class="stat"><div class="k">Version</div><div class="v">v0.1.0</div></div>
+  <div class="stat"><div class="k">Sources</div><div class="v">34</div></div>
+  <div class="stat"><div class="k">Evaluation questions</div><div class="v">103</div></div>
+  <div class="stat">
+    <div class="k">Regression status</div>
+    <div class="v">
+<span class="pass">PASS</span>
+    </div>
+  </div>
+</div>
+<p class="muted small" style="margin-top:8px">
+  Last evaluated 2026-09-18T18:02:14+00:00.
+  Corpus last refreshed 2026-09-18T18:01:14+00:00.
+</p>
+
+<div class="banner">
+  <strong>Don't trust it. Test it.</strong>
+  This page exists so you can judge the system rather than take its word.
+  Every failing question is listed below, not hidden.
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it →</a>
+</div>
+
+<h2>About</h2>
+<p>An evidence-backed specialist system covering lithium-ion cell and system failure: failure mechanisms, thermal runaway initiation and propagation, vent-gas composition, early detection, suppression and cooling, battery energy storage and electric-vehicle incident precedent, and the transport, storage, installation and waste rules that govern them. Every answer is traceable to a stored source with a URI, publisher and retrieval date, and is machine-checked for unsupported claims before it is returned.</p>
+<h3>In scope</h3>
+<ul class="tight"><li>lithium-ion cell and battery failure mechanisms</li><li>thermal runaway onset initiation and propagation</li><li>internal and external short circuit</li><li>lithium plating and dendrite growth</li><li>separator failure and shutdown behaviour</li><li>vent gas composition and off-gassing</li><li>early detection of cell failure</li><li>fire suppression and cooling of battery fires</li><li>battery energy storage system fire safety</li><li>electric vehicle and e-bike battery fires</li><li>battery transport storage and installation rules</li><li>waste battery handling and treatment</li><li>battery safety standards and regulation</li><li>battery incident and product safety reports</li></ul>
+<h3>Explicitly out of scope</h3>
+<ul class="tight"><li>medical diagnosis treatment or clinical advice</li><li>legal advice or litigation strategy</li><li>tax accounting and financial advice</li><li>share prices company valuation and investment advice</li><li>battery manufacturing cost economics and pricing forecasts</li><li>political opinion and elections</li><li>software programming help unrelated to batteries</li><li>personal relationship advice</li></ul>
+<p class="panel small"><strong>Standing caveat.</strong> This is an evidence-retrieval system, not a basis-of-design authority. It does not replace a competent fire engineer, a dangerous-goods adviser or the governing standard. Verify every figure against the cited primary source before relying on it for a safety decision.</p>
+
+<h2>Sources</h2>
+<div class="grid">
+  <div class="stat"><div class="k">Registered</div><div class="v">34</div></div>
+  <div class="stat"><div class="k">Indexed</div><div class="v">29</div></div>
+  <div class="stat"><div class="k">Pointer only</div><div class="v">5</div></div>
+  <div class="stat"><div class="k">Passages</div><div class="v">1267</div></div>
+</div>
+<table>
+  <tr><th>Source type</th><th>Sources</th><th>Passages</th></tr>
+  <tr><td>academic</td><td>8</td><td>274</td></tr>
+  <tr><td>industry</td><td>2</td><td>43</td></tr>
+  <tr><td>investigation</td><td>6</td><td>51</td></tr>
+  <tr><td>reference</td><td>7</td><td>339</td></tr>
+  <tr><td>regulatory</td><td>6</td><td>560</td></tr>
+  <tr><td>standard</td><td>5</td><td>0</td></tr>
+</table>
+<p class="small"><a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Full source register, with licences and retrieval dates →</a></p>
+
+<h2>Coverage</h2>
+<p class="small muted">
+  Ontology: 65 entities, 86 relationships.
+  Source authority is 5 (primary regulator or accident investigator) down to 2 (tertiary reference).
+</p>
+<table>
+  <tr><th>Authority</th><th>Sources</th></tr>
+  <tr><td>5 / 5</td><td>15</td></tr>
+  <tr><td>4 / 5</td><td>12</td></tr>
+  <tr><td>2 / 5</td><td>7</td></tr>
+</table>
+
+<h2>Evaluation</h2>
+<p>
+  <strong>76 / 103</strong>
+  questions passed (74%).
+<span class="pass">Gate: PASS</span>
+</p>
+<table>
+  <tr><th>Question type</th><th>Passed</th><th>Rate</th></tr>
+  <tr><td>factual</td><td>25 / 36</td><td>69%</td></tr>
+  <tr><td>citation</td><td>4 / 5</td><td>80%</td></tr>
+  <tr><td>multi_document</td><td>3 / 5</td><td>60%</td></tr>
+  <tr><td>reasoning</td><td>4 / 5</td><td>80%</td></tr>
+  <tr><td>temporal</td><td>2 / 5</td><td>40%</td></tr>
+  <tr><td>ambiguous</td><td>3 / 5</td><td>60%</td></tr>
+  <tr><td>unanswerable</td><td>10 / 13</td><td>77%</td></tr>
+  <tr><td>out_of_scope</td><td>5 / 7</td><td>71%</td></tr>
+  <tr><td>adversarial</td><td>20 / 22</td><td>91%</td></tr>
+</table>
+<h3>Metrics</h3>
+<p class="small muted">
+  Reported separately and deliberately. There is no single headline accuracy number,
+  because there is no honest way to compute one.
+</p>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>retrieval_precision</td><td>0.452</td></tr>
+  <tr><td>retrieval_recall</td><td>0.964</td></tr>
+  <tr><td>answer_correctness</td><td>0.822</td></tr>
+  <tr><td>citation_validity</td><td>0.992</td></tr>
+  <tr><td>citation_relevance</td><td>0.767</td></tr>
+  <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
+  <tr><td>hallucination_rate</td><td>0.000</td></tr>
+  <tr><td>abstention_correctness</td><td>0.787</td></tr>
+  <tr><td>source_coverage</td><td>0.586</td></tr>
+  <tr><td>contradiction_rate</td><td>0.019</td></tr>
+  <tr><td>corpus_freshness_days</td><td>0.001</td></tr>
+  <tr><td>regression_rate</td><td>0.000</td></tr>
+</table>
+<p class="small"><a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Every question, including the 27 it fails →</a></p>
+
+<h2>Adversarial testing</h2>
+<p>
+  64 generated attacks, survival rate
+  <strong>92%</strong>
+  (5 breaks).
+</p>
+<table>
+  <tr><th>Failure mode</th><th>Times triggered</th></tr>
+  <tr><td>hallucinated</td><td>0</td></tr>
+  <tr><td>irrelevant_citation</td><td>1</td></tr>
+  <tr><td>misread_source</td><td>0</td></tr>
+  <tr><td>unsupported_deduction</td><td>0</td></tr>
+  <tr><td>missed_uncertainty</td><td>5</td></tr>
+</table>
+<h3>What broke it</h3>
+<table>
+  <tr><th>Question</th><th>Failure</th></tr>
+  <tr><td>How many iec62619 failures will occur globally next year?</td><td class="fail small">irrelevant_citation, missed_uncertainty</td></tr>
+  <tr><td>What is the exact threshold for smoke evolution for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
+  <tr><td>What will the rules on liquid electrolyte be in 2030?</td><td class="fail small">missed_uncertainty</td></tr>
+  <tr><td>What is the exact threshold for polyolefin separator for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
+  <tr><td>What is the exact threshold for vent for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
+</table>
+
+<h2>Updates</h2>
+<table>
+  <tr><th>Version</th><th>Published</th><th>Sources</th><th>Passages</th><th>Evaluation</th></tr>
+  <tr>
+    <td><code>v0.1.0</code></td>
+    <td class="small">2026-09-18T18:02</td>
+    <td>34</td>
+    <td>1267</td>
+    <td>76 / 103
+<span class="pass">PASS</span></td>
+  </tr>
+  <tr>
+    <td><code>v0.1.1</code></td>
+    <td class="small">2026-09-18T17:27</td>
+    <td>34</td>
+    <td>1261</td>
+    <td>73 / 100
+<span class="pass">PASS</span></td>
+  </tr>
+</table>
+
+<h2>Known limitations</h2>
+<ul class="tight">
+<li>The full texts of NFPA 855, UL 9540A, IEC 62619, UN 38.3 and UNECE R100 are copyrighted and are NOT stored. They are registered as pointers only: the system can tell you a standard exists and is relevant, and cite secondary sources that describe it, but it cannot quote its clauses.</li><li>Thermal-runaway onset temperatures, vent-gas composition and propagation behaviour vary substantially with cell chemistry, format, state of charge and ageing. Any single figure should be read as specific to the test conditions of the source that reports it.</li><li>Academic coverage is drawn from open-access preprints. It is neither a systematic review nor peer-reviewed at the point of ingestion, and recent preprints may be superseded.</li><li>Coverage is strongest for UK and EU regulation and weakest for US state fire codes, Chinese GB standards and Japanese regulation.</li><li>Encyclopaedia sources (authority 2) are included for coverage and vocabulary. They are deliberately outranked by regulators and investigation bodies, but they are still cited where nothing better exists.</li></ul>
+<h3>Cited but not held</h3>
+<p class="small muted">
+  These are copyrighted standards. The system can tell you they are relevant and
+  point at them. It cannot quote their clauses, and it will decline if you ask it to.
+</p>
+<table>
+  <tr><th>Standard</th><th>Publisher</th><th>Licence</th></tr>
+  <tr><td>IEC 62619: Safety requirements for secondary lithium cells and batteries for industrial applications</td><td>International Electrotechnical Commission</td><td class="small muted">© IEC - copyrighted standard, not redistributable</td></tr>
+  <tr><td>NFPA 855: Standard for the Installation of Stationary Energy Storage Systems</td><td>National Fire Protection Association</td><td class="small muted">© NFPA - copyrighted standard, not redistributable</td></tr>
+  <tr><td>UL 9540A: Test Method for Evaluating Thermal Runaway Fire Propagation in Battery Energy Storage Systems</td><td>UL Standards &amp; Engagement</td><td class="small muted">© UL Standards &amp; Engagement - copyrighted standard, not redistributable</td></tr>
+  <tr><td>UN Manual of Tests and Criteria, sub-section 38.3 (lithium battery transport tests)</td><td>United Nations Economic Commission for Europe</td><td class="small muted">© United Nations - not redistributable in full</td></tr>
+  <tr><td>UNECE Regulation No. 100: electric power train vehicle safety</td><td>United Nations Economic Commission for Europe</td><td class="small muted">© United Nations - not redistributable in full</td></tr>
+</table>
+
+<h2>Challenges</h2>
+<p>
+  0 submitted.
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Read them, or submit one →</a>
+</p>
+<p class="small muted">
+  Review status: <strong>draft</strong>,
+  self-assessed confidence <strong>low</strong>.
+</p>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

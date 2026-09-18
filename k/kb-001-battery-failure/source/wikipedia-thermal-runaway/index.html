@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thermal runaway — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Thermal runaway</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:08+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Thermal_runaway" rel="nofollow noopener">https://en.wikipedia.org/wiki/Thermal_runaway</a><br>
+  <span class="muted">Content hash: <code>f78ae3e0180c3f660cc1231f27a9f2a6</code></span>
+</div>
+
+
+<h2>Stored passages (28)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Thermal runaway  <span class="muted small">— chars 47–1158</span></h3>
+<pre>14 languages
+
+العربية
+
+Català
+
+Deutsch
+
+Español
+
+فارسی
+
+Suomi
+
+Italiano
+
+日本語
+
+한국어
+
+Norsk bokmål
+
+پښتو
+
+Português
+
+Türkçe
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Loss of control of an exothermal process due to temperature increases
+
+This article is about positive thermal feedback in engineering processes. For climate change entering an unstoppable and rapidly warming phase, see runaway greenhouse effect.
+
+This article needs more citations. Please help improve this article by adding citations to reliable sources. Unsourced material may be challenged and removed.
+
+Find sources:&#34;Thermal runaway&#34;–news·newspapers·books·scholar·JSTOR(May 2026) (Learn how and when to remove this message)
+
+Diagram of thermal runaway
+Thermal runaway describes a process that is accelerated by increased temperature, in turn releasing energy that further increases temperature. Thermal runaway occurs in situations where an increase in temperature changes the conditions in a way that causes a further increase in temperature, often leading to a destructive result. It is a kind of uncontrolled positive feedback.</pre>
+<h3>Thermal runaway  <span class="muted small">— chars 1111–1814</span></h3>
+<pre>It is a kind of uncontrolled positive feedback.
+
+In chemistry (and chemical engineering), thermal runaway is associated with strongly exothermic reactions that are accelerated by a rise in temperature. In electrical engineering, thermal runaway is typically associated with increased current flow and power dissipation. Thermal runaway can occur in civil engineering, notably when the heat released by large amounts of curing concrete is not controlled.[citation needed] In astrophysics, runaway nuclear fusion reactions in stars can lead to nova and several types of supernova explosions, and also occur as a less dramatic event in the normal evolution of solar-mass stars, known as the &#34;helium flash&#34;.</pre>
+<h3>Chemical engineering  <span class="muted small">— chars 1841–3029</span></h3>
+<pre>Chemical reactions involving thermal runaway are also called thermal explosions in chemical engineering, or runaway reactions in organic chemistry. It is a process by which an exothermic reaction goes out of control: the reaction rate increases due to an increase in temperature, causing a further increase in temperature and hence a further rapid increase in the reaction rate. This has contributed to industrial chemical accidents, most notably the 1947 Texas City disaster from overheated ammonium nitrate in a ship&#39;s hold, and the 1976 explosion of zoalene, in a drier, at King&#39;s Lynn.[1]Frank-Kamenetskii theory provides a simplified analytical model for thermal explosion. Chain branching is an additional positive feedback mechanism which may also cause temperature to skyrocket because of rapidly increasing reaction rate.
+
+Chemical reactions are either endothermic or exothermic, as expressed by their change in enthalpy. Many reactions are highly exothermic, so many industrial-scale and oil refinery processes have some level of risk of thermal runaway. These include hydrocracking, hydrogenation, alkylation (SN2), oxidation, metalation and nucleophilic aromatic substitution.</pre>
+<h3>Chemical engineering  <span class="muted small">— chars 2906–4056</span></h3>
+<pre>These include hydrocracking, hydrogenation, alkylation (SN2), oxidation, metalation and nucleophilic aromatic substitution. For example, oxidation of cyclohexane into cyclohexanol and cyclohexanone and ortho-xylene into phthalic anhydride have led to catastrophic explosions when reaction control failed.
+
+Thermal runaway may result from unwanted exothermic side reactions that begin at higher temperatures, following an initial accidental overheating of the reaction mixture. This scenario was behind the Seveso disaster, where thermal runaway heated a reaction to temperatures such that in addition to the intended 2,4,5-trichlorophenol, poisonous 2,3,7,8-tetrachlorodibenzo-p-dioxin was also produced, and was vented into the environment after the reactor&#39;s rupture disk burst.[2]
+
+Thermal runaway is most often caused by failure of the reactor vessel&#39;s cooling system. Failure of the mixer can result in localized heating, which initiates thermal runaway. Similarly, in flow reactors, localized insufficient mixing causes hotspots to form, wherein thermal runaway conditions occur, which causes violent blowouts of reactor contents and catalysts.</pre>
+<h3>Chemical engineering  <span class="muted small">— chars 4057–5177</span></h3>
+<pre>Incorrect equipment component installation is also a common cause. Many chemical production facilities are designed with high-volume emergency venting, a measure to limit the extent of injury and property damage when such accidents occur.
+
+At large scale, it is unsafe to &#34;charge all reagents and mix&#34;, as is done in laboratory scale. This is because the amount of reaction scales with the cube of the size of the vessel (V ∝ r3), but the heat transfer area scales with the square of the size (A ∝ r2), so that the heat production-to-area ratio scales with the size (V/A ∝ r). Consequently, reactions that easily cool fast enough in the laboratory can dangerously self-heat at ton scale. In 2007, this kind of erroneous procedure caused an explosion of a 2,400 U.S. gallons (9,100L)-reactor used to metalatemethylcyclopentadiene with metallic sodium, causing the loss of four lives and parts of the reactor being flung 400 feet (120m) away.[3][4] Thus, industrial scale reactions prone to thermal runaway are preferably controlled by the addition of one reagent at a rate corresponding to the available cooling capacity.</pre>
+<h3>Chemical engineering  <span class="muted small">— chars 5179–5493</span></h3>
+<pre>Some laboratory reactions must be run under extreme cooling, because they are very prone to hazardous thermal runaway. For example, in Swern oxidation, the formation of sulfonium chloride must be performed in a cooled system (−30°C), because at room temperature the reaction undergoes explosive thermal runaway.[4]</pre>
+<h3>Microwave heating  <span class="muted small">— chars 5517–6318</span></h3>
+<pre>Microwaves are used for heating of various materials in cooking and various industrial processes. The rate of heating of the material depends on the energy absorption, which depends on the dielectric constant of the material. The dependence of dielectric constant on temperature varies for different materials; some materials display significant increase with increasing temperature. This behavior, when the material gets exposed to microwaves, leads to selective local overheating, as the warmer areas are better able to accept further energy than the colder areas—potentially dangerous especially for thermal insulators, where the heat exchange between the hot spots and the rest of the material is slow. These materials are called thermal runaway materials. This phenomenon occurs in some ceramics.</pre>
+<h3>Electrical engineering  <span class="muted small">— chars 6347–7541</span></h3>
+<pre>Some electronic components develop lower resistances or lower triggering voltages (for nonlinear resistances) as their internal temperature increases. If circuit conditions cause markedly increased current flow in these situations, increased power dissipation may raise the temperature further by Joule heating. A vicious circle or positive feedback effect of thermal runaway can cause failure, sometimes in a spectacular fashion (e.g. electrical explosion or fire). To prevent these hazards, well-designed electronic systems typically incorporate current limiting protection, such as thermal fuses, circuit breakers, or PTC current limiters.
+
+To handle larger currents, circuit designers may connect multiple lower-capacity devices (e.g. transistors, diodes, or MOVs) in parallel. This technique can work well, but it is susceptible to a phenomenon called current hogging, in which the current is not shared equally across all devices. Typically, one device may have a slightly lower resistance, and thus draws more current, heating it more than its sibling devices, causing its resistance to drop further. The electrical load ends up funnelling into a single device, which then rapidly fails.</pre>
+<h3>Electrical engineering  <span class="muted small">— chars 7455–8490</span></h3>
+<pre>The electrical load ends up funnelling into a single device, which then rapidly fails. Thus, an array of devices may end up no more robust than its weakest component.
+
+The current-hogging effect can be reduced by carefully matching the characteristics of each paralleled device, or by using other design techniques to balance the electrical load. However, maintaining load balance under extreme conditions may not be straightforward. Devices with an intrinsic positive temperature coefficient (PTC) of electrical resistance are less prone to current hogging, but thermal runaway can still occur because of poor heat sinking or other problems.
+
+Many electronic circuits contain special provisions to prevent thermal runaway. This is most often seen in transistor biasing arrangements for high-power output stages. However, when equipment is used above its designed ambient temperature, thermal runaway can still occur in some cases. This occasionally causes equipment failures in hot environments, or when air cooling vents are blocked.</pre>
+<h3>Semiconductors  <span class="muted small">— chars 8512–9309</span></h3>
+<pre>Silicon shows a peculiar profile, in that its electrical resistance increases with temperature up to about 160°C, then starts decreasing, and drops further when the melting point is reached. This can lead to thermal runaway phenomena within internal regions of the semiconductor junction; the resistance decreases in the regions which become heated above this threshold, allowing more current to flow through the overheated regions, in turn causing yet more heating in comparison with the surrounding regions, which leads to further temperature increase and resistance decrease. This leads to the phenomenon of current crowding and formation of current filaments (similar to current hogging, but within a single device), and is one of the underlying causes of many semiconductor junction failures.</pre>
+<h3>Bipolar junction transistors (BJTs)  <span class="muted small">— chars 9352–10447</span></h3>
+<pre>Leakage current increases significantly in bipolar transistors (especially germanium-based bipolar transistors) as they increase in temperature. Depending on the design of the circuit, this increase in leakage current can increase the current flowing through a transistor and thus the power dissipation, causing a further increase in collector-to-emitter leakage current. This is frequently seen in a push–pull stage of a class AB amplifier. If the pull-up and pull-down transistors are biased to have minimal crossover distortion at room temperature, and the biasing is not temperature-compensated, then as the temperature rises both transistors will be increasingly biased on, causing current and power to further increase, and eventually destroying one or both devices.
+
+One rule of thumb to avoid thermal runaway is to keep the operating point of a BJT so that Vce ≤ 1/2Vcc.
+
+Another practice is to mount a thermal feedback sensing transistor or other device on the heat sink, to control the crossover bias voltage. As the output transistors heat up, so does the thermal feedback transistor.</pre>
+<h3>Bipolar junction transistors (BJTs)  <span class="muted small">— chars 10372–11250</span></h3>
+<pre>As the output transistors heat up, so does the thermal feedback transistor. This in turn causes the thermal feedback transistor to turn on at a slightly lower voltage, reducing the crossover bias voltage, and so reducing the heat dissipated by the output transistors.
+
+If multiple BJT transistors are connected in parallel (which is typical in high current applications), a current hogging problem can occur. Special measures must be taken to control this characteristic vulnerability of BJTs.
+
+In power transistors (which effectively consist of many small transistors in parallel), current hogging can occur between different parts of the transistor itself, with one part of the transistor becoming more hot than the others. This is called second breakdown, and can result in destruction of the transistor even when the average junction temperature seems to be at a safe level.</pre>
+<h3>Power MOSFETs  <span class="muted small">— chars 11271–12046</span></h3>
+<pre>Power MOSFETs typically increase their on-resistance with temperature. Under some circumstances, power dissipated in this resistance causes more heating of the junction, which further increases the junction temperature, in a positive feedback loop. As a consequence, power MOSFETs have stable and unstable regions of operation.[5] However, the increase of on-resistance with temperature helps balance current across multiple MOSFETs connected in parallel, so current hogging does not occur. If a MOSFET transistor produces more heat than the heatsink can dissipate, then thermal runaway can still destroy the transistors. This problem can be alleviated to a degree by lowering the thermal resistance between the transistor die and the heatsink. See also Thermal Design Power.</pre>
+<h3>Metal oxide varistors (MOVs)  <span class="muted small">— chars 12082–12547</span></h3>
+<pre>Metal oxide varistors typically develop lower resistance as they heat up. If connected directly across an AC or DC power bus (a common usage for protection against voltage spikes), a MOV which has developed a lowered trigger voltage can slide into catastrophic thermal runaway, possibly culminating in a small explosion or fire.[6] To prevent this possibility, fault current is typically limited by a thermal fuse, circuit breaker, or other current limiting device.</pre>
+<h3>Tantalum capacitors  <span class="muted small">— chars 12574–13504</span></h3>
+<pre>Tantalum capacitors are, under some conditions, prone to self-destruction by thermal runaway. The capacitor typically consists of a sinteredtantalum sponge acting as the anode, a manganese dioxidecathode, and a dielectric layer of tantalum pentoxide created on the tantalum sponge surface by anodizing. It may happen that the tantalum oxide layer has weak spots that undergo dielectric breakdown during a voltage spike. The tantalum sponge then comes into direct contact with the manganese dioxide, and increased leakage current causes localized heating; usually, this drives an endothermic chemical reaction that produces manganese(III) oxide and regenerates (self-heals) the tantalum oxide dielectric layer.
+
+However, if the energy dissipated at the failure point is high enough, a self-sustaining exothermic reaction can start, similar to the thermite reaction, with metallic tantalum as fuel and manganese dioxide as oxidizer.</pre>
+<h3>Tantalum capacitors  <span class="muted small">— chars 13505–13779</span></h3>
+<pre>This undesirable reaction will destroy the capacitor, producing smoke and possibly flame.[7]
+
+Therefore, tantalum capacitors can be freely deployed in small-signal circuits, but application in high-power circuits must be carefully designed to avoid thermal runaway failures.</pre>
+<h3>Digital logic  <span class="muted small">— chars 13800–14865</span></h3>
+<pre>The leakage current of logic switching transistors increases with temperature. In rare instances, this may lead to thermal runaway in digital circuits. This is not a common problem, since leakage currents usually make up a small portion of overall power consumption, so the increase in power is fairly modest — for an Athlon 64, the power dissipation increases by about 10% for every 30 degrees Celsius.[8] For a device with a TDP of 100 W, for thermal runaway to occur, the heat sink would have to have a thermal resistivity of over 3 K/W (kelvins per watt), which is about 6 times worse than a stock Athlon 64 heat sink. (A stock Athlon 64 heat sink is rated at 0.34 K/W, although the actual thermal resistance to the environment is somewhat higher, due to the thermal boundary between processor and heat sink, rising temperatures in the case, and other thermal resistances.[citation needed]) Regardless, an inadequate heat sink with a thermal resistance of over 0.5 to 1 K/W would result in the destruction of a 100 W device even without thermal runaway effects.</pre>
+<h3>Batteries  <span class="muted small">— chars 14882–15824</span></h3>
+<pre>When handled improperly, manufactured defectively, or damaged, some rechargeable batteries can experience thermal runaway resulting in overheating. Sealed cells will sometimes explode violently if safety vents are overwhelmed or nonfunctional.[9] Especially prone to thermal runaway are lithium-ion batteries, most markedly in the form of the lithium polymer battery.[citation needed] Lithium-ion batteries are often found in everyday consumer electronics and vehicles. Reports of exploding cellphones occasionally appear in newspapers. In 2006, batteries from Apple, HP, Toshiba, Lenovo, Dell and other notebook manufacturers were recalled because of fire and explosions.[10][11][12][13] The Pipeline and Hazardous Materials Safety Administration (PHMSA) of the U.S. Department of Transportation has established regulations regarding the carrying of certain types of batteries on airplanes because of their instability in certain situations.</pre>
+<h3>Batteries  <span class="muted small">— chars 15825–16192</span></h3>
+<pre>This action was partially inspired by a cargo bay fire on a FedEx airplane.[14] One of the possible solutions is in using safer and less reactive anode (lithium titanates) and cathode (lithium iron phosphate - LFP) materials — thereby avoiding the cobalt electrodes in many lithium rechargeable cells — together with non-flammable electrolytes based on ionic liquids.</pre>
+<h3>Astrophysics  <span class="muted small">— chars 16211–17212</span></h3>
+<pre>Runaway thermonuclear reactions can occur in stars when nuclear fusion is ignited in conditions under which the gravitational pressure exerted by overlying layers of the star greatly exceeds thermal pressure, a situation that makes possible rapid increases in temperature through gravitational compression. Such a scenario may arise in stars containing degenerate matter, in which electron degeneracy pressure rather than normal thermal pressure does most of the work of supporting the star against gravity, and in stars undergoing implosion. In all cases, the imbalance arises prior to fusion ignition; otherwise, the fusion reactions would be naturally regulated to counteract temperature changes and stabilize the star. When thermal pressure is in equilibrium with overlying pressure, a star will respond to the increase in temperature and thermal pressure due to initiation of a new exothermic reaction by expanding and cooling. A runaway reaction is only possible when this response is inhibited.</pre>
+<h3>Helium flashes in red giant stars  <span class="muted small">— chars 17253–18029</span></h3>
+<pre>When stars in the 0.8–2.0 solar mass range exhaust the hydrogen in their cores and become red giants, the helium accumulating in their cores reaches degeneracy before it ignites. When the degenerate core reaches a critical mass of about 0.45 solar masses, helium fusion is ignited and takes off in a runaway fashion, called the helium flash, briefly increasing the star&#39;s energy production to a rate 100 billion times normal. About 6% of the core is quickly converted into carbon.[15] While the release is sufficient to convert the core back into normal plasma after a few seconds, it does not disrupt the star,[16][17] nor immediately change its luminosity. The star then contracts, leaving the red giant phase and continuing its evolution into a stable helium-burning phase.</pre>
+<h3>Novae  <span class="muted small">— chars 18042–18763</span></h3>
+<pre>A nova results from runaway hydrogen fusion (via the CNO cycle) in the outer layer of a carbon-oxygen white dwarf star. If a white dwarf has a companion star from which it can accrete gas, the material will accumulate in a surface layer made degenerate by the dwarf&#39;s intense gravity. Under the right conditions, a sufficiently thick layer of hydrogen is eventually heated to a temperature of 20 million K, igniting runaway fusion. The surface layer is blasted off the white dwarf, increasing luminosity by a factor on the order of 50,000. The white dwarf and companion remain intact, however, so the process can repeat.[18] A much rarer type of nova may occur when the outer layer that ignites is composed of helium.[19]</pre>
+<h3>X-ray bursts  <span class="muted small">— chars 18783–19409</span></h3>
+<pre>Analogous to the process leading to novae, degenerate matter can also accumulate on the surface of a neutron star that is accreting gas from a close companion. If a sufficiently thick layer of hydrogen accumulates, ignition of runaway hydrogen fusion can then lead to an X-ray burst. As with novae, such bursts tend to repeat and may also be triggered by helium or even carbon fusion.[20][21] It has been proposed that in the case of &#34;superbursts&#34;, runaway breakup of accumulated heavy nuclei into iron group nuclei via photodissociation rather than nuclear fusion could contribute the majority of the energy of the burst.[21]</pre>
+<h3>Type Ia supernovae  <span class="muted small">— chars 19435–20157</span></h3>
+<pre>A type Ia supernova results from runaway carbon fusion in the core of a carbon-oxygen white dwarf star. If a white dwarf, which is composed almost entirely of degenerate matter, can gain mass from a companion, the increasing temperature and density of material in its core will ignite carbon fusion if the star&#39;s mass approaches the Chandrasekhar limit. This leads to an explosion that completely disrupts the star. Luminosity increases by a factor of greater than 5 billion. One way to gain the additional mass would be by accreting gas from a giant star (or even main sequence) companion.[22] A second and apparently more common mechanism to generate the same type of explosion is the merger of two white dwarfs.[22][23]</pre>
+<h3>Pair-instability supernovae  <span class="muted small">— chars 20192–21119</span></h3>
+<pre>A pair-instability supernova is believed to result from runaway oxygen fusion in the core of a massive, 130–250 solar mass, low to moderate metallicity star.[24] According to theory, in such a star, a large but relatively low density core of non-fusing oxygen builds up, with its weight supported by the pressure of gamma rays produced by the extreme temperature. As the core heats further, the gamma rays eventually begin to pass the energy threshold needed for collision-induced decay into electron-positron pairs, a process called pair production. This causes a drop in the pressure within the core, leading it to contract and heat further, causing more pair production, a further pressure drop, and so on. The core starts to undergo gravitational collapse. At some point this ignites runaway oxygen fusion, releasing enough energy to obliterate the star. These explosions are rare, perhaps about one per 100,000 supernovae.</pre>
+<h3>Comparison to nonrunaway supernovae  <span class="muted small">— chars 21162–21719</span></h3>
+<pre>Not all supernovae are triggered by runaway nuclear fusion. Type Ib, Ic and type II supernovae also undergo core collapse, but because they have exhausted their supply of atomic nuclei capable of undergoing exothermic fusion reactions, they collapse all the way into neutron stars, or in the higher-mass cases, into stellar black holes, powering explosions by the release of gravitational potential energy (largely via release of neutrinos). It is the absence of runaway fusion reactions that allows such supernovae to leave behind compact stellar remnants.</pre>
+<h3>See also  <span class="muted small">— chars 21734–21969</span></h3>
+<pre>Cascading failure
+
+Frank-Kamenetskii theory
+
+Safety of lithium-ion batteries
+Boeing 787 Dreamliner battery problems
+
+UPS Flight 6 (a 2010 jet crash related to lithium-ion batteries in the cargo)
+
+Plug-in electric vehicle fire incidents</pre>
+
+<h2>Extracted claims (34)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As a consequence, power MOSFETs have stable and unstable regions of operation.[5] However, the increase of on-resistance with temperature helps balance current across multiple MOSFETs connected in parallel, so current hogging does not occur.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Luminosity increases by a factor of greater than 5 billion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As with novae, such bursts tend to repeat and may also be triggered by helium or even carbon fusion.[20][21] It has been proposed that in the case of &#34;superbursts&#34;, runaway breakup of accumulated heavy nuclei into iron group nuclei via photodissociation rather than nuclear fusion could contribute the majority of the energy of the burst.[21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2006, batteries from Apple, HP, Toshiba, Lenovo, Dell and other notebook manufacturers were recalled because of fire and explosions.[10][11][12][13] The Pipeline and Hazardous Materials Safety Administration (PHMSA) of the U.S.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">However, maintaining load balance under extreme conditions may not be straightforward.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This is not a common problem, since leakage currents usually make up a small portion of overall power consumption, so the increase in power is fairly modest — for an Athlon 64, the power dissipation increases by about 10% for every 30 degrees Celsius.[8] For a device with a TDP of 100 W, for thermal runaway to occur, the heat sink would have to have a thermal resistivity of over 3 K/W (kelvins per watt), which is about 6 times worse than a stock Athlon 64 heat sink.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A pair-instability supernova is believed to result from runaway oxygen fusion in the core of a massive, 130–250 solar mass, low to moderate metallicity star.[24] According to theory, in such a star, a large but relatively low density core of non-fusing oxygen builds up, with its weight supported by the pressure of gamma rays produced by the extreme temperature.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This undesirable reaction will destroy the capacitor, producing smoke and possibly flame.[7]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">It is a process by which an exothermic reaction goes out of control: the reaction rate increases due to an increase in temperature, causing a further increase in temperature and hence a further rapid increase in the reaction rate.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2007, this kind of erroneous procedure caused an explosion of a 2,400 U.S. gallons (9,100L)-reactor used to metalatemethylcyclopentadiene with metallic sodium, causing the loss of four lives and parts of the reactor being flung 400 feet (120m) away.[3][4] Thus, industrial scale reactions prone to thermal runaway are preferably controlled by the addition of one reagent at a rate corresponding to the available cooling capacity.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Find sources:&#34;Thermal runaway&#34;–news·newspapers·books·scholar·JSTOR(May 2026) (Learn how and when to remove this message)</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">It is a kind of uncontrolled positive feedback.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This has contributed to industrial chemical accidents, most notably the 1947 Texas City disaster from overheated ammonium nitrate in a ship&#39;s hold, and the 1976 explosion of zoalene, in a drier, at King&#39;s Lynn.[1]Frank-Kamenetskii theory provides a simplified analytical model for thermal explosion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">One rule of thumb to avoid thermal runaway is to keep the operating point of a BJT so that Vce ≤ 1/2Vcc.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">For example, in Swern oxidation, the formation of sulfonium chloride must be performed in a cooled system (−30°C), because at room temperature the reaction undergoes explosive thermal runaway.[4]</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">It is a kind of uncontrolled positive feedback.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sealed cells will sometimes explode violently if safety vents are overwhelmed or nonfunctional.[9] Especially prone to thermal runaway are lithium-ion batteries, most markedly in the form of the lithium polymer battery.[citation needed] Lithium-ion batteries are often found in everyday consumer electronics and vehicles.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UPS Flight 6 (a 2010 jet crash related to lithium-ion batteries in the cargo)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When stars in the 0.8–2.0 solar mass range exhaust the hydrogen in their cores and become red giants, the helium accumulating in their cores reaches degeneracy before it ignites.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Under the right conditions, a sufficiently thick layer of hydrogen is eventually heated to a temperature of 20 million K, igniting runaway fusion.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">About 6% of the core is quickly converted into carbon.[15] While the release is sufficient to convert the core back into normal plasma after a few seconds, it does not disrupt the star,[16][17] nor immediately change its luminosity.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Silicon shows a peculiar profile, in that its electrical resistance increases with temperature up to about 160°C, then starts decreasing, and drops further when the melting point is reached.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The surface layer is blasted off the white dwarf, increasing luminosity by a factor on the order of 50,000.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Special measures must be taken to control this characteristic vulnerability of BJTs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This action was partially inspired by a cargo bay fire on a FedEx airplane.[14] One of the possible solutions is in using safer and less reactive anode (lithium titanates) and cathode (lithium iron phosphate - LFP) materials — thereby avoiding the cobalt electrodes in many lithium rechargeable cells — together with non-flammable electrolytes based on ionic liquids.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">One way to gain the additional mass would be by accreting gas from a giant star (or even main sequence) companion.[22] A second and apparently more common mechanism to generate the same type of explosion is the merger of two white dwarfs.[22][23]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">If connected directly across an AC or DC power bus (a common usage for protection against voltage spikes), a MOV which has developed a lowered trigger voltage can slide into catastrophic thermal runaway, possibly culminating in a small explosion or fire.[6] To prevent this possibility, fault current is typically limited by a thermal fuse, circuit breaker, or other current limiting device.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The white dwarf and companion remain intact, however, so the process can repeat.[18] A much rarer type of nova may occur when the outer layer that ignites is composed of helium.[19]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These explosions are rare, perhaps about one per 100,000 supernovae.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This scenario was behind the Seveso disaster, where thermal runaway heated a reaction to temperatures such that in addition to the intended 2,4,5-trichlorophenol, poisonous 2,3,7,8-tetrachlorodibenzo-p-dioxin was also produced, and was vented into the environment after the reactor&#39;s rupture disk burst.[2]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Some laboratory reactions must be run under extreme cooling, because they are very prone to hazardous thermal runaway.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(A stock Athlon 64 heat sink is rated at 0.34 K/W, although the actual thermal resistance to the environment is somewhat higher, due to the thermal boundary between processor and heat sink, rising temperatures in the case, and other thermal resistances.[citation needed]) Regardless, an inadequate heat sink with a thermal resistance of over 0.5 to 1 K/W would result in the destruction of a 100 W device even without thermal runaway effects.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">When the degenerate core reaches a critical mass of about 0.45 solar masses, helium fusion is ignited and takes off in a runaway fashion, called the helium flash, briefly increasing the star&#39;s energy production to a rate 100 billion times normal.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Therefore, tantalum capacitors can be freely deployed in small-signal circuits, but application in high-power circuits must be carefully designed to avoid thermal runaway failures.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

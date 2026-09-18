@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Physics-enhanced deep learning for proactive thermal runaway forecasting in Li-ion batteries — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Physics-enhanced deep learning for proactive thermal runaway forecasting in Li-ion batteries</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>arXiv</strong> ·
+  academic · authority 4/5<br>
+Published 2026-04-01 ·   Retrieved 2026-09-18T18:01:06+00:00<br>
+  Licence: arXiv non-exclusive licence to distribute; see paper for author licence<br>
+  <a href="https://arxiv.org/abs/2604.20175" rel="nofollow noopener">https://arxiv.org/abs/2604.20175</a><br>
+  <span class="muted">Content hash: <code>9a28f315547c4bd4f4650a617b9f41ec</code></span>
+</div>
+
+
+<h2>Stored passages (15)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–62</span></h3>
+<pre>Skip to main content
+
+ Press Enter to search · Advanced search</pre>
+<h3>Computer Science &gt; Machine Learning  <span class="muted small">— chars 102–202</span></h3>
+<pre>arXiv:2604.20175 (cs)
+
+ [Submitted on 22 Apr 2026 (v1), last revised 11 May 2026 (this version, v2)]</pre>
+<h3>Title:Physics-Enhanced Deep Learning for Proactive Thermal Runaway Forecasting in Li-Ion Batteries  <span class="muted small">— chars 306–1410</span></h3>
+<pre>Authors:Salman Khan, Syed Sajid Ullah, Muhammad Zunair Zamir, Jie Li, Abdul Malik, Saeed Mian Qaisar
+
+View a PDF of the paper titled Physics-Enhanced Deep Learning for Proactive Thermal Runaway Forecasting in Li-Ion Batteries, by Salman Khan and 5 other authors
+View PDFHTML (experimental)
+Abstract:Accurate prediction of thermal runaway in lithium-ion batteries is essential for ensuring the safety, efficiency, and reliability of modern energy storage systems. Conventional data-driven approaches, such as Long Short-Term Memory (LSTM) networks, can capture complex temporal dependencies but often violate thermodynamic principles, resulting in physically inconsistent predictions. Conversely, physics-based thermal models provide interpretability but are computationally expensive and difficult to parameterize for real-time applications. To bridge this gap, this study proposes a Physics-Informed Long Short-Term Memory (PI-LSTM) framework that integrates governing heat transfer equations directly into the deep learning architecture through a physics-based regularization term in the loss function.</pre>
+<h3>Title:Physics-Enhanced Deep Learning for Proactive Thermal Runaway Forecasting in Li-Ion Batteries  <span class="muted small">— chars 1411–2586</span></h3>
+<pre>The model leverages multi-feature input sequences, including state of charge, voltage, current, mechanical stress, and surface temperature, to forecast battery temperature evolution while enforcing thermal diffusion constraints. Extensive experiments conducted on thirteen lithium-ion battery datasets demonstrate that the proposed PI-LSTM achieves an 81.9% reduction in root mean square error (RMSE) and an 81.3% reduction in mean absolute error (MAE) compared to the standard LSTM baseline, while also outperforming CNN-LSTM and multilayer perceptron (MLP) models by wide margins. The inclusion of physical constraints enhances the model&#39;s generalization across diverse operating conditions and eliminates non-physical temperature oscillations. These results confirm that physics-informed deep learning offers a viable pathway toward interpretable, accurate, and real-time thermal management in next-generation battery systems.
+
+Subjects:Machine Learning (cs.LG); Artificial Intelligence (cs.AI)
+
+Cite as:arXiv:2604.20175 [cs.LG]
+
+(or arXiv:2604.20175v2 [cs.LG] for this version)
+
+https://doi.org/10.48550/arXiv.2604.20175
+Focus to learn more
+ arXiv-issued DOI via DataCite</pre>
+<h3>Submission history  <span class="muted small">— chars 2611–2762</span></h3>
+<pre>From: Syed Sajid Ullah [view email]
+
+[v1]
+ Wed, 22 Apr 2026 04:34:39 UTC (23,451 KB)
+
+[v2]
+ Mon, 11 May 2026 04:33:12 UTC (23,451 KB)
+
+Full-text links:</pre>
+<h3>Access Paper:  <span class="muted small">— chars 2782–2998</span></h3>
+<pre>View a PDF of the paper titled Physics-Enhanced Deep Learning for Proactive Thermal Runaway Forecasting in Li-Ion Batteries, by Salman Khan and 5 other authors
+
+View PDF
+
+HTML (experimental)
+
+TeX Source
+
+view license</pre>
+<h3>Current browse context:  <span class="muted small">— chars 3029–3108</span></h3>
+<pre>cs.LG
+
+&lt; prev | next &gt;
+
+new | recent | 2026-04
+
+ Change to browse by:
+
+cs
+cs.AI</pre>
+<h3>References &amp; Citations  <span class="muted small">— chars 3138–3214</span></h3>
+<pre>NASA ADS
+
+Google Scholar
+
+Semantic Scholar
+
+export BibTeX citationLoading...</pre>
+<h3>BibTeX formatted citation  <span class="muted small">— chars 3246–3278</span></h3>
+<pre>×
+
+loading...
+
+Data provided by:</pre>
+<h3>Bookmark  <span class="muted small">— chars 3293–3312</span></h3>
+<pre>Bibliographic Tools</pre>
+<h3>Bibliographic and Citation Tools  <span class="muted small">— chars 3350–3625</span></h3>
+<pre>Bibliographic Explorer Toggle
+
+Bibliographic Explorer(What is the Explorer?)
+
+Connected Papers Toggle
+
+Connected Papers(What is Connected Papers?)
+
+Litmaps Toggle
+
+Litmaps(What is Litmaps?)
+
+scite.ai Toggle
+
+scite Smart Citations(What are Smart Citations?)
+
+Code, Data, Media</pre>
+<h3>Code, Data and Media Associated with this Article  <span class="muted small">— chars 3680–4008</span></h3>
+<pre>alphaXiv Toggle
+
+alphaXiv(What is alphaXiv?)
+
+Links to Code Toggle
+
+CatalyzeX Code Finder for Papers(What is CatalyzeX?)
+
+DagsHub Toggle
+
+DagsHub(What is DagsHub?)
+
+GotitPub Toggle
+
+Gotit.pub(What is GotitPub?)
+
+Huggingface Toggle
+
+Hugging Face(What is Huggingface?)
+
+ScienceCast Toggle
+
+ScienceCast(What is ScienceCast?)
+
+Demos</pre>
+<h3>Demos  <span class="muted small">— chars 4019–4177</span></h3>
+<pre>Replicate Toggle
+
+Replicate(What is Replicate?)
+
+Spaces Toggle
+
+Hugging Face Spaces(What is Spaces?)
+
+Spaces Toggle
+
+TXYZ.AI(What is TXYZ.AI?)
+
+Related Papers</pre>
+<h3>Recommenders and Search Tools  <span class="muted small">— chars 4212–4458</span></h3>
+<pre>Link to Influence Flower
+
+Influence Flower(What are Influence Flowers?)
+
+Core recommender toggle
+
+CORE Recommender(What is CORE?)
+
+IArxiv recommender toggle
+
+IArxiv Recommender(What is IArxiv?)
+
+Author
+
+Venue
+
+Institution
+
+Topic
+
+ About arXivLabs</pre>
+<h3>arXivLabs: experimental projects with community collaborators  <span class="muted small">— chars 4525–5064</span></h3>
+<pre>arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+
+Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+
+Have an idea for a project that will add value for arXiv&#39;s community? Learn more about arXivLabs.
+
+Which authors of this paper are endorsers? |
+ Disable MathJax (What is MathJax?)</pre>
+
+<h2>Extracted claims (9)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Extensive experiments conducted on thirteen lithium-ion battery datasets demonstrate that the proposed PI-LSTM achieves an 81.9% reduction in root mean square error (RMSE) and an 81.3% reduction in mean absolute error (MAE) compared to the standard LSTM baseline, while also outperforming CNN-LSTM and multilayer perceptron (MLP) models by wide margins.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">https://doi.org/10.48550/arXiv.2604.20175</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">[Submitted on 22 Apr 2026 (v1), last revised 11 May 2026 (this version, v2)]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Wed, 22 Apr 2026 04:34:39 UTC (23,451 KB)</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">View a PDF of the paper titled Physics-Enhanced Deep Learning for Proactive Thermal Runaway Forecasting in Li-Ion Batteries, by Salman Khan and 5 other authors</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(or arXiv:2604.20175v2 [cs.LG] for this version)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Mon, 11 May 2026 04:33:12 UTC (23,451 KB)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">View a PDF of the paper titled Physics-Enhanced Deep Learning for Proactive Thermal Runaway Forecasting in Li-Ion Batteries, by Salman Khan and 5 other authors</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

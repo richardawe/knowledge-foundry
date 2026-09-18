@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UL 9540A test method for battery energy storage systems (overview) — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>UL 9540A test method for battery energy storage systems (overview)</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>UL Solutions</strong> ·
+  industry · authority 4/5<br>
+Published 2024-01-01 ·   Retrieved 2026-09-18T18:01:00+00:00<br>
+  Licence: © UL Solutions - public web page; indexed for citation and short quotation only<br>
+  <a href="https://www.ul.com/services/ul-9540a-test-method" rel="nofollow noopener">https://www.ul.com/services/ul-9540a-test-method</a><br>
+  <span class="muted">Content hash: <code>f7433987245cfdd940bedb9a3eaaaf86</code></span>
+</div>
+
+
+<h2>Stored passages (31)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–29</span></h3>
+<pre>Skip to main content
+
+Service</pre>
+<h3>UL 9540A Test Method for Battery Energy Storage Systems (BESS)  <span class="muted small">— chars 96–250</span></h3>
+<pre>The UL 9540A test method is designed to meet stringent fire safety and building code requirements for battery energy storage systems.
+
+play_arrowpause
+
+##</pre>
+<h3>UL 9540A, the Standard for Test Method for Evaluating Thermal Runaway Fire Propagation in Battery Energy Storage Systems  <span class="muted small">— chars 377–1539</span></h3>
+<pre>UL 9540A is the American and Canadian national standard for assessing fire propagation related to thermal runaway events in battery energy storage systems (ESS). We offer testing that aligns with both the 5th and 6th editions of UL 9540A, giving customers the flexibility to choose the edition that best matches their project and compliance strategy.
+
+Testing to these national standard requirements is an essential element of due diligence. UL 9540A provides a methodology for testing a system’s safety-related behavior when the design or installation conditions of an ESS exceed the limits set by the National Fire Protection Association (NFPA) 855, NFPA 1, the International Fire Code (IFC), or the International Residential Code (IRC).
+
+UL 9540A is the only consensus standard explicitly cited in NFPA 855 for large-scale fire testing and the only national standard in the U.S. and Canada for fire safety testing methods for battery ESS.
+
+play_circle
+
+Watch VideoWatch Video
+
+ Duration
+
+##
+NFPA 855: Reinforcing large-scale fire testing
+
+The 2026 edition of NFPA 855 introduces significant revisions that emphasize the importance of large-scale fire testing.</pre>
+<h3>UL 9540A, the Standard for Test Method for Evaluating Thermal Runaway Fire Propagation in Battery Energy Storage Systems  <span class="muted small">— chars 1540–2665</span></h3>
+<pre>A new section, Annex G.11, outlines expectations for this test, focusing on scenarios where fire could spread from one BESS to another. This addition reflects growing concerns among authorities having jurisdiction (AHJs) and fire safety professionals about real-world failure conditions and the need for robust evaluation methods. Annex G.11 provides guidance on initiating a developed fire condition, evaluating separation distances and considering the role of active fire protection systems.
+
+##
+UL 9540A: Reinforcing longstanding alignment with NFPA 855
+
+UL 9540A has long been the benchmark for assessing thermal runaway and fire propagation in BESS. Its revisions continue to reinforce longstanding alignment with NFPA 855, allowing testing protocols to reflect the latest installation safety requirements. UL 9540A, Ed. 6, updates the installation-level test, introducing a challenging fire scenario and assuming a post-deflagration condition to evaluate enclosure design, separation distances and, for indoor systems, the effectiveness of building-based fire suppression systems.
+
+##
+UL 9540A Test Method - 5th Edition</pre>
+<h3>Cell-level test  <span class="muted small">— chars 2688–2822</span></h3>
+<pre>Cell-level testing evaluates the thermal runaway characteristics of the cell as well as the composition and flammability of the gases.</pre>
+<h3>Module-level test  <span class="muted small">— chars 2847–3026</span></h3>
+<pre>Module-level testing evaluates the tendency of cell thermal runaway propagation, the heat and gas release rate of the module, and the potential danger of ignition or deflagration.</pre>
+<h3>Unit-level test  <span class="muted small">— chars 3049–3214</span></h3>
+<pre>Unit-level testing evaluates the likelihood of fire spread between modules, the unit&#39;s heat and gas release rates, and the potential for deflagration or re-ignition.</pre>
+<h3>Installation-level test  <span class="muted small">— chars 3245–3637</span></h3>
+<pre>Installation-level mainly evaluates the effectiveness of the fire protection system, as well as the heat and gas release rate of the system and the danger of deflagration or re-ignition.
+
+##
+UL 9540A Test Method - 6th Edition
+
+Please note: Unit-level test will still be required for: residential BESS, non-residential BESS with an active Thermal Runaway Propagation Prevention System (TRPPS).</pre>
+<h3>Cell-level testing  <span class="muted small">— chars 3663–3797</span></h3>
+<pre>Cell-level testing evaluates the thermal runaway characteristics of the cell as well as the composition and flammability of the gases.</pre>
+<h3>Module-level testing  <span class="muted small">— chars 3825–4004</span></h3>
+<pre>Module-level testing evaluates the tendency of cell thermal runaway propagation, the heat and gas release rate of the module, and the potential danger of ignition or deflagration.</pre>
+<h3>Installation Level - Large Scale Fire Test  <span class="muted small">— chars 4054–4290</span></h3>
+<pre>Installation-level mainly evaluates the effectiveness of the fire protection system, as well as the heat and gas release rate of the system and the danger of deflagration or re-ignition.
+
+##
+Download the UL 9450A Test Method infographic</pre>
+<h3>UL9540A Test Method Illustration  <span class="muted small">— chars 4330–4521</span></h3>
+<pre>Test level comparison between 5th edition and 6th edition.
+Final B - Nontransparent
+
+Download JPGdownload
+
+##
+Download the e-Book: An Inside Look at the Updates to UL 9540A:2025 (5th Edition)</pre>
+<h3>e-Book: An Inside Look at the Updates to UL 9540A:2025  <span class="muted small">— chars 4583–4753</span></h3>
+<pre>Explore the key updates in UL 9540A:2025, including enhanced testing methods and definitions to improve safety in battery energy storage systems and address fire hazards.</pre>
+<h3>The UL9540A test method is recognized in multiple industry standards and codes, including:  <span class="muted small">— chars 4850–5169</span></h3>
+<pre>UL 9540, the Standard for Energy Storage Systems and Equipment.
+
+American and Canadian National Safety Standards for Energy Storage.
+
+International Code Council (ICC) IFC.
+
+NFPA 855, the Standard for the Installation of Stationary Energy Storage Systems.
+
+Various local, state and international building and fire codes.</pre>
+<h3>Choose UL Solutions for UL 9540A testing  <span class="muted small">— chars 5216–5819</span></h3>
+<pre>UL Solutions conducts the UL 9540A test method at laboratories in the United States, China, Korea, Taiwan, Germany and other countries. As a leader in battery safety technology, we offer:
+
+Full fire testing facilities, eliminating the need for subcontracting.
+
+Expert engineering and research teams with in-depth knowledge of battery chemistries and fire suppression.
+
+A proven track record serving fire departments, electrical inspectors and building officials.
+
+Proactive planning for project requirements and transparency in our proposals.
+
+Closecancel
+
+###
+Get in touch
+
+Let us know how we can help.</pre>
+<h3>Thank you!  <span class="muted small">— chars 5839–6098</span></h3>
+<pre>One of our team members will respond to your request as soon as possible.
+
+##
+Meet our experts
+
+LaTanya Schwalb is an expert in product safety certification and UL Standards for stationary batteries, energy storage systems, fuel cells and hydrogen generators.</pre>
+<h3>LaTanya Schwalb  <span class="muted small">— chars 6121–6173</span></h3>
+<pre>Principal Engineer, Energy and Industrial Automation</pre>
+<h3>Let’s work together  <span class="muted small">— chars 6200–6371</span></h3>
+<pre>Contact us today to discuss your battery ESS and learn how our UL9540A test method can help you streamline your compliance process and enhance safety.
+
+##
+Related services</pre>
+<h3>Energy Storage System Testing and Certification  <span class="muted small">— chars 6426–6558</span></h3>
+<pre>Offering solid solutions to address unique safety considerations for system integrators and original equipment manufacturers (OEMs).</pre>
+<h3>Uninterruptible Power Supply (UPS) Safety and Compliance with UL 1778  <span class="muted small">— chars 6635–6737</span></h3>
+<pre>UL 1778 testing and certification for UPS systems to support safety, reliability, and code compliance.</pre>
+<h3>ESS Safety Assessment and NFPA Compliance  <span class="muted small">— chars 6786–6934</span></h3>
+<pre>Reduce risk, support timely AHJ review and speed launch of energy storage systems (ESS) with third-party assessments aligned to NFPA 855, 68 and 69.</pre>
+<h3>Fuel Cell Testing and Certification  <span class="muted small">— chars 6977–7074</span></h3>
+<pre>Testing and certification services to gauge the safety, reliability and performance of fuel cells</pre>
+<h3>Battery Module and Pack Testing for Manufacturers  <span class="muted small">— chars 7131–7246</span></h3>
+<pre>Helping enhance the overall safety of batteries by managing short-circuiting, overheating and thermal runway risks.</pre>
+<h3>Battery Advisory Services for End Users and Handlers  <span class="muted small">— chars 7306–7471</span></h3>
+<pre>Providing a comprehensive suite of research, analysis and advisory services designed to address the needs of all stakeholders in the lithium-ion battery value chain.</pre>
+<h3>Advancing Safer, More Sustainable Energy Storage at Scale  <span class="muted small">— chars 7536–7729</span></h3>
+<pre>Realize the transformative potential of battery energy storage in a more resilient power grid through services to help mitigate risks before, during and after manufacture, installation and use.</pre>
+<h3>EU Battery Regulation Compliance  <span class="muted small">— chars 7769–7912</span></h3>
+<pre>Navigate the complex requirements of the EU Battery Regulation across various battery categories with guidance and expertise from UL Solutions.</pre>
+<h3>Large-Scale Fire Testing and UL 9540A  <span class="muted small">— chars 7957–8082</span></h3>
+<pre>Accelerate your UL 9540A large-scale fire testing for battery energy storage systems with UL Solutions.
+
+##
+Related resources</pre>
+<h3>Introduction to Revisions of UL 9540A:2025  <span class="muted small">— chars 8132–8281</span></h3>
+<pre>Explore the latest UL 9540A:2025 updates on thermal runaway testing for battery energy storage systems (BESS) with expert insights from UL Solutions.</pre>
+<h3>Installation Codes and Requirements for Energy Storage Systems (ESS) - FAQs  <span class="muted small">— chars 8364–8463</span></h3>
+<pre>Answering marketplace questions about evolving ESS safety standards and recent updates to UL 9540A.</pre>
+<h3>Evolving Large-Scale Fire Test Methods and Regulatory Demands  <span class="muted small">— chars 8532–8689</span></h3>
+<pre>With confusion in the marketplace regarding safety codes and standards related to ESS, this whitepaper clarifies NFPA 855 requirements for ESS installations.</pre>
+<h3>e-Book: An Inside Look at the Updates to UL 9540A:2025  <span class="muted small">— chars 8751–8925</span></h3>
+<pre>Explore the key updates in UL 9540A:2025, including enhanced testing methods and definitions to improve safety in battery energy storage systems and address fire hazards.
+
+##</pre>
+
+<h2>Extracted claims (25)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL Solutions conducts the UL 9540A test method at laboratories in the United States, China, Korea, Taiwan, Germany and other countries.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Test level comparison between 5th edition and 6th edition.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Reduce risk, support timely AHJ review and speed launch of energy storage systems (ESS) with third-party assessments aligned to NFPA 855, 68 and 69.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Accelerate your UL 9540A large-scale fire testing for battery energy storage systems with UL Solutions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Explore the key updates in UL 9540A:2025, including enhanced testing methods and definitions to improve safety in battery energy storage systems and address fire hazards.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">NFPA 855: Reinforcing large-scale fire testing</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 9540A, Ed. 6, updates the installation-level test, introducing a challenging fire scenario and assuming a post-deflagration condition to evaluate enclosure design, separation distances and, for indoor systems, the effectiveness of building-based fire suppression systems.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 9540A has long been the benchmark for assessing thermal runaway and fire propagation in BESS.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Its revisions continue to reinforce longstanding alignment with NFPA 855, allowing testing protocols to reflect the latest installation safety requirements.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 9540A is the American and Canadian national standard for assessing fire propagation related to thermal runaway events in battery energy storage systems (ESS).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Download the e-Book: An Inside Look at the Updates to UL 9540A:2025 (5th Edition)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">With confusion in the marketplace regarding safety codes and standards related to ESS, this whitepaper clarifies NFPA 855 requirements for ESS installations.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">NFPA 855, the Standard for the Installation of Stationary Energy Storage Systems.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The 2026 edition of NFPA 855 introduces significant revisions that emphasize the importance of large-scale fire testing.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The UL 9540A test method is designed to meet stringent fire safety and building code requirements for battery energy storage systems.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 1778 testing and certification for UPS systems to support safety, reliability, and code compliance.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Explore the key updates in UL 9540A:2025, including enhanced testing methods and definitions to improve safety in battery energy storage systems and address fire hazards.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 9540, the Standard for Energy Storage Systems and Equipment.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 9540A: Reinforcing longstanding alignment with NFPA 855</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 9540A provides a methodology for testing a system’s safety-related behavior when the design or installation conditions of an ESS exceed the limits set by the National Fire Protection Association (NFPA) 855, NFPA 1, the International Fire Code (IFC), or the International Residential Code (IRC).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Answering marketplace questions about evolving ESS safety standards and recent updates to UL 9540A.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">We offer testing that aligns with both the 5th and 6th editions of UL 9540A, giving customers the flexibility to choose the edition that best matches their project and compliance strategy.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">UL 9540A is the only consensus standard explicitly cited in NFPA 855 for large-scale fire testing and the only national standard in the U.S. and Canada for fire safety testing methods for battery ESS.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Explore the latest UL 9540A:2025 updates on thermal runaway testing for battery energy storage systems (BESS) with expert insights from UL Solutions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Download the UL 9450A Test Method infographic</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

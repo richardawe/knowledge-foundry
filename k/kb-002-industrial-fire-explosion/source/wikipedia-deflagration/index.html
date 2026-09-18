@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deflagration — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Deflagration</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:50+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Deflagration" rel="nofollow noopener">https://en.wikipedia.org/wiki/Deflagration</a><br>
+  <span class="muted">Content hash: <code>1c59eb6c668ce3087254114523ffb75a</code></span>
+</div>
+
+
+<h2>Stored passages (12)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Deflagration  <span class="muted small">— chars 44–894</span></h3>
+<pre>19 languages
+
+Български
+
+Català
+
+Čeština
+
+Deutsch
+
+Español
+
+Français
+
+Italiano
+
+Lietuvių
+
+Nederlands
+
+Norsk bokmål
+
+Polski
+
+Português
+
+Русский
+
+Српски / srpski
+
+Svenska
+
+தமிழ்
+
+ไทย
+
+Українська
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Combustion that leads on to an explosion
+Pyrotechnic deflagrations
+Deflagration (Lat: de + flagrare, &#39;to burn down&#39;) is subsoniccombustion in which a pre-mixed flame propagates through an explosive or a mixture of fuel and oxidizer.[1][2] Deflagrations in high and low explosives or fuel–oxidizer mixtures may transition to a detonation depending upon confinement and other factors.[3][4] Most fires found in daily life are diffusion flames. Deflagrations with flame speeds in the range of 1m/s differ from detonations which propagate supersonically with detonation velocities in the range of km/s.[5]</pre>
+<h3>Applications  <span class="muted small">— chars 913–1280</span></h3>
+<pre>Deflagrations are often used in engineering applications when the force of the expanding gas is used to move an object such as a projectile down a barrel, or a piston in an internal combustion engine. Deflagration systems and products can also be used in mining, demolition and stone quarrying via gas pressure blasting as a beneficial alternative to high explosives.</pre>
+<h3>Terminology of explosive safety  <span class="muted small">— chars 1318–2515</span></h3>
+<pre>When studying or discussing explosive safety, or the safety of systems containing explosives, the terms deflagration, detonation and deflagration-to-detonation transition (commonly referred to as DDT) must be understood and used appropriately to convey relevant information. As explained above, a deflagration is a subsonic reaction, whereas a detonation is a supersonic (greater than the sound speed of the material) reaction. Distinguishing between a deflagration or a detonation can be difficult to impossible to the casual observer. Rather, confidently differentiating between the two requires instrumentation and diagnostics to ascertain reaction speed in the affected material. Therefore, when an unexpected event or an accident occurs with an explosive material or an explosive-containing system, it is usually impossible to know whether the explosive deflagrated or detonated as both can appear as very violent, energetic reactions. Therefore, the energetic materials community coined the term &#34;high explosive violent reaction&#34; or &#34;HEVR&#34; to describe a violent reaction that, because it lacked diagnostics to measure sound-speed, could have been either a deflagration or a detonation.[6][7]</pre>
+<h3>Flame physics  <span class="muted small">— chars 2535–3646</span></h3>
+<pre>The underlying flame physics can be understood with the help of an idealized model consisting of a uniform one-dimensional tube of unburnt and burned gaseous fuel, separated by a thin transitional region of width δ{\displaystyle \delta \;} in which the burning occurs. The burning region is commonly referred to as the flame or flame front. In equilibrium, thermal diffusion across the flame front is balanced by the heat supplied by burning.[8][9][10][11]
+
+Two characteristic timescales are important here. The first is the thermal diffusion timescale τd{\displaystyle \tau _{d}\;}, which is approximately equal to
+
+τd≃δ2/κ,{\displaystyle \tau _{d}\simeq \delta ^{2}/\kappa ,}
+
+where κ{\displaystyle \kappa \;} is the thermal diffusivity. The second is the burning timescaleτb{\displaystyle \tau _{b}} that strongly decreases with temperature, typically as
+
+τb∝exp⁡[ΔU/(kBTf)],{\displaystyle \tau _{b}\propto \exp[\Delta U/(k_{B}T_{f})],}
+
+where ΔU{\displaystyle \Delta U\;} is the activation barrier for the burning reaction and Tf{\displaystyle T_{f}\;} is the temperature developed as the result of burning;</pre>
+<h3>Flame physics  <span class="muted small">— chars 3647–4690</span></h3>
+<pre>the value of this so-called &#34;flame temperature&#34; can be determined from the laws of thermodynamics.
+
+For a stationary moving (unclear) deflagration front, these two timescales must be equal: the heat generated by burning is equal to the heat carried away by heat transfer. This makes it possible to calculate the characteristic width δ{\displaystyle \delta \;} of the flame front:
+
+τb=τd,{\displaystyle \tau _{b}=\tau _{d}\;,}
+
+thus
+
+δ≃κτb.{\displaystyle \delta \simeq {\sqrt {\kappa \tau _{b}}}.}
+
+Now, the thermal flame front propagates at a characteristic speed Sl{\displaystyle S_{l}\;}, which is simply equal to the flame width divided by the burn time:
+
+Sl≃δ/τb≃κ/τb.{\displaystyle S_{l}\simeq \delta /\tau _{b}\simeq {\sqrt {\kappa /\tau _{b}}}.}
+
+This simplified model neglects the change of temperature and thus the burning rate across the deflagration front. This model also neglects the possible influence of turbulence. As a result, this derivation gives only the laminar flame speed—hence the designation Sl{\displaystyle S_{l}\;}.</pre>
+<h3>Damaging events  <span class="muted small">— chars 4712–5541</span></h3>
+<pre>Damage to buildings, equipment and people can result from a large-scale, short-duration deflagration. The potential damage is primarily a function of the total amount of fuel burned in the event (total energy available), the maximum reaction velocity that is achieved, and the manner in which the expansion of the combustion gases is contained. Vented deflagrations tend to be less violent or damaging than contained deflagrations.[12]
+
+In free-air deflagrations, there is a continuous variation in deflagration effects relative to the maximum flame velocity. When flame velocities are low, the effect of a deflagration is to release heat, such as in a flash fire. At flame velocities near the speed of sound, the energy released is in the form of pressure, and the resulting high pressure can damage equipment and buildings.[13]</pre>
+<h3>See also  <span class="muted small">— chars 5556–5683</span></h3>
+<pre>Look up deflagration in Wiktionary, the free dictionary.
+
+Conflagration
+
+Deflagration to detonation transition
+
+Pressure piling</pre>
+<h3>References  <span class="muted small">— chars 5700–6899</span></h3>
+<pre>↑O&#39;Conner, Brian (March 27, 2023). &#34;Explosions, Deflagrations and Detonations&#34;. National Fire Protection Association. Archived from the original on March 28, 2023. Retrieved May 31, 2023.
+
+↑Handbook of Fire Protection Engineering (5ed.). Society of Fire Protection Engineers. 2016. p.373.
+
+↑McDonough, Gordon (April 1, 2017). &#34;What is a high explosive&#34;. Bradbury Science Museum, Los Alamos National Laboratory. Archived from the original on 2017-05-02. Retrieved May 31, 2023.
+
+↑Rosas, Camilo; Davis, Scott; Engel, Derek; Middha, Prankul; van Wingerden, Kees; Mannan, M.S. (July 2014). &#34;Deflagration to detonation transitions (DDTs): Predicting DDTs in hydrocarbon explosions&#34;. Journal of Loss Prevention in the Process Industries. 30: 263–274. Bibcode:2014JLPPI..30..263R. doi:10.1016/j.jlp.2014.03.003. Retrieved May 31, 2023.
+
+↑Handbook of Fire Protection Engineering (5ed.). Society of Fire Protection Engineers. 2016. p.390.
+
+↑Squires, Jess (2023-01-22). &#34;High Explosive Violent Reaction (HEVR) — DOE Directives, Guidance, and Delegations&#34;. www.directives.doe.gov. Archived from the original on 2022-09-29. Retrieved 2023-06-08.
+
+↑&#34;What&#39;s the difference between an explosion and a detonation?&#34;.</pre>
+<h3>References  <span class="muted small">— chars 6746–7595</span></h3>
+<pre>www.directives.doe.gov. Archived from the original on 2022-09-29. Retrieved 2023-06-08.
+
+↑&#34;What&#39;s the difference between an explosion and a detonation?&#34;. www.lanl.gov. Retrieved 2023-06-08.
+
+↑Williams, F. A. (2018). Combustion theory. CRC Press.
+
+↑Landau, L. D., &amp; Lifshitz, E. M. (1959). Fluid Mechanics. Course of Theoretical Physics, 6.
+
+↑Linan, A., &amp; Williams, F. A. (1993). Fundamental aspects of combustion.
+
+↑Zeldovich, I. A., Barenblatt, G. I., Librovich, V. B., &amp; Makhviladze, G. M. (1985). Mathematical theory of combustion and explosions.
+
+↑Tarver, C. M.; Chidester, S. K. (2004-02-09). &#34;On the Violence of High Explosive Reactions&#34;. Journal of Pressure Vessel Technology. 127: 39–48. doi:10.1115/1.1845474. OSTI15013892.
+
+↑NFPA 68 Standard on Explosion Protection by Deflagration Venting. National Fire Protection Association. 2018. p.5.</pre>
+<h3>References  <span class="muted small">— chars 7442–10559</span></h3>
+<pre>doi:10.1115/1.1845474. OSTI15013892.
+
+↑NFPA 68 Standard on Explosion Protection by Deflagration Venting. National Fire Protection Association. 2018. p.5.
+
+v
+
+t
+
+e
+
+Fire protection
+
+Fundamental concepts
+
+Backdraft
+
+Boiling liquid expanding vapor explosion (BLEVE)
+
+Boilover
+
+Combustibility and flammability
+
+Conflagration
+
+Dangerous goods (HAZMAT)
+
+Deflagration
+
+Detonation
+
+Dust explosion
+
+Enthalpy of vaporization
+
+Explosive
+
+Fire classification
+
+Fire control
+
+Fire loading
+
+Fire point
+
+Fire triangle
+
+Flammability diagram
+
+Flammability limit
+
+Flammable liquid
+
+Flashover
+
+Flash point
+
+Friction loss
+
+Gas leak
+
+Heat transfer
+
+Jet fire
+
+K-factor (fire protection)
+
+Pool fire
+
+Pyrolysis
+
+Spontaneous combustion
+
+Structure fire
+
+Thermal radiation
+
+Water pressure
+
+Technology
+
+Active fire protection
+
+Automatic fire suppression
+
+Condensed aerosol fire suppression
+
+Detonation flame arrester
+
+External water spray system
+
+Fire bucket
+
+Fire prevention
+
+Fire protection
+
+Fire retardant
+
+Fire-retardant fabric
+
+Fire retardant gel
+
+Fire-safe polymers
+
+Fire safety
+
+Fire sprinkler system
+
+Fire suppression system
+
+Firefighting foam
+
+Flame arrester
+
+Flame retardant
+
+Flashback arrestor
+
+Fusible link
+
+Gaseous fire suppression
+
+Hypoxic air technology for fire prevention
+
+Inerting system
+
+Intumescent
+
+Passive fire protection
+
+Personal protective equipment (PPE)
+
+Relief valve
+
+Spark arrestor
+
+Tank blanketing
+
+Vehicle fire suppression system
+
+Building design
+
+Annulus (firestop)
+
+Area of refuge
+
+Booster pump
+
+Compartmentation
+
+Crash bar
+
+Electromagnetic door holder
+
+Electromagnetic lock
+
+Emergency exit
+
+Emergency light
+
+Exit sign
+
+Fire curtain
+
+Fire cut
+
+Fire damper
+
+Fire door
+
+Fire escape
+
+Fire extinguisher
+
+Fire hose
+
+Fire hydrant
+
+Fire pump
+
+Fire sprinkler
+
+Firestop
+
+Firestop pillow
+
+Firewall (construction)
+
+Grease duct
+
+Heat and smoke vent
+
+Packing (firestopping)
+
+Penetrant (mechanical, electrical, or structural)
+
+Penetration (firestop)
+
+Pressurisation ductwork
+
+Safety glass
+
+Smoke control
+
+Smoke damper
+
+Smoke exhaust ductwork
+
+Smokeproof enclosure
+
+Standpipe (firefighting)
+
+Fire alarm systems
+
+Aspirating smoke detector
+
+Carbon monoxide detector
+
+Circuit integrity
+
+Explosive gas leak detector
+
+Fire alarm call box
+
+Fire alarm control panel
+
+Fire alarm notification appliance
+
+Fire drill
+
+Flame detector
+
+Heat detector
+
+Manual fire alarm activation
+
+Smoke detector
+
+Professions, trades,
+
+and services
+
+Duct cleaning
+
+Fire insurance
+
+Fire protection engineering
+
+Fireproofing
+
+Fire-resistance rating
+
+Fire Safety Evaluation System (FSES)
+
+Fire test
+
+Kitchen exhaust cleaning
+
+Listing and approval use and compliance
+
+Sprinkler fitting
+
+Industry organizations
+
+Institution of Fire Engineers (IFE)
+
+National Council of Examiners for Engineering and Surveying (NCEES)
+
+National Fire Protection Association (NFPA)
+
+Society of Fire Protection Engineers (SFPE)
+
+Underwriters Laboratories (UL)
+
+Standards
+
+CE marking
+
+EN 3
+
+EN 54
+
+EN 16034
+
+Flame spread
+
+GHS hazard statements
+
+GHS precautionary statements
+
+Life Safety Code (NFPA 101)
+
+List of R-phrases
+
+List of S-phrases
+
+Safety data sheet
+
+UL 94
+
+Awards
+
+Arthur B.</pre>
+<h3>References  <span class="muted small">— chars 10560–11021</span></h3>
+<pre>Guise Medal
+
+Harry C. Bigglestone Award
+
+See also
+
+Template:Fire
+
+Template:Firefighting
+
+Template:HVAC
+
+Category
+
+Commons
+
+Authority control databases
+
+GND
+
+Retrieved from &#34;https://en.wikipedia.org/w/index.php?title=Deflagration&amp;oldid=1366621885&#34;
+
+Categories:
+Combustion
+
+Explosives
+
+Physical chemistry
+
+Process safety
+
+Hidden categories:
+Articles with short description
+
+Short description is different from Wikidata
+
+Search
+
+Deflagration
+
+19 languagesAdd topic</pre>
+
+<h2>Extracted claims (26)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In equilibrium, thermal diffusion across the flame front is balanced by the heat supplied by burning.[8][9][10][11]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Pressure Vessel Technology. 127: 39–48. doi:10.1115/1.1845474.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑NFPA 68 Standard on Explosion Protection by Deflagration Venting.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At flame velocities near the speed of sound, the energy released is in the form of pressure, and the resulting high pressure can damage equipment and buildings.[13]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑NFPA 68 Standard on Explosion Protection by Deflagration Venting.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Retrieved from &#34;https://en.wikipedia.org/w/index.php?title=Deflagration&amp;oldid=1366621885&#34;</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bibcode:2014JLPPI..30..263R. doi:10.1016/j.jlp.2014.03.003.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2022-09-29.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Vented deflagrations tend to be less violent or damaging than contained deflagrations.[12]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Society of Fire Protection Engineers. 2016. p.390.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on March 28, 2023.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Society of Fire Protection Engineers. 2016. p.373.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2017-05-02.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">As explained above, a deflagration is a subsonic reaction, whereas a detonation is a supersonic (greater than the sound speed of the material) reaction.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">National Fire Protection Association. 2018. p.5.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">τd≃δ2/κ,{\displaystyle \tau _{d}\simeq \delta ^{2}/\kappa ,}</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">For a stationary moving (unclear) deflagration front, these two timescales must be equal: the heat generated by burning is equal to the heat carried away by heat transfer.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2022-09-29.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Deflagration (Lat: de + flagrare, &#39;to burn down&#39;) is subsoniccombustion in which a pre-mixed flame propagates through an explosive or a mixture of fuel and oxidizer.[1][2] Deflagrations in high and low explosives or fuel–oxidizer mixtures may transition to a detonation depending upon confinement and other factors.[3][4] Most fires found in daily life are diffusion flames.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Loss Prevention in the Process Industries. 30: 263–274.</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">In free-air deflagrations, there is a continuous variation in deflagration effects relative to the maximum flame velocity.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Therefore, the energetic materials community coined the term &#34;high explosive violent reaction&#34; or &#34;HEVR&#34; to describe a violent reaction that, because it lacked diagnostics to measure sound-speed, could have been either a deflagration or a detonation.[6][7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Deflagrations with flame speeds in the range of 1m/s differ from detonations which propagate supersonically with detonation velocities in the range of km/s.[5]</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">When studying or discussing explosive safety, or the safety of systems containing explosives, the terms deflagration, detonation and deflagration-to-detonation transition (commonly referred to as DDT) must be understood and used appropriately to convey relevant information.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">National Fire Protection Association. 2018. p.5.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Handbook of Fire Protection Engineering (5ed.).</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

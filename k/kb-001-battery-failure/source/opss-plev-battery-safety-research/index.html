@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal light electric vehicle (PLEV) battery safety research — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Personal light electric vehicle (PLEV) battery safety research</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Office for Product Safety and Standards (UK)</strong> ·
+  investigation · authority 5/5<br>
+Published 2025-01-29 ·   Retrieved 2026-09-18T18:00:53+00:00<br>
+  Licence: Open Government Licence v3.0<br>
+  <a href="https://www.gov.uk/government/publications/personal-light-electric-vehicle-plev-battery-safety-research" rel="nofollow noopener">https://www.gov.uk/government/publications/personal-light-electric-vehicle-plev-battery-safety-research</a><br>
+  <span class="muted">Content hash: <code>ad7a69e09355540fc009b844a60b40f6</code></span>
+</div>
+
+
+<h2>Stored passages (9)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Cookies on GOV.UK  <span class="muted small">— chars 21–870</span></h3>
+<pre>We use some essential cookies to make this website work.
+
+We’d like to set additional cookies to understand how you use GOV.UK, remember your settings and improve government services.
+
+We also use cookies set by other sites to help us deliver content from their services.
+
+You have accepted additional cookies. You can change your cookie settings at any time.
+
+You have rejected additional cookies. You can change your cookie settings at any time.
+
+Accept additional cookiesReject additional cookiesView cookies
+
+ Hide cookie message
+
+Skip to main content
+
+##
+
+###
+
+###
+
+###
+
+ Research and analysis
+
+#
+ Personal light electric vehicle (PLEV) battery safety research
+
+ An independent research report on the causes of the safety risks and hazards associated with PLEV batteries and chargers.
+
+From:
+
+Office for Product Safety and Standards
+
+Published:</pre>
+<h3>29 January 2025  <span class="muted small">— chars 889–902</span></h3>
+<pre>##
+ Documents</pre>
+<h3>PLEV battery safety research: executive summary and conclusions  <span class="muted small">— chars 973–977</span></h3>
+<pre>HTML</pre>
+<h3>PLEV battery safety research: full report  <span class="muted small">— chars 1026–1423</span></h3>
+<pre>PDF, 12.5 MB, 361 pages
+
+This file may not be suitable for users of assistive technology.
+
+ Request an accessible format
+
+ If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email opss.enquiries@businessandtrade.gov.uk. Please tell us what format you need. It will help us if you say what assistive technology you use.</pre>
+<h3>OPSS regulatory activity update: e-bikes, e-scooters and lithium-ion batteries  <span class="muted small">— chars 1509–2627</span></h3>
+<pre>HTML
+
+##
+ Details
+
+This report was commissioned by the Office for Product Safety and Standards (OPSS) to improve the evidence base on the causes of the safety risks and hazards associated with PLEV batteries and chargers. It was prepared by WMG, at the University of Warwick. It includes:
+
+a literature study of scientific papers and reports of real-world evidence of PLEV fires in the UK and other major markets
+
+a review of existing UK legislation and applicable standards
+
+the findings of detailed inspection and testing of several e-bike and e-scooter batteries available on the UK market, covering a broad price range
+
+Stakeholders from emergency services, safety groups, PLEV manufacturers and retailers, standards organisations and battery experts were consulted.
+
+This work has resulted in suggestions for actions by government, standards bodies and other groups, aimed at reducing the frequency and severity of PLEV fires.
+
+To accompany the report, OPSS has produced an update on its programme of activity to understand and address product safety risks involving e-bikes, e-scooters and lithium-ion batteries.</pre>
+<h3>OPSS regulatory activity update: e-bikes, e-scooters and lithium-ion batteries  <span class="muted small">— chars 2629–3151</span></h3>
+<pre>In addition, two videos are available of conversion kit batteries for e-bikes going into thermal runaway when tested under conditions of misuse, such as the use of an unsuitable charger. This leads rapidly to fire, explosions, and clouds of toxic gas. The videos represent the ferocity and unpredictable nature of these fires from unsafe, non-compliant or improperly used lithium-ion batteries.
+
+Battery safety testing conducted in a controlled environment 1
+
+Battery safety testing conducted in a controlled environment 2</pre>
+<h3>Updates to this page  <span class="muted small">— chars 3178–3293</span></h3>
+<pre>Published 29 January 2025
+
+##
+ Sign up for emails or print this page
+
+Print this page
+
+##
+ Related content
+
+###
+
+##</pre>
+<h3>Is this page useful?  <span class="muted small">— chars 3320–3448</span></h3>
+<pre>Maybe
+
+ Yes this page is useful
+
+ No this page is not useful
+
+ Thank you for your feedback
+
+ Report a problem with this page
+
+##</pre>
+<h3>Help us improve GOV.UK  <span class="muted small">— chars 3478–3621</span></h3>
+<pre>To help us improve GOV.UK, we’d like to know more about your visit today.
+ Please fill in this survey (opens in a new tab).
+
+Cancel
+
+##
+
+##
+
+##</pre>
+
+<h2>Extracted claims (3)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Battery safety testing conducted in a controlled environment 2</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Battery safety testing conducted in a controlled environment 1</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">This file may not be suitable for users of assistive technology.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

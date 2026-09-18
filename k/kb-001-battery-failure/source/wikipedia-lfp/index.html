@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lithium iron phosphate battery — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Lithium iron phosphate battery</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>Wikipedia</strong> ·
+  reference · authority 2/5<br>
+  Retrieved 2026-09-18T18:01:14+00:00<br>
+  Licence: CC BY-SA 4.0<br>
+  <a href="https://en.wikipedia.org/wiki/Lithium_iron_phosphate_battery" rel="nofollow noopener">https://en.wikipedia.org/wiki/Lithium_iron_phosphate_battery</a><br>
+  <span class="muted">Content hash: <code>8b249b1427a1ab2a1b8ea299c8336503</code></span>
+</div>
+
+
+<h2>Stored passages (31)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–27</span></h3>
+<pre>Jump to content
+
+Search
+
+##</pre>
+<h3>Lithium iron phosphate battery  <span class="muted small">— chars 62–1054</span></h3>
+<pre>25 languages
+
+العربية
+
+Català
+
+Čeština
+
+Dansk
+
+Deutsch
+
+Esperanto
+
+Español
+
+Eesti
+
+فارسی
+
+Suomi
+
+Français
+
+Magyar
+
+Bahasa Indonesia
+
+Italiano
+
+日本語
+
+한국어
+
+Nederlands
+
+Polski
+
+Português
+
+Русский
+
+Српски / srpski
+
+தமிழ்
+
+Türkçe
+
+Українська
+
+中文
+
+Edit links
+
+From Wikipedia, the free encyclopedia
+
+Type of rechargeable battery without cobalt
+
+A lithium iron phosphate (LiFePO4) 14500 battery (right) shown next to a battery placeholder (left)
+
+Specific energy95–172W⋅h/kg (340–620kJ/kg)[1][2]
+
+Next gen: 180–205Wh/kg[3]
+
+Energy density227–396W⋅h/L (820–1,430kJ/L)[1][2]
+
+Specific powerUp to 2,400 W/kg[4]
+
+Energy/consumer-price1–4 Wh/US$[5][6]
+
+Time durability&gt; 10years
+
+Cycle durability2,500–9,000[7]cycles
+
+Nominal cell voltage3.2V
+
+The lithium iron phosphate battery (LiFePO
+
+4 battery) or LFP battery (lithium ferrophosphate) is a type of lithium-ion battery using lithium iron phosphate (LiFePO
+
+4) as the cathode material, and a graphiticcarbon electrode with a metallic backing as the anode.</pre>
+<h3>Lithium iron phosphate battery  <span class="muted small">— chars 1055–2132</span></h3>
+<pre>Because of their low cost, high safety, low toxicity, long cycle life and other factors, LFP batteries are finding a number of roles in vehicle use, utility-scale stationary applications, and backup power.[8] As of September 2022, LFP type battery market share for EVs reached 31%, and of that, 68% were from EV makers Tesla and BYD alone.[9]
+
+In 2022, Chinese manufacturers held a near-monopoly of LFP battery type production.[10] With patents having started to expire in 2022 and the increased demand for cheaper EV batteries,[11] LFP type production is expected to rise further and surpass lithium nickel manganese cobalt oxides (NMC) type batteries.[12]
+
+The specific energy of LFP batteries is lower than that of other common lithium-ion battery types such as nickel manganese cobalt (NMC) and nickel cobalt aluminum (NCA). As of 2024, the specific energy of CATL&#39;s LFP battery is claimed to be 205 watt-hours per kilogram (Wh/kg) on the cell level.[13] BYD&#39;s LFP battery specific energy is 150Wh/kg. The best NMC batteries exhibit specific energy values of over 300Wh/kg.</pre>
+<h3>Lithium iron phosphate battery  <span class="muted small">— chars 2061–2393</span></h3>
+<pre>The best NMC batteries exhibit specific energy values of over 300Wh/kg. Notably, the specific energy of Panasonic&#39;s &#34;2170&#34; NCA batteries used in Tesla&#39;s 2020 Model 3 mid-size sedan is around 260Wh/kg, which is 70% of its &#34;pure chemicals&#34; value. LFP batteries also have a lower operating voltage than other lithium-ion battery types.</pre>
+<h3>Specifications  <span class="muted small">— chars 2414–3583</span></h3>
+<pre>Multiple lithium iron phosphate modules wired in series and parallel to create a 2800Ah 52V battery module. Total battery capacity is 145.6 kWh. Note the large, solid tinned copper busbar connecting the modules. This busbar is rated for 700 ampere DC to accommodate the high currents generated in this 48 volt DC system.Lithium iron phosphate modules, each 700Ah, 3.25V. Two modules are wired in parallel to create a single 3.25 V 1400 Ah battery pack with a capacity of 4.55 kWh.
+Cell voltage
+
+Minimum discharge voltage = 2.0–2.8V[14][15][16]
+
+Working voltage = 3.0 ~ 3.3 V
+
+Max viable voltage = 2.5 ~ 3.47 V
+
+Maximum charge voltage = 3.60–3.65V[17][15]
+
+Gravimetric energy density = 95–172W⋅h/kg (340–620kJ/kg).[1][2] The latest version announced at the end of 2023, early 2024 made significant improvements in energy density from 180 up to 205Wh/kg[3] without increasing production costs.
+
+Volumetric energy density = 227–396W⋅h/L (820–1,430kJ/L)[1][2]
+
+Cycle life from 2,500 to more than 9,000 cycles depending on conditions.[7] Next generation high-energy density versions have increased charging lifecycles, probably around 15,000 maximum cycles.[citation needed]</pre>
+<h3>Comparison with other battery types  <span class="muted small">— chars 3624–3802</span></h3>
+<pre>LFP batteries use a lithium-ion-derived chemistry and share many of the advantages and disadvantages of other lithium-ion chemistries. However, there are significant differences.</pre>
+<h3>Resource availability  <span class="muted small">— chars 3831–4181</span></h3>
+<pre>Iron and phosphates are very common in the Earth&#39;s crust. LFP contains neither nickel[18] nor cobalt, both of which are supply-constrained and expensive. As with lithium, human rights[19] and environmental[20] concerns have been raised concerning the use of cobalt. Environmental concerns have also been raised regarding the extraction of nickel.[21]</pre>
+<h3>Cost  <span class="muted small">— chars 4193–5207</span></h3>
+<pre>A 2020 report published by the Department of Energy compared the costs of large-scale energy storage systems built with LFP vs NMC. It found that the price per kWh of LFP batteries was about 6% lower than that of NMC batteries, and it projected that LFP cells would last about 67% longer (i.e., more cycles). Because of differences between the cell&#39;s characteristics, the cost of some other components of the storage system would be somewhat higher for LFP, but on balance it remains less costly per kWh than NMC.[22]
+
+In 2020, the lowest reported LFP cell prices were $80/kWh (12.5Wh/$) with an average price of $137/kWh,[23] while in 2023 the average price had dropped to $100/kWh.[24]
+By early 2024, VDA-sized LFP cells were available for less than RMB 0.5/Wh ($70/kWh), while Chinese automaker Leapmotor stated it buys LFP cells at RMB 0.4/Wh ($56/kWh) and believe they could drop to RMB 0.32/Wh ($44/kWh).[25] By mid 2024, assembled LFP batteries were available to consumers in the US for around $115/kWh.[26]</pre>
+<h3>Better aging and cycle-life characteristics  <span class="muted small">— chars 5258–5795</span></h3>
+<pre>LFP chemistry offers a considerably longer cycle life than other lithium-ion chemistries. Under most conditions, it supports more than 3,000 cycles; under optimal conditions, more than 10,000 cycles. NMC batteries support about 1,000 to 2,300 cycles, depending on conditions.[7]
+
+LFP cells experience a slower rate of capacity loss (a.k.a. greater calendar-life) than lithium-ion battery chemistries such as cobalt (LiCoO
+
+2), manganese spinel (LiMn
+
+2O
+
+4), lithium-ion polymer batteries (LiPo battery) or lithium-ion batteries.[27][28]</pre>
+<h3>Viable alternative to lead-acid batteries  <span class="muted small">— chars 5844–6754</span></h3>
+<pre>Because of the nominal 3.2V output, four cells can be connected in series for a nominal 12.8V. This comes close to the nominal voltage of a six-cell lead-acid batteries. Along with the good safety characteristics of LFP batteries, this makes LFP a good potential replacement for lead-acid batteries in applications such as automotive and solar applications, provided the charging systems are adapted not to damage the LFP cells through excessive charging voltages (beyond 3.6 volts DC per cell while under charge), temperature-based voltage compensation, equalisation attempts or continuous trickle charging. The LFP cells must be at least balanced initially before the pack is assembled and a protection system also needs to be implemented to ensure no cell can be discharged below a voltage of 2.5V or severe damage will occur in most instances, due to irreversible deintercalation of LiFePO4 into FePO4.[29]</pre>
+<h3>Safety  <span class="muted small">— chars 6768–7651</span></h3>
+<pre>One important advantage of LiFePO
+
+4 over other lithium-ion chemistries is thermal and chemical stability, which contributes to improved battery safety.[30][20][31] Especially compared to layered oxide cathode materials such as lithium cobalt oxide (LiCoO
+
+2) and NMC, which release oxygen upon heating,[32][33] LFP generally has higher decomposition temperatures.[34][35]
+
+There is a significant safety property to LFP batteries; in a stable active condition the chemical composition does not combust when exposed to normal ambient air, it is less prone to causing a fire and considered incombustible, with good overall thermal and chemical stability. However, LFP batteries can unfortunately still catch fire under extreme conditions similar to many other types of batteries, from causes such as overcharging issues, very high thermal temperatures, or catastrophic physical damage.</pre>
+<h3>Lower energy density  <span class="muted small">— chars 7679–7979</span></h3>
+<pre>The energy density (energy/volume) of a new LFP battery as of 2008 was about 14% lower than that of a new LiCoO
+
+2 battery.[36] Since discharge rate is a percentage of battery capacity, a higher rate can be achieved by using a larger battery (more ampere hours) if low-current batteries must be used.</pre>
+<h3>Uses  <span class="muted small">— chars 7990–8026</span></h3>
+<pre>LFP cells in a homemade battery pack</pre>
+<h3>Stationary storage  <span class="muted small">— chars 8051–8438</span></h3>
+<pre>See also: Battery energy storage system and Home energy storage
+
+LFP batteries are common in stationary storage systems due to advantages in cost, safety and cycle life. In 2025, LFP batteries held an approximate 85% of the stationary storage market share.[37] In static applications, the lower energy density of LFP compared to other lithium ion chemistries is a less of a disadvantage.</pre>
+<h3>Electric vehicles  <span class="muted small">— chars 8463–8983</span></h3>
+<pre>LFP batteries are used in many electric vehicles due to their cost, thermal stability and longevity. However, higher end vehicles typically use NMC chemistries due to their higher performance. In 2025, the GWh market share for LFP batteries in passenger cars and light vehicles was 79% in China, 13% in Europe, 5% in North America and 57% in the rest of the world.[38]
+
+In September 2022, LFP batteries had a 31% market share of the EV battery market. Of that share, 68% was deployed by two companies, Tesla and BYD.[39]</pre>
+<h3>Examples  <span class="muted small">— chars 9000–9435</span></h3>
+<pre>Chevrolet used a 21.3 kWh LFP battery in the 2014 model year Spark EV. The battery cells were manufactured by A123 Systems.[40]
+
+Renault uses a 27.5 kWh LFP battery in the electric-only fourth generation Twingo, sold from 2026.[41]
+
+Tesla Motors uses LFP batteries in all standard-range Models 3 and Y made after October 2021[42] except for standard-range vehicles made with 4680 cells starting in 2022, which use an NMC chemistry.[43]</pre>
+<h3>Other uses  <span class="muted small">— chars 9453–9736</span></h3>
+<pre>Some electronic cigarettes use these types of batteries. Other applications include marine electrical systems[44] and propulsion, flashlights, radio-controlled models, portable motor-driven equipment, amateur radio equipment, industrial sensor systems[45] and emergency lighting.[46]</pre>
+<h3>History  <span class="muted small">— chars 9750–10723</span></h3>
+<pre>Main article: Lithium iron phosphate
+
+LiFePO
+
+4 is a natural mineral known as triphylite. Arumugam Manthiram and John B. Goodenough first identified the polyanion class of cathode materials for lithium ion batteries.[47][48][49]LiFePO
+
+4 was then identified as a cathode material belonging to the polyanion class for use in batteries in 1996 by Padhi et al.[50][51] Reversible extraction of lithium from LiFePO
+
+4 and insertion of lithium into FePO
+
+4 was demonstrated. Because of its low cost, non-toxicity, the natural abundance of iron, its excellent thermal stability, safety characteristics, electrochemical performance, and specific capacity (170mA·h/g, or 610C/g) it has gained considerable market acceptance.[52][53]
+
+The main obstacle to commercialization was its intrinsically low electrical conductivity. This problem was overcome by reducing the particle size, coating the LiFePO
+
+4 particles with conductive materials such as carbon nanotubes,[54][55] or both.</pre>
+<h3>History  <span class="muted small">— chars 10724–11155</span></h3>
+<pre>Michel Armand and his coworkers at Hydro-Québec and the Université de Montréal developed this approach in 2015.[56][57][58] Another approach by Yet Ming Chiang&#39;s group at MIT consisted of doping[52] LFP with cations of materials such as aluminium, niobium, and zirconium.
+
+Negative electrodes (anode, on discharge) made of petroleum coke were used in early lithium-ion batteries; later types used natural or synthetic graphite.[59]</pre>
+<h3>See also  <span class="muted small">— chars 11170–11410</span></h3>
+<pre>List of battery types
+
+List of battery sizes
+
+List of electric-vehicle-battery manufacturers
+
+Comparison of commercial battery types
+
+Nanowire battery
+
+Phosphate
+
+Power-to-weight ratio
+
+Solid-state battery
+
+Super-iron battery
+
+Blade battery</pre>
+<h3>References  <span class="muted small">— chars 11427–12612</span></h3>
+<pre>1234&#34;Cells – APR18650m1B - Lithium Werks&#34;. Retrieved 2026-02-22.
+
+1234&#34;Lithium-Ion 32140 Energy Cells - Lithium Werks&#34;. Retrieved 2026-02-20.
+
+12&#34;CATL announcement&#34;. 2024-05-10.
+
+↑&#34;Nanophosphate Lithium Ion Prismatic Pouch Cell AMP20M1HD-A&#34;(PDF). Retrieved 2026-02-22.
+
+↑&#34;Zooms 12V 100Ah LiFePO4 Deep Cycle Battery, Rechargeable Lithium Iron Phosphate Battery&#34;. Amazon.com. Archived from the original on 2022-01-25. Retrieved 2022-01-25.
+
+↑&#34;ZEUS Battery Products – 12.8 V Lithium Iron Phosphate Battery Rechargeable (Secondary) 20Ah&#34;. DigiKey.com. Archived from the original on 2022-01-25. Retrieved 2022-01-25.
+
+123Preger, Yuliya; Barkholtz, Heather M.; Fresquez, Armando; Campbell, Daniel L.; Juba, Benjamin W.; Romàn-Kustas, Jessica; Ferreira, Summer R.; Chalamala, Babu (2020). &#34;Degradation of Commercial Lithium-Ion Cells as a Function of Chemistry and Cycling Conditions&#34;. Journal of the Electrochemical Society. 167 (12). Institute of Physics: 120532. Bibcode:2020JElS..167l0532P. doi:10.1149/1945-7111/abae37. S2CID225506214.
+
+↑&#34;Why lithium iron phosphate (LiFePO4 ) batteries are suitable for industrial and commercial applications. | Ethos Power Associates:&#34;. ethospower.org.</pre>
+<h3>References  <span class="muted small">— chars 12462–13638</span></h3>
+<pre>↑&#34;Why lithium iron phosphate (LiFePO4 ) batteries are suitable for industrial and commercial applications. | Ethos Power Associates:&#34;. ethospower.org.
+
+↑&#34;Tesla, BYD accounted for 68% of LFP batteries deployed from Q1-Q3 2022&#34;. 15 December 2022.
+
+↑&#34;Japan battery material producers lose spark as China races ahead&#34;. 4 April 2022. Retrieved 12 August 2024.
+
+↑&#34;A Handful of Lithium Battery Patents Are Set to Expire Before the End of the Year, Hopefully Bringing EV Prices Down With Them | GetJerry.com&#34;. getjerry.com. Archived from the original on 2023-01-05. Retrieved 2023-04-12.
+
+↑&#34;Global lithium-ion battery capacity to rise five-fold by 2030&#34;. 22 March 2022.
+
+↑Willuhn, Marian (2024-04-29). &#34;CATL presents EV battery with 1,000 km range&#34;. pv magazine International. Retrieved 2024-09-24.
+
+↑&#34;Cell – CA Series&#34;. CALB.cn. Archived from the original on 2014-10-09.
+
+12&#34;A123 Systems ANR26650&#34;. 2022-07-30.
+
+↑&#34;LiFePO4 Battery&#34;. 2022-07-30.
+
+↑&#34;LiFePO4 Battery&#34;. www.evlithium.com. Retrieved 2020-09-24.
+
+↑&#34;Nickel battery infographic&#34;(PDF).
+
+↑&#34;Transition Minerals Tracker&#34;(PDF). humanrights.org.
+
+12&#34;Rechargeable Lithium Batteries&#34;. Electropaedia — Battery and Energy Technologies.</pre>
+<h3>References  <span class="muted small">— chars 13499–14708</span></h3>
+<pre>↑&#34;Transition Minerals Tracker&#34;(PDF). humanrights.org.
+
+12&#34;Rechargeable Lithium Batteries&#34;. Electropaedia — Battery and Energy Technologies. Archived from the original on 2011-07-14.
+
+↑&#34;&#39;We are afraid&#39;: Erin Brockovich pollutant linked to global electric car boom&#34;. the Guardian. 2022-02-19. Retrieved 2022-02-19.
+
+↑Mongird, Kendall; Viswanatha, Vilayanur (December 2020). 2020 Grid Energy Storage Technology Cost and Performance Assessment(pdf) (Technical report). U.S. Department of Energy. DOE/PA-0204.
+
+↑&#34;Battery Pack Prices Cited Below $100/kWh for the First Time in 2020, While Market Average Sits at $137/kWh&#34;. BloombergNEF. December 16, 2020.
+
+↑Colthorpe, Andy (27 November 2023). &#34;LFP cell average falls below US$100/kWh as battery pack prices drop to record low in 2023&#34;. Energy-Storage.News.
+
+↑Phate Zhang (Jan 17, 2024). &#34;Battery price war: CATL, BYD pushing battery costs down further&#34;. CnEVPost.
+
+↑&#34;LiFePO4 Prices&#34;. Retrieved 2024-07-30. Prices are lower for LFP cells.
+
+↑&#34;ANR26650M1&#34;. A123Systems. 2006. Archived from the original on 2012-03-01. Current test projecting excellent calendar life: 17% impedance growth and 23% capacity loss in 15 years at 100% SOC, 60°C.
+
+↑Kassem, M.; Bernard, J.;</pre>
+<h3>References  <span class="muted small">— chars 14559–15735</span></h3>
+<pre>Current test projecting excellent calendar life: 17% impedance growth and 23% capacity loss in 15 years at 100% SOC, 60°C.
+
+↑Kassem, M.; Bernard, J.; Revel, R.; Pélissier, S.; Duclaud, F.; Delacourt, C. (June 2012). &#34;Calendar aging of a graphite/LiFePO4 cell&#34;. Journal of Power Sources. 208: 296–305. doi:10.1016/j.jpowsour.2012.02.068.
+
+↑Inoue, Katsuya; Fujieda, Shun; Shinoda, Kozo; Suzuki, Shigeru; Waseda, Yoshio (2010). &#34;Chemical State of Iron of LiFePO4 during Charge-Discharge Cycles Studied by In-Situ X-ray Absorption Spectroscopy&#34;. Materials Transactions. 51 (12): 2220–2224. doi:10.2320/matertrans.M2010229. ISSN1345-9678.
+
+↑Evro, Solomon; Ajumobi, Abdurahman; Mayon, Darrell; Tomomewo, Olusegun Stanley (2024-12-01). &#34;Navigating battery choices: A comparative study of lithium iron phosphate and nickel manganese cobalt battery technologies&#34;. Future Batteries. 4 100007. doi:10.1016/j.fub.2024.100007. ISSN2950-2640.
+
+↑Jiang, J.; Dahn, J.R. (January 2004). &#34;ARC studies of the thermal stability of three different cathode materials: LiCoO2; Li[Ni0.1Co0.8Mn0.1]O2; and LiFePO4, in LiPF6 and LiBoB EC/DEC electrolytes&#34;. Electrochemistry Communications. 6 (1): 39–43.</pre>
+<h3>References  <span class="muted small">— chars 15612–16796</span></h3>
+<pre>Li[Ni0.1Co0.8Mn0.1]O2; and LiFePO4, in LiPF6 and LiBoB EC/DEC electrolytes&#34;. Electrochemistry Communications. 6 (1): 39–43. doi:10.1016/j.elecom.2003.10.011.
+
+↑Hou, Junxian; Feng, Xuning; Wang, Li; Liu, Xiang; Ohma, Atsushi; Lu, Languang; Ren, Dongsheng; Huang, Wensheng; Li, Yan; Yi, Mengchao; Wang, Yu; Ren, Jianqiao; Meng, Zihan; Chu, Zhengyu; Xu, Gui-Liang (August 2021). &#34;Unlocking the self-supported thermal runaway of high-energy lithium-ion batteries&#34;. Energy Storage Materials. 39: 395–402. doi:10.1016/j.ensm.2021.04.035.
+
+↑Belharouak, Ilias; Lu, Wenquan; Vissers, Donald; Amine, Khalil (February 2006). &#34;Safety characteristics of Li(Ni0.8Co0.15Al0.05)O2 and Li(Ni1/3Co1/3Mn1/3)O2&#34;. Electrochemistry Communications. 8 (2): 329–335. doi:10.1016/j.elecom.2005.12.007.
+
+↑Kvasha, Andriy; Gutiérrez, César; Osa, Urtzi; de Meatza, Iratxe; Blazquez, J. Alberto; Macicior, Haritz; Urdampilleta, Idoia (September 2018). &#34;A comparative study of thermal runaway of commercial lithium ion cells&#34;. Energy. 159: 547–557. doi:10.1016/j.energy.2018.06.173.
+
+↑Zhang, Yue; Cheng, Siyuan; Mei, Wenxin; Jiang, Lihua; Jia, Zhuangzhuang; Cheng, Zhixiang; Sun, Jinhua; Wang, Qingsong (April 2023).</pre>
+<h3>References  <span class="muted small">— chars 16664–17851</span></h3>
+<pre>↑Zhang, Yue; Cheng, Siyuan; Mei, Wenxin; Jiang, Lihua; Jia, Zhuangzhuang; Cheng, Zhixiang; Sun, Jinhua; Wang, Qingsong (April 2023). &#34;Understanding of thermal runaway mechanism of LiFePO4 battery in-depth by three-level analysis&#34;. Applied Energy. 336 120695. doi:10.1016/j.apenergy.2023.120695.
+
+↑Guo, Yu-Guo; Hu, Jin-Song; Wan, Li-Jun (2008). &#34;Nanostructured Materials for Electrochemical Energy Conversion and Storage Devices&#34;. Advanced Materials. 20 (15): 2878–2887. Bibcode:2008AdM....20.2878G. doi:10.1002/adma.200800627.
+
+↑&#34;Volta Foundation 2025 Battery Report&#34;(PDF). report.volta.foundation. p.193. Archived from the original(PDF) on 2026-03-13. Retrieved 2026-04-18.
+
+↑&#34;Volta Foundation 2025 Battery Report&#34;(PDF). report.volta.foundation. p.150. Archived from the original(PDF) on 2026-03-13. Retrieved 2026-04-18.
+
+↑&#34;EV Battery Market: LFP Chemistry Reached 31% Share In September&#34;. MSN. Retrieved 2023-04-12.
+
+↑&#34;Chevy Spark EV Owners Still Waiting For Battery Pack Replacement&#34;. January 16, 2024.
+
+↑&#34;Renault Twingo E-Tech Electric: The Return of an Icon, and a Revolution in its Segment&#34;. www.press.renault.co.uk. Retrieved 2026-02-08.
+
+↑Gitlin, Jonathan M. (October 21, 2021).</pre>
+<h3>References  <span class="muted small">— chars 17763–18949</span></h3>
+<pre>www.press.renault.co.uk. Retrieved 2026-02-08.
+
+↑Gitlin, Jonathan M. (October 21, 2021). &#34;Tesla made $1.6 billion in Q3, is switching to LFP batteries globally&#34;. Ars Technica.
+
+↑Tesla 4680 Teardown: Specs Revealed! (Part 2), 14 July 2022, retrieved 2023-05-15
+
+↑&#34;Why Fisherman Are Switching to Lithium Batteries&#34;. Astro Lithium. 28 November 2022. Retrieved 2023-03-29.
+
+↑&#34;IECEx System&#34;. iecex.iec.ch. Archived from the original on 2018-08-27. Retrieved 2018-08-26.
+
+↑&#34;EM ready2apply BASIC 1 – 2 W&#34;. Tridonic. Retrieved 23 October 2018.
+
+↑Masquelier, Christian; Croguennec, Laurence (2013). &#34;Polyanionic (Phosphates, Silicates, Sulfates) Frameworks as Electrode Materials for Rechargeable Li (or Na) Batteries&#34;. Chemical Reviews. 113 (8): 6552–6591. doi:10.1021/cr3001862. PMID23742145.
+
+↑Manthiram, A.; Goodenough, J. B. (1989). &#34;Lithium insertion into Fe2(SO4)3 frameworks&#34;. Journal of Power Sources. 26 (3–4): 403–408. Bibcode:1989JPS....26..403M. doi:10.1016/0378-7753(89)80153-3.
+
+↑Manthiram, A.; Goodenough, J. B. (1987). &#34;Lithium insertion into Fe2(MO4)3 frameworks: Comparison of M = W with M = Mo&#34;. Journal of Solid State Chemistry. 71 (2): 349–360. Bibcode:1987JSSCh..71..349M.</pre>
+<h3>References  <span class="muted small">— chars 18870–20076</span></h3>
+<pre>Journal of Solid State Chemistry. 71 (2): 349–360. Bibcode:1987JSSCh..71..349M. doi:10.1016/0022-4596(87)90242-8.
+
+↑&#34;LiFePO
+
+4: A Novel Cathode Material for Rechargeable Batteries&#34;, A.K. Padhi, K.S. Nanjundaswamy, J.B. Goodenough, Electrochemical Society Meeting Abstracts, 96-1, May, 1996, pp 73
+
+↑&#34;Phospho-olivines as Positive-Electrode Materials for Rechargeable Lithium Batteries&#34; A. K. Padhi, K. S. Nanjundaswamy, and J. B. Goodenough, J. Electrochem. Soc., Volume 144, Issue 4, pp. 1188–1194 (April 1997)
+
+12Gorman, Jessica (September 28, 2002). &#34;Bigger, Cheaper, Safer Batteries: New material charges up lithium-ion battery work&#34;. Science News. Vol.162, no.13. p.196. Archived from the original on 2008-04-13.
+
+↑John (12 March 2022). &#34;Factors Need To Pay Attention Before Install Your Lithium LFP Battery&#34;. Happysun Media Solar-Europe.
+
+↑Susantyoko, Rahmat Agung; Karam, Zainab; Alkhoori, Sara; Mustafa, Ibrahim; Wu, Chieh-Han; Almheiri, Saif (2017). &#34;A surface-engineered tape-casting fabrication technique toward the commercialisation of freestanding carbon nanotube sheets&#34;. Journal of Materials Chemistry A. 5 (36): 19255–19266. doi:10.1039/c7ta04999d. ISSN2050-7488.
+
+↑Susantyoko, Rahmat Agung;</pre>
+<h3>References  <span class="muted small">— chars 19955–20985</span></h3>
+<pre>Journal of Materials Chemistry A. 5 (36): 19255–19266. doi:10.1039/c7ta04999d. ISSN2050-7488.
+
+↑Susantyoko, Rahmat Agung; Alkindi, Tawaddod Saif; Kanagaraj, Amarsingh Bhabu; An, Boohyun; Alshibli, Hamda; Choi, Daniel; AlDahmani, Sultan; Fadaq, Hamed; Almheiri, Saif (2018). &#34;Performance optimization of freestanding MWCNT-LiFePO4 sheets as cathodes for improved specific capacity of lithium-ion batteries&#34;. RSC Advances. 8 (30): 16566–16573. Bibcode:2018RSCAd...816566S. doi:10.1039/c8ra01461b. ISSN2046-2069. PMC9081850. PMID35540508.
+
+↑US 20150132660A1,Ravet, N.; Simoneau, M.&amp; Armand, M.et al.,&#34;Electrode materials with high surface conductivity&#34;,published 2015/05/14, assigned to Hydro-Québec
+
+↑Armand, Michel; Goodenough, John B.; Padhi, Akshaya K.; Nanjundaswam, Kirakodu S.; Masquelier, Christian (Feb 4, 2003), Cathode materials for secondary (rechargeable) lithium batteries, archived from the original on 2016-04-02, retrieved 2016-02-25
+
+↑Long Hard Road: The Lithium-Ion Battery and the Electric Car. 2022. C.J. Murray.</pre>
+<h3>References  <span class="muted small">— chars 20967–21197</span></h3>
+<pre>2022. C.J. Murray. ISBN978-1-61249-762-4
+
+↑David Linden (ed.), Handbook of Batteries 3rd Edition, McGraw Hill 2002, ISBN0-07-135978-8, pages 35–16 and 35–17
+
+Wikimedia Commons has media related to Lithium iron phosphate batteries.</pre>
+<h3>References  <span class="muted small">— chars 21199–23606</span></h3>
+<pre>v
+
+t
+
+e
+
+Electrochemical cells
+
+Types
+
+Galvanic cell
+
+Concentration cell
+
+Electric battery
+Flow battery
+
+Trough battery
+
+Fuel cell
+
+Thermogalvanic cell
+
+Voltaic pile
+
+Primary cell
+
+(non-rechargeable)
+
+Alkaline
+
+Aluminium–air
+
+Bunsen
+
+Chromic acid
+
+Clark
+
+Daniell
+
+Dry
+
+Edison–Lalande
+
+Grove
+
+Leclanché
+
+Lithium metal
+
+Lithium organic
+
+Lithium–air
+
+Mercury
+
+Metal–air electrochemical
+
+Nickel oxyhydroxide
+
+Silicon–air
+
+Silver oxide
+
+Weston
+
+Zamboni
+
+Zinc–air
+
+Zinc–carbon
+
+Secondary cell
+
+(rechargeable)
+
+Automotive
+
+Lead–acid
+gel–VRLA
+
+Lithium–air
+
+Lithium ion
+Dual carbon
+
+Lithium–iron–phosphate
+
+Lithium–polymer
+
+Lithium–sulfur
+
+Lithium–titanate
+
+Metal–air
+
+Molten salt
+
+Nanopore
+
+Nanowire
+
+Nickel–cadmium
+
+Nickel–hydrogen
+
+Nickel–iron
+
+Nickel–lithium
+
+Nickel–metal hydride
+
+Nickel–zinc
+
+Polysulfide–bromide
+
+Potassium ion
+
+Rechargeable alkaline
+
+Silver–cadmium
+
+Silver–zinc
+
+Sodium ion
+
+Sodium–sulfur
+
+Solid state
+
+Vanadium redox
+
+Zinc–bromine
+
+Zinc–cerium
+
+Other cell
+
+Atomic battery
+Radioisotope thermoelectric generator
+
+Fuel cell
+
+Solar cell
+
+Cell parts
+
+Anode
+
+Binder
+
+Catalyst
+
+Cathode
+
+Electrode
+
+Electrolyte
+
+Half-cell
+
+Ions
+
+Salt bridge
+
+Semipermeable membrane
+
+v
+
+t
+
+e
+
+Emerging technologies
+
+Fields
+
+Energy
+
+Production
+
+Airborne wind turbine
+
+Artificial photosynthesis
+
+Biofuels
+
+Carbon-neutral fuel
+
+Concentrated solar power
+
+Fusion power
+
+Home fuel cell
+
+Hydrogen economy
+
+Methanol economy
+
+Molten salt reactor
+
+Nantenna
+
+Ocean thermal energy conversion
+
+Osmotic power
+
+Photovoltaic pavement
+
+Space-based solar power
+
+Vortex engine
+
+Storage
+
+Compressed-air energy storage
+
+Flywheel energy storage
+
+Grid energy storage
+
+Lithium–air battery
+
+Molten-salt battery
+
+Metal–air electrochemical cell
+
+Nanowire battery
+
+Research in lithium-ion batteries
+
+Silicon–air battery
+
+Sodium-ion battery
+
+Solid-state battery
+
+Thermal energy storage
+
+Ultracapacitor
+
+Other
+
+Alternative fuel vehicle
+
+Battery electric vehicle
+
+Hybrid electric vehicle
+
+Smart grid
+
+Wireless power
+
+List
+
+Retrieved from &#34;https://en.wikipedia.org/w/index.php?title=Lithium_iron_phosphate_battery&amp;oldid=1362670247&#34;
+
+Categories:
+Lithium-ion batteries
+
+Phosphates
+
+Vanadium
+
+Hidden categories:
+Articles with short description
+
+Short description is different from Wikidata
+
+All articles with unsourced statements
+
+Articles with unsourced statements from November 2024
+
+Commons category link from Wikidata
+
+Search
+
+25 languagesAdd topic</pre>
+
+<h2>Extracted claims (126)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">&#34;Lithium insertion into Fe2(MO4)3 frameworks: Comparison of M = W with M = Mo&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;ZEUS Battery Products – 12.8 V Lithium Iron Phosphate Battery Rechargeable (Secondary) 20Ah&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Susantyoko, Rahmat Agung; Karam, Zainab; Alkhoori, Sara; Mustafa, Ibrahim; Wu, Chieh-Han; Almheiri, Saif (2017).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Armand, Michel; Goodenough, John B.; Padhi, Akshaya K.; Nanjundaswam, Kirakodu S.; Masquelier, Christian (Feb 4, 2003), Cathode materials for secondary (rechargeable) lithium batteries, archived from the original on 2016-04-02, retrieved 2016-02-25</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Materials Transactions. 51 (12): 2220–2224. doi:10.2320/matertrans.M2010229.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Energy Storage Materials. 39: 395–402. doi:10.1016/j.ensm.2021.04.035.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Of that share, 68% was deployed by two companies, Tesla and BYD.[39]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In September 2022, LFP batteries had a 31% market share of the EV battery market.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Zhang, Yue; Cheng, Siyuan; Mei, Wenxin; Jiang, Lihua; Jia, Zhuangzhuang; Cheng, Zhixiang; Sun, Jinhua; Wang, Qingsong (April 2023).</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Maximum charge voltage = 3.60–3.65V[17][15]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2023-01-05.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2022, Chinese manufacturers held a near-monopoly of LFP battery type production.[10] With patents having started to expire in 2022 and the increased demand for cheaper EV batteries,[11] LFP type production is expected to rise further and surpass lithium nickel manganese cobalt oxides (NMC) type batteries.[12]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑US 20150132660A1,Ravet, N.; Simoneau, M.&amp; Armand, M.et al.,&#34;Electrode materials with high surface conductivity&#34;,published 2015/05/14, assigned to Hydro-Québec</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Under most conditions, it supports more than 3,000 cycles; under optimal conditions, more than 10,000 cycles.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bibcode:2008AdM....20.2878G. doi:10.1002/adma.200800627.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">&#34;Tesla made $1.6 billion in Q3, is switching to LFP batteries globally&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The energy density (energy/volume) of a new LFP battery as of 2008 was about 14% lower than that of a new LiCoO</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4 was then identified as a cathode material belonging to the polyanion class for use in batteries in 1996 by Padhi et al.[50][51] Reversible extraction of lithium from LiFePO</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2018-08-27.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Materials Chemistry A. 5 (36): 19255–19266. doi:10.1039/c7ta04999d.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">(Part 2), 14 July 2022, retrieved 2023-05-15</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">By early 2024, VDA-sized LFP cells were available for less than RMB 0.5/Wh ($70/kWh), while Chinese automaker Leapmotor stated it buys LFP cells at RMB 0.4/Wh ($56/kWh) and believe they could drop to RMB 0.32/Wh ($44/kWh).[25] By mid 2024, assembled LFP batteries were available to consumers in the US for around $115/kWh.[26]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Other applications include marine electrical systems[44] and propulsion, flashlights, radio-controlled models, portable motor-driven equipment, amateur radio equipment, industrial sensor systems[45] and emergency lighting.[46]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2014-10-09.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4 over other lithium-ion chemistries is thermal and chemical stability, which contributes to improved battery safety.[30][20][31] Especially compared to layered oxide cathode materials such as lithium cobalt oxide (LiCoO</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The battery cells were manufactured by A123 Systems.[40]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">123Preger, Yuliya; Barkholtz, Heather M.; Fresquez, Armando; Campbell, Daniel L.; Juba, Benjamin W.; Romàn-Kustas, Jessica; Ferreira, Summer R.; Chalamala, Babu (2020).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bibcode:2020JElS..167l0532P. doi:10.1149/1945-7111/abae37.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of the Electrochemical Society. 167 (12).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Gravimetric energy density = 95–172W⋅h/kg (340–620kJ/kg).[1][2] The latest version announced at the end of 2023, early 2024 made significant improvements in energy density from 180 up to 205Wh/kg[3] without increasing production costs.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Because of its low cost, non-toxicity, the natural abundance of iron, its excellent thermal stability, safety characteristics, electrochemical performance, and specific capacity (170mA·h/g, or 610C/g) it has gained considerable market acceptance.[52][53]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2020, the lowest reported LFP cell prices were $80/kWh (12.5Wh/$) with an average price of $137/kWh,[23] while in 2023 the average price had dropped to $100/kWh.[24]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Michel Armand and his coworkers at Hydro-Québec and the Université de Montréal developed this approach in 2015.[56][57][58] Another approach by Yet Ming Chiang&#39;s group at MIT consisted of doping[52] LFP with cations of materials such as aluminium, niobium, and zirconium.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;Battery Pack Prices Cited Below $100/kWh for the First Time in 2020, While Market Average Sits at $137/kWh&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Two modules are wired in parallel to create a single 3.25 V 1400 Ah battery pack with a capacity of 4.55 kWh.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Solid State Chemistry. 71 (2): 349–360.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑David Linden (ed.), Handbook of Batteries 3rd Edition, McGraw Hill 2002, ISBN0-07-135978-8, pages 35–16 and 35–17</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2022-01-25.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Soc., Volume 144, Issue 4, pp. 1188–1194 (April 1997)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bibcode:1989JPS....26..403M. doi:10.1016/0378-7753(89)80153-3.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">&#34;LFP cell average falls below US$100/kWh as battery pack prices drop to record low in 2023&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Because of differences between the cell&#39;s characteristics, the cost of some other components of the storage system would be somewhat higher for LFP, but on balance it remains less costly per kWh than NMC.[22]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Articles with unsourced statements from November 2024</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It found that the price per kWh of LFP batteries was about 6% lower than that of NMC batteries, and it projected that LFP cells would last about 67% longer (i.e., more cycles).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Goodenough first identified the polyanion class of cathode materials for lithium ion batteries.[47][48][49]LiFePO</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">There is a significant safety property to LFP batteries; in a stable active condition the chemical composition does not combust when exposed to normal ambient air, it is less prone to causing a fire and considered incombustible, with good overall thermal and chemical stability.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1234&#34;Cells – APR18650m1B - Lithium Werks&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Evro, Solomon; Ajumobi, Abdurahman; Mayon, Darrell; Tomomewo, Olusegun Stanley (2024-12-01).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4 particles with conductive materials such as carbon nanotubes,[54][55] or both.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A lithium iron phosphate (LiFePO4) 14500 battery (right) shown next to a battery placeholder (left)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Hou, Junxian; Feng, Xuning; Wang, Li; Liu, Xiang; Ohma, Atsushi; Lu, Languang; Ren, Dongsheng; Huang, Wensheng; Li, Yan; Yi, Mengchao; Wang, Yu; Ren, Jianqiao; Meng, Zihan; Chu, Zhengyu; Xu, Gui-Liang (August 2021).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Energy density227–396W⋅h/L (820–1,430kJ/L)[1][2]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Negative electrodes (anode, on discharge) made of petroleum coke were used in early lithium-ion batteries; later types used natural or synthetic graphite.[59]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Volumetric energy density = 227–396W⋅h/L (820–1,430kJ/L)[1][2]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Electrochemistry Communications. 8 (2): 329–335. doi:10.1016/j.elecom.2005.12.007.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2011-07-14.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4 battery) or LFP battery (lithium ferrophosphate) is a type of lithium-ion battery using lithium iron phosphate (LiFePO</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;Volta Foundation 2025 Battery Report&#34;(PDF). report.volta.foundation. p.150.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2012-03-01.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Power Sources. 26 (3–4): 403–408.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Current test projecting excellent calendar life: 17% impedance growth and 23% capacity loss in 15 years at 100% SOC, 60°C.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">The LFP cells must be at least balanced initially before the pack is assembled and a protection system also needs to be implemented to ensure no cell can be discharged below a voltage of 2.5V or severe damage will occur in most instances, due to irreversible deintercalation of LiFePO4 into FePO4.[29]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Environmental concerns have also been raised regarding the extraction of nickel.[21]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Along with the good safety characteristics of LFP batteries, this makes LFP a good potential replacement for lead-acid batteries in applications such as automotive and solar applications, provided the charging systems are adapted not to damage the LFP cells through excessive charging voltages (beyond 3.6 volts DC per cell while under charge), temperature-based voltage compensation, equalisation attempts or continuous trickle charging.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original on 2008-04-13.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;Global lithium-ion battery capacity to rise five-fold by 2030&#34;. 22 March 2022.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Electrochemistry Communications. 6 (1): 39–43.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bibcode:2018RSCAd...816566S. doi:10.1039/c8ra01461b.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cycle life from 2,500 to more than 9,000 cycles depending on conditions.[7] Next generation high-energy density versions have increased charging lifecycles, probably around 15,000 maximum cycles.[citation needed]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4: A Novel Cathode Material for Rechargeable Batteries&#34;, A.K.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Retrieved from &#34;https://en.wikipedia.org/w/index.php?title=Lithium_iron_phosphate_battery&amp;oldid=1362670247&#34;</td></tr>
+  <tr><td class="small"><span class="tag">range</span></td><td class="small">Minimum discharge voltage = 2.0–2.8V[14][15][16]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Susantyoko, Rahmat Agung; Alkindi, Tawaddod Saif; Kanagaraj, Amarsingh Bhabu; An, Boohyun; Alshibli, Hamda; Choi, Daniel; AlDahmani, Sultan; Fadaq, Hamed; Almheiri, Saif (2018).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">NMC batteries support about 1,000 to 2,300 cycles, depending on conditions.[7]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Specific energy95–172W⋅h/kg (340–620kJ/kg)[1][2]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Inoue, Katsuya; Fujieda, Shun; Shinoda, Kozo; Suzuki, Shigeru; Waseda, Yoshio (2010).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2025, the GWh market share for LFP batteries in passenger cars and light vehicles was 79% in China, 13% in Europe, 5% in North America and 57% in the rest of the world.[38]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Notably, the specific energy of Panasonic&#39;s &#34;2170&#34; NCA batteries used in Tesla&#39;s 2020 Model 3 mid-size sedan is around 260Wh/kg, which is 70% of its &#34;pure chemicals&#34; value.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Current test projecting excellent calendar life: 17% impedance growth and 23% capacity loss in 15 years at 100% SOC, 60°C.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Mongird, Kendall; Viswanatha, Vilayanur (December 2020). 2020 Grid Energy Storage Technology Cost and Performance Assessment(pdf) (Technical report).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Bibcode:1987JSSCh..71..349M. doi:10.1016/0022-4596(87)90242-8.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Goodenough, Electrochemical Society Meeting Abstracts, 96-1, May, 1996, pp 73</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Chemical Reviews. 113 (8): 6552–6591. doi:10.1021/cr3001862.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Zhang, Yue; Cheng, Siyuan; Mei, Wenxin; Jiang, Lihua; Jia, Zhuangzhuang; Cheng, Zhixiang; Sun, Jinhua; Wang, Qingsong (April 2023).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Solid State Chemistry. 71 (2): 349–360.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As of 2024, the specific energy of CATL&#39;s LFP battery is claimed to be 205 watt-hours per kilogram (Wh/kg) on the cell level.[13] BYD&#39;s LFP battery specific energy is 150Wh/kg.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Archived from the original(PDF) on 2026-03-13.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Because of the nominal 3.2V output, four cells can be connected in series for a nominal 12.8V.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Renault uses a 27.5 kWh LFP battery in the electric-only fourth generation Twingo, sold from 2026.[41]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">1234&#34;Lithium-Ion 32140 Energy Cells - Lithium Werks&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4 is a natural mineral known as triphylite.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">As with lithium, human rights[19] and environmental[20] concerns have been raised concerning the use of cobalt.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Long Hard Road: The Lithium-Ion Battery and the Electric Car. 2022.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Multiple lithium iron phosphate modules wired in series and parallel to create a 2800Ah 52V battery module.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">&#34;Lithium insertion into Fe2(SO4)3 frameworks&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The best NMC batteries exhibit specific energy values of over 300Wh/kg.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">2) and NMC, which release oxygen upon heating,[32][33] LFP generally has higher decomposition temperatures.[34][35]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4) as the cathode material, and a graphiticcarbon electrode with a metallic backing as the anode.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;Japan battery material producers lose spark as China races ahead&#34;. 4 April 2022.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In 2025, LFP batteries held an approximate 85% of the stationary storage market share.[37] In static applications, the lower energy density of LFP compared to other lithium ion chemistries is a less of a disadvantage.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">2 battery.[36] Since discharge rate is a percentage of battery capacity, a higher rate can be achieved by using a larger battery (more ampere hours) if low-current batteries must be used.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;EV Battery Market: LFP Chemistry Reached 31% Share In September&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;Tesla, BYD accounted for 68% of LFP batteries deployed from Q1-Q3 2022&#34;. 15 December 2022.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">4), lithium-ion polymer batteries (LiPo battery) or lithium-ion batteries.[27][28]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Future Batteries. 4 100007. doi:10.1016/j.fub.2024.100007.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Electrochemistry Communications. 6 (1): 39–43. doi:10.1016/j.elecom.2003.10.011.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Masquelier, Christian; Croguennec, Laurence (2013).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This busbar is rated for 700 ampere DC to accommodate the high currents generated in this 48 volt DC system.Lithium iron phosphate modules, each 700Ah, 3.25V.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Belharouak, Ilias; Lu, Wenquan; Vissers, Donald; Amine, Khalil (February 2006).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Applied Energy. 336 120695. doi:10.1016/j.apenergy.2023.120695.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Materials Chemistry A. 5 (36): 19255–19266. doi:10.1039/c7ta04999d.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑Guo, Yu-Guo; Hu, Jin-Song; Wan, Li-Jun (2008).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Because of their low cost, high safety, low toxicity, long cycle life and other factors, LFP batteries are finding a number of roles in vehicle use, utility-scale stationary applications, and backup power.[8] As of September 2022, LFP type battery market share for EVs reached 31%, and of that, 68% were from EV makers Tesla and BYD alone.[9]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">&#34;Safety characteristics of Li(Ni0.8Co0.15Al0.05)O2 and Li(Ni1/3Co1/3Mn1/3)O2&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">LFP contains neither nickel[18] nor cobalt, both of which are supply-constrained and expensive.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">&#34;CATL presents EV battery with 1,000 km range&#34;. pv magazine International.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;Zooms 12V 100Ah LiFePO4 Deep Cycle Battery, Rechargeable Lithium Iron Phosphate Battery&#34;.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A 2020 report published by the Department of Energy compared the costs of large-scale energy storage systems built with LFP vs NMC.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Chevrolet used a 21.3 kWh LFP battery in the 2014 model year Spark EV.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;Volta Foundation 2025 Battery Report&#34;(PDF). report.volta.foundation. p.193.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Energy. 159: 547–557. doi:10.1016/j.energy.2018.06.173.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Alberto; Macicior, Haritz; Urdampilleta, Idoia (September 2018).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">↑&#34;&#39;We are afraid&#39;: Erin Brockovich pollutant linked to global electric car boom&#34;. the Guardian. 2022-02-19.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Journal of Power Sources. 208: 296–305. doi:10.1016/j.jpowsour.2012.02.068.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The best NMC batteries exhibit specific energy values of over 300Wh/kg.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Tesla Motors uses LFP batteries in all standard-range Models 3 and Y made after October 2021[42] except for standard-range vehicles made with 4680 cells starting in 2022, which use an NMC chemistry.[43]</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

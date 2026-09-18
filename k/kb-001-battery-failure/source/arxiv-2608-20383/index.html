@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infrared hotspot-guided early warning of lithium-ion battery thermal runaway under mechanical abuse — source</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Infrared hotspot-guided early warning of lithium-ion battery thermal runaway under mechanical abuse</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
+</nav><div class="panel small">
+  <strong>arXiv</strong> ·
+  academic · authority 4/5<br>
+Published 2026-08-01 ·   Retrieved 2026-09-18T18:01:08+00:00<br>
+  Licence: arXiv non-exclusive licence to distribute; see paper for author licence<br>
+  <a href="https://arxiv.org/html/2608.20383v1" rel="nofollow noopener">https://arxiv.org/html/2608.20383v1</a><br>
+  <span class="muted">Content hash: <code>c11e072880b9df1c31f672ce17f28c46</code></span>
+</div>
+
+
+<h2>Stored passages (27)</h2>
+<p class="small muted">Exactly what the retriever can see, and therefore exactly what can be cited.</p>
+<h3>Passage 0  <span class="muted small">— chars 0–166</span></h3>
+<pre>#####
+
+arXiv is now an independent nonprofit!Learn more×
+
+Back to arXiv
+
+ License: arXiv.org perpetual non-exclusive license
+
+arXiv:2608.20383v1 [eess.SY] 29 Jun 2026</pre>
+<h3>Infrared Hotspot-Guided Early Warning of Lithium-Ion Battery Thermal Runaway Under Mechanical Abuse  <span class="muted small">— chars 270–520</span></h3>
+<pre>Syed Sajid Ullah*
+
+School of Energy and Electrical Engineering
+
+Xi’an, 710064, China
+
+sajid@chd.edu.cnSalman Khan
+
+School of Energy and Electrical Engineering
+
+Xi’an, ChinaMuhammad Zunair Zamir
+
+School of Information Engineering
+
+Xi’an, 710064, China</pre>
+<h3>Abstract  <span class="muted small">— chars 539–1556</span></h3>
+<pre>Mechanical abuse can trigger thermal runaway (TR) in lithium-ion batteries through localized heat generation before sensor signals become decisive. This paper proposes a two-stage early-warning approach that estimates localized thermal instability from infrared hotspot dynamics and then fuses this instability score with mechanical, electrical, thermal, and image-intensity features for a 20-frame warning horizon. Evaluation uses repeated experiment-wise three-fold validation, with out-of-fold Stage-I scores during Stage-II training to prevent stacked-model optimism. Hotspot dynamics alone achieve Stage-I ROC-AUC 0.945, and the two-stage classifier reaches Stage-II ROC-AUC 0.908, exceeding direct multimodal fusion while preserving an interpretable intermediate instability signal. Thermal gradient rise precedes voltage-based detection by 40 frames (4 seconds) on average, enabling earlier battery management system intervention. Lead-time analysis at a fixed 0.5 threshold yields a 14.8-frame mean lead time.</pre>
+<h3>Index Terms:  <span class="muted small">— chars 1579–1798</span></h3>
+<pre>Lithium-ion battery, thermal runaway, mechanical abuse, thermal imaging, hotspot dynamics, multimodal learning, early warning, explainable AI.
+
+††footnotetext: *Corresponding author: Syed Sajid Ullah (sajid@chd.edu.cn).</pre>
+<h3>I Introduction  <span class="muted small">— chars 1818–2834</span></h3>
+<pre>Lithium-ion batteries power electric vehicles, portable electronics, and grid-scale storage because of their high energy density and long cycle life. Safety failures remain a critical concern, especially when a cell undergoes thermal runaway (TR): rapid heat release, gas venting, fire, and propagation to adjacent cells [1].
+
+Mechanical abuse constitutes a major failure trigger [2]. Indentation, compression, penetration, and crash-induced deformation damage internal layers, cause separator failure, and initiate internal short circuits. The resulting localized Joule heating can evolve into TR if undetected [3].
+
+Conventional warning strategies depend on voltage drop, scalar surface temperature, force, or deformation thresholds [4]. These signals describe abuse progression, but they may not capture the spatially localized thermal response that precedes runaway. Infrared thermal imaging provides this spatial information through hotspot formation, growth, thermal gradient, entropy, and centroid motion [5].</pre>
+<h3>I Introduction  <span class="muted small">— chars 2689–3889</span></h3>
+<pre>Infrared thermal imaging provides this spatial information through hotspot formation, growth, thermal gradient, entropy, and centroid motion [5]. Existing work still leaves three practical gaps for compact early-warning pipelines: single-stage fusion can submerge thermal patterns among other features, temporal splits can leak frame-level correlations into test sets, and diagnostic reporting is often not separated cleanly from the prediction pipeline.
+
+We present a two-stage early-warning strategy that decouples localized thermal instability detection from final warning prediction. Stage I estimates an annotated thermal-instability state from hotspot features alone. Stage II then combines this instability signal with mechanical, electrical, scalar thermal, and four global IR intensity statistics. Hotspot dynamics are therefore distilled into a physically interpretable instability score rather than being submerged directly among many multimodal inputs. Surface temperature can rise by over 150∘C during the stable stage, well before voltage collapse becomes detectable. This temporal gap creates an early window for intervention that conventional voltage-threshold methods cannot exploit.</pre>
+<h3>I Introduction  <span class="muted small">— chars 3771–4735</span></h3>
+<pre>This temporal gap creates an early window for intervention that conventional voltage-threshold methods cannot exploit. At the 10 Hz IR frame rate, the observed 40-frame thermal gradient lead corresponds to 4 seconds of advance warning before voltage-based detection, sufficient for a battery management system to trigger mitigation.
+
+The core contributions are:
+
+A leakage-controlled two-stage architecture that distills thermal-image features into an intermediate instability score before multimodal fusion.
+
+A compact hotspot-dynamics representation for Stage-I instability estimation, achieving ROC-AUC 0.945 under experiment-wise validation.
+
+Structured diagnostic reporting that exposes classifier evidence while preserving the intermediate instability score as an interpretable monitoring variable.
+
+The two-stage design targets interpretability and leakage-controlled evaluation while improving operating-threshold performance over direct multimodal fusion.</pre>
+<h3>II Related Work  <span class="muted small">— chars 4757–5952</span></h3>
+<pre>Mechanically induced TR has been studied under indentation, compression, nail penetration, and impact [6]. These events induce internal short circuits and localized Joule heating, making early diagnosis challenging because the critical precursor can be spatially localized before global cell temperature rises [7, 8].
+
+Sensor-based warning methods commonly use voltage, temperature, force, strain, gas, pressure, or ultrasonic measurements [9, 10, 11]. These are practical and compatible with battery management systems, but scalar measurements may provide delayed or spatially incomplete information. Data-driven classifiers improve on fixed thresholds by learning nonlinear relationships among sensor signals, yet they can still underuse spatial thermal patterns [12].
+
+Thermal imaging captures hotspot formation, spatial thermal gradients, and propagation behavior [13]. Recent multimodal studies have combined thermal images with sensor streams and interpretable machine-learning tools for thermal-runaway prediction [14, 15]. Image and sensor fusion is a promising direction, but these studies do not always separate localized thermal-instability estimation from the final warning decision.</pre>
+<h3>II Related Work  <span class="muted small">— chars 5954–7043</span></h3>
+<pre>Language-model-assisted safety reporting relates to this goal but is not treated here as an independent predictor. Prior work on self-decoupled or multimodal sensing emphasizes the value of physically separated evidence channels for early warning [16]. Our diagnostic layer follows this spirit, restricting itself to structured reporting from classifier outputs rather than free-form language classification.
+
+Across these directions, prior studies have explored thermal imaging, multimodal fusion, and diagnostic interpretation separately. This work combines hotspot-derived instability scoring, experiment-wise leakage control, and structured diagnostic reporting within one compact early-warning pipeline. Table I positions this work against representative studies in each direction.
+
+TABLE I: Positioning against representative prior work.
+
+ReferenceMech. abuseHotspot dyn.FusionExp. splitDiag. reporting
+
+[4]PartialNoNoN/ANo
+
+[9, 10, 12]YesNoPartialPartialNo
+
+[13]PartialPartialPartialPartialNo
+
+[14, 15]PartialPartialYesPartialNo
+
+[17]PartialNoPartialN/AYes
+
+This workYesYesYesYesYes</pre>
+<h3>III-AExperimental Setup and Dataset  <span class="muted small">— chars 7106–8222</span></h3>
+<pre>Cylindrical lithium-ion cells under indentation loading yield synchronized frame-level records [18] with mechanical, electrical, scalar thermal, and infrared thermal-image metadata at 10 Hz. Hotspot blobs extracted from IR images provide spatial dynamics (area, gradient, entropy, centroid coordinates, growth, and velocity). Runaway-propagation frames are excluded to concentrate on pre-runaway prediction, leaving 12,425 training rows from 194 experiments; five propagation-only experiments are retained only for threshold-based signal comparisons. Fig. 1 shows representative IR frames together with the proposed two-stage model’s predicted warning probability p^t\hat{p}_{t} at key frames. Table II summarizes the dataset.
+
+Fig. 1: Representative thermal IR frames for Experiments 149, 151, and 152 at the stable starting frame, the model’s decision frame (with predicted warning probability p^t\hat{p}_{t}), and the thermal-runaway (TR) onset frame, illustrating how the proposed two-stage model’s warning signal tracks the visible thermal progression.TABLE II: Dataset summary used for preliminary experiments.</pre>
+<h3>III-AExperimental Setup and Dataset  <span class="muted small">— chars 8224–9292</span></h3>
+<pre>ItemValue
+
+Frame-level observations40,730
+
+Number of experiments199
+
+Number of columns38
+
+Pre-runaway rows12,425
+
+Experiments used for training194
+
+Stage-I targetStable vs. precursor/localized
+
+Stage-II targetTR within next 20 frames
+
+Feature groups (Table III) organize inputs by physical role: mechanical, electrical, scalar thermal, image intensity, and hotspot dynamics.
+
+TABLE III: Feature groups and their physical interpretation.
+
+GroupExample featuresPhysical meaning
+
+Mechanicalforce, deformation, dF/dtAbuse severity
+
+ElectricalvoltageElectrical response
+
+Scalar thermalhigh_temp, low_temp, temp_rangeGlobal surface heating
+
+Thermal imagemean, std, max, min intensityImage-level thermal state
+
+Hotspot dynamicsarea, centroid, gradient, entropy, growth, velocityLocalized thermal instability
+
+The Stage-I target merges precursor and localized-instability frames into one positive instability class against stable frames; Stage II uses a binary label marking whether TR occurs within the next 20 frames. Event-derived variables are excluded to prevent leakage.</pre>
+<h3>III-BProblem Formulation  <span class="muted small">— chars 9324–10186</span></h3>
+<pre>For each frame tt, the multimodal feature vector is
+
+xt=[xtm,xte,xtt​h,xti​n​t,xth​o​t],\mathbf{x}_{t}=[\mathbf{x}^{m}_{t},\mathbf{x}^{e}_{t},\mathbf{x}^{th}_{t},\mathbf{x}^{int}_{t},\mathbf{x}^{hot}_{t}],(1)
+
+where xtm\mathbf{x}^{m}_{t}, xte\mathbf{x}^{e}_{t}, xtt​h\mathbf{x}^{th}_{t}, xti​n​t\mathbf{x}^{int}_{t}, and xth​o​t\mathbf{x}^{hot}_{t} denote mechanical, electrical, scalar thermal, image-intensity, and hotspot-dynamics features.
+
+In Stage I, the localized thermal-instability state is estimated from hotspot-dynamics features only:
+
+s^t=P⁡(zt=1∣xth​o​t),\hat{s}_{t}=P(z_{t}=1\mid\mathbf{x}^{hot}_{t}),(2)
+
+where ztz_{t} is the annotated thermal-instability label and s^t∈[0,1]\hat{s}_{t}\in[0,1] is the estimated instability score. Restricting Stage I to hotspot dynamics ensures s^t\hat{s}_{t} depends purely on observed thermal spatial patterns.</pre>
+<h3>III-BProblem Formulation  <span class="muted small">— chars 10071–10621</span></h3>
+<pre>Restricting Stage I to hotspot dynamics ensures s^t\hat{s}_{t} depends purely on observed thermal spatial patterns.
+
+In Stage II, the instability score augments compact sensor and image-intensity features:
+
+x~t=[xtm,xte,xtt​h,xti​n​t,s^t],\tilde{\mathbf{x}}_{t}=[\mathbf{x}^{m}_{t},\mathbf{x}^{e}_{t},\mathbf{x}^{th}_{t},\mathbf{x}^{int}_{t},\hat{s}_{t}],(3)
+
+and the early-warning probability is estimated as
+
+p^t=P⁡(yt=1∣x~t),\hat{p}_{t}=P(y_{t}=1\mid\tilde{\mathbf{x}}_{t}),(4)
+
+where yty_{t} indicates whether TR occurs within the next 20 frames.</pre>
+<h3>III-CBaseline Classifiers  <span class="muted small">— chars 10654–11518</span></h3>
+<pre>Sensor-only: Mechanical, electrical, and scalar-thermal measurements.
+
+Image-all: Raw intensity statistics plus hotspot-dynamics features.
+
+Hotspot-only: Area, centroid, gradient, entropy, growth-rate, and velocity features.
+
+Direct multimodal: All feature groups fused in one stage.
+
+Proposed two-stage: Stage I produces s^t\hat{s}_{t}, and Stage II combines it with sensor features and four raw intensity statistics.
+
+Stage I compares Sensor-only, Image-all, Hotspot-only, and Multimodal; Stage II compares Sensor-only, Image-all, Direct multimodal, and the proposed two-stage design under the same grouped folds. Deep-learning baselines (LSTM, CNN-LSTM, MLP) use 10-frame input sequences, Adam at 10−310^{-3}, batch size 128, up to 30 epochs, and patience 6. Ablations remove the Stage-I score, raw intensity statistics, or time from the proposed configuration.</pre>
+<h3>III-DTwo-Stage Architecture  <span class="muted small">— chars 11553–12733</span></h3>
+<pre>Fig. 2 illustrates the architecture, with two sequential stages and a constrained diagnostic reporting layer. Stage I receives hotspot dynamics only and outputs an instability probability. Stage II does not re-feed those hotspot descriptors directly; instead, it fuses the out-of-fold instability score with sensor variables and four global image-intensity statistics, creating an interpretable bottleneck between localized thermal evidence and the final warning decision. The diagnostic layer then reports structured evidence from the trained classifier without changing the prediction itself.
+
+Fig. 2: Two-stage early-warning architecture. Stage I maps hotspot dynamics to an instability score, Stage II fuses that score with sensor and image-intensity features for 20-frame-ahead TR warning, and the diagnostic layer reports structured evidence without altering the classifier output.
+
+A LightGBM gradient-boosting classifier is used for both stages because the task is low-dimensional tabular fusion with nonlinear cross-modality interactions and occasional missing hotspot coordinates, for which tree boosting is stronger and easier to audit than a larger end-to-end network.</pre>
+<h3>III-DTwo-Stage Architecture  <span class="muted small">— chars 12734–13175</span></h3>
+<pre>All LightGBM variants share the same hyperparameters and grouped folds for a fair comparison. During training, Stage II receives out-of-fold Stage-I scores for training rows; the Stage-I classifier is then refitted on the outer training fold to score the outer test fold, preventing overfitted in-sample predictions. SHapley Additive exPlanations (SHAP) are then computed on the trained models to inspect which variables dominate each stage.</pre>
+<h3>III-EEvaluation Metrics  <span class="muted small">— chars 13206–13811</span></h3>
+<pre>All classifiers use experiment-wise three-fold cross-validation repeated over three random seeds [19]. Table IV summarizes the evaluation metrics.
+
+TABLE IV: Evaluation metrics.
+
+MetricStageDescription
+
+ROC-AUCI, IIArea under ROC curve
+
+API, IIAverage precision
+
+Lead timeIIFrames from first warning to TR onset
+
+Mean ROC-AUC with min-max range across folds is reported for both stages. Tables also report AP, F1, and balanced accuracy (BAcc) at the default threshold of 0.5. Lead time is evaluated at the same threshold; a valid warning must cross the threshold before TR and within the 20-frame horizon.</pre>
+<h3>IV Results and Discussion  <span class="muted small">— chars 13843–14276</span></h3>
+<pre>This section reports model performance for both stages of the two-stage framework, ablation results, and diagnostic feature analysis. Fig. 3 summarizes the Stage-I hotspot-feature contributions and the Stage-II single-modality contributions.
+
+Fig. 3: (a) Stage-I hotspot-feature contribution to instability detection. (b) Stage-II single-modality contribution to early warning, with the proposed two-stage model shown for comparison.</pre>
+<h3>IV-AStage I: Thermal Instability Detection  <span class="muted small">— chars 14326–15486</span></h3>
+<pre>Fig. 4 shows why thermal imaging provides earlier diagnostic information than conventional signals. In Experiment 84, surface temperature rises from 31∘C to 230∘C during the stable stage while voltage remains at 4.0 V and hotspot area shows no appreciable growth. Voltage collapses to 0 V only in the precursor stage, by which point temperature has already exceeded 256∘C. In Experiment 22, a more gradual failure mode appears: voltage declines from 4.0 V to 1.8 V while hotspot area grows consistently. In both cases, thermal signals reveal anomaly progression before voltage reaches a decisively abnormal reading, motivating a pipeline that converts hotspot dynamics into an explicit instability score before final fusion.
+
+Fig. 4: Multimodal sensor trajectories for Experiments 84 and 22. Stage backgrounds combine color with light gray hatch patterns for black-and-white readability: green (stable), yellow (precursor), orange (localized), red (runaway). Dashed line: TR onset. Thermal signals become abnormal before voltage reaches a critical reading.
+
+Table V quantifies this temporal advantage across all 199 experiments using threshold-based detection.</pre>
+<h3>IV-AStage I: Thermal Instability Detection  <span class="muted small">— chars 15384–16553</span></h3>
+<pre>Table V quantifies this temporal advantage across all 199 experiments using threshold-based detection. Thermal gradient rise provides the earliest warning with a mean lead of 40.3 frames before runaway, compared to 21.0 frames for voltage drop below 3.5 V. It detects pre-runaway anomaly in 143 of 199 experiments (71.9%) versus only 74 for the voltage threshold, confirming broader but not universal coverage.
+
+TABLE V: Frame-level lead time before thermal runaway for threshold-based detection.
+
+SignalMean lead(frames)MedianleadMinleadMaxleadExp.detected
+
+Voltage &lt;&lt; 3.5 V21.013112574
+
+Surface temp. &gt;&gt; 50∘C21.113111576
+
+Hotspot area &gt;&gt; 1.5×\times baseline21.91319644
+
+Thermal gradient rise40.3421171143
+
+Stage-I results appear in Table VI, while Fig. 3a disaggregates the hotspot branch into six feature families. Area-based cues are strongest (ROC-AUC 0.942), followed by centroid features (0.923); growth rate (0.862) and gradient (0.832) remain useful but weaker, while entropy (0.788) and velocity (0.794) are the least discriminative on their own. Sensor-only achieves ROC-AUC 0.881, reflecting limited early-warning information from scalar measurements alone.</pre>
+<h3>IV-AStage I: Thermal Instability Detection  <span class="muted small">— chars 16441–17248</span></h3>
+<pre>Sensor-only achieves ROC-AUC 0.881, reflecting limited early-warning information from scalar measurements alone. Hotspot-only achieves 0.945, confirming that the combined hotspot descriptor set closely matches annotated precursor and localized-instability states. Image-all performs similarly (0.946), while Multimodal achieves the highest ROC-AUC of 0.949, indicating complementary information between hotspot and sensor features.
+
+TABLE VI: Stage-I thermal instability detection results across repeated experiment-wise folds.
+
+ModelROC-AUC meanROC-AUC minROC-AUC maxAP meanF1 meanBAcc mean
+
+Sensor-only0.8810.8330.9340.7470.6880.840
+
+Sensor-no-time0.8800.8280.9340.7520.6880.840
+
+Image-all0.9460.9300.9660.7530.7260.864
+
+Hotspot-only0.9450.9310.9580.7320.7260.866
+
+Multimodal0.9490.9290.9740.7830.7250.855</pre>
+<h3>IV-BStage II: Early-Warning Prediction  <span class="muted small">— chars 17294–18083</span></h3>
+<pre>Table VII summarizes Stage-II performance together with the deep-learning baselines, and Fig. 3b isolates the predictive strength of each physical modality when used alone. Mechanical variables are strongest (ROC-AUC 0.871), ahead of electrical (0.706), scalar thermal (0.657), and the thermal-image pathway (0.655) – all well below the proposed two-stage model’s 0.908, also plotted in Fig. 3b for direct comparison. The full two-stage classifier reaches ROC-AUC 0.908 versus 0.903 for Direct multimodal fusion, with stronger threshold-level gains (F1 0.752 vs. 0.738; BAcc 0.836 vs. 0.824). LightGBM with the two-stage design also outperforms all three deep-learning baselines by 5 to 7 ROC-AUC points.
+
+TABLE VII: Stage-II early-warning comparison: LightGBM and deep-learning baselines.</pre>
+<h3>IV-BStage II: Early-Warning Prediction  <span class="muted small">— chars 18000–18690</span></h3>
+<pre>TABLE VII: Stage-II early-warning comparison: LightGBM and deep-learning baselines.
+
+ModelROC-AUCmeanROC-AUCminROC-AUCmaxAPF1BAcc
+
+LightGBM variants
+
+Sensor-only0.8960.8810.9160.7810.7330.821
+
+Image-all0.6830.6660.7060.5720.4980.637
+
+Direct multimodal0.9030.8840.9230.7950.7380.824
+
+Proposed two-stage0.9080.8940.9240.7960.7520.836
+
+Deep-learning baselines (sequence length 10)
+
+LSTM0.8500.8380.8600.7310.6910.764
+
+CNN-LSTM0.8430.8250.8570.7190.6870.760
+
+MLP0.8390.8270.8610.6840.6940.767
+
+Full ROC and precision-recall curves for both stages appear in Fig. 5.
+
+Fig. 5: ROC and precision-recall curves for Stage I and Stage II classifier comparisons. AUC and AP values appear in the legend.</pre>
+<h3>IV-CAblation Study and Diagnostic Reporting  <span class="muted small">— chars 18741–19805</span></h3>
+<pre>Ablation results appear in Table VIII. Removing the Stage-I score reduces ROC-AUC from 0.908 to 0.905, while removing the raw intensity statistics reduces it further to 0.896. The strongest Stage-II behavior therefore comes from combining the explicit instability score with a small amount of global image context rather than feeding hotspot dynamics directly into the warning model.
+
+TABLE VIII: Ablation study for the Stage-II early-warning model.
+
+ModelROC-AUC meanAP meanF1 meanBAcc mean
+
+Direct multimodal0.9030.7950.7380.824
+
+Proposed two-stage0.9080.7960.7520.836
+
+Ablation: no Stage-I score0.9050.7940.7510.835
+
+Ablation: no intensity stats0.8960.7810.7330.821
+
+Ablation: no time0.9020.7910.7430.828
+
+SHAP analysis (Fig. 6) provides feature-attribution insight beyond raw importance scores. In Stage I, the top hotspot features (growth rate, thermal gradient, area) show asymmetric SHAP distributions: positive values increase the instability score, confirming that growing, spatially non-uniform heating drives the classifier toward instability detection.</pre>
+<h3>IV-CAblation Study and Diagnostic Reporting  <span class="muted small">— chars 19806–20961</span></h3>
+<pre>In Stage II, the injected instability score is the dominant feature, followed by compact image-intensity and voltage-related cues, indicating that the final warning combines localized hotspot evidence with coarse global heating and electrical response. An aggregated “Other” row preserves the remaining lower-magnitude SHAP contributions.
+
+Fig. 6: SHAP summary plots for Stage I (hotspot-only) and Stage II (two-stage). Red: positive impact toward instability or warning; blue: negative impact. Each panel shows the top 6 features plus an aggregated “Other” row for the remaining contributions.Fig. 7: (left) Warning lead-time distribution. (right) Precision, recall, and F1 as functions of decision threshold for Stage II. The default 0.5 threshold is near-optimal for F1.
+
+At threshold 0.5, the model produces 183 valid in-horizon warnings with a mean lead time of 14.8 frames, and the remaining detections occur beyond the 20-frame horizon, indicating early risk awareness. The best mean F1 occurs at 0.55, but its gain over 0.5 is below 0.001, so we keep 0.5 as the default and leave stricter precision-recall trade-offs to deployment-specific tuning.</pre>
+<h3>IV-CAblation Study and Diagnostic Reporting  <span class="muted small">— chars 20963–21430</span></h3>
+<pre>These results remain dataset-specific: the learning-based evaluation uses 194 experiments with pre-runaway frames, and the earliest handcrafted cue appears in 143 of 199 experiments rather than all cases. Transfer to other cell formats, abuse modes, chemistries, or pack-level propagation scenarios remains unvalidated. The diagnostic reporting module only verbalizes structured evidence from the trained warning model and does not alter the classifier decision [17].</pre>
+<h3>V Conclusion  <span class="muted small">— chars 21449–22182</span></h3>
+<pre>We presented a two-stage thermal hotspot-aware framework for early warning of mechanically induced lithium-ion battery TR. Thermal signatures (temperature, gradient, hotspot area) precede voltage collapse by up to 40 frames on average, motivating a decoupled design that first distills hotspot dynamics into a localized instability score (Stage I ROC-AUC 0.945) before compact multimodal fusion (Stage II ROC-AUC 0.908). SHAP analysis confirms that this instability score remains the dominant Stage-II driver.
+
+Future work should validate the model across additional abuse modes, cell chemistries, and pack-level propagation settings while studying deployment-specific threshold calibration and end-to-end thermal-video alternatives.</pre>
+
+<h2>Extracted claims (77)</h2>
+<p class="small muted">
+  Verbatim claim-bearing sentences, classified by shape. They are never paraphrased —
+  grounding checks would be circular if they were.
+</p>
+<table>
+  <tr><th>Kind</th><th>Claim</th></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 3: (a) Stage-I hotspot-feature contribution to instability detection.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Table V quantifies this temporal advantage across all 199 experiments using threshold-based detection.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">xt=[xtm,xte,xtt​h,xti​n​t,xth​o​t],\mathbf{x}_{t}=[\mathbf{x}^{m}_{t},\mathbf{x}^{e}_{t},\mathbf{x}^{th}_{t},\mathbf{x}^{int}_{t},\mathbf{x}^{hot}_{t}],(1)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Mechanical variables are strongest (ROC-AUC 0.871), ahead of electrical (0.706), scalar thermal (0.657), and the thermal-image pathway (0.655) – all well below the proposed two-stage model’s 0.908, also plotted in Fig. 3b for direct comparison.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The full two-stage classifier reaches ROC-AUC 0.908 versus 0.903 for Direct multimodal fusion, with stronger threshold-level gains (F1 0.752 vs. 0.738; BAcc 0.836 vs. 0.824).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Data-driven classifiers improve on fixed thresholds by learning nonlinear relationships among sensor signals, yet they can still underuse spatial thermal patterns [12].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Area-based cues are strongest (ROC-AUC 0.942), followed by centroid features (0.923); growth rate (0.862) and gradient (0.832) remain useful but weaker, while entropy (0.788) and velocity (0.794) are the least discriminative on their own.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Cylindrical lithium-ion cells under indentation loading yield synchronized frame-level records [18] with mechanical, electrical, scalar thermal, and infrared thermal-image metadata at 10 Hz.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Recent multimodal studies have combined thermal images with sensor streams and interpretable machine-learning tools for thermal-runaway prediction [14, 15].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Deep-learning baselines (sequence length 10)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Surface temperature can rise by over 150∘C during the stable stage, well before voltage collapse becomes detectable.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sensor-based warning methods commonly use voltage, temperature, force, strain, gas, pressure, or ultrasonic measurements [9, 10, 11].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Mechanical abuse constitutes a major failure trigger [2].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where ztz_{t} is the annotated thermal-instability label and s^t∈[0,1]\hat{s}_{t}\in[0,1] is the estimated instability score.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">x~t=[xtm,xte,xtt​h,xti​n​t,s^t],\tilde{\mathbf{x}}_{t}=[\mathbf{x}^{m}_{t},\mathbf{x}^{e}_{t},\mathbf{x}^{th}_{t},\mathbf{x}^{int}_{t},\hat{s}_{t}],(3)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Infrared thermal imaging provides this spatial information through hotspot formation, growth, thermal gradient, entropy, and centroid motion [5].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Removing the Stage-I score reduces ROC-AUC from 0.908 to 0.905, while removing the raw intensity statistics reduces it further to 0.896.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Runaway-propagation frames are excluded to concentrate on pre-runaway prediction, leaving 12,425 training rows from 194 experiments; five propagation-only experiments are retained only for threshold-based signal comparisons.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">s^t=P⁡(zt=1∣xth​o​t),\hat{s}_{t}=P(z_{t}=1\mid\mathbf{x}^{hot}_{t}),(2)</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In Experiment 22, a more gradual failure mode appears: voltage declines from 4.0 V to 1.8 V while hotspot area grows consistently.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Full ROC and precision-recall curves for both stages appear in Fig. 5.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These results remain dataset-specific: the learning-based evaluation uses 194 experiments with pre-runaway frames, and the earliest handcrafted cue appears in 143 of 199 experiments rather than all cases.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">This paper proposes a two-stage early-warning approach that estimates localized thermal instability from infrared hotspot dynamics and then fuses this instability score with mechanical, electrical, thermal, and image-intensity features for a 20-frame warning horizon.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Table V quantifies this temporal advantage across all 199 experiments using threshold-based detection.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">arXiv:2608.20383v1 [eess.SY] 29 Jun 2026</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Thermal signatures (temperature, gradient, hotspot area) precede voltage collapse by up to 40 frames on average, motivating a decoupled design that first distills hotspot dynamics into a localized instability score (Stage I ROC-AUC 0.945) before compact multimodal fusion (Stage II ROC-AUC 0.908).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Lead-time analysis at a fixed 0.5 threshold yields a 14.8-frame mean lead time.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The resulting localized Joule heating can evolve into TR if undetected [3].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hotspot area &gt;&gt; 1.5×\times baseline21.91319644</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Table VII summarizes Stage-II performance together with the deep-learning baselines, and Fig. 3b isolates the predictive strength of each physical modality when used alone.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hotspot-only achieves 0.945, confirming that the combined hotspot descriptor set closely matches annotated precursor and localized-instability states.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 2: Two-stage early-warning architecture.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 6: SHAP summary plots for Stage I (hotspot-only) and Stage II (two-stage).</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sensor-only achieves ROC-AUC 0.881, reflecting limited early-warning information from scalar measurements alone.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">Lead time is evaluated at the same threshold; a valid warning must cross the threshold before TR and within the 20-frame horizon.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At the 10 Hz IR frame rate, the observed 40-frame thermal gradient lead corresponds to 4 seconds of advance warning before voltage-based detection, sufficient for a battery management system to trigger mitigation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Image-all performs similarly (0.946), while Multimodal achieves the highest ROC-AUC of 0.949, indicating complementary information between hotspot and sensor features.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Thermal gradient rise precedes voltage-based detection by 40 frames (4 seconds) on average, enabling earlier battery management system intervention.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 1: Representative thermal IR frames for Experiments 149, 151, and 152 at the stable starting frame, the model’s decision frame (with predicted warning probability p^t\hat{p}_{t}), and the thermal-runaway (TR) onset frame, illustrating how the proposed two-stage model’s warning signal tracks the visible thermal progression.TABLE II: Dataset summary used for preliminary experiments.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 4 shows why thermal imaging provides earlier diagnostic information than conventional signals.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 1 shows representative IR frames together with the proposed two-stage model’s predicted warning probability p^t\hat{p}_{t} at key frames.</td></tr>
+  <tr><td class="small"><span class="tag">requirement</span></td><td class="small">These signals describe abuse progression, but they may not capture the spatially localized thermal response that precedes runaway.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 4: Multimodal sensor trajectories for Experiments 84 and 22.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Conventional warning strategies depend on voltage drop, scalar surface temperature, force, or deformation thresholds [4].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">p^t=P⁡(yt=1∣x~t),\hat{p}_{t}=P(y_{t}=1\mid\tilde{\mathbf{x}}_{t}),(4)</td></tr>
+  <tr><td class="small"><span class="tag">definition</span></td><td class="small">Image and sensor fusion is a promising direction, but these studies do not always separate localized thermal-instability estimation from the final warning decision.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">All classifiers use experiment-wise three-fold cross-validation repeated over three random seeds [19].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Deep-learning baselines (LSTM, CNN-LSTM, MLP) use 10-frame input sequences, Adam at 10−310^{-3}, batch size 128, up to 30 epochs, and patience 6.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Thermal gradient rise provides the earliest warning with a mean lead of 40.3 frames before runaway, compared to 21.0 frames for voltage drop below 3.5 V.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 2 illustrates the architecture, with two sequential stages and a constrained diagnostic reporting layer.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">LightGBM with the two-stage design also outperforms all three deep-learning baselines by 5 to 7 ROC-AUC points.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Stage-I results appear in Table VI, while Fig. 3a disaggregates the hotspot branch into six feature families.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">A compact hotspot-dynamics representation for Stage-I instability estimation, achieving ROC-AUC 0.945 under experiment-wise validation.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 3 summarizes the Stage-I hotspot-feature contributions and the Stage-II single-modality contributions.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Prior work on self-decoupled or multimodal sensing emphasizes the value of physically separated evidence channels for early warning [16].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The best mean F1 occurs at 0.55, but its gain over 0.5 is below 0.001, so we keep 0.5 as the default and leave stricter precision-recall trade-offs to deployment-specific tuning.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Voltage collapses to 0 V only in the precursor stage, by which point temperature has already exceeded 256∘C.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Mechanically induced TR has been studied under indentation, compression, nail penetration, and impact [6].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">It detects pre-runaway anomaly in 143 of 199 experiments (71.9%) versus only 74 for the voltage threshold, confirming broader but not universal coverage.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">At threshold 0.5, the model produces 183 valid in-horizon warnings with a mean lead time of 14.8 frames, and the remaining detections occur beyond the 20-frame horizon, indicating early risk awareness.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Sensor-only achieves ROC-AUC 0.881, reflecting limited early-warning information from scalar measurements alone.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">where yty_{t} indicates whether TR occurs within the next 20 frames.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Each panel shows the top 6 features plus an aggregated “Other” row for the remaining contributions.Fig. 7: (left) Warning lead-time distribution.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Tables also report AP, F1, and balanced accuracy (BAcc) at the default threshold of 0.5.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Safety failures remain a critical concern, especially when a cell undergoes thermal runaway (TR): rapid heat release, gas venting, fire, and propagation to adjacent cells [1].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Hotspot dynamics alone achieve Stage-I ROC-AUC 0.945, and the two-stage classifier reaches Stage-II ROC-AUC 0.908, exceeding direct multimodal fusion while preserving an interpretable intermediate instability signal.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The default 0.5 threshold is near-optimal for F1.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The Stage-I target merges precursor and localized-instability frames into one positive instability class against stable frames; Stage II uses a binary label marking whether TR occurs within the next 20 frames.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">The diagnostic reporting module only verbalizes structured evidence from the trained warning model and does not alter the classifier decision [17].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">In Experiment 84, surface temperature rises from 31∘C to 230∘C during the stable stage while voltage remains at 4.0 V and hotspot area shows no appreciable growth.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Fig. 5: ROC and precision-recall curves for Stage I and Stage II classifier comparisons.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Stage I maps hotspot dynamics to an instability score, Stage II fuses that score with sensor and image-intensity features for 20-frame-ahead TR warning, and the diagnostic layer reports structured evidence without altering the classifier output.</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Thermal imaging captures hotspot formation, spatial thermal gradients, and propagation behavior [13].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">These events induce internal short circuits and localized Joule heating, making early diagnosis challenging because the critical precursor can be spatially localized before global cell temperature rises [7, 8].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">ReferenceMech. abuseHotspot dyn.FusionExp. splitDiag. reporting [4]</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">Infrared thermal imaging provides this spatial information through hotspot formation, growth, thermal gradient, entropy, and centroid motion [5].</td></tr>
+  <tr><td class="small"><span class="tag">fact</span></td><td class="small">SHAP analysis (Fig. 6) provides feature-attribution insight beyond raw importance scores.</td></tr>
+</table>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>

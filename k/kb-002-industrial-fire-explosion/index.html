@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Industrial Fire &amp; Explosion Intelligence — evidence</title>
+<style>
+  :root {
+    --ink: #16181d; --muted: #5c6370; --line: #e2e5ea; --bg: #ffffff;
+    --panel: #f7f8fa; --accent: #1f5f8b; --good: #1f7a45; --bad: #a12d2d;
+    --warn: #8a6100;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8ec; --muted:#9aa2ae; --line:#2b3039; --bg:#14161a;
+            --panel:#1b1e24; --accent:#6fb3de; --good:#5fc98c; --bad:#e08a8a;
+            --warn:#d8b25f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55
+         ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 960px; margin:0 auto; padding: 0 16px 64px; }
+  header.top { border-bottom:1px solid var(--line); margin-bottom:24px; }
+  header.top .wrap { display:flex; gap:16px; align-items:baseline;
+                     padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  a { color: var(--accent); }
+  h1 { font-size:1.6rem; margin:.4em 0 .2em; line-height:1.25; }
+  h2 { font-size:1.15rem; margin:2em 0 .5em; padding-bottom:.3em;
+       border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.4em 0 .4em; }
+  nav.tabs { display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 4px;
+             font-size:.92rem; }
+  .muted { color: var(--muted); }
+  .small { font-size:.86rem; }
+  .panel { background:var(--panel); border:1px solid var(--line);
+           border-radius:8px; padding:14px 16px; }
+  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+  .stat { background:var(--panel); border:1px solid var(--line);
+          border-radius:8px; padding:12px 14px; }
+  .stat .v { font-size:1.4rem; font-weight:600; }
+  .stat .k { font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;
+             color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; margin:.6em 0; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line);
+           vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:.8rem;
+       text-transform:uppercase; letter-spacing:.03em; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+              font-size:.86em; }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+        padding:12px; overflow-x:auto; white-space:pre-wrap; }
+  .tag { display:inline-block; font-size:.74rem; padding:1px 7px; border-radius:99px;
+         border:1px solid var(--line); background:var(--panel); color:var(--muted); }
+  .pass { color:var(--good); font-weight:600; }
+  .fail { color:var(--bad); font-weight:600; }
+  .hold { color:var(--warn); font-weight:600; }
+  textarea, input[type=text] { width:100%; font:inherit; padding:9px 11px;
+        border:1px solid var(--line); border-radius:6px; background:var(--bg);
+        color:var(--ink); }
+  button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
+           background:var(--accent); color:#fff; cursor:pointer; }
+  .banner { border-left:3px solid var(--accent); padding:10px 14px;
+            background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
+  ul.tight { margin:.4em 0; padding-left:1.2em; }
+  ul.tight li { margin:.25em 0; }
+  footer { border-top:1px solid var(--line); margin-top:48px; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
+    <span class="muted small">specialist knowledge systems you are invited to break</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T19:17</span>
+  </div>
+</header>
+<main class="wrap">
+<h1>Industrial Fire &amp; Explosion Intelligence</h1>
+<nav class="tabs">
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/">Evidence</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Sources</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Evaluation</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/transcript/">Transcript</a>
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
+</nav>
+<div class="grid" style="margin-top:18px">
+  <div class="stat"><div class="k">Version</div><div class="v">v0.1.0</div></div>
+  <div class="stat"><div class="k">Sources</div><div class="v">13</div></div>
+  <div class="stat"><div class="k">Evaluation questions</div><div class="v">27</div></div>
+  <div class="stat">
+    <div class="k">Regression status</div>
+    <div class="v">
+<span class="pass">PASS</span>
+    </div>
+  </div>
+</div>
+<p class="muted small" style="margin-top:8px">
+  Last evaluated 2026-09-18T18:01:54+00:00.
+  Corpus last refreshed 2026-09-18T18:01:52+00:00.
+</p>
+
+<div class="banner">
+  <strong>Don't trust it. Test it.</strong>
+  This page exists so you can judge the system rather than take its word.
+  Every failing question is listed below, not hidden.
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/ask/">Try to break it →</a>
+</div>
+
+<h2>About</h2>
+<p>An evidence-backed specialist system covering industrial fire and explosion hazards: flammable atmospheres, dust explosions, vapour cloud explosions, BLEVEs, ignition sources and control, hazardous area classification, and the UK and EU regimes that govern dangerous substances and major accident hazards. Answers are traceable to stored sources and are machine-checked for unsupported claims before they are returned.</p>
+<h3>In scope</h3>
+<ul class="tight"><li>flammable atmospheres and explosive atmospheres</li><li>dust explosions and combustible dust</li><li>vapour cloud explosion and BLEVE</li><li>flash point lower and upper explosive limits</li><li>autoignition and ignition sources</li><li>deflagration and detonation</li><li>hazardous area classification and zoning</li><li>explosion prevention and protection measures</li><li>major accident hazard regulation</li><li>industrial fire and explosion incident precedent</li></ul>
+<h3>Explicitly out of scope</h3>
+<ul class="tight"><li>medical diagnosis treatment or clinical advice</li><li>legal advice or litigation strategy</li><li>tax accounting and financial advice</li><li>share prices and investment advice</li><li>military ordnance and weapon design</li><li>domestic cooking fire advice</li><li>political opinion and elections</li></ul>
+<p class="panel small"><strong>Standing caveat.</strong> This is an evidence-retrieval system, not a basis-of-design authority and not a substitute for a DSEAR or COMAH assessment by a competent person. Verify every figure against the cited primary source.</p>
+
+<h2>Sources</h2>
+<div class="grid">
+  <div class="stat"><div class="k">Registered</div><div class="v">13</div></div>
+  <div class="stat"><div class="k">Indexed</div><div class="v">11</div></div>
+  <div class="stat"><div class="k">Pointer only</div><div class="v">2</div></div>
+  <div class="stat"><div class="k">Passages</div><div class="v">193</div></div>
+</div>
+<table>
+  <tr><th>Source type</th><th>Sources</th><th>Passages</th></tr>
+  <tr><td>investigation</td><td>1</td><td>37</td></tr>
+  <tr><td>reference</td><td>9</td><td>150</td></tr>
+  <tr><td>regulatory</td><td>2</td><td>6</td></tr>
+  <tr><td>standard</td><td>1</td><td>0</td></tr>
+</table>
+<p class="small"><a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/sources/">Full source register, with licences and retrieval dates →</a></p>
+
+<h2>Coverage</h2>
+<p class="small muted">
+  Ontology: 34 entities, 31 relationships.
+  Source authority is 5 (primary regulator or accident investigator) down to 2 (tertiary reference).
+</p>
+<table>
+  <tr><th>Authority</th><th>Sources</th></tr>
+  <tr><td>5 / 5</td><td>3</td></tr>
+  <tr><td>3 / 5</td><td>1</td></tr>
+  <tr><td>2 / 5</td><td>9</td></tr>
+</table>
+
+<h2>Evaluation</h2>
+<p>
+  <strong>20 / 27</strong>
+  questions passed (74%).
+<span class="pass">Gate: PASS</span>
+</p>
+<table>
+  <tr><th>Question type</th><th>Passed</th><th>Rate</th></tr>
+  <tr><td>factual</td><td>7 / 11</td><td>64%</td></tr>
+  <tr><td>citation</td><td>2 / 2</td><td>100%</td></tr>
+  <tr><td>multi_document</td><td>0 / 1</td><td>0%</td></tr>
+  <tr><td>reasoning</td><td>1 / 1</td><td>100%</td></tr>
+  <tr><td>ambiguous</td><td>2 / 2</td><td>100%</td></tr>
+  <tr><td>unanswerable</td><td>3 / 4</td><td>75%</td></tr>
+  <tr><td>out_of_scope</td><td>2 / 2</td><td>100%</td></tr>
+  <tr><td>adversarial</td><td>3 / 3</td><td>100%</td></tr>
+  <tr><td>temporal</td><td>0 / 1</td><td>0%</td></tr>
+</table>
+<h3>Metrics</h3>
+<p class="small muted">
+  Reported separately and deliberately. There is no single headline accuracy number,
+  because there is no honest way to compute one.
+</p>
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>retrieval_precision</td><td>0.478</td></tr>
+  <tr><td>retrieval_recall</td><td>0.911</td></tr>
+  <tr><td>answer_correctness</td><td>0.809</td></tr>
+  <tr><td>citation_validity</td><td>1.000</td></tr>
+  <tr><td>citation_relevance</td><td>0.617</td></tr>
+  <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
+  <tr><td>hallucination_rate</td><td>0.000</td></tr>
+  <tr><td>abstention_correctness</td><td>0.727</td></tr>
+  <tr><td>source_coverage</td><td>0.727</td></tr>
+  <tr><td>contradiction_rate</td><td>0.000</td></tr>
+  <tr><td>corpus_freshness_days</td><td>0.000</td></tr>
+</table>
+<p class="small"><a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/evaluation/">Every question, including the 7 it fails →</a></p>
+
+<h2>Adversarial testing</h2>
+<p>
+  32 generated attacks, survival rate
+  <strong>97%</strong>
+  (1 breaks).
+</p>
+<table>
+  <tr><th>Failure mode</th><th>Times triggered</th></tr>
+  <tr><td>hallucinated</td><td>0</td></tr>
+  <tr><td>irrelevant_citation</td><td>0</td></tr>
+  <tr><td>misread_source</td><td>0</td></tr>
+  <tr><td>unsupported_deduction</td><td>0</td></tr>
+  <tr><td>missed_uncertainty</td><td>1</td></tr>
+</table>
+<h3>What broke it</h3>
+<table>
+  <tr><th>Question</th><th>Failure</th></tr>
+  <tr><td>What will the rules on impact spark be in 2030?</td><td class="fail small">missed_uncertainty</td></tr>
+</table>
+
+<h2>Updates</h2>
+<table>
+  <tr><th>Version</th><th>Published</th><th>Sources</th><th>Passages</th><th>Evaluation</th></tr>
+  <tr>
+    <td><code>v0.1.0</code></td>
+    <td class="small">2026-09-18T18:01</td>
+    <td>13</td>
+    <td>193</td>
+    <td>20 / 27
+<span class="pass">PASS</span></td>
+  </tr>
+</table>
+
+<h2>Known limitations</h2>
+<ul class="tight">
+<li>This knowledge area is a seed built to prove the factory is repeatable. Its corpus is much smaller than Knowledge Area #001&#39;s and leans heavily on tertiary reference sources; treat its coverage as indicative, not complete.</li><li>ATEX, DSEAR and COMAH primary legal texts and the NFPA and IEC standards in this field are not fully held. Where a standard governs a topic the system can point at it but cannot quote it.</li><li>Flash points, explosive limits and autoignition temperatures are strongly dependent on substance, pressure, temperature and test method. Any single figure should be read as specific to the conditions its source reports.</li></ul>
+<h3>Cited but not held</h3>
+<p class="small muted">
+  These are copyrighted standards. The system can tell you they are relevant and
+  point at them. It cannot quote their clauses, and it will decline if you ask it to.
+</p>
+<table>
+  <tr><th>Standard</th><th>Publisher</th><th>Licence</th></tr>
+  <tr><td>Control of Major Accident Hazards Regulations 2015 (COMAH)</td><td>Health and Safety Executive (UK)</td><td class="small muted">Crown copyright - referenced, full text not mirrored here</td></tr>
+  <tr><td>NFPA 652: Standard on the Fundamentals of Combustible Dust</td><td>National Fire Protection Association</td><td class="small muted">© NFPA - copyrighted standard, not redistributable</td></tr>
+</table>
+
+<h2>Challenges</h2>
+<p>
+  0 submitted.
+  <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Read them, or submit one →</a>
+</p>
+<p class="small muted">
+  Review status: <strong>draft</strong>,
+  self-assessed confidence <strong>low</strong>.
+</p>
+</main>
+<footer class="wrap small muted">
+  Every answer is traceable to a stored source. Every knowledge area publishes its
+  own test results, including the questions it fails.
+</footer>
+</body>
+</html>
