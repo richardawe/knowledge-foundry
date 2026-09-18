@@ -33,6 +33,7 @@ from ..storage import Store
 from ..text import content_terms, coverage
 from . import prompts
 from .answer import (
+    AMBIGUOUS,
     ANSWERED,
     CONFIDENCE_HIGH,
     CONFIDENCE_LOW,
@@ -58,6 +59,12 @@ UNSUPPORTED_TEXT = (
     "A draft answer was generated but failed automated grounding validation: too "
     "much of it could not be traced to the retrieved evidence. It has been "
     "withheld rather than published."
+)
+AMBIGUOUS_TEMPLATE = (
+    "This question is under-specified, so any single figure would be misleading: "
+    "{reason}. In this domain the answer depends on cell chemistry, cell format, "
+    "state of charge, age and the test conditions. Please specify what you mean, "
+    "and the answer can be given against evidence rather than guessed."
 )
 
 
@@ -108,6 +115,38 @@ class Specialist:
     def sufficient(self, evidence: Sequence[Evidence], top_score: float) -> bool:
         cfg = self.manifest.specialist
         return len(evidence) >= cfg.min_chunks and top_score >= cfg.min_evidence_score
+
+    # -- gate 3: specificity ---------------------------------------------
+
+    def specific_enough(self, question: str, evidence: Sequence[Evidence]) -> tuple[bool, str]:
+        """Is the question pinned down enough that a single answer is honest?
+
+        "Is this battery safe?" and "What is the limit?" have no answer, only a
+        clarifying question. Answering them with the first plausible passage is
+        a quiet way of being wrong, and §13 names deliberately ambiguous
+        questions as a category the system must handle rather than absorb.
+
+        The test is deliberately narrow: does the question name at least three
+        content terms? Fewer than that and it cannot have specified a
+        chemistry, a format or a condition.
+
+        An earlier version also flagged questions whose retrieved evidence was
+        topically scattered. That signal was measuring retrieval diversity, not
+        question ambiguity, and it refused "what is the main function of a
+        battery separator?" -- a perfectly specific question whose subject
+        appears in many contexts. It was removed rather than tuned, because a
+        gate that refuses good questions costs more than one that misses bad
+        ones.
+
+        So this is honestly incomplete. It catches "what is the limit?" and
+        misses "how long does a battery fire burn?", which is equally
+        under-specified but lexically richer. The evaluation suite keeps score
+        of what it misses instead of pretending otherwise.
+        """
+        terms = content_terms(question)
+        if len(terms) < 3:
+            return False, f"it names only {len(terms)} specific term(s)"
+        return True, ""
 
     # -- confidence ------------------------------------------------------
 
@@ -222,6 +261,29 @@ class Specialist:
 
         retrieval = self.retriever.retrieve(question, top_k=top_k)
         evidence = retrieval.evidence
+
+        # Gate 3 -- specificity. Runs before sufficiency so that an
+        # under-specified question is named as such rather than reported as a
+        # gap in the corpus, which would send someone looking for sources that
+        # would not have helped.
+        specific, reason = self.specific_enough(question, evidence)
+        if not specific:
+            return finish(
+                Answer(
+                    question=question,
+                    knowledge_area=self.manifest.id,
+                    status=AMBIGUOUS,
+                    answer=AMBIGUOUS_TEMPLATE.format(reason=reason),
+                    confidence=CONFIDENCE_NONE,
+                    sources=self._sources_block(evidence, set()),
+                    limitations=self._limitations(evidence, _EmptyValidation(), AMBIGUOUS),
+                    retrieval={
+                        "top_score": round(retrieval.top_score, 4),
+                        "evidence_count": len(evidence),
+                        "ambiguity_reason": reason,
+                    },
+                )
+            )
 
         # Gate 2 -- sufficiency.
         if not self.sufficient(evidence, retrieval.top_score):

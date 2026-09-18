@@ -1,0 +1,534 @@
+suite: core
+description: >-
+  Curated questions for Knowledge Area #001. Every expected answer was verified
+  against the indexed corpus at the time of writing, and every question names
+  the source(s) that should supply it so that a retrieval failure and a
+  generation failure can be told apart.
+
+questions:
+
+  # =============================================== factual: UK e-bike statutory
+  - id: bf-fact-001
+    type: factual
+    question: How many fatalities occurred in UK fires started by e-bike or e-scooter lithium-ion batteries in 2023?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_include, any_of: ["10 fatalities", "at least 10"]}
+      - {kind: must_cite_source, source_ids: [opss-ebike-statutory-guidelines]}
+      - {kind: retrieval_hit, source_ids: [opss-ebike-statutory-guidelines]}
+
+  - id: bf-fact-002
+    type: factual
+    question: Roughly how many e-bike and e-scooter battery fires were recorded in the UK in 2023?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_include, any_of: ["200 fires", "almost 200"]}
+      - {kind: retrieval_hit, source_ids: [opss-ebike-statutory-guidelines]}
+
+  - id: bf-fact-003
+    type: factual
+    question: What must an effective battery protection system be capable of detecting under the UK statutory guidelines for e-bike batteries?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_include, any_of: ["voltage of individual cells", "individual cells"]}
+      - {kind: must_cite_type, source_types: [regulatory]}
+      - {kind: retrieval_hit, source_ids: [opss-ebike-statutory-guidelines]}
+
+  - id: bf-fact-004
+    type: factual
+    question: Under which regulation were the UK statutory guidelines on e-bike lithium-ion battery safety made?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_include, any_of: ["gpsr", "6(3)(c)", "general product safety"]}
+      - {kind: retrieval_hit, source_ids: [opss-ebike-statutory-guidelines]}
+
+  - id: bf-fact-005
+    type: factual
+    question: Must an e-bike battery protection system prevent thermal runaway caused by an incompatible charger?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_include, any_of: ["incompatible", "charger"]}
+      - {kind: must_cite_source, source_ids: [opss-ebike-statutory-guidelines]}
+
+  - id: bf-fact-006
+    type: factual
+    question: What happens to cells adjacent to a cell in thermal runaway inside a battery pack?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_include, any_of: ["cascading", "adjacent", "additional cells"]}
+      - {kind: max_unsupported, value: 0.34}
+
+  # ====================================================== factual: FAA transport
+  - id: bf-fact-010
+    type: factual
+    question: What is the watt-hour limit for a spare lithium-ion battery carried by an air passenger without airline approval?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: numeric_within, value: 100, tolerance: 0, unit: "wh"}
+      - {kind: must_cite_source, source_ids: [faa-packsafe-lithium-batteries]}
+      - {kind: retrieval_hit, source_ids: [faa-packsafe-lithium-batteries]}
+
+  - id: bf-fact-011
+    type: factual
+    question: What is the lithium content limit for a lithium metal battery in air travel?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: must_include, any_of: ["2 grams", "2 gram"]}
+      - {kind: retrieval_hit, source_ids: [faa-packsafe-lithium-batteries]}
+
+  - id: bf-fact-012
+    type: factual
+    question: Where must spare lithium batteries and power banks be carried on an aircraft?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: must_include, any_of: ["carry-on", "cabin"]}
+      - {kind: must_cite_type, source_types: [regulatory]}
+
+  - id: bf-fact-013
+    type: factual
+    question: How many spare larger lithium-ion batteries between 101 and 160 watt hours may a passenger carry with airline approval?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: must_include, any_of: ["two spare", "two"]}
+      - {kind: retrieval_hit, source_ids: [faa-packsafe-lithium-batteries]}
+
+  - id: bf-fact-014
+    type: factual
+    question: What must be done with battery terminals when transporting spare lithium batteries by air?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: must_include, any_of: ["short circuit", "protected"]}
+      - {kind: retrieval_hit, source_ids: [faa-packsafe-lithium-batteries]}
+
+  - id: bf-fact-015
+    type: factual
+    question: May damaged or recalled lithium batteries be carried aboard an aircraft?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: must_include, any_of: ["must not", "not be carried", "damaged"]}
+      - {kind: must_cite_source, source_ids: [faa-packsafe-lithium-batteries]}
+
+  # ================================================ factual: waste and storage
+  - id: bf-fact-020
+    type: factual
+    question: What minimum gap must be maintained between rows of containers or palletised waste at a permitted waste battery facility?
+    expected_sources: [ea-waste-batteries-storage]
+    graders:
+      - {kind: numeric_within, value: 0.7, tolerance: 0.01}
+      - {kind: must_cite_source, source_ids: [ea-waste-batteries-storage]}
+      - {kind: retrieval_hit, source_ids: [ea-waste-batteries-storage]}
+
+  - id: bf-fact-021
+    type: factual
+    question: What must a permitted waste facility document about its storage areas?
+    expected_sources: [ea-waste-batteries-storage]
+    graders:
+      - {kind: must_include, any_of: ["maximum storage capacity", "maximum capacit"]}
+      - {kind: must_cite_type, source_types: [regulatory]}
+
+  - id: bf-fact-022
+    type: factual
+    question: Why must separation distances be maintained between waste battery storage areas?
+    expected_sources: [ea-waste-batteries-storage]
+    graders:
+      - {kind: must_include, any_of: ["fire spreading", "fire spread", "fire-fighting"]}
+      - {kind: retrieval_hit, source_ids: [ea-waste-batteries-storage]}
+
+  - id: bf-fact-023
+    type: factual
+    question: What is the maximum storage period for other battery wastes such as electrolytes and off-spec products?
+    expected_sources: [ea-waste-batteries-storage]
+    graders:
+      - {kind: must_include, any_of: ["6 months", "six months"]}
+      - {kind: retrieval_hit, source_ids: [ea-waste-batteries-storage]}
+
+  - id: bf-fact-024
+    type: factual
+    question: Who must carry out waste handling at a permitted battery waste facility?
+    expected_sources: [ea-waste-batteries-storage]
+    graders:
+      - {kind: must_include, any_of: ["competent staff", "competent"]}
+
+  # ====================================================== factual: UL and NFPA
+  - id: bf-fact-030
+    type: factual
+    question: What does the UL 9540A test method evaluate?
+    expected_sources: [ul-9540a-test-method-overview]
+    graders:
+      - {kind: must_include, any_of: ["fire propagation", "thermal runaway"]}
+      - {kind: must_cite_source, source_ids: [ul-9540a-test-method-overview]}
+      - {kind: retrieval_hit, source_ids: [ul-9540a-test-method-overview]}
+
+  - id: bf-fact-031
+    type: factual
+    question: Which standard is the only consensus standard explicitly cited in NFPA 855 for large-scale fire testing?
+    expected_sources: [ul-9540a-test-method-overview]
+    graders:
+      - {kind: must_include, any_of: ["ul 9540a", "9540a"]}
+      - {kind: retrieval_hit, source_ids: [ul-9540a-test-method-overview]}
+
+  - id: bf-fact-032
+    type: factual
+    question: In which countries is UL 9540A the national standard for battery energy storage fire safety testing?
+    expected_sources: [ul-9540a-test-method-overview]
+    graders:
+      - {kind: must_include, any_of: ["canada", "american", "u.s."]}
+      - {kind: retrieval_hit, source_ids: [ul-9540a-test-method-overview]}
+
+  - id: bf-fact-033
+    type: factual
+    question: Which editions of UL 9540A does UL Solutions currently offer testing against?
+    expected_sources: [ul-9540a-test-method-overview]
+    graders:
+      - {kind: must_include, any_of: ["5th", "6th", "fifth", "sixth"]}
+      - {kind: must_cite_source, source_ids: [ul-9540a-test-method-overview]}
+
+  # ======================================== factual: detection and early warning
+  - id: bf-fact-040
+    type: factual
+    question: By how much does thermal gradient rise precede voltage-based detection in the infrared hotspot early-warning study?
+    expected_sources: [arxiv-2608-20383]
+    graders:
+      - {kind: must_include, any_of: ["40 frames", "4 seconds"]}
+      - {kind: must_cite_source, source_ids: [arxiv-2608-20383]}
+      - {kind: retrieval_hit, source_ids: [arxiv-2608-20383]}
+
+  - id: bf-fact-041
+    type: factual
+    question: What is a leading cause of battery thermal runaway according to the fault detection literature?
+    expected_sources: [arxiv-2010-13519, arxiv-2506-13577]
+    graders:
+      - {kind: must_include, any_of: ["internal short", "short circuit"]}
+      - {kind: must_cite_type, source_types: [academic]}
+
+  - id: bf-fact-042
+    type: factual
+    question: What sensor types were used for Li-ion battery fault detection in large packs in the force and gas sensing work?
+    expected_sources: [arxiv-2010-13519]
+    graders:
+      - {kind: must_include, any_of: ["force", "gas"]}
+      - {kind: retrieval_hit, source_ids: [arxiv-2010-13519]}
+
+  - id: bf-fact-043
+    type: factual
+    question: What categories of abuse can cause thermal runaway according to the BattBee modelling work?
+    expected_sources: [arxiv-2506-13577]
+    graders:
+      - {kind: must_include, any_of: ["mechanical abuse", "electrical abuse", "thermal abuse"]}
+      - {kind: retrieval_hit, source_ids: [arxiv-2506-13577]}
+
+  - id: bf-fact-044
+    type: factual
+    question: What Stage-I ROC-AUC did hotspot dynamics alone achieve in the infrared early-warning study?
+    expected_sources: [arxiv-2608-20383]
+    graders:
+      - {kind: must_include, any_of: ["0.945"]}
+      - {kind: must_cite_source, source_ids: [arxiv-2608-20383]}
+
+  # ========================================== factual: mechanism and components
+  - id: bf-fact-050
+    type: factual
+    question: What is thermal runaway, in terms of feedback?
+    expected_sources: [wikipedia-thermal-runaway]
+    graders:
+      - {kind: must_include, any_of: ["positive feedback", "exothermic"]}
+      - {kind: max_unsupported, value: 0.34}
+
+  - id: bf-fact-051
+    type: factual
+    question: What is the main function of a battery separator?
+    expected_sources: [wikipedia-separator]
+    graders:
+      - {kind: must_include, any_of: ["keep the two electrodes apart", "electrodes apart", "short circuit"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-separator]}
+
+  - id: bf-fact-052
+    type: factual
+    question: What is the shutdown or fuse function of a microporous polyethylene separator?
+    expected_sources: [wikipedia-separator]
+    graders:
+      - {kind: must_include, any_of: ["shut", "fuse", "abnormal heat"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-separator]}
+
+  - id: bf-fact-053
+    type: factual
+    question: What gases are released when a lithium-ion cell vents during thermal runaway?
+    expected_sources: [opss-ebike-statutory-guidelines, arxiv-2510-23910]
+    graders:
+      - {kind: must_include, any_of: ["flammable", "toxic", "gases"]}
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-fact-054
+    type: factual
+    question: What must a separator be able to withstand mechanically?
+    expected_sources: [wikipedia-separator]
+    graders:
+      - {kind: must_include, any_of: ["tension", "mechanically strong"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-separator]}
+
+  # ============================================ factual: consumer and enforcement
+  - id: bf-fact-060
+    type: factual
+    question: What does UK guidance tell members of the public to do if a lithium-ion battery catches fire?
+    expected_sources: [opss-buy-safe-be-safe]
+    graders:
+      - {kind: must_include, any_of: ["999", "leave the area", "never try to extinguish"]}
+      - {kind: must_cite_source, source_ids: [opss-buy-safe-be-safe]}
+      - {kind: retrieval_hit, source_ids: [opss-buy-safe-be-safe]}
+
+  - id: bf-fact-061
+    type: factual
+    question: Which compliance marks should a UK consumer look for on an e-bike or e-scooter?
+    expected_sources: [opss-buy-safe-be-safe]
+    graders:
+      - {kind: must_include, any_of: ["ukca", "ce mark", "ce"]}
+      - {kind: retrieval_hit, source_ids: [opss-buy-safe-be-safe]}
+
+  - id: bf-fact-062
+    type: factual
+    question: Which regulations did the X-Go e-bike lithium-ion battery fail to meet?
+    expected_sources: [psr-xgo-ebike-battery-2407-0018]
+    graders:
+      - {kind: must_include, any_of: ["electrical equipment (safety) regulations 2016", "electrical equipment"]}
+      - {kind: retrieval_hit, source_ids: [psr-xgo-ebike-battery-2407-0018]}
+
+  # ==================================================== factual: EU regulation
+  - id: bf-fact-070
+    type: factual
+    question: Which directive does Regulation (EU) 2023/1542 repeal?
+    expected_sources: [eu-battery-regulation-2023-1542]
+    graders:
+      - {kind: must_include, any_of: ["2006/66/ec", "2006/66"]}
+      - {kind: must_cite_source, source_ids: [eu-battery-regulation-2023-1542]}
+      - {kind: retrieval_hit, source_ids: [eu-battery-regulation-2023-1542]}
+
+  - id: bf-fact-071
+    type: factual
+    question: What does the EU Battery Regulation 2023/1542 cover?
+    expected_sources: [eu-battery-regulation-2023-1542]
+    graders:
+      - {kind: must_include, any_of: ["batteries and waste batteries", "waste batteries"]}
+      - {kind: must_cite_type, source_types: [regulatory]}
+
+  # ================================================= citation-discipline tests
+  - id: bf-cite-001
+    type: citation
+    question: What does UK law require of businesses placing e-bike lithium-ion batteries on the market?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    notes: A regulatory question must not be answered from an encyclopaedia.
+    graders:
+      - {kind: must_cite_type, source_types: [regulatory]}
+      - {kind: min_authority, value: 5}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-cite-002
+    type: citation
+    question: What are the air transport limits for lithium batteries?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: must_cite_source, source_ids: [faa-packsafe-lithium-batteries]}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-cite-003
+    type: citation
+    question: What separation distance rules apply to storing waste batteries at a permitted facility?
+    expected_sources: [ea-waste-batteries-storage]
+    graders:
+      - {kind: must_cite_type, source_types: [regulatory]}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-cite-004
+    type: citation
+    question: What does the research literature say about detecting internal short circuits early?
+    expected_sources: [arxiv-2010-13519, arxiv-2506-13577, arxiv-2608-20383]
+    graders:
+      - {kind: must_cite_type, source_types: [academic]}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-cite-005
+    type: citation
+    question: Every claim about e-bike battery management system requirements should be traceable. What are those requirements?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: citations_resolve, value: 1.0}
+      - {kind: max_unsupported, value: 0.34}
+
+  # ============================================== multi-document / synthesis
+  - id: bf-multi-001
+    type: multi_document
+    question: Compare what regulators and the research literature each say about detecting a cell failure before thermal runaway.
+    expected_sources: [opss-ebike-statutory-guidelines, arxiv-2608-20383, arxiv-2010-13519]
+    graders:
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+      - {kind: retrieval_hit, source_ids: [arxiv-2608-20383, arxiv-2010-13519, opss-ebike-statutory-guidelines]}
+
+  - id: bf-multi-002
+    type: multi_document
+    question: What obligations apply to a UK operator storing waste lithium batteries, and what fire risk are they addressing?
+    expected_sources: [ea-waste-batteries-storage, opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_answer}
+      - {kind: must_cite_type, source_types: [regulatory]}
+
+  - id: bf-multi-003
+    type: multi_document
+    question: How do UK and EU battery regulation differ in what they cover?
+    expected_sources: [eu-battery-regulation-2023-1542, opss-ebike-statutory-guidelines, govuk-eu-batteries-northern-ireland]
+    graders:
+      - {kind: must_answer}
+      - {kind: retrieval_hit, source_ids: [eu-battery-regulation-2023-1542, govuk-eu-batteries-northern-ireland]}
+
+  - id: bf-multi-004
+    type: multi_document
+    question: What is known about thermal runaway propagation between cells, and what controls address it?
+    expected_sources: [opss-ebike-statutory-guidelines, ul-9540a-test-method-overview]
+    graders:
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-multi-005
+    type: multi_document
+    question: What do the sources say about battery energy storage system fire safety testing and installation?
+    expected_sources: [ul-9540a-test-method-overview, beis-domestic-bess, beis-second-life-batteries-bess]
+    graders:
+      - {kind: must_answer}
+      - {kind: retrieval_hit, source_ids: [ul-9540a-test-method-overview, beis-domestic-bess, beis-second-life-batteries-bess]}
+
+  # ================================================================ reasoning
+  - id: bf-reason-001
+    type: reasoning
+    question: Why is off-gas or infrared detection potentially more useful than voltage monitoring for early warning?
+    expected_sources: [arxiv-2608-20383, arxiv-2010-13519]
+    graders:
+      - {kind: must_answer}
+      - {kind: must_include, any_of: ["precede", "earlier", "before", "lead time"]}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-reason-002
+    type: reasoning
+    question: Why does an incompatible charger present a thermal runaway risk?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-reason-003
+    type: reasoning
+    question: Why do waste battery facilities need documented maximum storage capacities?
+    expected_sources: [ea-waste-batteries-storage]
+    graders:
+      - {kind: must_answer}
+      - {kind: max_unsupported, value: 0.34}
+
+  - id: bf-reason-004
+    type: reasoning
+    question: Why does a separator's shutdown function matter for cell safety?
+    expected_sources: [wikipedia-separator]
+    graders:
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: bf-reason-005
+    type: reasoning
+    question: Why are spare lithium batteries required in the cabin rather than the hold?
+    expected_sources: [faa-packsafe-lithium-batteries]
+    graders:
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+
+  # ========================================================== temporal / currency
+  - id: bf-temporal-001
+    type: temporal
+    question: What is the most recent edition of UL 9540A referred to in the sources?
+    expected_sources: [ul-9540a-test-method-overview]
+    graders:
+      - {kind: must_include, any_of: ["6th", "sixth", "2025"]}
+      - {kind: retrieval_hit, source_ids: [ul-9540a-test-method-overview]}
+
+  - id: bf-temporal-002
+    type: temporal
+    question: What changed in the 2026 edition of NFPA 855 according to the sources held here?
+    expected_sources: [ul-9540a-test-method-overview]
+    graders:
+      - {kind: must_include, any_of: ["large-scale fire testing", "large scale", "revisions"]}
+      - {kind: retrieval_hit, source_ids: [ul-9540a-test-method-overview]}
+
+  - id: bf-temporal-003
+    type: temporal
+    question: What is the latest UK regulatory guidance on e-bike battery safety?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    graders:
+      - {kind: must_cite_type, source_types: [regulatory]}
+      - {kind: retrieval_hit, source_ids: [opss-ebike-statutory-guidelines]}
+
+  - id: bf-temporal-004
+    type: temporal
+    question: When did the UK statutory guidelines on e-bike lithium-ion battery safety take effect?
+    expected_sources: [opss-ebike-statutory-guidelines]
+    notes: Tests whether the system reaches for a date it may not hold, rather than inventing one.
+    graders:
+      - {kind: citations_resolve, value: 1.0}
+      - {kind: max_unsupported, value: 0.34}
+
+  # ================================================================= ambiguous
+  - id: bf-ambig-001
+    type: ambiguous
+    question: At what temperature does a battery fail?
+    notes: Under-specified - chemistry, format, state of charge and failure mode all unstated.
+    graders:
+      - {kind: must_flag_uncertainty}
+      - {kind: max_unsupported, value: 0.34}
+
+  - id: bf-ambig-002
+    type: ambiguous
+    question: Is this battery safe?
+    graders:
+      - {kind: must_flag_uncertainty}
+
+  - id: bf-ambig-003
+    type: ambiguous
+    question: How long does a battery fire burn?
+    graders:
+      - {kind: must_flag_uncertainty}
+
+  - id: bf-ambig-004
+    type: ambiguous
+    question: What is the limit?
+    graders:
+      - {kind: must_flag_uncertainty}
+
+  - id: bf-ambig-005
+    type: ambiguous
+    question: How much water do I need?
+    notes: Suppression water quantity depends entirely on scale and configuration.
+    graders:
+      - {kind: must_flag_uncertainty}
+
+  # =============================== pointer discipline: standards held as pointers
+  - id: bf-pointer-001
+    type: unanswerable
+    question: Quote the exact text of NFPA 855 clause 4.1 on separation distances.
+    notes: NFPA 855 is a pointer source. Quoting it would be both wrong and a licence breach.
+    graders:
+      - {kind: must_abstain}
+      - {kind: must_not_include, none_of: ["clause 4.1 states", "nfpa 855 states that"]}
+
+  - id: bf-pointer-002
+    type: unanswerable
+    question: What is the exact maximum energy capacity permitted per ESS unit in IEC 62619?
+    graders:
+      - {kind: must_abstain}
+
+  - id: bf-pointer-003
+    type: unanswerable
+    question: Reproduce the UN 38.3 T1 altitude simulation test parameters in full.
+    graders:
+      - {kind: must_abstain}
+
+  - id: bf-pointer-004
+    type: unanswerable
+    question: What does UNECE R100 Annex 8 say word for word?
+    graders:
+      - {kind: must_abstain}
