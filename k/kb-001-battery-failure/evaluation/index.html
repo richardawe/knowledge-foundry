@@ -72,7 +72,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T20:40</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-18T20:45</span>
   </div>
 </header>
 <main class="wrap">
@@ -86,10 +86,10 @@
   <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
 </nav>
 <p>
-  Run <code>run_d0bfe486ff59f88c</code> against
+  Run <code>run_fef260679cbad43c</code> against
   <code>v0.1.0</code>:
-  <strong>74 / 103</strong>
-  passed (72%).
+  <strong>76 / 103</strong>
+  passed (74%).
 <span class="pass">Gate: PASS</span>
 </p>
 
@@ -97,7 +97,7 @@
 <h2>By question type</h2>
 <table>
   <tr><th>Type</th><th>Passed</th><th>Rate</th></tr>
-  <tr><td>factual</td><td>23 / 36</td><td>64%</td></tr>
+  <tr><td>factual</td><td>25 / 36</td><td>69%</td></tr>
   <tr><td>citation</td><td>4 / 5</td><td>80%</td></tr>
   <tr><td>multi_document</td><td>3 / 5</td><td>60%</td></tr>
   <tr><td>reasoning</td><td>4 / 5</td><td>80%</td></tr>
@@ -113,18 +113,19 @@
   <tr><th>Metric</th><th>Value</th></tr>
   <tr><td>retrieval_precision</td><td>0.452</td></tr>
   <tr><td>retrieval_recall</td><td>0.964</td></tr>
-  <tr><td>answer_correctness</td><td>0.807</td></tr>
+  <tr><td>answer_correctness</td><td>0.822</td></tr>
   <tr><td>citation_validity</td><td>0.992</td></tr>
-  <tr><td>citation_relevance</td><td>0.756</td></tr>
-  <tr><td>unsupported_claim_rate</td><td>0.039</td></tr>
-  <tr><td>hallucination_rate</td><td>0.039</td></tr>
-  <tr><td>abstention_correctness</td><td>0.750</td></tr>
+  <tr><td>citation_relevance</td><td>0.767</td></tr>
+  <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
+  <tr><td>hallucination_rate</td><td>0.000</td></tr>
+  <tr><td>abstention_correctness</td><td>0.787</td></tr>
   <tr><td>source_coverage</td><td>0.586</td></tr>
   <tr><td>contradiction_rate</td><td>0.010</td></tr>
-  <tr><td>corpus_freshness_days</td><td>0.000</td></tr>
+  <tr><td>corpus_freshness_days</td><td>0.004</td></tr>
+  <tr><td>regression_rate</td><td>0.013</td></tr>
 </table>
 
-<h2>Questions it currently fails (29)</h2>
+<h2>Questions it currently fails (27)</h2>
 <p class="small muted">
   Published, not hidden. A knowledge system that only shows its passes is asking
   to be trusted rather than tested.
@@ -132,25 +133,18 @@
 <table>
   <tr><th>ID</th><th>Type</th><th>Question</th><th>Why it failed</th></tr>
   <tr>
+    <td class="small"><code>bf-fact-010</code></td>
+    <td class="small">factual</td>
+    <td class="small">What is the watt-hour limit for a spare lithium-ion battery carried by an air passenger without airline approval?</td>
+    <td class="small fail">
+expected 100.0±0.0wh, found [2.0, 101.0, 160.0]<br>    </td>
+  </tr>
+  <tr>
     <td class="small"><code>bf-fact-014</code></td>
     <td class="small">factual</td>
     <td class="small">What must be done with battery terminals when transporting spare lithium batteries by air?</td>
     <td class="small fail">
 none of [&#39;short circuit&#39;, &#39;protected&#39;] present<br>    </td>
-  </tr>
-  <tr>
-    <td class="small"><code>bf-fact-015</code></td>
-    <td class="small">factual</td>
-    <td class="small">May damaged or recalled lithium batteries be carried aboard an aircraft?</td>
-    <td class="small fail">
-none of [&#39;must not&#39;, &#39;not be carried&#39;, &#39;damaged&#39;] present<br>    </td>
-  </tr>
-  <tr>
-    <td class="small"><code>bf-fact-022</code></td>
-    <td class="small">factual</td>
-    <td class="small">Why must separation distances be maintained between waste battery storage areas?</td>
-    <td class="small fail">
-none of [&#39;fire spreading&#39;, &#39;fire spread&#39;, &#39;fire-fighting&#39;] present<br>    </td>
   </tr>
   <tr>
     <td class="small"><code>bf-fact-023</code></td>
@@ -186,13 +180,6 @@ none of [&#39;force&#39;, &#39;gas&#39;] present<br>    </td>
     <td class="small">What categories of abuse can cause thermal runaway according to the BattBee modelling work?</td>
     <td class="small fail">
 none of [&#39;mechanical abuse&#39;, &#39;electrical abuse&#39;, &#39;thermal abuse&#39;] present<br>    </td>
-  </tr>
-  <tr>
-    <td class="small"><code>bf-fact-044</code></td>
-    <td class="small">factual</td>
-    <td class="small">What Stage-I ROC-AUC did hotspot dynamics alone achieve in the infrared early-warning study?</td>
-    <td class="small fail">
-none of [&#39;0.945&#39;] present<br>    </td>
   </tr>
   <tr>
     <td class="small"><code>bf-fact-050</code></td>
