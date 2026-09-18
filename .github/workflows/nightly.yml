@@ -1,6 +1,6 @@
 name: nightly evaluation
 
-# The automated daily health check from PROJECT_INITIATION.md §12:
+# The automated daily health check from PROJECT_INITIATION.md section 12:
 #   build -> evaluate -> red team -> regression gate -> publish or hold.
 on:
   schedule:
