@@ -7,7 +7,7 @@ PY ?= python3
 PORT ?= 8000
 
 .PHONY: help install test build ingest index eval redteam publish rollback \
-        serve stats site deploy nightly nightly-site ollama-check clean clean-all
+        serve stats site deploy nightly nightly-site doctor ollama-check clean clean-all
 
 help:
 	@echo "Knowledge Foundry"
@@ -23,7 +23,7 @@ help:
 	@echo "  make deploy      render and publish ./site to the gh-pages branch"
 	@echo "                   (API_BASE=<url> sets the instance its ask box calls)"
 	@echo "  make nightly-site  nightly, then deploy the evidence pages"
-	@echo "  make ollama-check  confirm the local model endpoint is reachable"
+	@echo "  make doctor      diagnose the model, corpus and server on this machine"
 	@echo "  make serve       serve the public evidence pages on :$(PORT)"
 	@echo "  make stats       print the knowledge area report as JSON"
 	@echo ""
@@ -90,10 +90,12 @@ deploy:
 # Every model call goes through Ollama at localhost:11434. This is a check,
 # not a requirement: without it the system answers with the keyless local
 # provider and records that it fell back.
-ollama-check:
-	@curl -fsS http://localhost:11434/api/tags >/dev/null 2>&1 \
-		&& echo "ollama: reachable — $$(curl -fsS http://localhost:11434/api/tags | $(PY) -c 'import json,sys; print(", ".join(m["name"] for m in json.load(sys.stdin).get("models", [])) or "no models pulled")')" \
-		|| echo "ollama: NOT reachable at localhost:11434 — answers will fall back to the local extractive provider"
+# One command that checks every link in the chain on this machine: the Ollama
+# daemon, the model, the corpus, the index and the server.
+doctor:
+	$(PY) -m foundry.cli doctor
+
+ollama-check: doctor
 
 # The full Mac-side loop: rebuild the knowledge, test it, publish the version,
 # then publish the evidence pages. This is what the launchd agent runs.

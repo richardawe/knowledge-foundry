@@ -20,6 +20,10 @@ def get_provider(provider: str = "local_extractive", model: str | None = None):
     if provider in _REGISTRY:
         cls = _REGISTRY[provider]
         return cls(model=model) if model else cls()
+    if provider == "ollama":
+        from .ollama import OllamaProvider
+
+        return OllamaProvider(model=model or "llama3.1:8b")
     if provider == "anthropic":
         from .remote import AnthropicProvider
 
@@ -30,12 +34,12 @@ def get_provider(provider: str = "local_extractive", model: str | None = None):
         return OpenAICompatibleProvider(model=model or "llama3.1:8b")
     raise ValueError(
         f"unknown LLM provider {provider!r}; expected one of: "
-        "local_extractive, scripted, anthropic, openai_compatible"
+        "local_extractive, scripted, ollama, openai_compatible, anthropic"
     )
 
 
 # Providers that reach the network and can therefore be unavailable.
-REMOTE_PROVIDERS = frozenset({"openai_compatible", "anthropic"})
+REMOTE_PROVIDERS = frozenset({"ollama", "openai_compatible", "anthropic"})
 
 
 def provider_for(manifest: Manifest, allow_fallback: bool = True):

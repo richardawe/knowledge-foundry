@@ -93,10 +93,12 @@ retrieval:
 specialist:
   prompt: prompts/system.md
   llm:
-    # Production inference runs on the local Ollama (llama3.1:8b) at
-    # http://localhost:11434/v1, which is the provider's default base URL.
-    # Override with FOUNDRY_LLM_BASE_URL to point elsewhere.
-    provider: openai_compatible
+    # Production inference runs on the local Ollama, through its NATIVE API
+    # (/api/chat, falling back to /api/generate) rather than the OpenAI shim at
+    # /v1 -- the shim only exists from Ollama 0.1.24 and is not what the
+    # `ollama` Python package uses. The daemon address comes from OLLAMA_HOST,
+    # the same variable every other Ollama workload on the machine honours.
+    provider: ollama
     model: llama3.1:8b
     # On a machine with no Ollama, answer with the keyless local provider and
     # record that it happened, rather than failing the build. Set to false to

@@ -270,6 +270,20 @@ def cmd_deploy(args) -> int:
     return 0
 
 
+def cmd_doctor(args) -> int:
+    from .doctor import run_doctor
+
+    report = run_doctor(
+        knowledge_areas=args.knowledge_area.split(",") if args.knowledge_area else None,
+        port=args.port,
+    )
+    if args.json:
+        _emit(report.as_dict(), True)
+    else:
+        print(report.render())
+    return 1 if report.failed else 0
+
+
 def cmd_serve(args) -> int:
     from .web import serve
 
@@ -371,6 +385,12 @@ def build_parser() -> argparse.ArgumentParser:
     deploy.add_argument("--no-push", action="store_true", help="commit locally without pushing")
     deploy.add_argument("--json", action="store_true")
     deploy.set_defaults(func=cmd_deploy)
+
+    doctor = sub.add_parser("doctor", help="diagnose the model, corpus and server on this machine")
+    doctor.add_argument("--knowledge-area", help="comma-separated ids; default is all")
+    doctor.add_argument("--port", type=int, default=8000)
+    doctor.add_argument("--json", action="store_true")
+    doctor.set_defaults(func=cmd_doctor)
 
     serve = sub.add_parser("serve", help="serve the public evidence pages and ask API")
     serve.add_argument("--host", default="127.0.0.1")

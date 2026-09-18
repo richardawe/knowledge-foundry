@@ -160,7 +160,7 @@ Both knowledge areas ship pointing at a local Ollama:
 # knowledge_areas/<id>/manifest.yaml
 specialist:
   llm:
-    provider: openai_compatible    # Ollama's OpenAI-compatible endpoint
+    provider: ollama               # Ollama's own API, via OLLAMA_HOST
     model: llama3.1:8b
     fallback: true                 # degrade to the keyless local provider, and say so
 retrieval:
@@ -182,13 +182,19 @@ Secrets come from the environment, never the manifest, so a knowledge area stays
 publishable as plain text:
 
 ```bash
-# Ollama on the same machine needs no configuration at all -- it is the default.
-# Point elsewhere (another host, vLLM, a hosted API) with:
-export FOUNDRY_LLM_BASE_URL=http://localhost:11434/v1
+# Ollama on the same machine needs no configuration -- OLLAMA_HOST is honoured,
+# and defaults to http://localhost:11434 exactly as the ollama CLI does.
+export OLLAMA_HOST=http://localhost:11434     # or a remote daemon
+export FOUNDRY_OLLAMA_HOST=...                # override for this project only
+export FOUNDRY_LLM_TIMEOUT=300                # a busy daemon can be slow
+
+# Anything else OpenAI-shaped (vLLM, Together, a hosted API):
+export FOUNDRY_LLM_BASE_URL=http://localhost:8001/v1
 export FOUNDRY_LLM_API_KEY=not-needed
-export FOUNDRY_EMBED_BASE_URL=http://localhost:11434/v1
-# Or switch provider entirely:
 export ANTHROPIC_API_KEY=...
+
+# Diagnose the whole chain:
+foundry doctor
 ```
 
 Change one line, rebuild, and **run the evaluation suite**. That comparison is

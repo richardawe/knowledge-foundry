@@ -91,7 +91,25 @@ to a hosted API and inference costs nothing.
 ```bash
 ollama serve &
 ollama pull llama3.1:8b
-make ollama-check        # confirms the endpoint and lists pulled models
+make doctor              # checks every link in the chain and says what to fix
+```
+
+It uses Ollama's **native** API (`/api/chat`, falling back to `/api/generate`),
+not the OpenAI-compatible shim at `/v1` — the shim only exists from Ollama
+0.1.24, and the native API is what the `ollama` Python package calls, so a
+machine already running Ollama workloads is proven against exactly this
+surface. The daemon address comes from `OLLAMA_HOST`, the same variable every
+other Ollama workload honours.
+
+`make doctor` output looks like this:
+
+```
+  [PASS] Ollama daemon          reachable at http://localhost:11434
+  [PASS] Model llama3.1:8b      available
+  [PASS] Native API /api/chat   available
+  [PASS] kb-001 corpus          29 sources, 1267 passages, version v0.1.0
+  [WARN] Local server           nothing answering on http://localhost:8000
+         fix: foundry serve --port 8000
 ```
 
 Where Ollama is not running — CI, a fresh clone, a container — the system

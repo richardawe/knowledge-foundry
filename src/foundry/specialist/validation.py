@@ -48,6 +48,18 @@ _META_RE = re.compile(
 )
 _SECTION_HEADING_RE = re.compile(r"^(ANSWER|REASONING|SOURCES|LIMITATIONS|CONFIDENCE)\b", re.I)
 
+# Vocabulary about the citation apparatus rather than about the world.
+_APPARATUS_TERMS = frozenset({
+    "cite", "cited", "citation", "citations", "passage", "passages", "source",
+    "sources", "evidence", "stated", "state", "states", "according", "above",
+    "below", "section", "quoted", "quote", "reference", "referenced", "answer",
+    "question", "excerpt", "extract", "document", "text", "directly", "taken",
+    "drawn", "provided", "given", "shown",
+})
+# Enough apparatus vocabulary, and no figure or quotation of its own, and the
+# sentence is commentary on the answer rather than a claim in it.
+_APPARATUS_SHARE = 0.5
+
 
 @dataclass
 class SentenceCheck:
@@ -108,8 +120,35 @@ def strip_citations(text: str) -> str:
 
 
 def is_meta(sentence: str) -> bool:
-    """True for sentences about the answer rather than about the world."""
-    return bool(_META_RE.search(sentence) or _SECTION_HEADING_RE.match(sentence.strip()))
+    """True for sentences about the answer rather than about the world.
+
+    Two ways a sentence qualifies. The first is a fixed list of phrasings that
+    decline or describe the response. The second is statistical, and exists
+    because models narrate their own citations in endlessly varied wording:
+    "Stated directly in the cited FAA passage", "Taken from the evidence
+    above", "This is drawn from source [2]". Those assert nothing about the
+    world, but graded as claims they fail grounding and -- on a short answer,
+    where one sentence is a large share of the total -- drag the whole answer
+    over the unsupported threshold and get a correct answer withheld.
+
+    A sentence is apparatus if most of its content words are *about* citing and
+    it states no figure or quotation of its own. That last condition is what
+    keeps it safe: "The source states the limit is 100 Wh" still carries a
+    number, so it is still checked.
+    """
+    sentence = sentence.strip()
+    if _META_RE.search(sentence) or _SECTION_HEADING_RE.match(sentence):
+        return True
+    # Citation markers are numerals; counting "[1]" as a stated figure would
+    # make every cited sentence look like it carries one.
+    bare = strip_citations(sentence)
+    if numbers_with_units(bare) or quoted_spans(bare):
+        return False
+    terms = content_terms(bare)
+    if len(terms) < 2:
+        return False
+    apparatus = sum(1 for t in terms if t in _APPARATUS_TERMS or f"{t}e" in _APPARATUS_TERMS)
+    return apparatus / len(terms) >= _APPARATUS_SHARE
 
 
 def validate_answer(

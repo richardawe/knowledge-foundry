@@ -348,3 +348,58 @@ def test_sufficiency_gate_blocks_generation_when_evidence_is_weak(built):
 
     assert answer.status == INSUFFICIENT_EVIDENCE
     assert provider.calls == []  # the model was never called
+
+
+# -- citation commentary is not a claim ---------------------------------
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "Stated directly in the cited FAA passage.",
+        "Taken from the evidence above.",
+        "This is drawn from the cited sources.",
+        "The answer is assembled from passages [1] and [2].",
+    ],
+)
+def test_citation_commentary_is_not_graded_as_a_claim(sentence):
+    """Models narrate their own citations in endlessly varied wording.
+
+    Graded as claims, those sentences fail grounding -- and on a short answer,
+    where one sentence is a large share of the total, that drags the whole
+    answer past the unsupported threshold and withholds a correct answer.
+    """
+    from foundry.specialist.validation import is_meta
+
+    assert is_meta(sentence)
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "Widget overheating begins above 80 °C. [1]",
+        "The source states the limit is 100 Wh. [2]",
+        "Spare batteries must be carried in the cabin. [1]",
+        "Thermal runaway propagates to adjacent cells. [3]",
+    ],
+)
+def test_a_sentence_that_asserts_something_is_still_a_claim(sentence):
+    """The exemption must not become a way to smuggle assertions past the check."""
+    from foundry.specialist.validation import is_meta
+
+    assert not is_meta(sentence)
+
+
+def test_a_short_answer_with_a_reasoning_line_is_not_withheld(built):
+    """Regression: a two-sentence answer failed at 50% unsupported and was withheld."""
+    manifest, store = built
+    provider = ScriptedProvider(
+        "ANSWER\nWidget overheating begins when the core temperature exceeds 80 °C. [1]\n\n"
+        "REASONING\nStated directly in the cited passage."
+    )
+    answer = Specialist(manifest, store, provider=provider).ask(
+        "At what core temperature does overheating begin?"
+    )
+
+    assert answer.status == ANSWERED
+    assert answer.grounded_ratio == 1.0

@@ -70,7 +70,7 @@ specialist:
   prompt: prompts/system.md
   # Local Ollama for production inference; falls back to the keyless local
   # provider, with a note, where Ollama is not running.
-  llm: {provider: openai_compatible, model: "llama3.1:8b", fallback: true,
+  llm: {provider: ollama, model: "llama3.1:8b", fallback: true,
         temperature: 0.0, max_tokens: 1200}
   sufficiency: {min_evidence_score: 0.012, min_chunks: 2}
   grounding: {min_sentence_support: 0.34, max_unsupported_ratio: 0.34}
