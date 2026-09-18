@@ -19,15 +19,33 @@ from ..storage import Store
 from ..text import STOPWORDS, coverage, content_terms, tokenize
 from .base import Candidate
 
-# Query cue -> source_type. Ordered scanning, first match wins per type.
-_TYPE_CUES: dict[str, tuple[str, ...]] = {
-    "regulatory": ("regulation", "regulatory", "legally", "law", "statutory", "directive", "regulator", "mandated", "compliance"),
-    "standard": ("standard", "standards", "clause", "iec", "nfpa", "iso", "astm", "certification", "test method"),
-    "investigation": ("incident", "accident", "investigation", "fire at", "failure report", "post-incident", "root cause", "case study"),
-    "academic": ("study", "studies", "research", "paper", "literature", "experiment", "measured", "journal"),
+# Domain-neutral cues that map a query to a source type. A knowledge area adds
+# its own vocabulary under `retrieval.structured.cues` in its manifest -- the
+# names of the standards and regulators it actually holds are domain knowledge
+# and belong in the knowledge area, not in the factory.
+DEFAULT_TYPE_CUES: dict[str, tuple[str, ...]] = {
+    "regulatory": ("regulation", "regulatory", "legally", "law", "statutory",
+                   "directive", "regulator", "mandated", "compliance", "permitted"),
+    "standard": ("standard", "standards", "clause", "certification", "test method",
+                 "conformity", "specification"),
+    "investigation": ("incident", "accident", "investigation", "failure report",
+                      "post-incident", "root cause", "case study", "inquiry"),
+    "academic": ("study", "studies", "research", "paper", "literature",
+                 "experiment", "measured", "journal", "preprint"),
     "industry": ("industry", "vendor", "manufacturer", "guidance", "best practice"),
     "dataset": ("dataset", "data set", "measurements", "test data"),
+    "reference": ("definition", "what is", "overview", "background"),
 }
+
+
+def merge_cues(extra: dict[str, list[str]] | None) -> dict[str, tuple[str, ...]]:
+    """Combine the factory's neutral cues with a knowledge area's own."""
+    merged = {k: tuple(v) for k, v in DEFAULT_TYPE_CUES.items()}
+    for source_type, cues in (extra or {}).items():
+        merged[source_type] = tuple(merged.get(source_type, ())) + tuple(
+            str(c).lower() for c in cues
+        )
+    return merged
 _YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
 _SINCE_RE = re.compile(r"\b(since|after|from)\s+((?:19|20)\d{2})\b", re.IGNORECASE)
 _BEFORE_RE = re.compile(r"\b(before|prior to|up to)\s+((?:19|20)\d{2})\b", re.IGNORECASE)
@@ -63,12 +81,12 @@ class Filters:
         }
 
 
-def infer_filters(query: str) -> Filters:
+def infer_filters(query: str, cues: dict[str, tuple[str, ...]] | None = None) -> Filters:
     """Read structured intent from a natural-language query."""
     lowered = query.lower()
     filters = Filters()
 
-    for source_type, cues in _TYPE_CUES.items():
+    for source_type, cues in (cues or DEFAULT_TYPE_CUES).items():
         if any(cue in lowered for cue in cues):
             filters.source_types.append(source_type)
 
@@ -86,11 +104,12 @@ def infer_filters(query: str) -> Filters:
 class StructuredRetriever:
     name = "structured"
 
-    def __init__(self, store: Store) -> None:
+    def __init__(self, store: Store, cues: dict[str, tuple[str, ...]] | None = None) -> None:
         self.store = store
+        self.cues = cues or DEFAULT_TYPE_CUES
 
     def search(self, query: str, limit: int = 40, filters: Filters | None = None) -> Sequence[Candidate]:
-        filters = filters or infer_filters(query)
+        filters = filters or infer_filters(query, self.cues)
         if filters.is_empty():
             return []
 

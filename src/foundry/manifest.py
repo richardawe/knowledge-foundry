@@ -86,6 +86,9 @@ class RetrievalConfig:
     )
     authority_weight: float = 0.15
     recency_half_life_days: int = 1460
+    # Extra query cues mapping a question to a source type, e.g.
+    # {"standard": ["nfpa", "iec"]}. Domain vocabulary, so it lives here.
+    structured_cues: dict[str, list[str]] = field(default_factory=dict)
 
     @classmethod
     def from_dict(cls, data: dict) -> "RetrievalConfig":
@@ -113,6 +116,10 @@ class RetrievalConfig:
             fusion_weights={**cls().fusion_weights, **(fusion.get("weights") or {})},
             authority_weight=float(rerank.get("authority_weight", 0.15)),
             recency_half_life_days=int(rerank.get("recency_half_life_days", 1460)),
+            structured_cues={
+                str(k): [str(v) for v in vals]
+                for k, vals in (structured.get("cues") or {}).items()
+            },
         )
         cfg.validate()
         return cfg

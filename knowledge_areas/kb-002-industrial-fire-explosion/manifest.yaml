@@ -1,0 +1,105 @@
+# Knowledge Area #002.
+#
+# This directory is the proof of success criterion #10: a second knowledge area
+# costs a directory of plain text, not a change under src/foundry/. Nothing in
+# the factory knows this domain exists until this manifest is read.
+knowledge_area:
+  id: kb-002-industrial-fire-explosion
+  name: Industrial Fire & Explosion Intelligence
+  description: >-
+    An evidence-backed specialist system covering industrial fire and explosion
+    hazards: flammable atmospheres, dust explosions, vapour cloud explosions,
+    BLEVEs, ignition sources and control, hazardous area classification, and
+    the UK and EU regimes that govern dangerous substances and major accident
+    hazards. Answers are traceable to stored sources and are machine-checked
+    for unsupported claims before they are returned.
+  domain: process and fire safety engineering
+  version: v0.1.0
+  owner: knowledge-foundry
+  created: 2026-09-18
+  last_updated: 2026-09-18
+  visibility: public
+  tenant: public
+
+scope:
+  in_scope:
+    - flammable atmospheres and explosive atmospheres
+    - dust explosions and combustible dust
+    - vapour cloud explosion and BLEVE
+    - flash point lower and upper explosive limits
+    - autoignition and ignition sources
+    - deflagration and detonation
+    - hazardous area classification and zoning
+    - explosion prevention and protection measures
+    - major accident hazard regulation
+    - industrial fire and explosion incident precedent
+  out_of_scope:
+    - medical diagnosis treatment or clinical advice
+    - legal advice or litigation strategy
+    - tax accounting and financial advice
+    - share prices and investment advice
+    - military ordnance and weapon design
+    - domestic cooking fire advice
+    - political opinion and elections
+
+sources:
+  register: sources.yaml
+
+knowledge_model:
+  ontology: ontology.yaml
+
+retrieval:
+  top_k: 8
+  candidate_k: 60
+  chunk: {target_chars: 1200, overlap_chars: 150, min_chars: 200}
+  keyword: {enabled: true}
+  semantic: {enabled: true, provider: lsa, dim: 192}
+  structured:
+    enabled: true
+    cues:
+      standard: [nfpa, "iec ", atex, "en 1127"]
+      regulatory: [dsear, comah, hse, "hazardous area"]
+      investigation: [buncefield, "major accident"]
+  graph: {enabled: true, max_hops: 2}
+  fusion:
+    k: 60
+    weights: {keyword: 1.0, semantic: 0.9, structured: 0.6, graph: 0.5}
+  rerank: {authority_weight: 0.25, recency_half_life_days: 1460}
+
+specialist:
+  prompt: prompts/system.md
+  llm: {provider: local_extractive, temperature: 0.0, max_tokens: 1200}
+  sufficiency: {min_evidence_score: 0.012, min_chunks: 2}
+  grounding: {min_sentence_support: 0.34, max_unsupported_ratio: 0.34}
+
+evaluation:
+  suites:
+    - evaluation/core.yaml
+    - evaluation/regression_from_redteam.yaml
+  thresholds:
+    answer_correctness: 0.50
+    citation_validity: 0.95
+    unsupported_claim_rate: 0.20
+    abstention_correctness: 0.60
+  tolerances: {default: 0.02, citation_validity: 0.0}
+
+governance:
+  review_status: draft
+  confidence: low
+  disclaimer: >-
+    This is an evidence-retrieval system, not a basis-of-design authority and
+    not a substitute for a DSEAR or COMAH assessment by a competent person.
+    Verify every figure against the cited primary source.
+  known_limitations:
+    - >-
+      This knowledge area is a seed built to prove the factory is repeatable. Its
+      corpus is much smaller than Knowledge Area #001's and leans heavily on
+      tertiary reference sources; treat its coverage as indicative, not complete.
+    - >-
+      ATEX, DSEAR and COMAH primary legal texts and the NFPA and IEC standards
+      in this field are not fully held. Where a standard governs a topic the
+      system can point at it but cannot quote it.
+    - >-
+      Flash points, explosive limits and autoignition temperatures are strongly
+      dependent on substance, pressure, temperature and test method. Any single
+      figure should be read as specific to the conditions its source reports.

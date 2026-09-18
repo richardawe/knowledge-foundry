@@ -27,7 +27,7 @@ from .base import Candidate, Evidence
 from .graph import GraphRetriever
 from .keyword import KeywordRetriever
 from .semantic import SemanticRetriever
-from .structured import Filters, StructuredRetriever, infer_filters
+from .structured import Filters, StructuredRetriever, infer_filters, merge_cues
 
 
 @dataclass
@@ -97,8 +97,9 @@ class HybridRetriever:
             self.retrievers["keyword"] = KeywordRetriever(store)
         if cfg.semantic_enabled and embedder is not None:
             self.retrievers["semantic"] = SemanticRetriever(store, embedder)
+        self.cues = merge_cues(cfg.structured_cues)
         if cfg.structured_enabled:
-            self.retrievers["structured"] = StructuredRetriever(store)
+            self.retrievers["structured"] = StructuredRetriever(store, cues=self.cues)
         if cfg.graph_enabled:
             self.retrievers["graph"] = GraphRetriever(store, max_hops=cfg.graph_max_hops)
 
@@ -107,7 +108,7 @@ class HybridRetriever:
     ) -> RetrievalResult:
         cfg = self.cfg
         top_k = top_k or cfg.top_k
-        inferred = filters or infer_filters(query)
+        inferred = filters or infer_filters(query, self.cues)
 
         ranked: dict[str, Sequence[Candidate]] = {}
         seen_text: dict[str, Candidate] = {}

@@ -1,0 +1,68 @@
+entities:
+  - {id: flammable_atmosphere, name: Flammable atmosphere, kind: hazard, aliases: [explosive atmosphere, flammable mixture]}
+  - {id: combustible_dust, name: Combustible dust, kind: hazard, aliases: [dust cloud, dust layer]}
+  - {id: dust_explosion, name: Dust explosion, kind: failure_mode}
+  - {id: vapour_cloud_explosion, name: Vapour cloud explosion, kind: failure_mode, aliases: [VCE, vapor cloud explosion]}
+  - {id: bleve, name: BLEVE, kind: failure_mode, aliases: [boiling liquid expanding vapour explosion]}
+  - {id: deflagration, name: Deflagration, kind: failure_mode}
+  - {id: detonation, name: Detonation, kind: failure_mode}
+  - {id: pool_fire, name: Pool fire, kind: failure_mode}
+  - {id: jet_fire, name: Jet fire, kind: failure_mode}
+  - {id: flash_point, name: Flash point, kind: property}
+  - {id: lower_explosive_limit, name: Lower explosive limit, kind: property, aliases: [LEL, lower flammable limit]}
+  - {id: upper_explosive_limit, name: Upper explosive limit, kind: property, aliases: [UEL, upper flammable limit]}
+  - {id: autoignition_temperature, name: Autoignition temperature, kind: property, aliases: [auto-ignition, self-ignition temperature]}
+  - {id: minimum_ignition_energy, name: Minimum ignition energy, kind: property, aliases: [MIE]}
+  - {id: ignition_source, name: Ignition source, kind: cause, aliases: [source of ignition]}
+  - {id: static_discharge, name: Static discharge, kind: cause, aliases: [electrostatic discharge, static electricity]}
+  - {id: hot_work, name: Hot work, kind: cause, aliases: [welding, cutting]}
+  - {id: mechanical_spark, name: Mechanical spark, kind: cause, aliases: [friction spark, impact spark]}
+  - {id: containment_loss, name: Loss of containment, kind: cause, aliases: [release, leak, overfill]}
+  - {id: confinement, name: Confinement, kind: condition, aliases: [congestion, enclosure]}
+  - {id: oxidiser, name: Oxidiser, kind: condition, aliases: [oxygen, oxidizer]}
+  - {id: fuel, name: Fuel, kind: condition}
+  - {id: hazardous_area_classification, name: Hazardous area classification, kind: control, aliases: [zoning, area classification, zone 0, zone 1, zone 2]}
+  - {id: explosion_venting, name: Explosion venting, kind: control, aliases: [explosion relief, vent panel]}
+  - {id: explosion_suppression, name: Explosion suppression, kind: control}
+  - {id: inerting, name: Inerting, kind: control, aliases: [nitrogen blanketing, inert gas]}
+  - {id: bonding_and_earthing, name: Bonding and earthing, kind: control, aliases: [grounding, earthing]}
+  - {id: gas_detection, name: Gas detection, kind: control, aliases: [flammable gas detector]}
+  - {id: bund, name: Bund, kind: control, aliases: [secondary containment, dike]}
+  - {id: dsear, name: DSEAR, kind: regulation, aliases: [Dangerous Substances and Explosive Atmospheres Regulations]}
+  - {id: atex, name: ATEX, kind: regulation, aliases: [ATEX directive]}
+  - {id: comah, name: COMAH, kind: regulation, aliases: [Control of Major Accident Hazards]}
+  - {id: nfpa_652, name: NFPA 652, kind: standard}
+  - {id: buncefield, name: Buncefield, kind: incident, aliases: [Buncefield fire, Hertfordshire Oil Storage Terminal]}
+
+relationships:
+  - {subject: flammable_atmosphere, predicate: requires, object: fuel}
+  - {subject: flammable_atmosphere, predicate: requires, object: oxidiser}
+  - {subject: flammable_atmosphere, predicate: ignited_by, object: ignition_source}
+  - {subject: ignition_source, predicate: includes, object: static_discharge}
+  - {subject: ignition_source, predicate: includes, object: hot_work}
+  - {subject: ignition_source, predicate: includes, object: mechanical_spark}
+  - {subject: combustible_dust, predicate: leads_to, object: dust_explosion}
+  - {subject: dust_explosion, predicate: characterised_by, object: minimum_ignition_energy}
+  - {subject: containment_loss, predicate: leads_to, object: vapour_cloud_explosion}
+  - {subject: containment_loss, predicate: leads_to, object: pool_fire}
+  - {subject: containment_loss, predicate: leads_to, object: jet_fire}
+  - {subject: vapour_cloud_explosion, predicate: worsened_by, object: confinement}
+  - {subject: vapour_cloud_explosion, predicate: characterised_by, object: deflagration}
+  - {subject: deflagration, predicate: can_transition_to, object: detonation}
+  - {subject: bleve, predicate: triggered_by, object: pool_fire}
+  - {subject: flammable_atmosphere, predicate: characterised_by, object: lower_explosive_limit}
+  - {subject: flammable_atmosphere, predicate: characterised_by, object: upper_explosive_limit}
+  - {subject: fuel, predicate: characterised_by, object: flash_point}
+  - {subject: fuel, predicate: characterised_by, object: autoignition_temperature}
+  - {subject: flammable_atmosphere, predicate: mitigated_by, object: hazardous_area_classification}
+  - {subject: flammable_atmosphere, predicate: mitigated_by, object: gas_detection}
+  - {subject: dust_explosion, predicate: mitigated_by, object: explosion_venting}
+  - {subject: dust_explosion, predicate: mitigated_by, object: explosion_suppression}
+  - {subject: dust_explosion, predicate: mitigated_by, object: inerting}
+  - {subject: static_discharge, predicate: mitigated_by, object: bonding_and_earthing}
+  - {subject: containment_loss, predicate: mitigated_by, object: bund}
+  - {subject: vapour_cloud_explosion, predicate: occurred_at, object: buncefield}
+  - {subject: flammable_atmosphere, predicate: governed_by, object: dsear}
+  - {subject: hazardous_area_classification, predicate: governed_by, object: atex}
+  - {subject: containment_loss, predicate: governed_by, object: comah}
+  - {subject: combustible_dust, predicate: governed_by, object: nfpa_652}

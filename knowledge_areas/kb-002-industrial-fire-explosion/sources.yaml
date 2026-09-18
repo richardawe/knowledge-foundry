@@ -1,0 +1,129 @@
+# Seed source register for Knowledge Area #002.
+#
+# Deliberately modest. The point of this knowledge area is to demonstrate that
+# the pipeline is domain-agnostic, not to ship a finished product on day one.
+defaults:
+  refresh_days: 120
+  licence: unspecified
+
+sources:
+  - id: hse-dsear-guidance
+    uri: https://www.hse.gov.uk/fireandexplosion/dsear.htm
+    title: "Dangerous Substances and Explosive Atmospheres Regulations (DSEAR) guidance"
+    publisher: Health and Safety Executive (UK)
+    source_type: regulatory
+    authority: 5
+    published_at: "2024-01-01"
+    licence: "Open Government Licence v3.0"
+    tags: [uk, dsear, explosive-atmospheres]
+
+  - id: wikipedia-dust-explosion
+    uri: https://en.wikipedia.org/wiki/Dust_explosion
+    title: "Dust explosion"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [dust, mechanism]
+
+  - id: wikipedia-bleve
+    uri: https://en.wikipedia.org/wiki/Boiling_liquid_expanding_vapor_explosion
+    title: "Boiling liquid expanding vapour explosion (BLEVE)"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [bleve, mechanism]
+
+  - id: wikipedia-vapour-cloud-explosion
+    uri: https://en.wikipedia.org/wiki/Vapor_cloud_explosion
+    title: "Vapour cloud explosion"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [vce, mechanism]
+
+  - id: wikipedia-atex
+    uri: https://en.wikipedia.org/wiki/ATEX_directive
+    title: "ATEX directive"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [atex, eu, zoning]
+
+  - id: wikipedia-flash-point
+    uri: https://en.wikipedia.org/wiki/Flash_point
+    title: "Flash point"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [property, ignition]
+
+  - id: wikipedia-explosive-limit
+    uri: https://en.wikipedia.org/wiki/Explosive_limit
+    title: "Explosive limit"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [lel, uel, property]
+
+  - id: wikipedia-autoignition
+    uri: https://en.wikipedia.org/wiki/Autoignition_temperature
+    title: "Autoignition temperature"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [ignition, property]
+
+  - id: wikipedia-deflagration
+    uri: https://en.wikipedia.org/wiki/Deflagration
+    title: "Deflagration"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [mechanism]
+
+  - id: wikipedia-fire-triangle
+    uri: https://en.wikipedia.org/wiki/Fire_triangle
+    title: "Fire triangle"
+    publisher: Wikipedia
+    source_type: reference
+    authority: 2
+    licence: "CC BY-SA 4.0"
+    tags: [fundamentals]
+
+  - id: wikipedia-buncefield
+    uri: https://en.wikipedia.org/wiki/Buncefield_fire
+    title: "Buncefield fire"
+    publisher: Wikipedia
+    source_type: investigation
+    authority: 3
+    published_at: "2005-12-11"
+    licence: "CC BY-SA 4.0"
+    tags: [incident, vce, uk]
+
+  # Pointers: governing instruments that are not redistributable in full here.
+  - id: pointer-comah-2015
+    uri: https://www.hse.gov.uk/comah/
+    title: "Control of Major Accident Hazards Regulations 2015 (COMAH)"
+    publisher: Health and Safety Executive (UK)
+    source_type: regulatory
+    authority: 5
+    mirrored: false
+    licence: "Crown copyright - referenced, full text not mirrored here"
+    notes: "The UK major accident hazard regime for establishments holding dangerous substances."
+
+  - id: pointer-nfpa-652
+    uri: https://www.nfpa.org/codes-and-standards/nfpa-652-standard-development/652
+    title: "NFPA 652: Standard on the Fundamentals of Combustible Dust"
+    publisher: National Fire Protection Association
+    source_type: standard
+    authority: 5
+    mirrored: false
+    licence: "© NFPA - copyrighted standard, not redistributable"

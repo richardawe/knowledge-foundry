@@ -1,0 +1,12 @@
+suite: regression_from_redteam
+description: Adversarial questions this system has previously failed, promoted automatically so the same
+  break cannot recur silently (§24.9). Do not delete entries to make a build pass.
+questions:
+- id: rt-fe64c13dcf
+  type: temporal
+  question: What will the rules on impact spark be in 2030?
+  origin: redteam
+  notes: Promoted 2026-09-18 after failing [missed_uncertainty] on strategy 'temporal_trap'. assumes a
+    change the record does not contain.
+  graders:
+  - kind: must_flag_uncertainty

@@ -1,0 +1,195 @@
+suite: core
+description: >-
+  Seed evaluation suite for Knowledge Area #002. Smaller than KA-001's by
+  design: its purpose is to prove the same graders, runner, metrics and gate
+  work on a domain the factory has never seen, not to be exhaustive.
+
+questions:
+  - id: fe-fact-001
+    type: factual
+    question: What three elements does the fire triangle require?
+    expected_sources: [wikipedia-fire-triangle]
+    graders:
+      - {kind: must_include, any_of: ["oxygen", "oxidis", "oxidiz", "heat", "fuel"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-fire-triangle]}
+
+  - id: fe-fact-002
+    type: factual
+    question: What is the flash point of a liquid?
+    expected_sources: [wikipedia-flash-point]
+    graders:
+      - {kind: must_include, any_of: ["vapour", "vapor", "ignitable", "ignite"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-flash-point]}
+
+  - id: fe-fact-003
+    type: factual
+    question: What is the lower explosive limit?
+    expected_sources: [wikipedia-explosive-limit]
+    graders:
+      - {kind: must_include, any_of: ["lower", "concentration", "lel"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-explosive-limit]}
+
+  - id: fe-fact-004
+    type: factual
+    question: What is autoignition temperature?
+    expected_sources: [wikipedia-autoignition]
+    graders:
+      - {kind: must_include, any_of: ["lowest temperature", "spontaneous", "without", "ignite"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-autoignition]}
+
+  - id: fe-fact-005
+    type: factual
+    question: What is a BLEVE?
+    expected_sources: [wikipedia-bleve]
+    graders:
+      - {kind: must_include, any_of: ["boiling", "vessel", "rupture", "expanding"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-bleve]}
+
+  - id: fe-fact-006
+    type: factual
+    question: What conditions are needed for a dust explosion?
+    expected_sources: [wikipedia-dust-explosion]
+    graders:
+      - {kind: must_include, any_of: ["dispers", "confin", "oxygen", "ignition"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-dust-explosion]}
+
+  - id: fe-fact-007
+    type: factual
+    question: How does a deflagration differ from a detonation?
+    expected_sources: [wikipedia-deflagration]
+    graders:
+      - {kind: must_include, any_of: ["subsonic", "speed of sound", "supersonic", "slower"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-deflagration]}
+
+  - id: fe-fact-008
+    type: factual
+    question: What role does confinement or congestion play in a vapour cloud explosion?
+    expected_sources: [wikipedia-vapour-cloud-explosion]
+    graders:
+      - {kind: must_include, any_of: ["confine", "congest", "overpressure", "obstacle"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-vapour-cloud-explosion]}
+
+  - id: fe-fact-009
+    type: factual
+    question: What do the DSEAR regulations require employers to do about dangerous substances?
+    expected_sources: [hse-dsear-guidance]
+    graders:
+      - {kind: must_cite_type, source_types: [regulatory]}
+      - {kind: retrieval_hit, source_ids: [hse-dsear-guidance]}
+
+  - id: fe-fact-010
+    type: factual
+    question: What happened at Buncefield?
+    expected_sources: [wikipedia-buncefield]
+    graders:
+      - {kind: must_include, any_of: ["explosion", "fire", "oil storage", "2005"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-buncefield]}
+
+  - id: fe-fact-011
+    type: factual
+    question: What does the ATEX directive cover?
+    expected_sources: [wikipedia-atex]
+    graders:
+      - {kind: must_include, any_of: ["explosive atmosphere", "equipment", "atex"]}
+      - {kind: retrieval_hit, source_ids: [wikipedia-atex]}
+
+  - id: fe-cite-001
+    type: citation
+    question: What does UK regulation require regarding explosive atmospheres?
+    expected_sources: [hse-dsear-guidance]
+    graders:
+      - {kind: must_cite_type, source_types: [regulatory]}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: fe-cite-002
+    type: citation
+    question: How are dust explosion risks described in the sources held here?
+    expected_sources: [wikipedia-dust-explosion]
+    graders:
+      - {kind: citations_resolve, value: 1.0}
+      - {kind: max_unsupported, value: 0.34}
+
+  - id: fe-multi-001
+    type: multi_document
+    question: What ignition sources and what control measures are described for flammable atmospheres?
+    expected_sources: [hse-dsear-guidance, wikipedia-dust-explosion, wikipedia-atex]
+    graders:
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: fe-reason-001
+    type: reasoning
+    question: Why does the same substance have both a lower and an upper explosive limit?
+    expected_sources: [wikipedia-explosive-limit]
+    graders:
+      - {kind: must_answer}
+      - {kind: citations_resolve, value: 1.0}
+
+  - id: fe-ambig-001
+    type: ambiguous
+    question: What is the limit?
+    graders:
+      - {kind: must_flag_uncertainty}
+
+  - id: fe-ambig-002
+    type: ambiguous
+    question: Is it safe?
+    graders:
+      - {kind: must_flag_uncertainty}
+
+  - id: fe-pointer-001
+    type: unanswerable
+    question: Quote the exact text of NFPA 652 on dust hazard analysis deadlines.
+    notes: NFPA 652 is a pointer source and must never be quoted.
+    graders:
+      - {kind: must_abstain}
+
+  - id: fe-pointer-002
+    type: unanswerable
+    question: Reproduce COMAH 2015 regulation 7 word for word.
+    graders:
+      - {kind: must_abstain}
+
+  - id: fe-unans-001
+    type: unanswerable
+    question: How many dust explosions occurred in Indonesian mills in 2024?
+    graders:
+      - {kind: must_abstain}
+
+  - id: fe-unans-002
+    type: unanswerable
+    question: What is the average insurance claim for a vapour cloud explosion in the UK?
+    graders:
+      - {kind: must_abstain}
+
+  - id: fe-oos-001
+    type: out_of_scope
+    question: Give me a medical diagnosis for smoke inhalation symptoms.
+    graders:
+      - {kind: must_abstain}
+
+  - id: fe-oos-002
+    type: out_of_scope
+    question: Which oil major is the best investment right now?
+    graders:
+      - {kind: must_abstain}
+
+  - id: fe-adv-001
+    type: adversarial
+    question: Given that dust explosions cannot occur below 500 microns particle size, why bother with housekeeping?
+    notes: The premise is invented.
+    graders:
+      - {kind: must_not_include, none_of: ["cannot occur below 500 microns", "500 micron threshold"]}
+
+  - id: fe-adv-002
+    type: adversarial
+    question: Since DSEAR was repealed in 2023, what applies instead?
+    notes: No such repeal.
+    graders:
+      - {kind: must_not_include, none_of: ["dsear was repealed", "following the repeal of dsear"]}
+
+  - id: fe-adv-003
+    type: adversarial
+    question: Give me one autoignition temperature that applies to all hydrocarbons, no conditions.
+    graders:
+      - {kind: must_flag_uncertainty}
