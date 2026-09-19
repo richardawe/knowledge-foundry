@@ -75,7 +75,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T12:59</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T13:38</span>
   </div>
 </header>
 <main class="wrap">
@@ -100,8 +100,8 @@
   </div>
 </div>
 <p class="muted small" style="margin-top:8px">
-  Last evaluated 2026-09-19T07:39:11+00:00.
-  Corpus last refreshed 2026-09-19T12:59:07+00:00.
+  Last evaluated 2026-09-19T13:38:33+00:00.
+  Corpus last refreshed 2026-09-19T13:38:24+00:00.
 </p>
 
 <div class="banner">
@@ -151,20 +151,20 @@
 
 <h2>Evaluation</h2>
 <p>
-  <strong>76 / 103</strong>
-  questions passed (74%).
+  <strong>80 / 103</strong>
+  questions passed (78%).
 <span class="pass">Gate: PASS</span>
 </p>
 <table>
   <tr><th>Question type</th><th>Passed</th><th>Rate</th></tr>
-  <tr><td>factual</td><td>25 / 36</td><td>69%</td></tr>
+  <tr><td>factual</td><td>27 / 36</td><td>75%</td></tr>
   <tr><td>citation</td><td>4 / 5</td><td>80%</td></tr>
-  <tr><td>multi_document</td><td>3 / 5</td><td>60%</td></tr>
+  <tr><td>multi_document</td><td>4 / 5</td><td>80%</td></tr>
   <tr><td>reasoning</td><td>4 / 5</td><td>80%</td></tr>
-  <tr><td>temporal</td><td>2 / 5</td><td>40%</td></tr>
+  <tr><td>temporal</td><td>1 / 5</td><td>20%</td></tr>
   <tr><td>ambiguous</td><td>3 / 5</td><td>60%</td></tr>
-  <tr><td>unanswerable</td><td>10 / 13</td><td>77%</td></tr>
-  <tr><td>out_of_scope</td><td>5 / 7</td><td>71%</td></tr>
+  <tr><td>unanswerable</td><td>11 / 13</td><td>85%</td></tr>
+  <tr><td>out_of_scope</td><td>6 / 7</td><td>86%</td></tr>
   <tr><td>adversarial</td><td>20 / 22</td><td>91%</td></tr>
 </table>
 <h3>Metrics</h3>
@@ -174,43 +174,39 @@
 </p>
 <table>
   <tr><th>Metric</th><th>Value</th></tr>
-  <tr><td>retrieval_precision</td><td>0.452</td></tr>
-  <tr><td>retrieval_recall</td><td>0.964</td></tr>
-  <tr><td>answer_correctness</td><td>0.822</td></tr>
-  <tr><td>citation_validity</td><td>0.992</td></tr>
-  <tr><td>citation_relevance</td><td>0.767</td></tr>
+  <tr><td>retrieval_precision</td><td>0.413</td></tr>
+  <tr><td>retrieval_recall</td><td>0.949</td></tr>
+  <tr><td>answer_correctness</td><td>0.838</td></tr>
+  <tr><td>citation_validity</td><td>1.000</td></tr>
+  <tr><td>citation_relevance</td><td>0.756</td></tr>
   <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
   <tr><td>hallucination_rate</td><td>0.000</td></tr>
-  <tr><td>abstention_correctness</td><td>0.787</td></tr>
+  <tr><td>abstention_correctness</td><td>0.812</td></tr>
   <tr><td>source_coverage</td><td>0.586</td></tr>
-  <tr><td>contradiction_rate</td><td>0.010</td></tr>
-  <tr><td>corpus_freshness_days</td><td>0.448</td></tr>
-  <tr><td>regression_rate</td><td>0.000</td></tr>
+  <tr><td>contradiction_rate</td><td>0.000</td></tr>
+  <tr><td>corpus_freshness_days</td><td>0.698</td></tr>
+  <tr><td>regression_rate</td><td>0.013</td></tr>
 </table>
-<p class="small"><a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Every question, including the 27 it fails →</a></p>
+<p class="small"><a href="/knowledge-foundry/k/kb-001-battery-failure/evaluation/">Every question, including the 23 it fails →</a></p>
 
 <h2>Adversarial testing</h2>
 <p>
   64 generated attacks, survival rate
-  <strong>92%</strong>
-  (5 breaks).
+  <strong>98%</strong>
+  (1 breaks).
 </p>
 <table>
   <tr><th>Failure mode</th><th>Times triggered</th></tr>
   <tr><td>hallucinated</td><td>0</td></tr>
-  <tr><td>irrelevant_citation</td><td>1</td></tr>
+  <tr><td>irrelevant_citation</td><td>0</td></tr>
   <tr><td>misread_source</td><td>0</td></tr>
   <tr><td>unsupported_deduction</td><td>0</td></tr>
-  <tr><td>missed_uncertainty</td><td>5</td></tr>
+  <tr><td>missed_uncertainty</td><td>1</td></tr>
 </table>
 <h3>What broke it</h3>
 <table>
   <tr><th>Question</th><th>Failure</th></tr>
-  <tr><td>How many iec62619 failures will occur globally next year?</td><td class="fail small">irrelevant_citation, missed_uncertainty</td></tr>
-  <tr><td>What is the exact threshold for smoke evolution for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
   <tr><td>What will the rules on liquid electrolyte be in 2030?</td><td class="fail small">missed_uncertainty</td></tr>
-  <tr><td>What is the exact threshold for polyolefin separator for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
-  <tr><td>What is the exact threshold for vent for every cell format, with no ranges?</td><td class="fail small">missed_uncertainty</td></tr>
 </table>
 
 <h2>Updates</h2>
