@@ -85,13 +85,23 @@ jobs:
       # keyless extractive provider answers instead. Both are legitimate, and
       # the reply names which one it was -- what must never happen is the
       # second being published as the first.
+      # The model name travels with the provider that will use it, never
+      # separately. Set unconditionally, it reached the keyless provider on the
+      # no-key path and got printed as the model that answered -- a reply
+      # crediting a model that never ran.
       - name: Choose the provider
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          MODEL: ${{ vars.FOUNDRY_LLM_MODEL || 'meta-llama/llama-3.1-70b-instruct' }}
+          BASE_URL: ${{ vars.FOUNDRY_LLM_BASE_URL || 'https://openrouter.ai/api/v1' }}
         run: |
           if [ -n "$OPENROUTER_API_KEY" ]; then
-            echo "FOUNDRY_LLM_PROVIDER=openai_compatible" >> "$GITHUB_ENV"
-            echo "REQUIRE_MODEL=--require-model" >> "$GITHUB_ENV"
+            {
+              echo "FOUNDRY_LLM_PROVIDER=openai_compatible"
+              echo "FOUNDRY_LLM_MODEL=${MODEL}"
+              echo "FOUNDRY_LLM_BASE_URL=${BASE_URL}"
+              echo "REQUIRE_MODEL=--require-model"
+            } >> "$GITHUB_ENV"
           else
             echo "::warning::OPENROUTER_API_KEY is not set; answering with the keyless extractive provider."
             echo "FOUNDRY_LLM_PROVIDER=local_extractive" >> "$GITHUB_ENV"
@@ -111,8 +121,6 @@ jobs:
         id: answer
         continue-on-error: true
         env:
-          FOUNDRY_LLM_MODEL: ${{ vars.FOUNDRY_LLM_MODEL || 'meta-llama/llama-3.1-70b-instruct' }}
-          FOUNDRY_LLM_BASE_URL: ${{ vars.FOUNDRY_LLM_BASE_URL || 'https://openrouter.ai/api/v1' }}
           FOUNDRY_LLM_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           AUTHOR: ${{ github.event.issue.user.login }}
           REFERENCE: ${{ github.event.issue.html_url }}

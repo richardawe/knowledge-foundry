@@ -127,3 +127,28 @@ def test_the_fallback_survives_a_full_ask(built):
     assert "fell back" in answer.llm["provider"]
     # And it is durable in the stored record, not just the console.
     assert "fell back" in json.dumps(answer.as_dict())
+
+
+def test_a_keyless_provider_never_wears_a_model_name_it_did_not_run():
+    """The pair that produced a wrong provenance line on a real answer.
+
+    A runner overrode the provider because it had no hosted key, while the
+    model variable still named the hosted model. The keyless provider took the
+    name and the published reply credited a model that never ran -- the same
+    class of fabrication the mock-Ollama incident produced, arriving by a
+    different route.
+    """
+    from foundry.llm import get_provider
+
+    provider = get_provider("local_extractive", "meta-llama/llama-3.1-70b-instruct")
+    assert provider.name == "local_extractive"
+    assert "llama" not in provider.model
+
+    scripted = get_provider("scripted", "claude-opus-5")
+    assert scripted.model == "scripted"
+
+
+def test_a_real_provider_still_takes_the_model_it_is_given():
+    from foundry.llm import get_provider
+
+    assert get_provider("openai_compatible", "some/model").model == "some/model"

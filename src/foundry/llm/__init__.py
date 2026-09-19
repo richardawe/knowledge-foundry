@@ -19,9 +19,22 @@ _REGISTRY = {
 
 
 def get_provider(provider: str = "local_extractive", model: str | None = None):
+    """Build a provider, refusing to let a keyless one wear a model's name.
+
+    A ``model`` override describes which model to call. The keyless providers
+    call none, so adopting the name would make them claim work they did not do:
+    an answer stamped with a hosted model's id that no hosted model produced.
+    That is the fabrication this project has already been bitten by once, and
+    provenance is the only defence against it, so the name is dropped here
+    rather than trusted to every caller.
+
+    It reaches here easily. An environment that names both a provider and a
+    model -- a CI runner overriding the provider because it has no daemon, while
+    the model variable still names the hosted one -- produces exactly that pair,
+    and did.
+    """
     if provider in _REGISTRY:
-        cls = _REGISTRY[provider]
-        return cls(model=model) if model else cls()
+        return _REGISTRY[provider]()
     if provider == "ollama":
         from .ollama import OllamaProvider
 
