@@ -38,13 +38,20 @@ concurrency:
 
 jobs:
   answer:
-    # `labeled` fires for every label, not just this one. Without the second
+    # Either signal the form sets will do. GitHub applies a template's label
+    # only if that label already exists in the repository, and silently drops it
+    # otherwise -- which would leave the front door looking fine while nothing
+    # answered. The title prefix is the same form's doing, so it degrades to
+    # working rather than to silence.
+    #
+    # `labeled` fires for every label, not just this one. Without the last
     # clause, adding any unrelated label to an already-answered issue would buy
     # another model call and another duplicate reply.
     if: >-
       github.event.issue.state == 'open' &&
       github.event.issue.user.type != 'Bot' &&
-      contains(github.event.issue.labels.*.name, 'ask') &&
+      (contains(github.event.issue.labels.*.name, 'ask') ||
+       startsWith(github.event.issue.title, '[ask]')) &&
       (github.event.action != 'labeled' || github.event.label.name == 'ask')
     runs-on: ubuntu-latest
     steps:

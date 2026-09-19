@@ -287,9 +287,15 @@ is visible to whoever is being asked to judge the answer.
 Every answered issue costs one model call over the retrieved evidence. Measured
 against the current corpus that is roughly 3,100 prompt tokens per question.
 
-Only issues carrying the `ask` label are answered, and the issue form applies it
-automatically. Removing the label from an issue stops the workflow running on
-it; removing it from the form stops the path entirely without deleting anything.
+An issue is answered if it carries the `ask` label **or** its title starts with
+`[ask]`. The form sets both. Either alone is enough on purpose: GitHub applies a
+template's label only when that label already exists in the repository and drops
+it silently otherwise, so relying on the label alone would leave the front door
+looking fine while nothing answered.
+
+Create the label anyway — `gh label create ask` or Issues → Labels — so
+submissions are visible as a group. To stop the path, disable the workflow in
+the Actions tab; to stop it for one issue, close the issue.
 
 ### Adding a knowledge area
 
