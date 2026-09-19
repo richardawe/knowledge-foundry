@@ -1,0 +1,87 @@
+{
+  "version": "v0.2.0",
+  "published_at": "2026-09-19T13:38:43+00:00",
+  "created_at": "2026-09-19T13:38:41+00:00",
+  "manifest_sha": "de30620f4dca8321",
+  "corpus_sha": "0eb180961b65a3e6",
+  "index_sha": "cf3509f994833a76",
+  "notes": "nightly 35446336824",
+  "stats": {
+    "sources": 13,
+    "documents": 11,
+    "chunks": 193,
+    "entities": 34,
+    "triples": 31,
+    "claims": 534,
+    "challenges": 0,
+    "indexed_sources": 11
+  },
+  "evaluation": {
+    "run_id": "run_bf030641f816c81c",
+    "passed": true,
+    "total": 30,
+    "passed_count": 22,
+    "pass_rate": 0.733,
+    "metrics": {
+      "retrieval_precision": 0.4467,
+      "retrieval_recall": 0.9111,
+      "answer_correctness": 0.8261,
+      "citation_validity": 1.0,
+      "citation_relevance": 0.803,
+      "unsupported_claim_rate": 0.0,
+      "hallucination_rate": 0.0,
+      "abstention_correctness": 0.72,
+      "source_coverage": 0.8182,
+      "contradiction_rate": 0.0,
+      "corpus_freshness_days": 0.6978,
+      "regression_rate": 0.0
+    },
+    "by_type": {
+      "factual": {
+        "total": 11,
+        "passed": 7,
+        "rate": 0.636
+      },
+      "citation": {
+        "total": 2,
+        "passed": 2,
+        "rate": 1.0
+      },
+      "multi_document": {
+        "total": 1,
+        "passed": 1,
+        "rate": 1.0
+      },
+      "reasoning": {
+        "total": 1,
+        "passed": 1,
+        "rate": 1.0
+      },
+      "ambiguous": {
+        "total": 2,
+        "passed": 2,
+        "rate": 1.0
+      },
+      "unanswerable": {
+        "total": 5,
+        "passed": 3,
+        "rate": 0.6
+      },
+      "out_of_scope": {
+        "total": 2,
+        "passed": 2,
+        "rate": 1.0
+      },
+      "adversarial": {
+        "total": 3,
+        "passed": 3,
+        "rate": 1.0
+      },
+      "temporal": {
+        "total": 3,
+        "passed": 1,
+        "rate": 0.333
+      }
+    }
+  }
+}
