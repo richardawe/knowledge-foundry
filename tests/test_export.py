@@ -374,11 +374,27 @@ def test_ask_endpoint_is_configurable_at_export(built, tmp_path):
     assert 'data-api-base="https://kf.example.dev"' in html
 
 
-def test_static_ask_page_still_explains_the_offline_case(site):
+def test_static_ask_page_offers_the_serverless_route_when_nothing_is_answering(site):
+    """A snapshot with no instance behind it must still be askable.
+
+    The offline case used to be a set of instructions for running the thing
+    yourself, which is a fine answer for an engineer and no answer at all for
+    the domain expert §14 needs. The issue form is the route that does not
+    require them to install anything.
+    """
     out, _report = site
     html = (out / "k/kb-test-widgets/ask/index.html").read_text()
-    assert "Nothing is answering yet" in html
+    assert "issues/new?template=ask.yml" in html
+    assert "knowledge-area=kb-test-widgets" in html
+    # Running it yourself is still explained, just no longer the only option.
+    assert "start.sh" in html
     assert "transcript" in html.lower()
+
+
+def test_static_challenges_page_links_the_same_route(site):
+    out, _report = site
+    html = (out / "k/kb-test-widgets/challenges/index.html").read_text()
+    assert "issues/new?template=ask.yml" in html
 
 
 def test_the_client_diagnoses_why_a_connection_failed(site):

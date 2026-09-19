@@ -13,7 +13,7 @@ the product. **Do not build a generic chatbot.**
 Two knowledge areas exist:
 
 * `kb-001-battery-failure` — lithium-ion battery failure, 34 sources, 103 questions
-* `kb-002-industrial-fire-explosion` — 13 sources, 27 questions
+* `kb-002-industrial-fire-explosion` — 13 sources, 30 questions
 
 Branch: `claude/knowledge-foundry-initiation-3vvxdh`. Do not push elsewhere.
 Do not open a PR unless asked.
@@ -39,6 +39,20 @@ Mac is asleep the work waits. Actions answers with the keyless extractive
 provider so it always produces a publishable site alone; the Mac's answers are an
 upgrade applied when they arrive.
 
+There is a third path, and it uses the same seam. `.github/workflows/ask.yml`
+answers a question submitted as a GitHub issue: build, retrieve, gates, model,
+validate, score, post the reply, commit the exchange as a challenge, republish.
+No host, no key in a browser. The model there comes from `OPENROUTER_API_KEY`
+and the `FOUNDRY_LLM_*` repository variables, not from the manifest — the
+manifest names where *production* inference runs, and a runner is not that.
+
+**A challenge is repository state, not `var/` state.** `var/` is disposable and
+is rebuilt from the source register; a question somebody asked is not derivable
+from any source, so it is written to `knowledge_areas/<id>/challenges/` and
+re-imported by `build`. The repository wins on conflict, so a review decision
+recorded there survives a rebuild. Same reasoning as the inference queue:
+anything arriving from outside travels in the repository.
+
 `Specialist.ask` is `prepare()` + `judge()`. `prepare` runs retrieval, the gates
 and prompt assembly, and either settles the turn or hands back a prompt. `judge`
 runs validation and scoring over whatever a model returned. The split is what
@@ -58,6 +72,11 @@ makes the two-machine pipeline possible.
 * **Every queued answer names the machine that produced it.** `cmd_worker`
   defaults `--name` to the hostname. Anonymous answers are how fabricated ones got
   in (see below).
+* **A reply posted to a person names what produced it.** `intake` prints the
+  provider and model on every answer and flags a fallback explicitly. The ask
+  workflow passes `--require-model` whenever a key is configured, for the same
+  reason the worker does: a corpus extract must never stand where a model's
+  answer would.
 
 ## Commands
 
@@ -73,7 +92,8 @@ python -m foundry.cli worker             # Mac only: call Ollama
 python -m foundry.cli apply <ka>         # validate + score queued replies
 python -m foundry.cli deploy --base-url /knowledge-foundry
 python -m foundry.cli doctor
-python -m pytest -q                      # 323 tests
+python -m foundry.cli intake --body-file b.md --challenge-id ch_issue_1   # public ask path
+python -m pytest -q                      # 345 tests
 ```
 
 ## Current state
@@ -81,7 +101,8 @@ python -m pytest -q                      # 323 tests
 * **Nightly runs green in Actions** (run 4, `35393758504`). Full pipeline: tests,
   build, eval, red team, publish, plan, export, gh-pages deploy, push.
 * Live at `https://richardawe.github.io/knowledge-foundry/`
-* kb-001 76/103 (74%), kb-002 20/27 (74%). Hallucination rate 0.000 on both.
+* kb-001 76/103 (74%), kb-002 20/30 (67%) — the suite grew when red-team failures
+  were promoted; the pass count did not. Hallucination rate 0.000 on both.
   Red team survival 92% / 94%.
 * The published page's ask box shows "no instance reachable" and falls back to
   searching recorded answers. **That is correct.** A static page cannot run
@@ -100,6 +121,11 @@ python -m pytest -q                      # 323 tests
 2. **Should `bf-fact-010` have passed?** It asserts the right number (100 Wh) and
    misrepresents the rule. If the answer is no, the suite needs questions that
    assert the *absence* of a condition — a tenth question type.
+
+3. **Nobody has challenged it yet.** The path is built and open (issue form ->
+   workflow -> recorded challenge), but the challenge count is still 0. §14 is
+   only half built until real people use it, and that is an invitation to send,
+   not code to write.
 
 Also noted, not acted on: `WebFetch` gets 403 from faa.gov; plain `curl` needs a
 browser user-agent for 200. If ingestion re-fetches that source with default

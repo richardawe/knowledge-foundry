@@ -1,0 +1,166 @@
+name: ask
+
+# The public ask path, with no server anywhere (§16).
+#
+# The published evidence pages are static, so the ask box on them cannot
+# answer: retrieval needs the corpus, the gates and the validator, all of which
+# are Python. Rather than stand up a host to run them, this treats the
+# repository's own automation as the backend -- the same trick the inference
+# queue already uses to reach the model.
+#
+#   a person opens an issue with the "Ask the specialist" form
+#     -> this builds the corpus and answers the question through the gates
+#     -> validates and scores the answer exactly as the evaluation suite does
+#     -> posts the reply, with its sources and its provenance
+#     -> commits the exchange as a challenge and republishes the site
+#
+# It is not live. That is the trade, and it buys more than it costs: no host to
+# pay for, no API key in anyone's browser, and -- unlike a chat box -- every
+# exchange ends up as a durable record next to the tests it can be promoted
+# into, which is what §14 actually asks for.
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+# Only the form's own label triggers an answer. Removing it from an issue is
+# how a maintainer stops this running on something -- worth knowing, because
+# every run that reaches the model costs money.
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  # Shared with nightly and inference: they all write var/, the knowledge areas
+  # and gh-pages. An ask waiting for the nightly is correct.
+  group: foundry-pipeline
+  cancel-in-progress: false
+
+jobs:
+  answer:
+    # Either signal the form sets will do. GitHub applies a template's label
+    # only if that label already exists in the repository, and silently drops it
+    # otherwise -- which would leave the front door looking fine while nothing
+    # answered. The title prefix is the same form's doing, so it degrades to
+    # working rather than to silence.
+    #
+    # `labeled` fires for every label, not just this one. Without the last
+    # clause, adding any unrelated label to an already-answered issue would buy
+    # another model call and another duplicate reply.
+    if: >-
+      github.event.issue.state == 'open' &&
+      github.event.issue.user.type != 'Bot' &&
+      (contains(github.event.issue.labels.*.name, 'ask') ||
+       startsWith(github.event.issue.title, '[ask]')) &&
+      (github.event.action != 'labeled' || github.event.label.name == 'ask')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev,web,pdf]"
+
+      - name: Restore previous build
+        uses: actions/cache@v4
+        with:
+          path: var
+          key: foundry-var-v2-${{ github.run_id }}
+          restore-keys: foundry-var-v2-
+
+      # Which knowledge area was asked for is inside the issue body, which has
+      # not been parsed yet. Building all of them is what the apply workflow
+      # does too, and a cache hit makes it quick.
+      - name: Ensure the corpus is built
+        run: |
+          for ka in $(python -m foundry.cli list --ids); do
+            python -m foundry.cli build "$ka" --notes "ask ${{ github.run_id }}"
+          done
+
+      # A hosted model answers when a key is configured; without one the
+      # keyless extractive provider answers instead. Both are legitimate, and
+      # the reply names which one it was -- what must never happen is the
+      # second being published as the first.
+      - name: Choose the provider
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -n "$OPENROUTER_API_KEY" ]; then
+            echo "FOUNDRY_LLM_PROVIDER=openai_compatible" >> "$GITHUB_ENV"
+            echo "REQUIRE_MODEL=--require-model" >> "$GITHUB_ENV"
+          else
+            echo "::warning::OPENROUTER_API_KEY is not set; answering with the keyless extractive provider."
+            echo "FOUNDRY_LLM_PROVIDER=local_extractive" >> "$GITHUB_ENV"
+            echo "REQUIRE_MODEL=" >> "$GITHUB_ENV"
+          fi
+
+      # The issue body is a stranger's text. It reaches the shell only as a
+      # quoted variable expansion and is never interpolated into a command:
+      # ${{ github.event.issue.body }} inline would hand the runner to whoever
+      # opened the issue.
+      - name: Capture the submission
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: printf '%s' "$ISSUE_BODY" > "${RUNNER_TEMP}/body.md"
+
+      - name: Answer it
+        id: answer
+        continue-on-error: true
+        env:
+          FOUNDRY_LLM_MODEL: ${{ vars.FOUNDRY_LLM_MODEL || 'meta-llama/llama-3.1-70b-instruct' }}
+          FOUNDRY_LLM_BASE_URL: ${{ vars.FOUNDRY_LLM_BASE_URL || 'https://openrouter.ai/api/v1' }}
+          FOUNDRY_LLM_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          AUTHOR: ${{ github.event.issue.user.login }}
+          REFERENCE: ${{ github.event.issue.html_url }}
+        run: |
+          python -m foundry.cli intake \
+            --body-file "${RUNNER_TEMP}/body.md" \
+            --challenge-id "ch_issue_${{ github.event.issue.number }}" \
+            --author "@${AUTHOR}" \
+            --reference "${REFERENCE}" \
+            --comment-out "${RUNNER_TEMP}/comment.md" \
+            $REQUIRE_MODEL
+
+      # A refusal is written to the same file, so there is always something to
+      # post. Silence is the one outcome nobody can act on.
+      - name: Reply
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -s "${RUNNER_TEMP}/comment.md" ]; then
+            printf '%s\n' \
+              "The workflow failed before it could answer this." \
+              "" \
+              "[See the run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})." \
+              > "${RUNNER_TEMP}/comment.md"
+          fi
+          gh issue comment "${{ github.event.issue.number }}" \
+            --body-file "${RUNNER_TEMP}/comment.md"
+
+      - name: Commit the challenge
+        if: steps.answer.outcome == 'success'
+        run: |
+          git config user.name "knowledge-foundry-bot"
+          git config user.email "noreply@anthropic.com"
+          git add knowledge_areas
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "Challenge from issue #${{ github.event.issue.number }}"
+            git pull --rebase --autostash origin "${{ github.event.repository.default_branch }}"
+            git push origin HEAD:"${{ github.event.repository.default_branch }}"
+          fi
+
+      - name: Republish the evidence pages
+        if: steps.answer.outcome == 'success'
+        run: python -m foundry.cli deploy --base-url /${{ github.event.repository.name }}
+
+      - name: Fail the run if the question went unanswered
+        if: steps.answer.outcome != 'success'
+        run: |
+          echo "::error::intake did not answer the question; the reason was posted to the issue."
+          exit 1

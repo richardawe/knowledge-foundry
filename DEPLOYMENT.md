@@ -231,6 +231,79 @@ foundry doctor
 Change one line, rebuild, and **run the evaluation suite**. That comparison is
 the whole point of keeping the knowledge layer separate from the model.
 
+## Answering public questions without a host
+
+The published evidence pages are static, so the ask box on them cannot run
+retrieval. The usual fix is to keep a server up. The alternative shipped here is
+`.github/workflows/ask.yml`: someone opens an issue with the **Ask the
+specialist** form, and the workflow answers it.
+
+```
+issue opened (label: ask)
+  -> build the corpus
+  -> foundry intake --body-file ... --challenge-id ch_issue_<n>
+       parse the form, run retrieval and the gates, call the model,
+       validate and score, record the exchange as a challenge
+  -> post the reply on the issue
+  -> commit the challenge, republish the site
+```
+
+Nothing is live; a run takes as long as a workflow takes. In exchange there is
+no host to pay for, no API key in a browser, and every exchange becomes durable
+repository state in `knowledge_areas/<id>/challenges/` rather than an
+unauditable conversation.
+
+### Configuring the model
+
+The workflow reads the model from repository settings, not from the manifest,
+because the manifest names where *production* inference runs and this is a
+different machine. Any OpenAI-shaped endpoint works; OpenRouter is the default
+shape:
+
+```
+Settings -> Secrets and variables -> Actions
+
+Secret    OPENROUTER_API_KEY     sk-or-...
+Variable  FOUNDRY_LLM_MODEL      meta-llama/llama-3.1-70b-instruct   (optional)
+Variable  FOUNDRY_LLM_BASE_URL   https://openrouter.ai/api/v1        (optional)
+```
+
+**With the secret set**, the workflow answers with that model and passes
+`--require-model`, so a configuration fault produces a visible refusal rather
+than a corpus extract standing in for a model's reply.
+
+**Without it**, the workflow says so in the run log and answers with the keyless
+extractive provider instead. That is a legitimate answer — the whole published
+site is built from it — and the reply names it explicitly. What must never
+happen is the second being published as the first.
+
+Note that an OpenAI-shaped router may serve a request from a different upstream
+than the one named. The stored answer records the model the response came back
+with rather than the one requested, and the reply prints it, so a substitution
+is visible to whoever is being asked to judge the answer.
+
+### Cost, and how to stop it
+
+Every answered issue costs one model call over the retrieved evidence. Measured
+against the current corpus that is roughly 3,100 prompt tokens per question.
+
+An issue is answered if it carries the `ask` label **or** its title starts with
+`[ask]`. The form sets both. Either alone is enough on purpose: GitHub applies a
+template's label only when that label already exists in the repository and drops
+it silently otherwise, so relying on the label alone would leave the front door
+looking fine while nothing answered.
+
+Create the label anyway — `gh label create ask` or Issues → Labels — so
+submissions are visible as a group. To stop the path, disable the workflow in
+the Actions tab; to stop it for one issue, close the issue.
+
+### Adding a knowledge area
+
+The form's dropdown lists the knowledge-area ids, so a new one needs an option
+adding in `.github/ISSUE_TEMPLATE/ask.yml`. Everything else is discovered:
+`intake` validates the chosen id against the knowledge areas that exist and
+refuses an unknown one by listing the real ones.
+
 ## Multi-tenancy
 
 Each knowledge area declares its exposure:

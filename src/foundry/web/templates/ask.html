@@ -24,9 +24,29 @@
   </form>
 
   <div id="ask-offline" class="banner" hidden>
-    <strong>Nothing is answering yet.</strong>
-    This page is the interface; the engine runs where your knowledge and your
-    model are. One command, from nothing:
+    <strong>No instance is answering, so ask it here instead.</strong>
+    <p>
+      Opening an issue puts your question through the real thing: the same
+      retrieval, the same gates, the same grounding validation every evaluation
+      question gets. A workflow answers it and posts the reply, with the sources
+      it cited and the scores it earned.
+      <br><strong><a class="button"
+        href="https://github.com/richardawe/knowledge-foundry/issues/new?template=ask.yml&amp;knowledge-area={{ manifest.id }}"
+        >Ask the specialist &rarr;</a></strong>
+    </p>
+    <p class="small">
+      It takes a few minutes, not a few seconds — there is no server to be
+      instant. What you get instead is a record: your question is kept as a
+      <a href="{{ url('/k/' ~ manifest.id ~ '/challenges/') }}">challenge</a>,
+      and if the answer is wrong and you say so, it can be promoted into the
+      permanent evaluation suite. A complaint that becomes a test cannot be
+      made twice.
+    </p>
+
+    <p class="small muted" style="margin-top:18px">
+      <strong>Or run it yourself</strong>, and the box above answers directly.
+      This page is the interface; the engine runs where your knowledge and your
+      model are. One command, from nothing:</p>
     <pre>git clone https://github.com/richardawe/knowledge-foundry
 cd knowledge-foundry &amp;&amp; ./start.sh</pre>
     <p class="small">
