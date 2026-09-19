@@ -1,0 +1,15 @@
+id: ch_issue_3
+submitted_by: '@richardawe'
+question: Who must carry out waste handling at a permitted battery waste facility?
+claimed_problem: ''
+expected: ''
+system_answer: You must have waste storage and handling procedures. [1] You must store and handle waste
+  in a way that makes sure you prevent and minimise pollution risks by using appropriate measures. [1]
+  If they cannot be reused, you must make sure they are recycled or recovered at a suitable permitted
+  facility. [4] The appropriate measures for waste storage and handling at regulated facilities with an
+  environmental permit for the treatment or transfer of waste batteries. [7] You must not carry out activities
+  that represent a clear fire risk within waste storage areas. [8]
+status: open
+created_at: '2026-09-19T12:59:13+00:00'
+promoted_to: ''
+notes: Submitted via https://github.com/richardawe/knowledge-foundry/issues/3
