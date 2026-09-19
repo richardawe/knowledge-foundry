@@ -24,6 +24,7 @@ import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .browser_index import render_browser_index
 from .manifest import Manifest, list_knowledge_areas
 from .storage import Store
 
@@ -37,6 +38,7 @@ class ExportReport:
     pages: int = 0
     knowledge_areas: list[str] = field(default_factory=list)
     bytes_written: int = 0
+    browser_index: dict = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict:
@@ -47,6 +49,7 @@ class ExportReport:
             "pages": self.pages,
             "knowledge_areas": self.knowledge_areas,
             "bytes_written": self.bytes_written,
+            "browser_index": self.browser_index,
             "warnings": self.warnings,
         }
 
@@ -195,6 +198,14 @@ def export_site(
         # implementation of retrieval -- nothing here can answer a question the
         # system has not already been asked.
         write(f"api/knowledge/{ka_id}.transcript.json", _transcript_index(ka_id))
+
+        # The corpus itself, so the page can answer rather than look answers
+        # up. Without a model this is the whole engine's input: retrieval, the
+        # gates and sentence selection are arithmetic over these passages.
+        with Store(ka_id) as store:
+            payload, index_report = render_browser_index(manifests[ka_id], store)
+        write(f"api/knowledge/{ka_id}.corpus.json", payload)
+        report.browser_index[ka_id] = index_report.as_dict()
 
         report.knowledge_areas.append(ka_id)
 

@@ -25,6 +25,7 @@ from ..manifest import Manifest
 from ..storage import Store
 from .base import Candidate, Evidence
 from .graph import GraphRetriever
+from .bm25 import Bm25KeywordRetriever
 from .keyword import KeywordRetriever
 from .semantic import SemanticRetriever
 from .structured import Filters, StructuredRetriever, infer_filters, merge_cues
@@ -94,7 +95,16 @@ class HybridRetriever:
         self.cfg = cfg
         self.retrievers: dict[str, object] = {}
         if cfg.keyword_enabled:
-            self.retrievers["keyword"] = KeywordRetriever(store)
+            # BM25 over foundry's own tokenizer, not SQLite's. text.py opens by
+            # saying tokenisation choices leak into retrieval, grounding and
+            # grading alike and must not drift; keyword retrieval was the one
+            # component that drifted, and nothing noticed until a second
+            # implementation had to agree with it. Set
+            # ``retrieval.keyword.engine: fts5`` to get the old one back.
+            self.retrievers["keyword"] = (
+                KeywordRetriever(store) if cfg.keyword_engine == "fts5"
+                else Bm25KeywordRetriever(store)
+            )
         if cfg.semantic_enabled and embedder is not None:
             self.retrievers["semantic"] = SemanticRetriever(store, embedder)
         self.cues = merge_cues(cfg.structured_cues)

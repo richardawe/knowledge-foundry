@@ -350,11 +350,13 @@ def test_cors_origins_can_be_narrowed(monkeypatch):
     assert cors_headers("https://somewhere.else", "/api/knowledge") == []
 
 
-def test_ask_client_asset_is_served(router):
-    status, content_type, payload = _get(router, "/assets/ask.js")
-    assert status == 200
-    assert "javascript" in content_type
-    assert "knowledge/" in payload
+def test_the_ask_client_and_engine_are_both_served(router):
+    """The page is inert without either, and the engine is the larger half."""
+    for asset, marker in (("ask.js", "FoundryEngine"), ("engine.js", "function ask")):
+        status, content_type, payload = _get(router, f"/assets/{asset}")
+        assert status == 200, asset
+        assert "javascript" in content_type
+        assert marker in payload, f"{marker} missing from {asset}"
 
 
 def test_asset_route_rejects_path_traversal(router):

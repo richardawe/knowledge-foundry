@@ -75,17 +75,8 @@ def test_static_pages_offer_no_dead_forms(site):
 
     ask = (out / "k/kb-test-widgets/ask/index.html").read_text()
     assert 'method="post"' not in ask, "a static page cannot submit a form to itself"
-    assert 'id="ask-form" hidden' in ask, "the ask form stays hidden until an instance answers"
+    assert 'id="ask-form" hidden' in ask, "the form stays hidden until the corpus has loaded"
 
-
-def test_static_ask_page_explains_how_to_ask_for_real(site):
-    """When nothing is answering, say how to start it -- and where the answers are."""
-    out, _report = site
-    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
-    assert "ollama" in html.lower()
-    assert "./start.sh" in html, "the banner must give the one command that fixes it"
-    assert "git clone" in html
-    assert "transcript" in html.lower()
 
 
 def test_base_url_prefixes_every_internal_link(built, tmp_path):
@@ -326,34 +317,6 @@ def test_deploy_replaces_stale_pages(tmp_path):
 # -- the published ask box ----------------------------------------------
 
 
-def test_export_ships_the_ask_client(site):
-    out, _report = site
-    asset = out / "assets/ask.js"
-    assert asset.is_file()
-    source = asset.read_text()
-    assert "/knowledge/" in source and "/healthz" in source
-
-
-def test_the_client_never_retrieves_over_the_corpus(site):
-    """The invariant that keeps the published page honest.
-
-    The client does two things: it calls a live instance's API, and — when
-    none answers — it matches a typed question against the ~100 RECORDED
-    QUESTIONS in the transcript. Neither involves the corpus: the 1,267
-    passages are never downloaded and nothing is scored against them, so the
-    page cannot produce an answer the real pipeline has not already produced.
-
-    Scoring recorded *questions* is not scoring passages, which is why a
-    rarity weighting appears here and no vector or BM25 machinery does.
-    """
-    out, _report = site
-    source = (out / "assets/ask.js").read_text().lower()
-
-    for forbidden in ("bm25", "cosine", "embedding", "chunks_fts"):
-        assert forbidden not in source, "the client must not retrieve over the corpus"
-    # The only two data sources it may read.
-    assert "transcript.json" in source
-    assert "/knowledge/" in source
 
 
 def test_static_ask_page_mounts_the_client(site):
@@ -364,31 +327,6 @@ def test_static_ask_page_mounts_the_client(site):
     assert "assets/ask.js" in html
 
 
-def test_ask_endpoint_is_configurable_at_export(built, tmp_path):
-    """So the box can point at a tunnel, not only at localhost."""
-    manifest, _store = built
-    out = tmp_path / "site"
-    export_site(out, knowledge_areas=[manifest.id], api_base="https://kf.example.dev")
-
-    html = (out / f"k/{manifest.id}/ask/index.html").read_text()
-    assert 'data-api-base="https://kf.example.dev"' in html
-
-
-def test_static_ask_page_offers_the_serverless_route_when_nothing_is_answering(site):
-    """A snapshot with no instance behind it must still be askable.
-
-    The offline case used to be a set of instructions for running the thing
-    yourself, which is a fine answer for an engineer and no answer at all for
-    the domain expert §14 needs. The issue form is the route that does not
-    require them to install anything.
-    """
-    out, _report = site
-    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
-    assert "issues/new?template=ask.yml" in html
-    assert "knowledge-area=kb-test-widgets" in html
-    # Running it yourself is still explained, just no longer the only option.
-    assert "start.sh" in html
-    assert "transcript" in html.lower()
 
 
 def test_static_challenges_page_links_the_same_route(site):
@@ -397,44 +335,8 @@ def test_static_challenges_page_links_the_same_route(site):
     assert "issues/new?template=ask.yml" in html
 
 
-def test_the_client_diagnoses_why_a_connection_failed(site):
-    """"Nothing is listening" and "listening but blocked" need different fixes."""
-    out, _report = site
-    source = (out / "assets/ask.js").read_text()
-
-    # The no-cors second probe is what separates the two cases.
-    assert 'mode: "no-cors"' in source
-    assert "nothing is listening" in source
-    assert "git pull" in source
-    # And it knows about the one browser that blocks http://localhost from HTTPS.
-    assert "safari" in source.lower()
 
 
-def test_the_client_tries_the_ports_the_project_actually_uses(site):
-    out, _report = site
-    source = (out / "assets/ask.js").read_text()
-    assert "8000" in source and "8080" in source
-
-
-def test_offline_banner_offers_the_same_origin_route(site):
-    """The local instance serves this page itself -- no CORS, nothing to block."""
-    out, _report = site
-    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
-    assert "http://localhost:8000/k/kb-test-widgets/ask" in html
-    assert "Safari" in html
-
-
-def test_offline_banner_distinguishes_ollama_from_this_server(site):
-    """Conflating the two is how someone ends up staring at 'nothing is listening'.
-
-    Ollama on :11434 and this application on :8000 are separate processes. A
-    machine can be running Ollama for other work and still have nothing
-    serving here.
-    """
-    out, _report = site
-    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
-    assert "11434" in html and "8000" in html
-    assert "start.sh" in html
 
 
 def test_the_bootstrap_script_is_shipped_and_executable():
@@ -491,24 +393,6 @@ def test_transcript_index_records_which_answers_failed(site):
     assert all(isinstance(e["passed"], bool) for e in data["entries"])
 
 
-def test_the_client_searches_recorded_answers_when_nothing_answers(site):
-    out, _report = site
-    source = (out / "assets/ask.js").read_text()
-
-    assert "loadTranscript" in source
-    assert "searchRecorded" in source
-    assert "Recorded answer, not a live one" in source
-    # It must refuse to force a match on an unrelated question.
-    assert "Not asked yet" in source
-    # And it must say when a recorded answer failed its own test.
-    assert "fails its own evaluation" in source
-
-
-def test_the_ask_page_points_the_client_at_its_transcript(site):
-    out, _report = site
-    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
-    assert "data-transcript=" in html
-    assert "kb-test-widgets.transcript.json" in html
 
 
 def test_checkout_style_credentials_are_recognised(tmp_path, monkeypatch):
@@ -528,3 +412,72 @@ def test_checkout_style_credentials_are_recognised(tmp_path, monkeypatch):
 
     url = "https://github.com/owner/repo.git"
     assert authenticated_url(repo, url) == url
+
+
+# -- the page answers for itself -----------------------------------------
+#
+# This replaces an invariant, deliberately. The published client used to be
+# forbidden from touching the corpus: it called a live instance, or matched a
+# typed question against recorded ones, and the guarantee was that it could not
+# produce an answer the pipeline had not already produced.
+#
+# That guarantee was real and it was bought by the page being unable to answer
+# at all. It is replaced by a stronger one: the page runs the same engine, and
+# `tests/test_browser_parity.py` asserts question by question that it returns
+# the same verdict, the same evidence in the same order and the same words as
+# the pipeline. "Cannot answer" has become "cannot answer differently", which
+# is what a reader wanted in the first place.
+
+
+def test_the_page_ships_the_engine_and_the_corpus(site):
+    out, _report = site
+    engine = out / "assets/engine.js"
+    assert engine.is_file(), "the answering engine must travel with the page"
+    source = engine.read_text()
+    for symbol in ("contentTerms", "coversTheSubject", "answersTheQuestion",
+                   "validateAnswer", "reciprocalRankFusion", "function ask"):
+        assert symbol in source, f"{symbol} missing from the published engine"
+
+    corpus = out / "api/knowledge/kb-test-widgets.corpus.json"
+    assert corpus.is_file(), "the corpus must travel with the page"
+
+
+def test_the_corpus_carries_provenance_for_every_source(site):
+    """A passage without its source is not evidence, and an answer built from
+    one could not be checked -- which would make the page a chatbot."""
+    import json
+
+    out, _report = site
+    corpus = json.loads((out / "api/knowledge/kb-test-widgets.corpus.json").read_text())
+    assert corpus["chunks"], "no passages shipped"
+    for source in corpus["sources"].values():
+        assert source["uri"] and source["publisher"] and source["title"]
+    known = set(corpus["sources"])
+    for chunk in corpus["chunks"]:
+        assert chunk["source_id"] in known, "a passage with no registered source"
+
+
+def test_the_page_mounts_the_engine_against_its_own_corpus(site):
+    out, _report = site
+    html = (out / "k/kb-test-widgets/ask/index.html").read_text()
+    assert 'id="ask-app"' in html
+    assert 'data-knowledge-area="kb-test-widgets"' in html
+    assert "kb-test-widgets.corpus.json" in html
+    assert "assets/engine.js" in html
+    assert "assets/ask.js" in html
+
+
+def test_the_page_says_no_model_is_involved(site):
+    """The claim a reader most needs, and the one most worth stating plainly."""
+    out, _report = site
+    html = (out / "k/kb-test-widgets/ask/index.html").read_text().lower()
+    assert "no model" in html
+    assert "cannot state anything the sources do not already say" in html
+
+
+def test_disagreeing_still_leaves_the_page_for_the_durable_path(site):
+    """Asking is instant and local; challenging is recorded and permanent."""
+    out, _report = site
+    client = (out / "assets/ask.js").read_text()
+    assert "issues/new?template=ask.yml" in client
+    assert "knowledge-area=" in client

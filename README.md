@@ -38,7 +38,27 @@ evaluation results, the red-team findings, the version history, and a
 actually gave — failures included. It is rendered from the same templates the
 live server uses, so the snapshot cannot drift from the system.
 
-**The ask box on that page works, with or without anything running.**
+**The ask box on that page answers in your browser, with nothing running
+anywhere.**
+
+The corpus travels with the page — 1,267 passages, 336 KB gzipped — and
+`engine.js` runs retrieval, the gates, sentence selection and the grounding
+check on your own machine. An answer takes milliseconds, works offline, and
+needs no server, no key and no account. There is no model: the engine selects
+and cites stored sentences, so it cannot state anything the sources do not
+already say, and it refuses questions the corpus does not cover by naming what
+is missing.
+
+Two implementations of one engine can drift, so drift fails the build:
+`tests/test_browser_parity.py` runs every question in the published evaluation
+suites through both this engine and the Python pipeline the nightly grades, and
+asserts the same verdict, the same evidence in the same order and the same
+words. What a reader sees is what was graded.
+
+Disagreeing is the one thing that leaves the page. "This is wrong" opens the
+issue form, and a workflow records it as a durable challenge that can be
+promoted into the evaluation suite. Fast path for asking, permanent path for
+disagreeing.
 
 With **nothing running anywhere**, there is still a way to ask the real thing:
 [open an issue with the *Ask the specialist* form](https://github.com/richardawe/knowledge-foundry/issues/new?template=ask.yml).

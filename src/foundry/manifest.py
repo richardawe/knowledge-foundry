@@ -68,6 +68,7 @@ class RetrievalConfig:
     candidate_k: int = 40
     chunk: ChunkConfig = field(default_factory=ChunkConfig)
     keyword_enabled: bool = True
+    keyword_engine: str = "bm25"      # or "fts5", the SQLite-tokenized original
     semantic_enabled: bool = True
     structured_enabled: bool = True
     graph_enabled: bool = True
@@ -105,6 +106,7 @@ class RetrievalConfig:
             candidate_k=int(data.get("candidate_k", 40)),
             chunk=chunk,
             keyword_enabled=bool(keyword.get("enabled", True)),
+            keyword_engine=str(keyword.get("engine", "bm25")),
             semantic_enabled=bool(semantic.get("enabled", True)),
             structured_enabled=bool(structured.get("enabled", True)),
             graph_enabled=bool(graph.get("enabled", True)),

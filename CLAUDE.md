@@ -53,6 +53,27 @@ re-imported by `build`. The repository wins on conflict, so a review decision
 recorded there survives a rebuild. Same reasoning as the inference queue:
 anything arriving from outside travels in the repository.
 
+**The published ask box answers in the browser.** `browser_index.py` exports the
+corpus (336 KB gzipped for kb-001) and `web/static/engine.js` reimplements
+retrieval, the gates, extraction and grounding in JavaScript. No model, no
+server, no key, milliseconds per answer.
+
+That is a second implementation of graded behaviour, so parity is tested, not
+hoped for: `tests/test_browser_parity.py` compares verdict, evidence ordering
+*and answer text* against Python over every suite question, on the real corpus
+when one is built. Comparing statuses alone is not enough — a threshold can
+move a long way without flipping one, and the first question it flips would be
+a reader's. Mutation-checked: 8 of 11 deliberate breaks are caught; the misses
+are paths the suite does not exercise (responsiveness threshold, prose filter,
+numeric-cue boost).
+
+Parity required one production change: **keyword retrieval now uses BM25 over
+foundry's own tokenizer**, not SQLite FTS5's. `text.py` opens by saying
+tokenisation must not drift between components; keyword retrieval was the one
+that had, invisibly, until a second implementation had to agree with it. Worth
+78/103 against FTS5's 79 and the hybrid's 77. `retrieval.keyword.engine: fts5`
+restores the old one.
+
 `Specialist.ask` is `prepare()` + `judge()`. `prepare` runs retrieval, the gates
 and prompt assembly, and either settles the turn or hands back a prompt. `judge`
 runs validation and scoring over whatever a model returned. The split is what
@@ -93,7 +114,7 @@ python -m foundry.cli apply <ka>         # validate + score queued replies
 python -m foundry.cli deploy --base-url /knowledge-foundry
 python -m foundry.cli doctor
 python -m foundry.cli intake --body-file b.md --challenge-id ch_issue_1   # public ask path
-python -m pytest -q                      # 345 tests
+python -m pytest -q                      # 358 tests (parity needs node)
 ```
 
 ## Current state
