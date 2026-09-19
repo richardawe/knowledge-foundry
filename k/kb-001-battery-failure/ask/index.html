@@ -60,6 +60,9 @@
         color:var(--ink); }
   button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
            background:var(--accent); color:#fff; cursor:pointer; }
+  a.button { display:inline-block; text-decoration:none; padding:9px 18px;
+             border-radius:6px; border:1px solid var(--accent);
+             background:var(--accent); color:#fff; }
   .banner { border-left:3px solid var(--accent); padding:10px 14px;
             background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
   ul.tight { margin:.4em 0; padding-left:1.2em; }
@@ -72,7 +75,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T07:39</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T11:45</span>
   </div>
 </header>
 <main class="wrap">
@@ -104,9 +107,29 @@
   </form>
 
   <div id="ask-offline" class="banner" hidden>
-    <strong>Nothing is answering yet.</strong>
-    This page is the interface; the engine runs where your knowledge and your
-    model are. One command, from nothing:
+    <strong>No instance is answering, so ask it here instead.</strong>
+    <p>
+      Opening an issue puts your question through the real thing: the same
+      retrieval, the same gates, the same grounding validation every evaluation
+      question gets. A workflow answers it and posts the reply, with the sources
+      it cited and the scores it earned.
+      <br><strong><a class="button"
+        href="https://github.com/richardawe/knowledge-foundry/issues/new?template=ask.yml&amp;knowledge-area=kb-001-battery-failure"
+        >Ask the specialist &rarr;</a></strong>
+    </p>
+    <p class="small">
+      It takes a few minutes, not a few seconds — there is no server to be
+      instant. What you get instead is a record: your question is kept as a
+      <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">challenge</a>,
+      and if the answer is wrong and you say so, it can be promoted into the
+      permanent evaluation suite. A complaint that becomes a test cannot be
+      made twice.
+    </p>
+
+    <p class="small muted" style="margin-top:18px">
+      <strong>Or run it yourself</strong>, and the box above answers directly.
+      This page is the interface; the engine runs where your knowledge and your
+      model are. One command, from nothing:</p>
     <pre>git clone https://github.com/richardawe/knowledge-foundry
 cd knowledge-foundry &amp;&amp; ./start.sh</pre>
     <p class="small">

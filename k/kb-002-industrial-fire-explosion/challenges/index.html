@@ -60,6 +60,9 @@
         color:var(--ink); }
   button { font:inherit; padding:9px 18px; border-radius:6px; border:1px solid var(--accent);
            background:var(--accent); color:#fff; cursor:pointer; }
+  a.button { display:inline-block; text-decoration:none; padding:9px 18px;
+             border-radius:6px; border:1px solid var(--accent);
+             background:var(--accent); color:#fff; }
   .banner { border-left:3px solid var(--accent); padding:10px 14px;
             background:var(--panel); border-radius:0 6px 6px 0; margin:16px 0; }
   ul.tight { margin:.4em 0; padding-left:1.2em; }
@@ -72,7 +75,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T07:39</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T11:45</span>
   </div>
 </header>
 <main class="wrap">
@@ -92,12 +95,20 @@
 
 <h2>Submit a challenge</h2>
 <div class="banner">
-  A published snapshot cannot accept submissions. Open an issue on
-  <a href="https://github.com/richardawe/knowledge-foundry/issues">the repository</a>,
-  or record one against a local build:
-  <pre>foundry challenge kb-002-industrial-fire-explosion add \
+  <p>
+    A published snapshot cannot accept a form submission — but it does not need
+    to. Open an issue and a workflow answers your question for real, records it
+    here, and posts the reply with its evidence.
+    <br><strong><a class="button"
+      href="https://github.com/richardawe/knowledge-foundry/issues/new?template=ask.yml&amp;knowledge-area=kb-002-industrial-fire-explosion"
+      >Ask it, or tell it it is wrong &rarr;</a></strong>
+  </p>
+  <p class="small">
+    Against a local build, the same thing from the command line:
+    <pre>foundry challenge kb-002-industrial-fire-explosion add \
   --question "..." --problem "..." --expected "..."</pre>
-  Accepted challenges are promoted into the evaluation suite.
+    Accepted challenges are promoted into the evaluation suite.
+  </p>
 </div>
 
 <h2>Submitted (0)</h2>
