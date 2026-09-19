@@ -19,8 +19,8 @@ architecture and the reasoning behind each choice.
 
 | Knowledge area | Domain | Sources | Passages | Eval questions |
 |---|---|---|---|---|
-| `kb-001-battery-failure` | Lithium-ion battery failure and thermal runaway | 34 (29 indexed, 5 pointer-only) | ~1,270 | 100 |
-| `kb-002-industrial-fire-explosion` | Industrial fire and explosion hazards | 13 (11 indexed, 2 pointer-only) | ~190 | 27 |
+| `kb-001-battery-failure` | Lithium-ion battery failure and thermal runaway | 34 (29 indexed, 5 pointer-only) | ~1,270 | 103 |
+| `kb-002-industrial-fire-explosion` | Industrial fire and explosion hazards | 13 (11 indexed, 2 pointer-only) | ~190 | 30 |
 
 KA-002 exists to prove the point of the whole project: it was built by adding a
 directory of YAML and Markdown, with **no changes under `src/foundry/`**. A test
@@ -39,6 +39,20 @@ actually gave — failures included. It is rendered from the same templates the
 live server uses, so the snapshot cannot drift from the system.
 
 **The ask box on that page works, with or without anything running.**
+
+With **nothing running anywhere**, there is still a way to ask the real thing:
+[open an issue with the *Ask the specialist* form](https://github.com/richardawe/knowledge-foundry/issues/new?template=ask.yml).
+A workflow builds the corpus, answers the question through the same retrieval,
+gates and grounding validation every evaluation question goes through, and posts
+the reply with its sources and its scores. It takes a few minutes rather than a
+few seconds — there is no server to be instant.
+
+What that buys is worth the wait. The exchange is recorded as a **challenge**,
+committed to this repository, and shown on the knowledge area's challenges page.
+If the answer is wrong and you say so, it can be promoted into the permanent
+evaluation suite, which means the same mistake cannot be made twice without a
+test failing. A chat box produces a conversation nobody can audit afterwards;
+this produces a record sitting next to the tests it can become.
 
 With **nothing running**, it searches the 103 answers the system has already
 given — published as static JSON by the machine that produced them — and shows
@@ -199,6 +213,31 @@ reply is discarded rather than scored.
 ./worker.sh          # or: make worker
 ```
 
+### And a third path, with no machine of yours at all
+
+The split above moves the *model* off the runner. The public ask path moves the
+*whole question* onto it: someone opens an issue, `.github/workflows/ask.yml`
+answers it, and the reply is posted back.
+
+```
+a person opens an issue          GitHub Actions
+─────────────────────────        ──────────────────────────────────
+"Ask the specialist" form  ────▶ build the corpus
+                                 retrieve -> gates -> answer
+                                 validate, score, record a challenge
+                           ◀──── post the reply; republish the site
+```
+
+This is the same trick as the queue — the repository is the transport — applied
+to questions arriving from outside rather than prompts going out. It needs no
+host, puts no API key in anybody's browser, and every exchange lands in
+`knowledge_areas/<id>/challenges/` as durable repository state rather than in a
+cache that a cold runner throws away.
+
+The model for that path is configured by repository secret rather than by the
+manifest, so it can be a hosted one. See
+[`DEPLOYMENT.md`](DEPLOYMENT.md#answering-public-questions-without-a-host).
+
 ## How it works
 
 ```
@@ -292,9 +331,13 @@ This is a working MVP, not a finished product.
   selects and cites. It cannot hallucinate, which makes it a useful control, but
   its prose is stitched rather than written. Point the manifest at a hosted model
   and the evaluation suite will tell you whether that is worth paying for.
-* KA-001 currently passes **76 of its 103** evaluation questions, KA-002 20 of 27.
-  The failures are published on the evidence page rather than hidden, and most are
-  generation failures rather than retrieval failures — retrieval recall is 0.96.
+* KA-001 currently passes **76 of its 103** evaluation questions, KA-002 **20 of its
+  30**. The failures are published on the evidence page rather than hidden, and most
+  are generation failures rather than retrieval failures — retrieval recall is 0.96.
+* **No expert has challenged it yet.** The path is now open — anyone can ask via
+  an issue, and every exchange is recorded — but a challenge count of zero is a
+  fact about this project, not a feature of it. §14 of the brief is only half
+  built until people are actually using it.
 * The scope gate is lexical and misses paraphrased out-of-domain questions; the
   sufficiency gate catches most of what it misses. This is measured, not assumed.
 * The grounding checker is lexical. It catches fabricated numbers and quotations

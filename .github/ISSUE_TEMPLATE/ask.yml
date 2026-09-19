@@ -1,0 +1,61 @@
+name: Ask the specialist
+description: Ask a question, check the evidence it cites, and tell us where it is wrong.
+title: "[ask] "
+labels: ["ask"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Don't trust it. Test it.**
+
+        Open this and a workflow answers your question from the stored corpus,
+        through the same retrieval, gates and grounding validation every
+        evaluation question goes through. The answer is posted back here with
+        the sources it cited and the scores it earned.
+
+        It is not instant — it takes as long as a workflow takes, usually a few
+        minutes. In exchange, nothing about the exchange is ephemeral: your
+        question is recorded as a **challenge**, and if the answer is wrong and
+        you say so, it can be promoted into the permanent evaluation suite. That
+        is the point. A complaint that becomes a test cannot be made twice.
+
+        The system is *supposed* to refuse questions its sources cannot settle.
+        A refusal is not a bug — but a refusal you think is wrong is worth
+        reporting, and so is an answer that sounds confident and isn't.
+  - type: dropdown
+    id: knowledge-area
+    attributes:
+      label: Knowledge area
+      description: Which specialist should answer.
+      options:
+        - kb-001-battery-failure
+        - kb-002-industrial-fire-explosion
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: >-
+        One question, as specific as you can make it. Naming the conditions you
+        mean — the chemistry, the format, the standard, the jurisdiction — gets
+        a better answer than a broad one does, and an under-specified question
+        may be refused as ambiguous rather than guessed at.
+      placeholder: What watt-hour limit applies to a spare battery in cabin baggage?
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What do you think is wrong? (optional)
+      description: >-
+        If you are re-asking something it already got wrong, say what was wrong
+        with it. This chooses how the challenge is graded if it is promoted.
+      placeholder: It cited a superseded revision, and the figure changed in the current one.
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should it have said or done? (optional)
+      description: >-
+        The correct answer, or "it should have declined". This becomes the
+        assertion in the promoted test, so be precise.

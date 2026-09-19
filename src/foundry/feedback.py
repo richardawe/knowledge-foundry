@@ -35,24 +35,35 @@ def add_challenge(
     submitted_by: str = "anonymous",
     expected: str = "",
     system_answer: str = "",
+    challenge_id: str | None = None,
 ) -> str:
     """Record a challenge, capturing what the system said at the time.
 
     The answer is stored with the complaint because a challenge that cannot be
     reproduced later is not evidence of anything -- and the system's answer
     will change as the knowledge area is rebuilt.
+
+    ``challenge_id`` lets a caller supply a stable id derived from wherever the
+    challenge arrived from. A submission that can be replayed -- a workflow
+    re-run, a webhook delivered twice -- must land on the same row rather than
+    accumulating near-duplicate complaints about one question.
     """
     question = (question or "").strip()
     if not question:
         raise ValueError("a challenge needs a question")
 
-    digest = hashlib.sha256(f"{question}{submitted_by}{utcnow()}".encode()).hexdigest()[:12]
-    challenge_id = f"ch_{digest}"
+    if not challenge_id:
+        digest = hashlib.sha256(f"{question}{submitted_by}{utcnow()}".encode()).hexdigest()[:12]
+        challenge_id = f"ch_{digest}"
     with store.transaction() as conn:
         conn.execute(
             "INSERT INTO challenges"
             "(id, submitted_by, question, claimed_problem, expected, system_answer,"
-            " status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            " status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            " ON CONFLICT(id) DO UPDATE SET"
+            " submitted_by=excluded.submitted_by, question=excluded.question,"
+            " claimed_problem=excluded.claimed_problem, expected=excluded.expected,"
+            " system_answer=excluded.system_answer",
             (
                 challenge_id, submitted_by or "anonymous", question,
                 claimed_problem, expected, system_answer, OPEN, utcnow(),
@@ -166,3 +177,85 @@ def challenge_stats(store: Store) -> dict:
     counts = {row["status"]: row["n"] for row in rows}
     counts["total"] = sum(counts.values())
     return counts
+
+
+# -- repository-durable challenges (§14) ---------------------------------
+#
+# A challenge submitted from outside must outlive the build cache. The store
+# lives in ``var/``, which is disposable by design -- it is rebuilt from the
+# source register and thrown away between runners. A complaint from a person
+# who knows the domain is not derivable from the sources, so if it lives only
+# there, a cache eviction silently destroys the one dataset the factory cannot
+# regenerate.
+#
+# So the repository holds the record and the store holds a copy. Same reasoning
+# as the inference queue: state that arrives from outside travels in the
+# repository, because that is the only thing here that is actually durable.
+
+CHALLENGE_DIRNAME = "challenges"
+_CHALLENGE_FIELDS = (
+    "id", "submitted_by", "question", "claimed_problem", "expected",
+    "system_answer", "status", "created_at", "promoted_to", "notes",
+)
+
+
+def challenges_dir(manifest: Manifest):
+    return manifest.resolve(CHALLENGE_DIRNAME)
+
+
+def write_challenge_file(manifest: Manifest, record: dict) -> str:
+    """Persist one challenge as repository state, one file per challenge."""
+    directory = challenges_dir(manifest)
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / f"{record['id']}.yaml"
+    payload = {key: record.get(key) or "" for key in _CHALLENGE_FIELDS}
+    path.write_text(
+        yaml.safe_dump(payload, sort_keys=False, allow_unicode=True, width=100),
+        encoding="utf-8",
+    )
+    return str(path)
+
+
+def read_challenge_files(manifest: Manifest) -> list[dict]:
+    directory = challenges_dir(manifest)
+    if not directory.is_dir():
+        return []
+    records = []
+    for path in sorted(directory.glob("*.yaml")):
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if data.get("id") and data.get("question"):
+            records.append(data)
+    return records
+
+
+def import_challenges(manifest: Manifest, store: Store) -> int:
+    """Restore repository-held challenges into a freshly built store.
+
+    Idempotent, and the repository wins: a rebuild must not resurrect a
+    challenge that was deleted, nor drop the status a review has since given
+    one. Called from ``build`` so the public page survives a cold runner.
+    """
+    records = read_challenge_files(manifest)
+    if not records:
+        return 0
+    with store.transaction() as conn:
+        for record in records:
+            conn.execute(
+                "INSERT INTO challenges"
+                "(id, submitted_by, question, claimed_problem, expected, system_answer,"
+                " status, created_at, promoted_to, notes)"
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                " ON CONFLICT(id) DO UPDATE SET"
+                " submitted_by=excluded.submitted_by, question=excluded.question,"
+                " claimed_problem=excluded.claimed_problem, expected=excluded.expected,"
+                " system_answer=excluded.system_answer, status=excluded.status,"
+                " promoted_to=excluded.promoted_to, notes=excluded.notes",
+                (
+                    record["id"], record.get("submitted_by") or "anonymous",
+                    record["question"], record.get("claimed_problem") or "",
+                    record.get("expected") or "", record.get("system_answer") or "",
+                    record.get("status") or OPEN, record.get("created_at") or utcnow(),
+                    record.get("promoted_to") or None, record.get("notes") or "",
+                ),
+            )
+    return len(records)

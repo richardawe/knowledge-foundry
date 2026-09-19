@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
 from . import paths
 from .manifest import Manifest, ManifestError, list_knowledge_areas
@@ -109,6 +110,7 @@ def cmd_index(args) -> int:
 def cmd_build(args) -> int:
     """Ingest, index and cut a draft version -- the whole build in one command."""
     from .ingest import ingest_knowledge_area
+    from .feedback import import_challenges
     from .retrieval import build_semantic_index
     from .versioning import cut_version
 
@@ -118,6 +120,9 @@ def cmd_build(args) -> int:
             manifest, store, force=args.force, rebuild=args.rebuild, offline=args.offline
         )
         index = build_semantic_index(manifest, store)
+        # Challenges arrive from people, not from sources, so a rebuilt store
+        # cannot derive them. The repository holds them; restore them here.
+        import_challenges(manifest, store)
         version = cut_version(manifest, store, notes=args.notes or "")
     if args.json:
         _emit(
@@ -144,6 +149,62 @@ def cmd_ask(args) -> int:
         _emit(answer.as_dict(), True)
     else:
         print(answer.render())
+    return 0
+
+
+def cmd_intake(args) -> int:
+    """Answer a question submitted from outside, and record the exchange.
+
+    The body arrives on disk rather than on the command line: it is untrusted
+    text of arbitrary length, and a workflow that interpolates it into a shell
+    command has handed a stranger the runner.
+    """
+    from .intake import IntakeError, handle, render_refusal, submission_from_body
+    from .llm import KeylessProviderRefused
+
+    body = Path(args.body_file).read_text(encoding="utf-8")
+    try:
+        submission = submission_from_body(
+            body, submitted_by=args.author or "anonymous", reference=args.reference or ""
+        )
+    except IntakeError as exc:
+        if args.comment_out:
+            Path(args.comment_out).write_text(render_refusal(exc), encoding="utf-8")
+        print(f"error: {exc}", file=sys.stderr)
+        return 3
+
+    manifest = _load(submission.knowledge_area)
+    try:
+        with _store(manifest) as store:
+            result = handle(
+                manifest,
+                store,
+                submission,
+                challenge_id=args.challenge_id,
+                require_model=args.require_model,
+            )
+    except KeylessProviderRefused:
+        # The underlying message is written for the worker, which is not what
+        # went wrong here. Whoever reads this is a person waiting for an answer,
+        # not the operator who misconfigured it.
+        refusal = IntakeError(
+            "This knowledge area is configured to answer with a real model, and "
+            "no model is reachable from here. Rather than answer from the corpus "
+            "and let that reply stand where a model's would, the system is "
+            "declining. Nothing about your question was wrong -- please try "
+            "again later."
+        )
+        if args.comment_out:
+            Path(args.comment_out).write_text(render_refusal(refusal), encoding="utf-8")
+        print(f"error: {refusal}", file=sys.stderr)
+        return 4
+
+    if args.comment_out:
+        Path(args.comment_out).write_text(result.comment, encoding="utf-8")
+    if args.json:
+        _emit(result.as_dict(), True)
+    else:
+        print(result.comment)
     return 0
 
 
@@ -425,6 +486,22 @@ def build_parser() -> argparse.ArgumentParser:
     ask.add_argument("question")
     ask.add_argument("--top-k", type=int, default=None)
     ask.set_defaults(func=cmd_ask)
+
+    intake = sub.add_parser(
+        "intake", help="answer a question submitted from outside and record it"
+    )
+    intake.add_argument("--body-file", required=True, help="rendered issue-form body")
+    intake.add_argument("--challenge-id", required=True, help="stable id, e.g. from the issue")
+    intake.add_argument("--author", default="anonymous")
+    intake.add_argument("--reference", default="", help="where it came from, e.g. an issue URL")
+    intake.add_argument("--comment-out", default="", help="write the rendered reply here")
+    intake.add_argument("--json", action="store_true")
+    intake.add_argument(
+        "--require-model",
+        action="store_true",
+        help="refuse to answer with a keyless provider (see `worker`)",
+    )
+    intake.set_defaults(func=cmd_intake)
 
     evaluate = add_ka(sub.add_parser("eval", help="run the evaluation suites"))
     evaluate.add_argument("--suite", action="append", help="suite file (repeatable)")
