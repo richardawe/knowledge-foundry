@@ -82,6 +82,14 @@ OUT_OF_SCOPE_TEMPLATE = (
     "This question is outside the declared scope of {name}. "
     "This knowledge area covers: {in_scope}."
 )
+NO_REPRODUCTION_TEMPLATE = (
+    "This asks for the text of {title}, which this knowledge area registers as "
+    "a pointer and does not store: {licence}. Nothing of its wording is held "
+    "here, so nothing of its wording can be returned. Other sources that "
+    "describe it can be cited, and the register records where the original "
+    "can be obtained -- ask what it requires rather than what it says, and the "
+    "question becomes answerable."
+)
 IRRELEVANT_TEMPLATE = (
     "A draft answer was generated, correctly cited and fully traceable to the "
     "evidence -- and it did not answer the question. It never engaged with: "
@@ -149,6 +157,64 @@ class Specialist:
         in_score = best(scope.in_scope) if scope.in_scope else 0.0
         in_scope = not (out_score >= 0.5 and out_score > in_score)
         return in_scope, in_score, out_score
+
+    # -- gate 1b: what the licence does not allow -------------------------
+
+    # A request to hand back a source's own words, rather than an answer drawn
+    # from them. Plain English, kept here rather than in a manifest because the
+    # phrasing is a property of the request, not of any domain.
+    _VERBATIM_CUES = (
+        "word for word", "verbatim", "reproduce", "quote", "exact text",
+        "exact wording", "full text", "recite", "transcribe", "in full",
+        "copy of the", "read out the",
+    )
+
+    def reproduction_refused(self, question: str) -> tuple[bool, str, str]:
+        """Is this a request to quote a source the licence forbids storing?
+
+        Some sources are registered as pointers: the register names them, the
+        corpus holds none of their text, and the governance notes say plainly
+        that the system can tell you such a standard exists and is relevant but
+        cannot quote its clauses.
+
+        Nothing enforced that. Asked to reproduce one word for word, the
+        specialist retrieved secondary sources that merely *mention* it and
+        answered from those -- grounded, correctly cited, and reading as though
+        it had complied. Four such questions in the shipped suites abstained
+        anyway, but for unrelated reasons: no sentence happened to clear the
+        selection threshold. A licence guarantee resting on retrieval luck is
+        not a guarantee, and the fifth question is what luck running out looks
+        like.
+
+        So the check is made explicitly, from the register rather than from the
+        evidence, and before retrieval: the answer does not depend on what was
+        retrieved, only on what may be reproduced.
+        """
+        lowered = (question or "").lower()
+        if not any(cue in lowered for cue in self._VERBATIM_CUES):
+            return False, "", ""
+
+        terms = content_terms(question)
+        if not terms:
+            return False, "", ""
+
+        for row in self.store.pointer_sources():
+            # The id is a deliberate slug and usually carries the designation
+            # more cleanly than the prose title does: a title may spell out a
+            # number the asker wrote as one token, so matching the title alone
+            # missed a source the question named unmistakably.
+            title_terms = content_terms(row["title"]) | content_terms(row["id"].replace("-", " "))
+            shared = terms & title_terms
+            # Only a designation identifies a standard -- the numbered part.
+            # Allowing any two shared words instead matched "Quote the Widget
+            # Overheating Handbook" against "Widget Standard 9000" on the words
+            # "widget" and "text", refusing a source whose text is held. Under-
+            # refusing costs an adjacent answer; over-refusing withholds one the
+            # licence permits, and the text of a pointer source is not stored to
+            # be leaked in the first place.
+            if any(any(ch.isdigit() for ch in term) for term in shared):
+                return True, row["title"], (row["licence"] or "")
+        return False, "", ""
 
     # -- gate 2: sufficiency ---------------------------------------------
 
@@ -397,6 +463,21 @@ class Specialist:
                     confidence=CONFIDENCE_NONE,
                     limitations=self._limitations([], _EmptyValidation(), OUT_OF_SCOPE),
                     retrieval={"scope_in": round(in_score, 3), "scope_out": round(out_score, 3)},
+                )))
+
+        # Gate 1b -- reproduction. Before retrieval, because what may be
+        # reproduced is a property of the register, not of what was retrieved.
+        refused, title, licence = self.reproduction_refused(question)
+        if refused:
+            return Prepared(question=question, knowledge_area=area, answer=self._finish(
+                Answer(
+                    question=question, knowledge_area=area,
+                    status=INSUFFICIENT_EVIDENCE,
+                    answer=NO_REPRODUCTION_TEMPLATE.format(
+                        title=title, licence=licence or "its licence"),
+                    confidence=CONFIDENCE_NONE,
+                    limitations=self._limitations([], _EmptyValidation(), INSUFFICIENT_EVIDENCE),
+                    retrieval={"reproduction_refused": title},
                 )))
 
         retrieval = self.retriever.retrieve(question, top_k=top_k)

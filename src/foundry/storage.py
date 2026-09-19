@@ -336,6 +336,20 @@ class Store:
             self.conn.execute("SELECT * FROM sources ORDER BY authority DESC, id")
         )
 
+    def pointer_sources(self) -> list[sqlite3.Row]:
+        """Sources the register names but whose text is not held.
+
+        The licence guarantee depends on this list being consultable without
+        going through retrieval: what may be reproduced is a property of the
+        register, and asking the evidence instead only ever finds whatever
+        happens to mention the thing.
+        """
+        return list(
+            self.conn.execute(
+                "SELECT * FROM sources WHERE mirrored = 0 ORDER BY authority DESC, id"
+            )
+        )
+
     # -- documents & chunks ----------------------------------------------
 
     def replace_document(

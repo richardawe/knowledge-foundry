@@ -67,6 +67,10 @@ def build_browser_index(manifest: Manifest, store: Store) -> dict:
             "published_at": row["published_at"] or "",
             "retrieved_at": (row["retrieved_at"] or "")[:10],
             "licence": row["licence"] or "",
+            # The licence guarantee is enforced from the register, so the
+            # register's own flag has to travel. Without it the page would
+            # happily quote round a source the pipeline refuses to.
+            "mirrored": bool(row["mirrored"]),
         }
 
     chunks = [

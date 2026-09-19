@@ -265,6 +265,19 @@ def test_the_engines_agree_on_a_real_corpus(ka_id, monkeypatch):
         "Who won the mayoral election in Bristol?",
     ]
 
+    # Every shipped question that asks for a verbatim reproduction names a
+    # source the register holds only as a pointer, so nothing exercised the
+    # other half of that gate: a request to quote a source whose text *is*
+    # held, which must still be answered. Refusing those would be the more
+    # damaging failure and no test would have seen it.
+    with Store(ka_id) as probe:
+        held = [
+            row["title"] for row in probe.sources()
+            if row["mirrored"] and row["status"] == "indexed"
+        ][:3]
+    questions += [f"Quote the exact text of {title}." for title in held]
+    questions += [f"Reproduce what {title} says, word for word." for title in held]
+
     with Store(ka_id) as store:
         payload, _report = render_browser_index(manifest, store)
         js = _node(_VERDICTS, {"corpus": json.loads(payload), "questions": questions})

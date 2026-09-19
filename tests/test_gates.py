@@ -164,3 +164,72 @@ def test_a_shipped_manifest_means_what_it_says(ka_id, monkeypatch):
         loaded.min_question_coverage
         == raw["specialist"]["responsiveness"]["min_question_coverage"]
     )
+
+
+# -- the licence guarantee, enforced rather than hoped for ---------------
+
+
+def test_a_request_to_quote_an_unstored_source_is_refused_by_the_register(built):
+    """The register says the text is not held. That must be the reason given.
+
+    Five such questions ship across the two real knowledge areas and four of
+    them abstained already -- for unrelated reasons, because no sentence
+    happened to clear the selection threshold. The fifth answered from a
+    secondary source that merely mentioned the standard, grounded and correctly
+    cited, reading as though it had complied. A licence guarantee resting on
+    retrieval luck is not a guarantee.
+    """
+    manifest, store = built
+    specialist = Specialist(manifest, store)
+
+    answer = specialist.ask("Quote the exact text of Widget Standard 9000 word for word.")
+
+    assert answer.abstained
+    assert "does not store" in answer.answer
+    assert "Widget Standard 9000" in answer.answer
+    # Decided from the register, so it names no evidence at all.
+    assert answer.retrieval.get("reproduction_refused")
+    assert answer.sources == []
+
+
+def test_the_refusal_says_what_can_be_asked_instead(built):
+    manifest, store = built
+    answer = Specialist(manifest, store).ask("Reproduce Widget Standard 9000 in full.")
+    assert "describe it can be cited" in answer.answer
+
+
+@pytest.mark.parametrize("question", [
+    # Names the source but asks what it requires, which is answerable.
+    "What does Widget Standard 9000 require for inspection?",
+    # Asks for a verbatim quote of something the corpus actually holds.
+    "Quote the exact text of the Widget Overheating Handbook on venting.",
+    # No designation at all.
+    "At what core temperature does widget overheating begin?",
+])
+def test_the_gate_does_not_refuse_what_it_may_answer(built, question):
+    """Over-refusing is the more damaging failure of the two.
+
+    Nothing in the shipped suites asks to quote a source whose text *is* held,
+    so this half of the gate had no coverage at all until it was written.
+    """
+    manifest, store = built
+    answer = Specialist(manifest, store).ask(question)
+    assert not answer.retrieval.get("reproduction_refused"), answer.answer[:120]
+
+
+def test_the_gate_runs_before_retrieval(built):
+    """What may be reproduced is a property of the register.
+
+    Asking the evidence instead only ever finds whatever happens to mention the
+    thing -- which is precisely how the failing answer was produced.
+    """
+    manifest, store = built
+    specialist = Specialist(manifest, store)
+
+    class Exploding:
+        def retrieve(self, *a, **k):
+            raise AssertionError("retrieval ran before the licence was checked")
+
+    specialist.retriever = Exploding()
+    answer = specialist.ask("Reproduce Widget Standard 9000 word for word.")
+    assert answer.abstained

@@ -391,6 +391,40 @@ function scopeCheck(corpus, question) {
   return { inScope: !(outScore >= 0.5 && outScore > inScore), inScore, outScore };
 }
 
+/* A request to hand back a source's own words, rather than an answer drawn
+ * from them. Plain English: a property of the request, not of any domain. */
+const VERBATIM_CUES = ["word for word", "verbatim", "reproduce", "quote", "exact text",
+  "exact wording", "full text", "recite", "transcribe", "in full", "copy of the",
+  "read out the"];
+
+/* Gate 1b: is this a request to quote a source the licence forbids storing?
+ *
+ * Decided from the register rather than the evidence, and before retrieval,
+ * because what may be reproduced is a property of the source and not of
+ * whatever happened to match. Asking the evidence instead only ever finds the
+ * secondary sources that mention the thing, and answering from those reads as
+ * though the system had complied. */
+function reproductionRefused(corpus, question) {
+  const lowered = String(question || "").toLowerCase();
+  if (!VERBATIM_CUES.some((cue) => lowered.includes(cue))) return null;
+  const terms = contentTerms(question);
+  if (!terms.size) return null;
+
+  for (const source of Object.values(corpus.sources)) {
+    if (source.mirrored !== false) continue;
+    const titleTerms = contentTerms(source.title);
+    for (const t of contentTerms(String(source.id).replace(/-/g, " "))) titleTerms.add(t);
+    // Only a designation identifies a standard. Any-two-shared-words matched
+    // a held source on generic vocabulary and refused a question the licence
+    // permits, which is the more damaging direction of the two.
+    const shared = [...terms].filter((t) => titleTerms.has(t));
+    if (shared.some((t) => /\d/.test(t))) {
+      return { title: source.title, licence: source.licence || "" };
+    }
+  }
+  return null;
+}
+
 /* Fewer than three content terms and the question cannot have specified a
  * chemistry, a format or a condition. */
 function specificEnough(question) {
@@ -467,6 +501,16 @@ function looksLikeProse(sentence) {
   return true;
 }
 
+/* A marker inside a selected sentence belongs to the source's own
+ * bibliography, not to this answer's evidence list. Left in place it is
+ * indistinguishable from a citation this engine made, and the validator
+ * resolves it against ranks that do not exist. */
+const SOURCE_FOOTNOTE_RE = /\s*\[\d+\]/g;
+
+function stripSourceFootnotes(sentence) {
+  return sentence.replace(SOURCE_FOOTNOTE_RE, "").trim();
+}
+
 const MIN_SENTENCE_SCORE = 0.30;
 const MAX_SENTENCES = 5;
 
@@ -496,7 +540,10 @@ function extractiveAnswer(question, evidence) {
 
   const scored = [];
   for (const item of evidence) {
-    sentences(item.text).forEach((sentence, position) => {
+    // Stripped before splitting: a source writes "...oxygen).[1] A fire..."
+    // with no space after the stop, so the splitter does not break there and
+    // three claims would be emitted under one citation.
+    sentences(stripSourceFootnotes(item.text)).forEach((sentence, position) => {
       sentence = sentence.trim();
       if (!looksLikeProse(sentence)) return;
       const score = scoreSentence(sentence, questionTerms, question, weights);
@@ -523,7 +570,7 @@ function extractiveAnswer(question, evidence) {
   }
   selected.sort((a, b) => a.rank - b.rank || a.position - b.position);
 
-  const body = selected.map((s) => `${s.sentence} [${s.rank}]`).join(" ");
+  const body = selected.map((s) => `${stripSourceFootnotes(s.sentence)} [${s.rank}]`).join(" ");
   const cited = [...new Set(selected.map((s) => s.rank))].sort((a, b) => a - b);
   const reasoning = "This answer is assembled from the cited passages (" +
     cited.map((r) => `[${r}]`).join(", ") + ") without inference beyond them.";
@@ -535,50 +582,129 @@ function extractiveAnswer(question, evidence) {
  * ------------------------------------------------------------------------- */
 
 const META_RE = /\b(evidence (is|was) (not )?(sufficient|insufficient)|this answer is|the sources? (do not|does not|available)|i (cannot|can't|could not)|no (relevant )?evidence|not enough (evidence|information)|out of scope|assembled from the cited|without inference beyond|based on the cited (passages|evidence|sources))\b/i;
-const APPARATUS_TERMS = new Set(["cite","cited","citation","citations","passage","passages","source",
-  "sources","stated","state","states","according","above","below","section","quoted","quote",
-  "reference","referenced","answer","question","excerpt","extract","document","text","directly",
-  "taken","drawn","provided","given","shown","evidence"]);
+const SECTION_HEADING_RE = /^(ANSWER|REASONING|SOURCES|LIMITATIONS|CONFIDENCE)\b/i;
+const QUOTED_RE = /"([^"]{4,120})"/g;
+const APPARATUS_TERMS = new Set(["above","according","answer","below","citation","citations","cite",
+  "cited","directly","document","drawn","evidence","excerpt","extract","given","passage","passages",
+  "provided","question","quote","quoted","reference","referenced","section","shown","source",
+  "sources","state","stated","states","taken","text"]);
+const APPARATUS_SHARE = 0.5;
 
+function stripCitations(text) {
+  return String(text || "").replace(/\[(\d+)\]/g, " ");
+}
+
+function extractCitations(text) {
+  return [...String(text || "").matchAll(/\[(\d+)\]/g)].map((m) => Number(m[1]));
+}
+
+function quotedSpans(text) {
+  return new Set([...String(text || "").matchAll(QUOTED_RE)].map((m) => m[1].trim().toLowerCase()));
+}
+
+/* A sentence about the answer rather than about the world.
+ *
+ * The second test is statistical, and exists because a sentence that narrates
+ * its own citations asserts nothing but fails grounding when graded as a
+ * claim -- and on a short answer that is enough to drag a correct answer over
+ * the unsupported threshold. Carrying a figure or a quotation exempts it:
+ * "The source states the limit is 100 Wh" is still checked. */
+function isMeta(sentence) {
+  sentence = sentence.trim();
+  if (META_RE.test(sentence) || SECTION_HEADING_RE.test(sentence)) return true;
+  // Citation markers are numerals; counting "[1]" as a stated figure would
+  // make every cited sentence look like it carries one.
+  const bare = stripCitations(sentence);
+  if (numbersWithUnits(bare).size || quotedSpans(bare).size) return false;
+  const terms = contentTerms(bare);
+  if (terms.size < 2) return false;
+  let apparatus = 0;
+  for (const t of terms) if (APPARATUS_TERMS.has(t) || APPARATUS_TERMS.has(t + "e")) apparatus += 1;
+  return apparatus / terms.size >= APPARATUS_SHARE;
+}
+
+function stripTrailingUnit(n) {
+  return n.replace(/[a-z\u00b0%]+$/, "");
+}
+
+/* Check an answer against the evidence it was given.
+ *
+ * A faithful port, and it has to be: an earlier looser version agreed with
+ * Python on the questions that happened to come up and diverged the moment a
+ * different sentence was selected. Citations carrying to following uncited
+ * sentences, the three-term floor, and the all-evidence fallback for
+ * connective prose are each load-bearing. */
 function validateAnswer(answerText, evidence, minSupport) {
   const byRank = new Map(evidence.map((e) => [e.rank, e]));
+  const allTerms = new Set();
+  for (const item of evidence) for (const t of contentTerms(item.text)) allTerms.add(t);
+
   const checks = [];
-  let citedRanks = new Set();
-  let resolvable = 0;
-  let citations = 0;
+  const citedRanks = new Set();
+  let totalCitations = 0;
+  let invalidCitations = 0;
+  let carried = [];
 
-  for (const sentence of sentences(answerText)) {
-    const marks = [...sentence.matchAll(CITATION_RE)].map((m) => Number(m[1]));
-    citations += marks.length;
-    for (const r of marks) if (byRank.has(r)) { resolvable += 1; citedRanks.add(r); }
-    const bare = sentence.replace(CITATION_RE, " ").trim();
-    const terms = contentTerms(bare);
-    if (!terms.size || META_RE.test(bare)) continue;
-    const apparatus = [...terms].filter((t) => APPARATUS_TERMS.has(t)).length;
-    if (terms.size && apparatus / terms.size >= 0.5 && !numbersWithUnits(bare).size) continue;
+  for (const raw of sentences(answerText)) {
+    const stripped = raw.trim();
+    if (!stripped || isMeta(stripped)) continue;
 
-    const cited = marks.map((r) => byRank.get(r)).filter(Boolean);
-    const pool = cited.length ? cited : [];
-    const haystack = new Set();
-    for (const e of pool) for (const t of contentTerms(e.text)) haystack.add(t);
-    const support = pool.length ? coverage(terms, haystack) : 0;
-
-    /* A number or a quoted span claims to be verbatim, so it must be. */
-    let numericOk = true;
-    if (pool.length) {
-      const evidenceNumbers = new Set();
-      for (const e of pool) for (const n of numbersWithUnits(e.text)) evidenceNumbers.add(n);
-      for (const n of numbersWithUnits(bare)) if (!evidenceNumbers.has(n)) numericOk = false;
+    const citations = extractCitations(stripped);
+    totalCitations += citations.length;
+    for (const c of citations) {
+      if (byRank.has(c)) citedRanks.add(c);
+      else invalidCitations += 1;
     }
-    const supported = pool.length > 0 && support >= minSupport && numericOk;
-    checks.push({ sentence, supported, support, citations: marks });
+
+    const bare = stripCitations(stripped).trim();
+    const terms = contentTerms(bare);
+    if (terms.size < 3) continue;      // too short to carry a checkable claim
+
+    let effective = citations.filter((c) => byRank.has(c));
+    if (!effective.length) effective = carried.filter((c) => byRank.has(c));
+    if (citations.length) carried = citations;
+
+    if (!effective.length) {
+      // No citation, here or inherited. Connective prose built from evidence
+      // vocabulary passes; the cited sentences around it carry the weight.
+      const overlap = coverage(terms, allTerms);
+      checks.push({ sentence: bare, supported: overlap >= minSupport, support: overlap });
+      continue;
+    }
+
+    const citedTerms = new Set();
+    let citedText = "";
+    for (const rank of effective) {
+      const item = byRank.get(rank);
+      for (const t of contentTerms(item.text)) citedTerms.add(t);
+      citedText += " " + item.text.toLowerCase();
+    }
+
+    const support = coverage(terms, citedTerms);
+    let supported = support >= minSupport;
+
+    // Numeric fidelity: a stated number must appear in the cited evidence.
+    const stated = numbersWithUnits(bare);
+    if (stated.size) {
+      const evidenceNumbers = numbersWithUnits(citedText);
+      const bareEvidence = new Set([...evidenceNumbers].map(stripTrailingUnit));
+      for (const n of stated) {
+        if (!evidenceNumbers.has(n) && !bareEvidence.has(stripTrailingUnit(n))) supported = false;
+      }
+    }
+    // Quotation fidelity: a quoted span claims to be verbatim.
+    for (const span of quotedSpans(bare)) {
+      if (!citedText.includes(span)) supported = false;
+    }
+
+    checks.push({ sentence: bare, supported, support });
   }
 
   const claims = checks.length;
   const unsupported = checks.filter((c) => !c.supported);
   return {
     citedRanks,
-    citationValidity: citations ? resolvable / citations : 1.0,
+    citationValidity: totalCitations ? (totalCitations - invalidCitations) / totalCitations : 1.0,
     groundedRatio: claims ? (claims - unsupported.length) / claims : 1.0,
     unsupportedRatio: claims ? unsupported.length / claims : 0.0,
     unsupported,
@@ -617,6 +743,12 @@ const TEXT = {
    * when no sentence clears the selection threshold -- distinct from the
    * sufficiency gate's message, and Python returns the provider's words. */
   providerAbstention: "The available evidence is not sufficient to answer this question.",
+  noReproduction: (title, licence) => `This asks for the text of ${title}, which ` +
+    "this knowledge area registers as a pointer and does not store: " +
+    `${licence || "its licence"}. Nothing of its wording is held here, so nothing ` +
+    "of its wording can be returned. Other sources that describe it can be cited, " +
+    "and the register records where the original can be obtained -- ask what it " +
+    "requires rather than what it says, and the question becomes answerable.",
   noSubject: (terms) => `This knowledge area has nothing on: ${terms}. Passages were ` +
     "retrieved that share the question's general vocabulary, but none of them mentions what " +
     "was actually asked about, so any answer built from them would be about something else. " +
@@ -675,6 +807,15 @@ function ask(index, question) {
     return { ...base, status: OUT_OF_SCOPE,
       answer: TEXT.outOfScope(corpus.name, (corpus.scope.in_scope || []).join("; ") || "see the manifest"),
       limitations: limitationsFor(corpus, [], new Set(), OUT_OF_SCOPE) };
+  }
+
+  // Gate 1b -- reproduction, before retrieval for the same reason Python does
+  // it there: the register decides, not the evidence.
+  const refused = reproductionRefused(corpus, question);
+  if (refused) {
+    return { ...base, status: INSUFFICIENT_EVIDENCE,
+      answer: TEXT.noReproduction(refused.title, refused.licence),
+      limitations: limitationsFor(corpus, [], new Set(), INSUFFICIENT_EVIDENCE) };
   }
 
   const evidence = retrieve(index, question);
@@ -743,6 +884,7 @@ const API = {
   STOPWORDS, tokenize, depossess, stem, contentTerms, coverage, sentences,
   numbersWithUnits, canonicalUnit, buildIndex, search, retrieve, ask,
   scopeCheck, specificEnough, coversTheSubject, answersTheQuestion,
+  reproductionRefused,
   looksLikeProse, extractiveAnswer, validateAnswer,
 };
 

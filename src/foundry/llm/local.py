@@ -48,6 +48,21 @@ _NON_PROSE_RE = re.compile(
 )
 
 
+# A marker inside a selected sentence belongs to the *source's* bibliography,
+# not to this answer's evidence list. Left in place it is indistinguishable
+# from a citation this system made: the validator resolved a Wikipedia
+# footnote "[13]" against eight retrieved passages, found no rank 13, and
+# recorded a citation that did not resolve -- on an answer whose real
+# citations were all correct. 1,380 such markers sit across the two shipped
+# corpora, so this was luck waiting to run out rather than one bad sentence.
+_SOURCE_FOOTNOTE_RE = re.compile(r"\s*\[\d+\]")
+
+
+def strip_source_footnotes(sentence: str) -> str:
+    """Remove the source's own reference markers from a quoted sentence."""
+    return _SOURCE_FOOTNOTE_RE.sub("", sentence).strip()
+
+
 def looks_like_prose(sentence: str) -> bool:
     """A cheap shape test for "is this a statement, or is it furniture?"
 
@@ -152,7 +167,16 @@ class LocalExtractiveProvider:
 
         scored: list[tuple[float, int, int, str]] = []
         for item in context.evidence:
-            for position, sentence in enumerate(sentences(item.text)):
+            # Stripped *before* splitting, not after. A source writes
+            # "...oxygen).[1] A fire..." with no space after the full stop, so
+            # the splitter does not break there and the whole run stays one
+            # sentence. Stripping afterwards then emits three claims under a
+            # single citation -- and the validator, splitting the now-spaced
+            # text again, finds two of them uncited. Cleaning first makes the
+            # boundaries real before anything depends on them.
+            for position, sentence in enumerate(
+                sentences(strip_source_footnotes(item.text))
+            ):
                 sentence = sentence.strip()
                 if not looks_like_prose(sentence):
                     continue
@@ -184,7 +208,10 @@ class LocalExtractiveProvider:
 
         # Present in evidence order: the highest-ranked evidence reads first.
         selected.sort(key=lambda t: (t[0], t[1]))
-        body = " ".join(f"{sentence} [{rank}]" for rank, _position, sentence in selected)
+        body = " ".join(
+            f"{strip_source_footnotes(sentence)} [{rank}]"
+            for rank, _position, sentence in selected
+        )
 
         cited = sorted({rank for rank, _, _ in selected})
         reasoning = (
