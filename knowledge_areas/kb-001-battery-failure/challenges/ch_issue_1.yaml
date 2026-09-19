@@ -1,0 +1,13 @@
+id: ch_issue_1
+submitted_by: '@richardawe'
+question: What’s the battery capacity for a Tesla 3?
+claimed_problem: ''
+expected: ''
+system_answer: 'Endurance in cycles the number of charge and discharge cycles a battery can perform under
+  specific conditions, such as temperature and relative humidity, before the capacity drops below a specified
+  fraction of the rated capacity. [1] Rated capacity: the capacity value of a battery, under specific
+  conditions, such as temperature and relative humidity, and declared by the manufacturer. [2]'
+status: open
+created_at: '2026-09-19T11:45:24+00:00'
+promoted_to: ''
+notes: Submitted via https://github.com/richardawe/knowledge-foundry/issues/1
