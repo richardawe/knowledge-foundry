@@ -159,6 +159,13 @@ class SpecialistConfig:
     # Sufficiency gate: below this, the agent abstains rather than guesses.
     min_evidence_score: float = 0.10
     min_chunks: int = 1
+    # Subject coverage: abstain when question terms absent from every retrieved
+    # passage carry at least this share of the question's weight. 1.0 disables
+    # the gate, which is what a knowledge area wanting the old behaviour sets.
+    max_missing_subject_weight: float = 0.5
+    # Responsiveness: the answer must engage with at least this share of the
+    # question's weighted content. 0.0 disables the gate.
+    min_question_coverage: float = 0.3
     # Grounding: a sentence is supported if this much of its content terms
     # appear in a cited chunk.
     min_sentence_support: float = 0.34
@@ -181,6 +188,12 @@ class SpecialistConfig:
             max_tokens=int(llm.get("max_tokens", 1200)),
             min_evidence_score=float(suff.get("min_evidence_score", 0.10)),
             min_chunks=int(suff.get("min_chunks", 1)),
+            max_missing_subject_weight=float(
+                suff.get("max_missing_subject_weight", 0.5)
+            ),
+            min_question_coverage=float(
+                (data.get("responsiveness") or {}).get("min_question_coverage", 0.3)
+            ),
             min_sentence_support=float(ground.get("min_sentence_support", 0.34)),
             max_unsupported_ratio=float(ground.get("max_unsupported_ratio", 0.34)),
         )
@@ -194,6 +207,14 @@ class SpecialistConfig:
             raise ManifestError("specialist.grounding.max_unsupported_ratio must be in [0,1]")
         if self.min_chunks < 0:
             raise ManifestError("specialist.sufficiency.min_chunks must be >= 0")
+        if not 0.0 <= self.min_question_coverage <= 1.0:
+            raise ManifestError(
+                "specialist.responsiveness.min_question_coverage must be in [0,1]"
+            )
+        if not 0.0 < self.max_missing_subject_weight <= 1.0:
+            raise ManifestError(
+                "specialist.sufficiency.max_missing_subject_weight must be in (0,1]"
+            )
 
 
 @dataclass

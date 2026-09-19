@@ -148,9 +148,31 @@ def stem(token: str) -> str:
     return token
 
 
+def _depossess(token: str) -> str:
+    """Strip a possessive or contracted tail so the stem matches the plain word.
+
+    The stop list holds "what", not "what's". Contractions therefore survived
+    the filter and then stemmed to junk: "what's" lost its "s" like a plural
+    and became "what'", a content term appearing in no document ever written.
+
+    That is not cosmetic. Such a term is absent from every passage, so any
+    measure that weights a question's terms by rarity hands it the highest
+    weight available -- one apostrophe silently dominating what the question is
+    judged to be about. Found while measuring a gate that reported the subject
+    of "What's the battery capacity..." to be missing, and meant it.
+    """
+    for tail in ("'s", "’s", "s'", "s’"):
+        if len(token) > len(tail) + 1 and token.endswith(tail):
+            return token[: -len(tail)] + ("s" if tail[0] == "s" else "")
+    return token.rstrip("'’")
+
+
 def content_terms(text: str, stemmed: bool = True) -> set[str]:
     """Tokens that carry meaning -- the unit of grounding comparison."""
-    terms = {t for t in tokenize(text) if t not in STOPWORDS and len(t) > 2}
+    terms = {
+        t for t in (_depossess(tok) for tok in tokenize(text))
+        if t not in STOPWORDS and len(t) > 2
+    }
     if stemmed:
         return {stem(t) for t in terms}
     return terms

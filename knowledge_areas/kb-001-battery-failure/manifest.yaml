@@ -109,6 +109,17 @@ specialist:
   sufficiency:
     min_evidence_score: 0.012
     min_chunks: 2
+    # Abstain when question terms absent from every retrieved passage carry
+    # this share of the question's weight: the corpus does not hold the
+    # subject, whatever it holds nearby. Measured across the whole suite --
+    # 0.6 costs nothing, 0.5 costs one question, 0.4 costs two.
+    max_missing_subject_weight: 0.6
+  responsiveness:
+    # The answer must engage this share of the question's weighted content.
+    # At 0.3 the suite gains a question and abstention correctness rises from
+    # 0.787 to 0.800; at 0.4 the pass rate rises further but abstention
+    # correctness falls, which is the gate starting to refuse good questions.
+    min_question_coverage: 0.3
   grounding:
     min_sentence_support: 0.34
     max_unsupported_ratio: 0.34

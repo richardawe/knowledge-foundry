@@ -21,6 +21,7 @@ The gates, in order of cost:
 
 from __future__ import annotations
 
+import math
 import re
 import time
 from dataclasses import dataclass, field
@@ -42,6 +43,7 @@ from .answer import (
     CONFIDENCE_NONE,
     ERROR,
     INSUFFICIENT_EVIDENCE,
+    IRRELEVANT,
     OUT_OF_SCOPE,
     UNSUPPORTED,
     Answer,
@@ -79,6 +81,19 @@ INSUFFICIENT_TEXT = (
 OUT_OF_SCOPE_TEMPLATE = (
     "This question is outside the declared scope of {name}. "
     "This knowledge area covers: {in_scope}."
+)
+IRRELEVANT_TEMPLATE = (
+    "A draft answer was generated, correctly cited and fully traceable to the "
+    "evidence -- and it did not answer the question. It never engaged with: "
+    "{terms}. An answer about the right topic but the wrong subject is harder "
+    "to catch than a wrong one and no more useful, so it has been withheld."
+)
+NO_SUBJECT_TEMPLATE = (
+    "This knowledge area has nothing on: {terms}. Passages were retrieved that "
+    "share the question's general vocabulary, but none of them mentions what "
+    "was actually asked about, so any answer built from them would be about "
+    "something else. Rather than return that, the system is declining and "
+    "naming the gap."
 )
 UNSUPPORTED_TEXT = (
     "A draft answer was generated but failed automated grounding validation: too "
@@ -172,6 +187,101 @@ class Specialist:
         if len(terms) < 3:
             return False, f"it names only {len(terms)} specific term(s)"
         return True, ""
+
+    # -- gate 4: subject coverage ----------------------------------------
+
+    def covers_the_subject(
+        self, question: str, evidence: Sequence[Evidence]
+    ) -> tuple[bool, list[str], float]:
+        """Does the retrieved evidence mention what the question is *about*?
+
+        Every other gate asks whether there is enough evidence, or whether what
+        was said is supported by it. None of them asks the question a reader
+        actually cares about: is this an answer to what I asked?
+
+        The failure this exists for, from a real submission: asked for a
+        specific vehicle's pack capacity, the system returned regulatory
+        definitions of "rated capacity" and "endurance in cycles" -- correctly
+        cited, fully grounded, scored high confidence, and about nothing the
+        person had asked for. The corpus had never heard of the vehicle. It had
+        heard plenty about capacity, and that was enough to clear every bar.
+
+        The test: weight each question term by how rare it is in the retrieved
+        passages, the same weighting the extractive provider already uses to
+        pick sentences. A term absent from every passage carries the most
+        weight, because it is the part of the question the corpus cannot speak
+        to. When the absent terms carry most of the question's weight, the
+        subject itself is missing and no honest answer exists -- whatever the
+        generic vocabulary around it scores.
+
+        Returning the missing terms rather than a bare verdict is the point.
+        "I have nothing on: tesla" tells the reader why, tells them how to
+        rephrase if it was wording, and names exactly what the corpus would
+        need to acquire if it was not.
+        """
+        terms = content_terms(question)
+        if not terms or not evidence:
+            return True, [], 0.0
+
+        passages = [content_terms(item.text) for item in evidence]
+        total = max(1, len(passages))
+        weights = {
+            term: math.log(1.0 + total / (1.0 + sum(1 for p in passages if term in p)))
+            for term in terms
+        }
+        total_weight = sum(weights.values())
+        if total_weight <= 0:
+            return True, [], 0.0
+
+        missing = sorted(t for t in terms if not any(t in p for p in passages))
+        share = sum(weights[t] for t in missing) / total_weight
+        return share < self.manifest.specialist.max_missing_subject_weight, missing, share
+
+    # -- gate 5: responsiveness ------------------------------------------
+
+    def answers_the_question(
+        self, question: str, answer_text: str, evidence: Sequence[Evidence]
+    ) -> tuple[bool, list[str], float]:
+        """Does the answer address what was asked, or merely the topic?
+
+        Gate 4 asks whether the corpus holds the subject. This asks the harder
+        and more common question: it held it, and the answer talked about
+        something else anyway.
+
+        The case this exists for is issue #1. Asked for a named vehicle's pack
+        capacity, the system returned regulatory definitions of "rated capacity"
+        and "endurance in cycles". The corpus was not the problem -- it holds
+        thirteen passages naming that vehicle. Retrieval was not the problem
+        either. The answer simply never mentioned the vehicle, and every
+        existing check was satisfied: the sentences were in the cited passages,
+        the citations resolved, and confidence came out high.
+
+        So the measure is the answer, not the evidence: weight each question
+        term by how rare it is across the retrieved passages, and ask how much
+        of that weight the answer actually engages with. A term the corpus uses
+        everywhere ("battery") carries almost none; the specific thing being
+        asked about carries most. An answer built from generic vocabulary
+        scores near zero however fluent and however well cited it is.
+        """
+        terms = content_terms(question)
+        answer_terms = content_terms(answer_text)
+        if not terms or not answer_terms:
+            return True, [], 0.0
+
+        passages = [content_terms(item.text) for item in evidence] or [answer_terms]
+        total = max(1, len(passages))
+        weights = {
+            term: math.log(1.0 + total / (1.0 + sum(1 for p in passages if term in p)))
+            for term in terms
+        }
+        total_weight = sum(weights.values())
+        if total_weight <= 0:
+            return True, [], 0.0
+
+        unaddressed = sorted(t for t in terms if t not in answer_terms)
+        addressed = sum(weights[t] for t in terms if t in answer_terms) / total_weight
+        threshold = self.manifest.specialist.min_question_coverage
+        return addressed >= threshold, unaddressed, addressed
 
     # -- confidence ------------------------------------------------------
 
@@ -330,6 +440,31 @@ class Specialist:
                                 },
                             )))
 
+        # Gate 4 -- subject coverage. Last before generation, because it is the
+        # only one that can tell "the corpus cannot answer this" apart from
+        # "the corpus has plenty to say nearby".
+        covered, missing, missing_share = self.covers_the_subject(question, evidence)
+        if not covered:
+            return Prepared(question=question, knowledge_area=area, evidence=evidence,
+                            answer=self._finish(Answer(
+                                question=question, knowledge_area=area,
+                                status=INSUFFICIENT_EVIDENCE,
+                                answer=NO_SUBJECT_TEMPLATE.format(
+                                    terms=", ".join(missing) or "the subject of the question"),
+                                confidence=CONFIDENCE_NONE,
+                                sources=self._sources_block(evidence, set()),
+                                limitations=self._limitations(
+                                    evidence, _EmptyValidation(), INSUFFICIENT_EVIDENCE),
+                                retrieval={
+                                    "top_score": round(retrieval.top_score, 4),
+                                    "evidence_count": len(evidence),
+                                    "missing_terms": missing,
+                                    "missing_weight": round(missing_share, 3),
+                                    "threshold": (
+                                        self.manifest.specialist.max_missing_subject_weight),
+                                },
+                            )))
+
         return Prepared(
             question=question,
             knowledge_area=area,
@@ -367,7 +502,7 @@ class Specialist:
 
         answer_text, reasoning = _split_sections(response.text)
 
-        # Gate 4 -- grounding, which can withhold a fluent answer.
+        # Gate 6 -- grounding, which can withhold a fluent answer.
         validation = validate_answer(
             answer_text + ("\n" + reasoning if reasoning else ""),
             evidence,
@@ -380,10 +515,22 @@ class Specialist:
             validation.unsupported_ratio > self.manifest.specialist.max_unsupported_ratio
         )
 
+        # Gate 5 -- responsiveness. Ordered after grounding because an
+        # unsupported answer is the worse fault of the two and should be named
+        # as such; an irrelevant one that is otherwise well cited is what this
+        # catches, and nothing else does.
+        responsive, unaddressed, addressed = self.answers_the_question(
+            prepared.question, answer_text, evidence
+        )
+
         if model_abstained:
             status, body = INSUFFICIENT_EVIDENCE, answer_text
         elif too_unsupported:
             status, body = UNSUPPORTED, UNSUPPORTED_TEXT
+        elif not responsive:
+            status, body = IRRELEVANT, IRRELEVANT_TEMPLATE.format(
+                terms=", ".join(unaddressed) or "what was asked about"
+            )
         else:
             status, body = ANSWERED, answer_text
 

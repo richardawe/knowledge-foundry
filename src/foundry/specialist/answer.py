@@ -11,11 +11,12 @@ ANSWERED = "answered"
 INSUFFICIENT_EVIDENCE = "insufficient_evidence"
 OUT_OF_SCOPE = "out_of_scope"
 UNSUPPORTED = "unsupported"          # generated, but failed grounding validation
+IRRELEVANT = "irrelevant"            # generated and grounded, but not about what was asked
 AMBIGUOUS = "ambiguous"              # under-specified; answering would be guessing
 ERROR = "error"
 
 ABSTENTION_STATUSES = frozenset(
-    {INSUFFICIENT_EVIDENCE, OUT_OF_SCOPE, UNSUPPORTED, AMBIGUOUS}
+    {INSUFFICIENT_EVIDENCE, OUT_OF_SCOPE, UNSUPPORTED, AMBIGUOUS, IRRELEVANT}
 )
 
 CONFIDENCE_NONE = "none"

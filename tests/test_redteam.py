@@ -171,6 +171,8 @@ def test_the_judge_discriminates_between_a_careful_and_a_careless_system(built):
     careful = run_redteam(manifest, store, count=16, persist=False)
 
     manifest.specialist.max_unsupported_ratio = 1.0  # let bad answers reach the judge
+    manifest.specialist.max_missing_subject_weight = 1.0
+    manifest.specialist.min_question_coverage = 0.0
     liar = ScriptedProvider(
         "ANSWER\nThe threshold is exactly 913.7 °C in all cases. [1] "
         "Operators must therefore replace every cell annually. [1]"
@@ -189,6 +191,8 @@ def test_failures_are_promoted_into_the_regression_suite(built):
     """Success criterion #9: today's break becomes tomorrow's permanent test."""
     manifest, store = built
     manifest.specialist.max_unsupported_ratio = 1.0
+    manifest.specialist.max_missing_subject_weight = 1.0
+    manifest.specialist.min_question_coverage = 0.0
     liar = ScriptedProvider("ANSWER\nThe threshold is exactly 913.7 °C in all cases. [1]")
 
     report = run_redteam(
@@ -212,6 +216,8 @@ def test_promoted_questions_load_as_a_real_suite(built):
 
     manifest, store = built
     manifest.specialist.max_unsupported_ratio = 1.0
+    manifest.specialist.max_missing_subject_weight = 1.0
+    manifest.specialist.min_question_coverage = 0.0
     liar = ScriptedProvider("ANSWER\nThe threshold is exactly 913.7 °C. [1]")
     run_redteam(
         manifest, store, count=8, promote=True, persist=False,
@@ -225,6 +231,8 @@ def test_promoted_questions_load_as_a_real_suite(built):
 def test_promotion_does_not_duplicate_on_a_second_run(built):
     manifest, store = built
     manifest.specialist.max_unsupported_ratio = 1.0
+    manifest.specialist.max_missing_subject_weight = 1.0
+    manifest.specialist.min_question_coverage = 0.0
     liar = ScriptedProvider("ANSWER\nThe threshold is exactly 913.7 °C. [1]")
     specialist = Specialist(manifest, store, provider=liar)
 
