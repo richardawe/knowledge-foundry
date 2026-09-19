@@ -75,7 +75,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T11:45</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T12:50</span>
   </div>
 </header>
 <main class="wrap">
@@ -89,10 +89,10 @@
   <a href="/knowledge-foundry/k/kb-002-industrial-fire-explosion/challenges/">Challenges</a>
 </nav>
 <p>
-  Run <code>run_414f67a87b07d3f6</code> against
-  <code>v0.1.0</code>:
-  <strong>20 / 30</strong>
-  passed (67%).
+  Run <code>run_aa5a0684cce19d15</code> against
+  <code>v0.2.0</code>:
+  <strong>21 / 30</strong>
+  passed (70%).
 <span class="pass">Gate: PASS</span>
 </p>
 
@@ -102,33 +102,33 @@
   <tr><th>Type</th><th>Passed</th><th>Rate</th></tr>
   <tr><td>factual</td><td>7 / 11</td><td>64%</td></tr>
   <tr><td>citation</td><td>2 / 2</td><td>100%</td></tr>
-  <tr><td>multi_document</td><td>0 / 1</td><td>0%</td></tr>
+  <tr><td>multi_document</td><td>1 / 1</td><td>100%</td></tr>
   <tr><td>reasoning</td><td>1 / 1</td><td>100%</td></tr>
   <tr><td>ambiguous</td><td>2 / 2</td><td>100%</td></tr>
-  <tr><td>unanswerable</td><td>3 / 5</td><td>60%</td></tr>
+  <tr><td>unanswerable</td><td>2 / 5</td><td>40%</td></tr>
   <tr><td>out_of_scope</td><td>2 / 2</td><td>100%</td></tr>
   <tr><td>adversarial</td><td>3 / 3</td><td>100%</td></tr>
-  <tr><td>temporal</td><td>0 / 3</td><td>0%</td></tr>
+  <tr><td>temporal</td><td>1 / 3</td><td>33%</td></tr>
 </table>
 
 <h2>Metrics</h2>
 <table>
   <tr><th>Metric</th><th>Value</th></tr>
-  <tr><td>retrieval_precision</td><td>0.478</td></tr>
+  <tr><td>retrieval_precision</td><td>0.447</td></tr>
   <tr><td>retrieval_recall</td><td>0.911</td></tr>
-  <tr><td>answer_correctness</td><td>0.739</td></tr>
-  <tr><td>citation_validity</td><td>1.000</td></tr>
-  <tr><td>citation_relevance</td><td>0.617</td></tr>
+  <tr><td>answer_correctness</td><td>0.826</td></tr>
+  <tr><td>citation_validity</td><td>0.994</td></tr>
+  <tr><td>citation_relevance</td><td>0.708</td></tr>
   <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
   <tr><td>hallucination_rate</td><td>0.000</td></tr>
-  <tr><td>abstention_correctness</td><td>0.720</td></tr>
+  <tr><td>abstention_correctness</td><td>0.640</td></tr>
   <tr><td>source_coverage</td><td>0.818</td></tr>
   <tr><td>contradiction_rate</td><td>0.000</td></tr>
-  <tr><td>corpus_freshness_days</td><td>0.448</td></tr>
-  <tr><td>regression_rate</td><td>0.000</td></tr>
+  <tr><td>corpus_freshness_days</td><td>0.664</td></tr>
+  <tr><td>regression_rate</td><td>0.050</td></tr>
 </table>
 
-<h2>Questions it currently fails (10)</h2>
+<h2>Questions it currently fails (9)</h2>
 <p class="small muted">
   Published, not hidden. A knowledge system that only shows its passes is asking
   to be trusted rather than tested.
@@ -154,7 +154,7 @@ none of [&#39;boiling&#39;, &#39;vessel&#39;, &#39;rupture&#39;, &#39;expanding&
     <td class="small">factual</td>
     <td class="small">What role does confinement or congestion play in a vapour cloud explosion?</td>
     <td class="small fail">
-none of [&#39;confine&#39;, &#39;congest&#39;, &#39;overpressure&#39;, &#39;obstacle&#39;] present<br>retrieved [&#39;wikipedia-bleve&#39;, &#39;wikipedia-buncefield&#39;, &#39;wikipedia-dust-explosion&#39;, &#39;wikipedia-fire-triangle&#39;], expected one of [&#39;wikipedia-vapour-cloud-explosion&#39;]<br>    </td>
+retrieved [&#39;wikipedia-buncefield&#39;, &#39;wikipedia-dust-explosion&#39;, &#39;wikipedia-fire-triangle&#39;], expected one of [&#39;wikipedia-vapour-cloud-explosion&#39;]<br>    </td>
   </tr>
   <tr>
     <td class="small"><code>fe-fact-010</code></td>
@@ -164,11 +164,11 @@ none of [&#39;confine&#39;, &#39;congest&#39;, &#39;overpressure&#39;, &#39;obst
 none of [&#39;explosion&#39;, &#39;fire&#39;, &#39;oil storage&#39;, &#39;2005&#39;] present<br>    </td>
   </tr>
   <tr>
-    <td class="small"><code>fe-multi-001</code></td>
-    <td class="small">multi_document</td>
-    <td class="small">What ignition sources and what control measures are described for flammable atmospheres?</td>
+    <td class="small"><code>fe-pointer-002</code></td>
+    <td class="small">unanswerable</td>
+    <td class="small">Reproduce COMAH 2015 regulation 7 word for word.</td>
     <td class="small fail">
-abstained: insufficient_evidence<br>    </td>
+answered with status=answered<br>    </td>
   </tr>
   <tr>
     <td class="small"><code>fe-unans-001</code></td>
@@ -176,13 +176,6 @@ abstained: insufficient_evidence<br>    </td>
     <td class="small">How many dust explosions occurred in Indonesian mills in 2024?</td>
     <td class="small fail">
 answered with status=answered<br>    </td>
-  </tr>
-  <tr>
-    <td class="small"><code>rt-fe64c13dcf</code></td>
-    <td class="small">temporal</td>
-    <td class="small">What will the rules on impact spark be in 2030?</td>
-    <td class="small fail">
-answered without qualification<br>    </td>
   </tr>
   <tr>
     <td class="small"><code>rt-d5ffbe7705</code></td>

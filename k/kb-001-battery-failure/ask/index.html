@@ -75,7 +75,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T11:45</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-09-19T12:50</span>
   </div>
 </header>
 <main class="wrap">
@@ -95,10 +95,9 @@
 
 <div id="ask-app"
      data-knowledge-area="kb-001-battery-failure"
-     data-api-base="http://localhost:8000"
-     data-transcript="/knowledge-foundry/api/knowledge/kb-001-battery-failure.transcript.json">
-  <p id="ask-status" class="small muted">Looking for a running instance…</p>
-  <p id="ask-mode" class="small muted" hidden></p>
+     data-corpus="/knowledge-foundry/api/knowledge/kb-001-battery-failure.corpus.json"
+     data-repo="https://github.com/richardawe/knowledge-foundry">
+  <p id="ask-status" class="small muted">Loading the corpus…</p>
 
   <form id="ask-form" hidden>
     <textarea id="ask-question" rows="3"
@@ -106,68 +105,28 @@
     <p><button id="ask-submit" type="submit">Ask</button></p>
   </form>
 
-  <div id="ask-offline" class="banner" hidden>
-    <strong>No instance is answering, so ask it here instead.</strong>
-    <p>
-      Opening an issue puts your question through the real thing: the same
-      retrieval, the same gates, the same grounding validation every evaluation
-      question gets. A workflow answers it and posts the reply, with the sources
-      it cited and the scores it earned.
-      <br><strong><a class="button"
-        href="https://github.com/richardawe/knowledge-foundry/issues/new?template=ask.yml&amp;knowledge-area=kb-001-battery-failure"
-        >Ask the specialist &rarr;</a></strong>
-    </p>
-    <p class="small">
-      It takes a few minutes, not a few seconds — there is no server to be
-      instant. What you get instead is a record: your question is kept as a
-      <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">challenge</a>,
-      and if the answer is wrong and you say so, it can be promoted into the
-      permanent evaluation suite. A complaint that becomes a test cannot be
-      made twice.
-    </p>
-
-    <p class="small muted" style="margin-top:18px">
-      <strong>Or run it yourself</strong>, and the box above answers directly.
-      This page is the interface; the engine runs where your knowledge and your
-      model are. One command, from nothing:</p>
-    <pre>git clone https://github.com/richardawe/knowledge-foundry
-cd knowledge-foundry &amp;&amp; ./start.sh</pre>
-    <p class="small">
-      <strong>Two processes are involved, and they are easy to confuse.</strong>
-      <code>ollama</code> is the model, on port 11434 — shared with anything
-      else you run through it. <code>foundry serve</code> is this application,
-      on port 8000; it <em>uses</em> Ollama but is not Ollama. A running Ollama
-      does not mean this is running, which is what the message above is
-      reporting. <code>./start.sh</code> starts the second one.
-    </p>
-    <p>
-      Already running it? Your instance serves this same page itself, on its own
-      origin — no cross-origin call, nothing for a browser to block:
-      <br><strong><a href="http://localhost:8000/k/kb-001-battery-failure/ask">http://localhost:8000/k/kb-001-battery-failure/ask</a></strong>
-      <br>That route works everywhere, including Safari.
-    </p>
-    <p class="small">
-      Meanwhile, every question the system has already been asked — with the
-      evidence behind each answer, and the ones it got wrong — is in the
-      <a href="/knowledge-foundry/k/kb-001-battery-failure/transcript/">transcript</a>.
-    </p>
-  </div>
-
   <div id="ask-output"></div>
 
   <details class="small muted" style="margin-top:22px">
-    <summary>Point this page at a different instance</summary>
+    <summary>How this answers without a server</summary>
     <p>
-      Anything speaking this project's ask API: another machine on your network,
-      or a tunnelled HTTPS endpoint so readers who are not running it themselves
-      can use it too. Shareable as <code>?api=&lt;url&gt;</code>.
+      The corpus is downloaded once and everything else happens in this page:
+      retrieval, the gates that can refuse a question, sentence selection and
+      the grounding check that traces every claim back to a cited passage.
+      There is no model. The engine selects and cites stored sentences, so it
+      cannot state anything the sources do not already say — and it cannot
+      answer a question the corpus does not cover, which is why it sometimes
+      tells you that instead.
     </p>
-    <form id="ask-endpoint-form">
-      <p><input type="text" id="ask-endpoint" placeholder="http://localhost:8000"></p>
-      <p><button type="submit">Connect</button></p>
-    </form>
+    <p>
+      A test runs every question in the published evaluation suite through both
+      this engine and the Python pipeline the nightly grades, and fails the
+      build if they return different verdicts, different evidence or different
+      words. What you read here is what was graded.
+    </p>
   </details>
 </div>
+<script src="/knowledge-foundry/assets/engine.js" defer></script>
 <script src="/knowledge-foundry/assets/ask.js" defer></script>
 
 </main>
