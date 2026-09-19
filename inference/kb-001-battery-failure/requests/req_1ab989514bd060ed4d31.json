@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-09-18T20:35:14+00:00",
+  "created_at": "2026-09-19T12:50:30+00:00",
   "id": "req_1ab989514bd060ed4d31",
   "knowledge_area": "kb-001-battery-failure",
-  "knowledge_version": "v0.1.0",
+  "knowledge_version": "v0.2.0",
   "max_tokens": 1200,
   "prompt_sha": "03b1c40445cbe829bc93b8d8b228f50428ef329915084442e9b290ee58478660",
   "question": "What does the EU Battery Regulation 2023/1542 cover?",
