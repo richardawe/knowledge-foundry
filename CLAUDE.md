@@ -182,10 +182,16 @@ python -m pytest -q                      # ~390 tests (parity needs node)
 
 ## Current state
 
-* **Nightly runs green in Actions** (run 4, `35393758504`). Full pipeline: tests,
-  build, eval, red team, publish, plan, export, gh-pages deploy, push.
+* **Nightly runs green in Actions** (run 44, `40109125103`, 24 Oct). Full pipeline:
+  tests, build, eval, red team, publish, plan, export, gh-pages deploy, push.
+  Runs 6–43 were red: kb-001 was held on `bf-temporal-002` from the BM25 switch
+  until the subject gate stopped counting "according to the sources held here"
+  as subject (`text.QUESTION_FRAME`, mirrored in `engine.js`). Because
+  `actions/cache` only saves on success, every red run restored the same
+  19 September baseline; a hold therefore never clears by itself — it needs a
+  fix, then one green run to save a new baseline.
 * Live at `https://richardawe.github.io/knowledge-foundry/`
-* kb-001 76/103 (74%), kb-002 20/30 (67%) — the suite grew when red-team failures
+* kb-001 81/103 (79%), kb-002 22/30 (73%) — the suite grew when red-team failures
   were promoted; the pass count did not. Hallucination rate 0.000 on both.
   Red team survival 92% / 94%.
 * The published page's ask box shows "no instance reachable" and falls back to
