@@ -102,3 +102,26 @@ def test_a_public_example_carries_no_claimant_only_evidence():
     result = json.loads((dropin / "examples" / "result.public.json").read_text())
     assert all(s["visibility"] == "public" for c in result["claims"] for s in c["support"])
     assert all(a["visibility"] == "public" or not a["sources"] for a in result["answers"])
+
+
+def test_supplied_pages_are_validated():
+    base = {"params": {"domain": "x.com", "name": "X"}, "claims": []}
+    with pytest.raises(research.ResearchError):
+        research.validate_request({**base, "pages": [{"url": "ftp://x.com/a", "text": "t"}]})
+    with pytest.raises(research.ResearchError):
+        research.validate_request({**base, "pages": [{"url": "https://x.com/a"}]})
+    with pytest.raises(research.ResearchError):
+        research.validate_request({**base, "pages": [{"url": "https://x.com/", "text": "t"}] * 151})
+    with pytest.raises(research.ResearchError):
+        research.validate_request({**base, "pages": [{"url": "https://x.com/", "text": "x" * 2_000_001}]})
+    ok = research.validate_request({**base, "pages": [{"url": "https://x.com/a", "text": "Rendered."}]})
+    assert ok["pages"][0]["url"] == "https://x.com/a"
+
+
+def test_an_oversized_request_is_refused_before_it_is_read(service, monkeypatch):
+    base, seen = service
+    monkeypatch.setattr(research, "MAX_REQUEST_BYTES", 1000)
+    status, body = _call(f"{base}/v1/research", "POST",
+                         {"params": {"domain": "x.com", "name": "X"},
+                          "pages": [{"url": "https://x.com/", "text": "y" * 2000}]})
+    assert status == 413 and seen == []

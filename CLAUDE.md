@@ -119,6 +119,13 @@ source types were added: `official_record self_published press review community`
   (`FOUNDRY_VERIFY_PROVIDER/MODEL`) can veto candidates; keyless providers refused.
 * The subject settles identity: request params `confirmed` / `rejected` take
   `"register:key"` entries.
+* **The HTML extractor drops `nav` and `footer`** — right for document corpora,
+  wrong for a company's own site, where product names live in menus and the legal
+  name in the footer. The site collector sets `keep_tags: [nav, footer]`. This,
+  not JavaScript, was the main cause of "not found" map lines in the pilot.
+* Request `pages`: content the caller has rendered (send `html`; `innerText`
+  drops collapsed menus). Accepted only on the subject's domain, after any
+  redirect is resolved; not refetched; labelled "rendered by the caller".
 * Trustpilot, G2, Product Hunt, Reddit, GitHub return 403 to this container;
   App Store and Wikipedia disallow the foundry's UA in robots.txt. Bing News RSS
   forbids commercial use — fine for the pilot, not for production.

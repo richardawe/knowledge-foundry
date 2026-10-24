@@ -17,6 +17,10 @@ collectors:
              impressum, terms, privacy, security, trust, careers, jobs, customers,
              team, leadership, press, investors, complaints]
     probes: [/robots.txt, /sitemap.xml, /llms.txt]
+    # On a company's own site the menu and footer are evidence, not boilerplate:
+    # product names live in navigation, the legal name in the footer. Phrases
+    # found only there come back as "label_only", which is what they are.
+    keep_tags: [nav, footer]
 
   - id: news
     kind: feed

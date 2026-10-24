@@ -50,7 +50,7 @@ MIN_DOCUMENT_CHARS = 200  # the ingest pipeline rejects anything shorter
 _EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
 _PHONE_RE = re.compile(r"(?<![\w/.-])(?:\+\d{1,3}[\s.-]?)?(?:\(\d{2,4}\)[\s.-]?)?\d{2,4}[\s.-]\d{3,4}[\s.-]\d{3,4}(?![\w/.-])")
 _PHONE_CUE_RE = re.compile(r"\b(phone|tel|telephone|call|ring|fax|helpline|hotline|contact us)\b|☎|📞")
-_TEL_HREF_RE = re.compile(r'href="tel:([^"]+)"', re.I)
+_TEL_HREF_RE = re.compile(r"""href=["']tel:([^"']+)["']""", re.I)
 _TAG_RE = re.compile(r"<[^>]+>")
 _SCRIPT_RE = re.compile(r"<(script|style|noscript)\b.*?</\1>", re.S | re.I)
 
@@ -221,8 +221,16 @@ def _base(cfg: dict, report: CollectReport) -> dict:
     }
 
 
-def collect_site(cfg: dict, params: dict, report: CollectReport) -> None:
-    """Crawl one site breadth-first, preferring pages whose links name a wanted topic."""
+def collect_site(cfg: dict, params: dict, report: CollectReport,
+                 provided: list[dict] | None = None) -> None:
+    """Crawl one site breadth-first, preferring pages whose links name a wanted topic.
+
+    ``provided`` are pages the caller has already rendered -- a browser sees
+    menus and text that plain HTTP does not. They are indexed alongside the
+    crawl (not against its page budget), the crawler does not fetch their URLs
+    again, and each is accepted only if it is on the subject's site. Their
+    evidence says who rendered them.
+    """
     domain = _fill(cfg["domain"], params).lower()
     start = _fill(cfg.get("start", "https://{domain}/"), {**params, "domain": domain})
     max_pages = int(cfg.get("max_pages", 20))
@@ -230,9 +238,12 @@ def collect_site(cfg: dict, params: dict, report: CollectReport) -> None:
     base = _base(cfg, report)
 
     redirected_from: str | None = None
+    keep_tags = frozenset(cfg.get("keep_tags", []))
     tel_links: list[tuple[str, str]] = []
     queue: list[tuple[float, str]] = [(0.0, start)]
-    seen: set[str] = set()
+    provided = provided or []
+    # Supplied URLs are not fetched again: the caller's rendering is the fuller one.
+    seen: set[str] = {p["url"].split("#")[0].rstrip("/") for p in provided}
     pages: list[tuple[str, str, str, str]] = []  # (uri, title, text, markup as text)
     while queue and len(pages) < max_pages:
         queue.sort(key=lambda item: item[0])
@@ -258,7 +269,7 @@ def collect_site(cfg: dict, params: dict, report: CollectReport) -> None:
                                        "reason": f"redirected off-site to {final}"})
                 continue
         try:
-            extracted = extract(content, ctype, final)
+            extracted = extract(content, ctype, final, keep_tags)
         except ExtractionError as exc:
             report.skipped.append({"collector": cfg["id"], "uri": uri, "reason": str(exc)})
             continue
@@ -288,6 +299,7 @@ def collect_site(cfg: dict, params: dict, report: CollectReport) -> None:
                 depth = parts.path.strip("/").count("/")
                 queue.append((depth - 3 * hits, urllib.parse.urlunsplit(parts._replace(fragment=""))))
 
+    publisher = _fill(cfg.get("publisher", "{domain}"), {**params, "domain": domain})
     for index, (uri, title, text, _) in enumerate(pages, start=1):
         if len(text.strip()) < MIN_DOCUMENT_CHARS:
             report.skipped.append({"collector": cfg["id"], "uri": uri,
@@ -295,11 +307,46 @@ def collect_site(cfg: dict, params: dict, report: CollectReport) -> None:
             continue
         report.documents.append(Document(
             id=f"{cfg['id']}-{index:02d}", title=title, uri=uri, text=text,
-            publisher=_fill(cfg.get("publisher", "{domain}"), {**params, "domain": domain}),
-            **base))
+            publisher=publisher, **base))
+
+    # Supplied pages, checked now that any start-page redirect has settled the domain.
+    crawled = len(pages)
+    for index, page in enumerate(provided, start=1):
+        url = page["url"]
+        host = urllib.parse.urlsplit(url).netloc.lower().split(":")[0]
+        if not (_same_site(host, domain) or (redirected_from and _same_site(host, redirected_from))):
+            report.skipped.append({"collector": cfg["id"], "uri": url,
+                                   "reason": f"supplied page is not on {domain}"})
+            continue
+        if page.get("html"):
+            html = page["html"]
+            try:
+                extracted = extract(html.encode("utf-8"), "text/html", url, keep_tags)
+            except ExtractionError as exc:
+                report.skipped.append({"collector": cfg["id"], "uri": url, "reason": str(exc)})
+                continue
+            text, title = extracted.text, page.get("title") or extracted.title or url
+            markup = _strip_html(_SCRIPT_RE.sub(" ", html))
+            for raw in _TEL_HREF_RE.findall(html):
+                tel_links.append((url, urllib.parse.unquote(raw).strip()))
+        else:
+            text = markup = page["text"]
+            title = page.get("title") or url
+        pages.append((url, title, text, markup))
+        if len(text.strip()) < MIN_DOCUMENT_CHARS:
+            report.skipped.append({"collector": cfg["id"], "uri": url,
+                                   "reason": f"supplied page has only {len(text.strip())} characters of text"})
+            continue
+        rendered = f" on {page['rendered_at']}" if page.get("rendered_at") else ""
+        report.documents.append(Document(
+            id=f"{cfg['id']}-p{index:03d}", title=title, uri=url, text=text,
+            publisher=f"{publisher} (rendered by the caller{rendered})",
+            tags=["supplied-by-caller"], **base))
 
     # Rule-based facts about the site as read. Each absence states its scope.
-    facts: dict[str, Any] = {"pages_read": len(pages), "page_uris": [p[0] for p in pages],
+    facts: dict[str, Any] = {"pages_read": len(pages), "pages_crawled": crawled,
+                             "pages_supplied": len(pages) - crawled,
+                             "page_uris": [p[0] for p in pages],
                              "domain": domain, "redirected_from": redirected_from}
     emails: dict[str, str] = {}
     phones: dict[str, str] = {}
@@ -342,8 +389,10 @@ def collect_site(cfg: dict, params: dict, report: CollectReport) -> None:
                                       "detail": f"declared in robots.txt ({len(declared_sitemaps)} listed)"}
     report.facts[cfg["id"]] = facts
 
+    supplied = len(pages) - crawled
     lines = [f"Facts recorded by rule from {len(pages)} pages of {domain} read on "
-             f"{datetime.now(timezone.utc).date().isoformat()}.", ""]
+             f"{datetime.now(timezone.utc).date().isoformat()}"
+             + (f" ({crawled} fetched, {supplied} rendered by the caller)." if supplied else "."), ""]
     if redirected_from:
         lines.append(f"{redirected_from} redirects to {domain}; the pages read are on {domain}.")
     if emails:
@@ -629,8 +678,12 @@ def collect_register(cfg: dict, params: dict, report: CollectReport, site_text: 
 KINDS = {"site": collect_site, "feed": collect_feed, "json_items": collect_json_items}
 
 
-def run_collectors(config: dict, params: dict) -> CollectReport:
-    """Run every collector in order. Registers run last: they corroborate against the site."""
+def run_collectors(config: dict, params: dict,
+                   provided_pages: list[dict] | None = None) -> CollectReport:
+    """Run every collector in order. Registers run last: they corroborate against the site.
+
+    ``provided_pages`` go to the site collector (see ``collect_site``).
+    """
     report = CollectReport()
     collectors = config.get("collectors") or []
     for cfg in collectors:
@@ -639,7 +692,10 @@ def run_collectors(config: dict, params: dict) -> CollectReport:
             continue
         if kind not in KINDS:
             raise CollectError(f"collector {cfg.get('id')!r} has unknown kind {kind!r}")
-        KINDS[kind](cfg, params, report)
+        if kind == "site":
+            collect_site(cfg, params, report, provided_pages)
+        else:
+            KINDS[kind](cfg, params, report)
     site_text = "\n".join(d.text for d in report.documents if d.tier == "self_published")
     declared = declared_names(site_text, config.get("site_declared_names") or {})
     report.facts["declared_names"] = declared

@@ -46,8 +46,9 @@ class _HTMLTextExtractor(HTMLParser):
     works identically on HTML and Markdown sources.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, keep_tags: frozenset[str] = frozenset()) -> None:
         super().__init__(convert_charrefs=True)
+        self.skip_tags = _SKIP_TAGS - keep_tags
         self.parts: list[str] = []
         self.title = ""
         self._skip_depth = 0
@@ -55,7 +56,7 @@ class _HTMLTextExtractor(HTMLParser):
         self._heading: str | None = None
 
     def handle_starttag(self, tag: str, attrs) -> None:
-        if tag in _SKIP_TAGS:
+        if tag in self.skip_tags:
             self._skip_depth += 1
             return
         if tag == "title":
@@ -68,7 +69,7 @@ class _HTMLTextExtractor(HTMLParser):
             self.parts.append("\n")
 
     def handle_endtag(self, tag: str) -> None:
-        if tag in _SKIP_TAGS:
+        if tag in self.skip_tags:
             self._skip_depth = max(0, self._skip_depth - 1)
             return
         if tag == "title":
@@ -92,9 +93,12 @@ class _HTMLTextExtractor(HTMLParser):
         return "".join(self.parts)
 
 
-def extract_html(content: bytes) -> Extracted:
+def extract_html(content: bytes, keep_tags: frozenset[str] = frozenset()) -> Extracted:
+    """``keep_tags`` re-admits normally skipped elements. Navigation and footers
+    are boilerplate in a document corpus, but on a subject's own site they are
+    evidence: product names live in the menu and the legal name in the footer."""
     raw = content.decode("utf-8", "replace")
-    parser = _HTMLTextExtractor()
+    parser = _HTMLTextExtractor(keep_tags)
     parser.feed(raw)
     parser.close()
     text = normalise(parser.result())
@@ -212,7 +216,8 @@ _EXTRACTORS = {
 }
 
 
-def extract(content: bytes, content_type: str, uri: str = "") -> Extracted:
+def extract(content: bytes, content_type: str, uri: str = "",
+            keep_tags: frozenset[str] = frozenset()) -> Extracted:
     """Choose an extractor by declared content type, then by sniffing."""
     handler = _EXTRACTORS.get(content_type.lower())
     if handler is None:
@@ -225,4 +230,6 @@ def extract(content: bytes, content_type: str, uri: str = "") -> Extracted:
             handler = extract_json
         else:
             handler = extract_text
+    if handler is extract_html:
+        return extract_html(content, keep_tags)
     return handler(content)

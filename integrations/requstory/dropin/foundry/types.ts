@@ -25,6 +25,24 @@ export interface ResearchRequest {
     rejected?: string[];
   };
   claims: Claim[];
+  /** Pages Requstory has already rendered (content a browser builds that plain
+   *  HTTP never sees). Optional. Up to 150, each up to 2 MB. Send `html`: a
+   *  rendered page's innerText leaves out collapsed menus, which is where product
+   *  names live. Accepted only when the URL is on the company's site; off-site
+   *  pages are skipped and listed in result.sources.skipped. */
+  pages?: SuppliedPage[];
+}
+
+export interface SuppliedPage {
+  url: string;
+  /** rendered DOM (document.documentElement.outerHTML) — preferred: keeps collapsed
+   *  menus, tel: links and the footer */
+  html?: string;
+  /** rendered text — only when html is over 2 MB; innerText drops hidden menus */
+  text?: string;
+  title?: string;
+  /** ISO timestamp of the render; shown with the evidence */
+  rendered_at?: string;
 }
 
 export interface Claim {
@@ -99,7 +117,8 @@ export interface ResearchResult {
   registers: { publisher: string; uri: string; title: string;
                fields: Record<string, string[]>; visibility: "public" }[];
   site: {
-    domain: string; redirected_from: string | null; pages_read: number; page_uris: string[];
+    domain: string; redirected_from: string | null; page_uris: string[];
+    pages_read: number; pages_crawled: number; pages_supplied: number;
     emails: { value: string; found_on: string }[];
     phones: { value: string; found_on: string }[];
     probes: Record<string, { present: boolean; detail: string; uri?: string }>;

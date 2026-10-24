@@ -326,3 +326,37 @@ def test_a_wire_press_release_is_the_company_speaking(monkeypatch):
     report = CollectReport()
     collect.collect_feed(cfg, {"name": "Acme"}, report)
     assert [d.source_type for d in report.documents] == ["self_published", "press"]
+
+
+def test_pages_the_caller_rendered_are_indexed_labelled_and_not_refetched(monkeypatch):
+    home = ("<html><head><title>Acme</title></head><body><p>" + "Acme makes things for teams. " * 12
+            + "</p><a href='/pricing'>Pricing</a></body></html>")
+    fetched = []
+
+    def fetch(uri, retries=1):
+        fetched.append(uri)
+        if uri == "https://acme.test/":
+            return home.encode(), "text/html", uri
+        raise FetchError(f"HTTP 404 fetching {uri}")
+
+    monkeypatch.setattr(collect, "_fetch_text", fetch)
+    rendered = ("<html><body><nav>Plans</nav><p>" + "Our pricing menu is built in the browser. " * 8
+                + "Call us on <a href='tel:+442071234567'>020 7123 4567</a>.</p></body></html>")
+    provided = [
+        {"url": "https://acme.test/pricing", "html": rendered, "rendered_at": "2026-10-24T10:00:00Z"},
+        {"url": "https://elsewhere.test/page", "text": "Not Acme's page. " * 20},
+    ]
+    cfg = next(c for c in TEMPLATE_COLLECTORS["collectors"] if c["id"] == "site")
+    report = CollectReport()
+    collect.collect_site({**cfg, "probes": []}, {"domain": "acme.test", "name": "Acme"}, report, provided)
+
+    supplied = [d for d in report.documents if "supplied-by-caller" in d.tags]
+    assert [d.uri for d in supplied] == ["https://acme.test/pricing"]
+    assert "rendered by the caller on 2026-10-24" in supplied[0].publisher
+    assert supplied[0].source_type == "self_published"
+    assert "https://acme.test/pricing" not in fetched           # the caller's render wins
+    assert any(s["uri"] == "https://elsewhere.test/page" and "not on acme.test" in s["reason"]
+               for s in report.skipped)
+    facts = report.facts["site"]
+    assert facts["pages_crawled"] == 1 and facts["pages_supplied"] == 1
+    assert "+442071234567" in [p["value"] for p in facts["phones"]]   # from the rendered tel: link

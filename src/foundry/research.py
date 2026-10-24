@@ -13,7 +13,8 @@ The contract carries two things a caller must not have to reconstruct:
   instance belongs to (``claimant_only``: press, reviews, community). A caller
   that renders the result cannot show a third-party finding by accident.
 * **Provenance.** Every answer and verdict names what produced it: register
-  fields, extraction, the sentence rule, or a named model.
+  fields, extraction, the sentence rule, or a named model. Pages the caller
+  rendered and supplied (``pages``) are labelled as such in their publisher.
 
 ``serve`` exposes it over HTTP as an asynchronous job, because a run takes
 tens of seconds of polite crawling and should not hold a request open.
@@ -37,6 +38,9 @@ import yaml
 from . import paths
 
 CONTRACT = "foundry.research/v1"
+MAX_PAGES = 150                 # Requstory's own research depth
+MAX_PAGE_BYTES = 2_000_000
+MAX_REQUEST_BYTES = 64_000_000
 PUBLIC_TYPES = frozenset({"official_record", "self_published"})
 ROLE_EMAIL = re.compile(r"^(sales|support|help|contact|info|hello|privacy|security|press|media|"
                         r"careers|jobs|legal|billing|enquiries|inquiries|dpo|abuse|team|customer|"
@@ -64,8 +68,22 @@ def validate_request(request: dict) -> dict:
         if not isinstance(claim, dict) or not str(claim.get("text", "")).strip():
             raise ResearchError(f"claims[{index}] needs a non-empty 'text'")
         claim.setdefault("id", f"c{index + 1}")
+    pages = request.get("pages") or []
+    if not isinstance(pages, list) or len(pages) > MAX_PAGES:
+        raise ResearchError(f"pages must be a list of at most {MAX_PAGES}")
+    for index, page in enumerate(pages):
+        if not isinstance(page, dict) or not re.match(r"https?://", str(page.get("url", ""))):
+            raise ResearchError(f"pages[{index}] needs an http(s) 'url'")
+        body = page.get("html") or page.get("text")
+        if not isinstance(body, str) or not body.strip():
+            raise ResearchError(f"pages[{index}] needs 'html' or 'text'")
+        if len(body.encode("utf-8")) > MAX_PAGE_BYTES:
+            raise ResearchError(f"pages[{index}] is over {MAX_PAGE_BYTES // 1_000_000} MB")
+    # Whether each page is on the subject's site is decided at collection, once
+    # any redirect of the subject's domain is known; off-site pages are skipped
+    # and reported in sources.skipped.
     return {"template": request.get("template", "company"), "params": params,
-            "claims": claims, "options": request.get("options") or {}}
+            "claims": claims, "pages": pages, "options": request.get("options") or {}}
 
 
 def _site_facts(facts: dict) -> dict:
@@ -74,6 +92,8 @@ def _site_facts(facts: dict) -> dict:
         "domain": site.get("domain"),
         "redirected_from": site.get("redirected_from"),
         "pages_read": site.get("pages_read", 0),
+        "pages_crawled": site.get("pages_crawled", site.get("pages_read", 0)),
+        "pages_supplied": site.get("pages_supplied", 0),
         "page_uris": site.get("page_uris", []),
         # Role addresses only: a privacy policy naming a person's mailbox is not
         # a contact route, and the result may be shown publicly.
@@ -103,7 +123,7 @@ def run(request: dict) -> dict:
     t0 = time.monotonic()
     directory = instantiate(req["template"], req["params"], force=True)
     config = yaml.safe_load((directory / "collectors.yaml").read_text(encoding="utf-8")) or {}
-    report = run_collectors(config, req["params"])
+    report = run_collectors(config, req["params"], req["pages"])
     write_register(directory, report, req["params"])
     timings["collect"] = round(time.monotonic() - t0, 1)
 
@@ -235,8 +255,11 @@ def make_handler(queue, token: str | None):
                 return
             if self.path.rstrip("/") != "/v1/research":
                 return self._send(404, {"error": "POST /v1/research"})
+            length = int(self.headers.get("Content-Length", "0") or 0)
+            if length > MAX_REQUEST_BYTES:
+                return self._send(413, {"error": f"request over {MAX_REQUEST_BYTES // 1_000_000} MB; "
+                                                 "send rendered text rather than full HTML"})
             try:
-                length = int(self.headers.get("Content-Length", "0"))
                 request = json.loads(self.rfile.read(length) or b"{}")
                 validate_request(request)
             except (ValueError, ResearchError) as exc:

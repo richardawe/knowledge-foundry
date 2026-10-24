@@ -235,3 +235,15 @@ def test_claims_are_verbatim_not_paraphrased():
 
     assert claims
     assert claims[0]["text"] in text
+
+
+def test_navigation_and_footers_are_dropped_unless_kept():
+    """Boilerplate in a document corpus; evidence on a company's own site."""
+    from foundry.ingest.extractors import extract
+
+    html = (b"<html><body><nav>Manage transient RFPs</nav><main><p>" + b"Body text. " * 30
+            + b"</p></main><footer>Copyright 2026 Acme, Inc.</footer></body></html>")
+    default = extract(html, "text/html").text
+    kept = extract(html, "text/html", keep_tags=frozenset({"nav", "footer"})).text
+    assert "transient" not in default and "Acme, Inc." not in default
+    assert "Manage transient RFPs" in kept and "Acme, Inc." in kept

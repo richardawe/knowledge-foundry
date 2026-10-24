@@ -51,9 +51,9 @@ Verdicts, strongest first:
   voice, not as press.
 * `self_reported`: only the company's own site says it.
 * `label_only`: the words appear on the site, but only as a menu item, button or heading.
-* `not_found`: nothing collected supports it. **Often the foundry's blind spot**: it crawls
-  plain HTML and does not run JavaScript, so a menu Requstory rendered may be invisible to it.
-  Don't show `not_found` to a company as "Requstory was wrong".
+* `not_found`: nothing collected supports it. It can be the foundry's blind spot (a page
+  it did not read, or content built in the browser that was not supplied in `pages`), so
+  don't show `not_found` to a company as "Requstory was wrong".
 
 ## The one rule that must hold
 
@@ -87,6 +87,35 @@ const { confirmIdentity } = claimFlowPrompts(result); // "Is this you?" on the c
 `mapToClaims` is written against the structure of Requstory's public company
 pages (bands of units, journey, findings). If the internal map type differs,
 change that one function; the rest keys on claim ids.
+
+## Handing over pages Requstory has already rendered
+
+Requstory renders sites in a browser; the foundry fetches plain HTML. For a site
+whose content is built in the browser, pass the rendered pages in the request so
+both are checking the same text:
+
+```ts
+pages: rendered.map((p) => ({
+  url: p.url,                         // must be on the company's site
+  html: p.outerHTML,                  // document.documentElement.outerHTML
+  rendered_at: p.renderedAt,          // shown with the evidence
+})),
+```
+
+* **Send `html`, not `innerText`.** innerText leaves out collapsed menus, which is
+  exactly where product names live; in the pilot, Cvent's rendered innerText had
+  none of its five product lines and its outerHTML had all five.
+* Up to 150 pages, 2 MB each, 64 MB per request. Supplied URLs are not fetched
+  again and do not count against the foundry's own 25-page crawl.
+* Evidence from a supplied page names it: "cvent.com (rendered by the caller on
+  …)". Off-site pages are skipped and listed in `sources.skipped`.
+* It only changes results for sites built in the browser. Cvent's menus are in
+  its plain HTML, so its verdicts were the same with or without supplied pages;
+  what fixed them was keeping navigation and footers (below).
+
+Menus and footers are read on company sites. Product names found only in a menu
+come back `label_only` ("appears only as a menu item"), which is the honest
+verdict: the company lists it, and says nothing more about it.
 
 ## Running the service
 

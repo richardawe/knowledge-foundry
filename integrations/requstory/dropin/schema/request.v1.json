@@ -3,30 +3,117 @@
   "$id": "foundry.research/v1/request",
   "title": "Foundry research request",
   "type": "object",
-  "required": ["contract", "params", "claims"],
+  "required": [
+    "contract",
+    "params",
+    "claims"
+  ],
   "properties": {
-    "contract": {"const": "foundry.research/v1"},
-    "template": {"enum": ["company"], "default": "company"},
+    "contract": {
+      "const": "foundry.research/v1"
+    },
+    "template": {
+      "enum": [
+        "company"
+      ],
+      "default": "company"
+    },
     "params": {
       "type": "object",
-      "required": ["domain", "name"],
+      "required": [
+        "domain",
+        "name"
+      ],
       "properties": {
-        "domain": {"type": "string", "pattern": "^[a-z0-9.-]+\\.[a-z]{2,}$"},
-        "name": {"type": "string", "minLength": 1},
-        "confirmed": {"type": "array", "items": {"type": "string", "pattern": "^[a-z-]+:[A-Za-z0-9]+$"}},
-        "rejected": {"type": "array", "items": {"type": "string", "pattern": "^[a-z-]+:[A-Za-z0-9]+$"}}
+        "domain": {
+          "type": "string",
+          "pattern": "^[a-z0-9.-]+\\.[a-z]{2,}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z-]+:[A-Za-z0-9]+$"
+          }
+        },
+        "rejected": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z-]+:[A-Za-z0-9]+$"
+          }
+        }
       }
     },
     "claims": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "text"],
+        "required": [
+          "id",
+          "text"
+        ],
         "properties": {
-          "id": {"type": "string"},
-          "text": {"type": "string", "minLength": 1},
-          "section": {"type": "string"},
-          "origin": {"type": "string"}
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "section": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "maxItems": 150,
+      "description": "Pages the caller has already rendered. Accepted only when on the company's site; off-site pages are skipped and reported.",
+      "items": {
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "html"
+            ]
+          },
+          {
+            "required": [
+              "text"
+            ]
+          }
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "pattern": "^https?://"
+          },
+          "html": {
+            "type": "string",
+            "maxLength": 2000000
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000000
+          },
+          "title": {
+            "type": "string"
+          },
+          "rendered_at": {
+            "type": "string"
+          }
         }
       }
     }
