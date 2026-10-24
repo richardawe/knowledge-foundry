@@ -422,6 +422,69 @@ def cmd_deploy(args) -> int:
     return 0
 
 
+def cmd_instantiate(args) -> int:
+    """Render a template into a new knowledge area, on request."""
+    from .instantiate import instantiate
+
+    params = dict(item.split("=", 1) for item in args.param)
+    try:
+        target = instantiate(args.template, params, force=args.force)
+    except ManifestError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    print(target)
+    return 0
+
+
+def cmd_collect(args) -> int:
+    """Find a knowledge area's sources from its collectors and write the register."""
+    import yaml
+
+    from .collect import run_collectors, write_register
+
+    manifest = _load(args.knowledge_area)
+    directory = manifest.directory
+    config = yaml.safe_load((directory / "collectors.yaml").read_text(encoding="utf-8")) or {}
+    instance = yaml.safe_load((directory / "instance.yaml").read_text(encoding="utf-8")) or {}
+    params = instance.get("params") or {}
+    report = run_collectors(config, params)
+    write_register(directory, report, params)
+    if args.json:
+        _emit({"counts": report.counts(), "identity": report.identity,
+               "skipped": report.skipped}, True)
+        return 0
+    counts = ", ".join(f"{n} {tier}" for tier, n in sorted(report.counts().items()))
+    print(f"collected {manifest.id}: {len(report.documents)} sources ({counts or 'none'})")
+    for register, record in report.identity.items():
+        entities = "; ".join(
+            f"{e['name']} [{e['key']}]{'' if e['corroborated'] else ' (unconfirmed)'}"
+            for e in record.get("entities", []))
+        print(f"  {register}: {record['status']}"
+              + (f" -> {entities}" if entities else "")
+              + (f" ({record['reason']})" if record.get("reason") else ""))
+    if report.skipped:
+        print(f"  skipped {len(report.skipped)} (see collection.json)")
+    return 0
+
+
+def cmd_verify(args) -> int:
+    """Check claims made elsewhere against the corpus, one verdict per claim."""
+    from .verify import verify_claims
+
+    manifest = _load(args.knowledge_area)
+    claims = [line.strip() for line in Path(args.claims_file).read_text(encoding="utf-8").splitlines()
+              if line.strip()]
+    with _store(manifest) as store:
+        verdicts = verify_claims(store, claims, subject=args.subject)
+    if args.json:
+        _emit({"knowledge_area": manifest.id, "verdicts": [v.as_dict() for v in verdicts]}, True)
+        return 0
+    for verdict in verdicts:
+        where = ", ".join(sorted({s.source_type for s in verdict.support})) or "-"
+        print(f"{verdict.verdict:14} {where:28} {verdict.claim}")
+    return 0
+
+
 def cmd_doctor(args) -> int:
     from .doctor import run_doctor
 
@@ -578,6 +641,20 @@ def build_parser() -> argparse.ArgumentParser:
     deploy.add_argument("--no-push", action="store_true", help="commit locally without pushing")
     deploy.add_argument("--json", action="store_true")
     deploy.set_defaults(func=cmd_deploy)
+
+    instantiate = sub.add_parser("instantiate", help="render a template into a new knowledge area")
+    instantiate.add_argument("template")
+    instantiate.add_argument("--param", action="append", default=[], help="name=value")
+    instantiate.add_argument("--force", action="store_true", help="re-render an existing instance")
+    instantiate.set_defaults(func=cmd_instantiate)
+
+    collect = add_ka(sub.add_parser("collect", help="discover sources from collectors.yaml"))
+    collect.set_defaults(func=cmd_collect)
+
+    verify = add_ka(sub.add_parser("verify", help="verdict per claim, and who supports it"))
+    verify.add_argument("claims_file", help="one claim per line")
+    verify.add_argument("--subject", help="name third-party support must mention to count")
+    verify.set_defaults(func=cmd_verify)
 
     doctor = sub.add_parser("doctor", help="diagnose the model, corpus and server on this machine")
     doctor.add_argument("--knowledge-area", help="comma-separated ids; default is all")

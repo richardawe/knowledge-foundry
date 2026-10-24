@@ -13,3 +13,7 @@ site/
 
 # Local virtualenv created by start.sh
 .venv/
+
+# Per-company knowledge areas: third-party findings about named companies,
+# shown only to the company once it has claimed its page. Never committed.
+companies/

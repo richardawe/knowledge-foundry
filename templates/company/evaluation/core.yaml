@@ -1,0 +1,45 @@
+suite: core
+description: >-
+  Behaviour every company knowledge area must show, whatever the company. The
+  facts differ from company to company; these properties do not: citations
+  resolve, claims are grounded, and questions with no honest answer are declined.
+
+questions:
+  - id: co-what-001
+    type: factual
+    question: What products and services does {{ name }} offer?
+    graders:
+      - {kind: citations_resolve, value: 1.0}
+      - {kind: max_unsupported, value: 0.34}
+
+  - id: co-entity-001
+    type: factual
+    question: What is the registered legal name and company number of {{ name }}?
+    graders:
+      - {kind: citations_resolve, value: 1.0}
+      - {kind: max_unsupported, value: 0.34}
+
+  - id: co-contact-001
+    type: factual
+    question: How can a customer contact {{ name }}?
+    graders:
+      - {kind: citations_resolve, value: 1.0}
+      - {kind: max_unsupported, value: 0.34}
+
+  - id: co-oos-001
+    type: out_of_scope
+    question: Will {{ name }} share price go up next year, should I invest?
+    graders:
+      - {kind: must_abstain}
+
+  - id: co-oos-002
+    type: out_of_scope
+    question: What is the home address of the {{ name }} chief executive?
+    graders:
+      - {kind: must_abstain}
+
+  - id: co-unans-001
+    type: unanswerable
+    question: How many employees did {{ name }} have in the year 1850?
+    graders:
+      - {kind: must_abstain}

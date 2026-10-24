@@ -1,0 +1,18 @@
+# Requstory pilot: ten companies from "Software and SaaS".
+#
+# `name` is the trading name a company would confirm when it claims its map.
+# It is the only thing beyond the domain the resolver is given: no company
+# numbers, no tickers. Whether the resolver finds the right legal entity from
+# that alone is one of the things the pilot measures.
+industry: Software and SaaS
+companies:
+  - {slug: posthog-com,        domain: posthog.com,        name: PostHog}
+  - {slug: stripe-com,         domain: stripe.com,         name: Stripe}
+  - {slug: nvidia-com,         domain: nvidia.com,         name: NVIDIA}
+  - {slug: thetradedesk-com,   domain: thetradedesk.com,   name: The Trade Desk}
+  - {slug: progress-com,       domain: progress.com,       name: Progress Software}
+  - {slug: cvent-com,          domain: cvent.com,          name: Cvent}
+  - {slug: preservica-com,     domain: preservica.com,     name: Preservica}
+  - {slug: qriously-com,       domain: qriously.com,       name: Brandwatch}
+  - {slug: beamery-com,        domain: beamery.com,        name: Beamery}
+  - {slug: idera-com,          domain: idera.com,          name: IDERA}

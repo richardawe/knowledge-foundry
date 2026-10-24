@@ -35,6 +35,11 @@ DEFAULT_TYPE_CUES: dict[str, tuple[str, ...]] = {
     "industry": ("industry", "vendor", "manufacturer", "guidance", "best practice"),
     "dataset": ("dataset", "data set", "measurements", "test data"),
     "reference": ("definition", "what is", "overview", "background"),
+    "official_record": ("registered", "register", "incorporated", "filing", "filings",
+                        "legal name", "company number", "officers", "directors"),
+    "press": ("news", "reported", "press", "announced", "headline", "coverage"),
+    "review": ("reviews", "review", "rating", "ratings", "complaints", "testimonial"),
+    "community": ("users say", "developers say", "discussion", "forum", "community"),
 }
 
 

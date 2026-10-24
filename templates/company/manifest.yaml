@@ -1,0 +1,89 @@
+knowledge_area:
+  id: {{ id }}
+  name: "{{ name }}: company facts"
+  description: >-
+    What is on the public record about {{ name }} ({{ domain }}), drawn from public
+    registers, its own website, press coverage and user discussion, with every
+    statement traced to its source and its kind of source named.
+  domain: company research
+  version: v0.1.0
+  owner: knowledge-foundry
+  created: {{ today }}
+  last_updated: {{ today }}
+  visibility: private
+  tenant: {{ domain }}
+
+scope:
+  in_scope:
+    - "{{ name }} products and services"
+    - "{{ name }} customers and who it is for"
+    - "{{ name }} pricing and plans"
+    - "{{ name }} contact support and complaints"
+    - "{{ name }} registered legal entity company number and incorporation"
+    - "{{ name }} registered office address and jurisdiction"
+    - "{{ name }} ownership parent company and acquisitions"
+    - "{{ name }} directors officers and leadership"
+    - "{{ name }} news coverage announcements and incidents"
+    - "{{ name }} what users and customers say"
+    - "{{ name }} security privacy and terms"
+    - "{{ name }} website robots sitemap and llms.txt"
+  # Out-of-scope topics name the company too, and stay short: the gate scores the
+  # share of a topic's words found in the question, so a long topic never wins.
+  out_of_scope:
+    - "{{ name }} share price"
+    - "invest in {{ name }}"
+    - "{{ name }} stock forecast"
+    - "home address {{ name }}"
+    - "{{ name }} employee private life"
+    - "legal advice against {{ name }}"
+    - medical diagnosis treatment or clinical advice
+
+sources:
+  register: sources.yaml
+
+retrieval:
+  top_k: 8
+  candidate_k: 40
+  chunk: {target_chars: 900, overlap_chars: 120, min_chars: 120}
+  keyword: {enabled: true}
+  semantic: {enabled: true, provider: lsa, dim: 64}
+  structured: {enabled: true}
+  graph: {enabled: false}
+  fusion:
+    k: 60
+    weights: {keyword: 1.0, semantic: 0.8, structured: 0.6, graph: 0.0}
+  rerank: {authority_weight: 0.25, recency_half_life_days: 730}
+
+specialist:
+  prompt: prompts/system.md
+  llm: {provider: local_extractive, fallback: true, temperature: 0.0, max_tokens: 900}
+  sufficiency: {min_evidence_score: 0.012, min_chunks: 1, max_missing_subject_weight: 0.6}
+  responsiveness: {min_question_coverage: 0.3}
+  grounding: {min_sentence_support: 0.34, max_unsupported_ratio: 0.34}
+
+evaluation:
+  suites:
+    - evaluation/core.yaml
+  thresholds:
+    citation_validity: 0.95
+    unsupported_claim_rate: 0.20
+    abstention_correctness: 0.60
+  tolerances: {default: 0.02, citation_validity: 0.0}
+
+governance:
+  review_status: draft
+  confidence: low
+  disclaimer: >-
+    An evidence index of public information about {{ name }}, not an endorsement,
+    audit or credit check. Third-party statements are attributed to whoever made
+    them and are not adopted as fact. Verify anything material at the cited source.
+  known_limitations:
+    - >-
+      Register matches are made by name. A match the company's own site does not
+      corroborate is held at lower authority and flagged as unconfirmed.
+    - >-
+      Press items are headline-and-snippet records from a news search feed, not
+      full articles.
+    - >-
+      Absence findings ("no telephone number found") are scoped to the pages
+      actually read, which are listed in the site-facts source.

@@ -13,6 +13,7 @@ identifies the project.
 from __future__ import annotations
 
 import hashlib
+import os
 import time
 import urllib.error
 import urllib.parse
@@ -22,6 +23,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 USER_AGENT = "KnowledgeFoundry/0.1 (+https://github.com/richardawe/knowledge-foundry)"
+# Some public registers (SEC EDGAR among them) refuse automated clients that
+# give no contact address. The operator supplies one; the project never invents it.
+if os.environ.get("FOUNDRY_CONTACT_EMAIL"):
+    USER_AGENT += f" {os.environ['FOUNDRY_CONTACT_EMAIL']}"
 DEFAULT_TIMEOUT = 30
 MIN_HOST_INTERVAL = 1.0  # seconds between requests to the same host
 

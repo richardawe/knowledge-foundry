@@ -1,0 +1,5 @@
+# One knowledge area per company. Rendered on request -- when a company maps its
+# site and asks for one -- never on a schedule.
+id: "co-{{ domain | lower | replace('.', '-') }}"
+parameters: [domain, name]
+into: companies

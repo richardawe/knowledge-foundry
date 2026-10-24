@@ -79,6 +79,41 @@ and prompt assembly, and either settles the turn or hands back a prompt. `judge`
 runs validation and scoring over whatever a model returned. The split is what
 makes the two-machine pipeline possible.
 
+## Knowledge areas per instance: companies (the Requstory pilot)
+
+A *template* is a directory that writes knowledge areas. `templates/company/`
+renders one per company **on request, never on a schedule**:
+
+```
+python -m foundry.cli instantiate company --param domain=x.com --param name=X
+python -m foundry.cli collect companies/co-x-com     # crawl + registers + press + users
+python -m foundry.cli build   companies/co-x-com
+python -m foundry.cli verify  companies/co-x-com claims.txt   # verdict per claim
+```
+
+`collect.py` turns `collectors.yaml` into an ordinary inline source register;
+`verify.py` checks claims made *elsewhere* and says who supports them
+(corroborated / self_reported / label_only / not_found). Five speaker-based
+source types were added: `official_record self_published press review community`.
+
+* **`companies/` is gitignored and must stay so.** It holds third-party findings
+  about named companies, which the user decided are shown only to the company once
+  it has claimed its page. Nothing from it goes to gh-pages either.
+* **A name match nobody confirmed stays out of the corpus.** Corroboration = the
+  site declares the legal name, or shows the register key, or shows the legal name
+  *with its legal form*. A bare trading name corroborates nothing — the first run
+  matched a Belgian "STRIPE" to Stripe, Inc. that way.
+* **An unreachable register is `failed`, not `unresolved`.** Companies House
+  returned 502s mid-run and they were first misreported as "no match".
+* SEC EDGAR needs `FOUNDRY_CONTACT_EMAIL` (it refuses UAs without one). Not set,
+  and not to be invented — ask the user.
+* Trustpilot, G2, Product Hunt, Reddit, GitHub return 403 to this container;
+  App Store and Wikipedia disallow the foundry's UA in robots.txt. Bing News RSS
+  forbids commercial use — fine for the pilot, not for production.
+
+Pilot: `integrations/requstory/` (`fetch_maps.js` snapshots Requstory's pages,
+`research.py` runs all ten, `report.py` renders `companies/pilot-report.html`).
+
 ## Invariants — do not weaken these
 
 * **The worker never answers without a model.** `provider_for(require_model=True)`

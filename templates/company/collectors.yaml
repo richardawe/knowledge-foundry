@@ -1,0 +1,140 @@
+# Where a company's sources come from. Placeholders: {domain}, {name}, and
+# {name_q} / {domain_q} for their URL-quoted forms.
+#
+# Licences are recorded per source and travel with every citation. Two of the
+# feeds below restrict commercial reuse; that is flagged, not hidden.
+collectors:
+  - id: site
+    kind: site
+    tier: self_published
+    source_type: self_published
+    authority: 3
+    licence: "Publisher's own site; quoted for verification only"
+    domain: "{domain}"
+    start: "https://{domain}/"
+    max_pages: 25
+    prefer: [contact, about, company, pricing, plans, support, help, legal, imprint,
+             impressum, terms, privacy, security, trust, careers, jobs, customers,
+             team, leadership, press, investors, complaints]
+    probes: [/robots.txt, /sitemap.xml, /llms.txt]
+
+  - id: news
+    kind: feed
+    tier: press
+    source_type: press
+    authority: 3
+    licence: "Bing News RSS: personal, non-commercial use only. Pilot use; needs a licensed feed in production."
+    url: "https://www.bing.com/news/search?q=%22{name_q}%22&format=rss"
+    unwrap_param: url
+    require_mention: name
+    take: 12
+
+  - id: hn
+    kind: json_items
+    tier: community
+    source_type: community
+    authority: 1
+    publisher: Hacker News
+    licence: "User comments via the HN Algolia API; attributed, quoted for verification only"
+    url: "https://hn.algolia.com/api/v1/search?query=%22{name_q}%22&tags=comment&hitsPerPage=40"
+    items: hits
+    require_mention: name
+    take: 10
+    title_prefix: "HN discussion: "
+    fields:
+      text: [comment_text]
+      title: story_title
+      date: created_at
+      link: "https://news.ycombinator.com/item?id={objectID}"
+
+  - id: uk-register
+    kind: register
+    tier: official_record
+    source_type: official_record
+    authority: 5
+    publisher: Companies House (UK)
+    licence: "Open Government Licence v3.0"
+    format: html
+    search: "https://find-and-update.company-information.service.gov.uk/search/companies?q={name_q}"
+    candidates:
+      pattern: 'href="/company/(?P<key>[A-Z0-9]{8})"[^>]*>(?P<name>[^<]+)</a>'
+    legal_form_words: [ltd, limited, plc, llp, the, uk, holdings, holding, group]
+    legal_form_expansions: {ltd: limited}
+    detail:
+      - {label: "Company overview", url: "https://find-and-update.company-information.service.gov.uk/company/{key}"}
+      - {label: "Officers", url: "https://find-and-update.company-information.service.gov.uk/company/{key}/officers"}
+
+  - id: lei-register
+    kind: register
+    tier: official_record
+    source_type: official_record
+    authority: 5
+    publisher: GLEIF (Global Legal Entity Identifier Foundation)
+    licence: "CC0 1.0"
+    format: json
+    search: "https://api.gleif.org/api/v1/fuzzycompletions?field=entity.legalName&q={name_q}"
+    candidates:
+      items: data
+      key: relationships.lei-records.data.id
+      name: attributes.value
+    legal_form_words: [ltd, limited, inc, incorporated, corp, corporation, co, company, plc,
+                       llc, llp, gmbh, ag, sa, bv, the, holding, holdings, group]
+    legal_form_expansions: {ltd: limited, corp: corporation, inc: "inc"}
+    max_entities: 2
+    detail:
+      - label: "Legal entity record"
+        url: "https://api.gleif.org/api/v1/lei-records/{key}"
+        keep:
+          - {label: "Legal name", path: data.attributes.entity.legalName.name}
+          - {label: "Other names", path: data.attributes.entity.otherNames}
+          - {label: "Legal entity identifier", path: data.attributes.lei}
+          - {label: "Registered as", path: data.attributes.entity.registeredAs}
+          - {label: "Jurisdiction", path: data.attributes.entity.jurisdiction}
+          - {label: "Legal address", path: data.attributes.entity.legalAddress}
+          - {label: "Headquarters address", path: data.attributes.entity.headquartersAddress}
+          - {label: "Entity status", path: data.attributes.entity.status}
+          - {label: "Incorporated (creation date)", path: data.attributes.entity.creationDate}
+          - {label: "Successor entity", path: data.attributes.entity.successorEntity.name}
+          - {label: "Registration status", path: data.attributes.registration.status}
+          - {label: "Record last updated", path: data.attributes.registration.lastUpdateDate}
+      - label: "Ultimate parent"
+        url: "https://api.gleif.org/api/v1/lei-records/{key}/ultimate-parent"
+        absent_means: "No ultimate parent entity is reported in the LEI register."
+        keep:
+          - {label: "Ultimate parent legal name", path: data.attributes.entity.legalName.name}
+          - {label: "Ultimate parent LEI", path: data.attributes.lei}
+          - {label: "Ultimate parent jurisdiction", path: data.attributes.entity.jurisdiction}
+          - {label: "Ultimate parent address", path: data.attributes.entity.legalAddress}
+
+  - id: us-filings
+    kind: register
+    tier: official_record
+    source_type: official_record
+    authority: 5
+    publisher: US SEC EDGAR
+    licence: "US government work, public domain"
+    requires_env: FOUNDRY_CONTACT_EMAIL
+    requires_reason: "SEC EDGAR refuses automated clients whose user-agent carries no contact email"
+    format: json
+    search: "https://efts.sec.gov/LATEST/search-index?keysTyped={name_q}"
+    candidates: {items: hits.hits, key: _id, name: _source.entity}
+    legal_form_words: [inc, corp, corporation, co, the, holding, holdings, ltd, plc]
+    detail:
+      - label: "SEC registrant record"
+        url: "https://data.sec.gov/submissions/CIK{key}.json"
+        keep:
+          - {label: "Registrant name", path: name}
+          - {label: "Tickers", path: tickers}
+          - {label: "Exchanges", path: exchanges}
+          - {label: "Industry (SIC)", path: sicDescription}
+          - {label: "State of incorporation", path: stateOfIncorporation}
+          - {label: "Former names", path: formerNames}
+          - {label: "Business address", path: addresses.business}
+          - {label: "Website", path: website}
+
+# Legal names the company's own pages declare, searched in every register
+# alongside the trading name. Only sentences with a registration cue count.
+site_declared_names:
+  cue: "registered|incorporated|company (number|no)|registration|trading as|operated by|©|copyright|\\(c\\) 20"
+  pattern: "(?P<name>(?:[A-Z][A-Za-z0-9&'.-]*\\s){0,4}[A-Z][A-Za-z0-9&'.-]*,?\\s(?:Ltd|Limited|LIMITED|LTD|Inc|Inc\\.|Corporation|Corp\\.?|LLC|PLC|plc|GmbH|B\\.V\\.|SAS|S\\.A\\.))\\b"
+  max: 4

@@ -37,6 +37,11 @@ REQUIRED_SOURCE_FIELDS = ("id", "title", "publisher", "source_type", "authority"
 SOURCE_TYPES = (
     "regulatory", "standard", "investigation", "academic",
     "industry", "dataset", "expert", "reference",
+    # Who is speaking, for knowledge areas about a subject that also speaks for
+    # itself: a public register, the subject's own publication, reporting about
+    # it, and what its users say. They are kept apart because agreement between
+    # them is the evidence; one voice repeated is not.
+    "official_record", "self_published", "press", "review", "community",
 )
 
 

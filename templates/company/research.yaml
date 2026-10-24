@@ -1,0 +1,36 @@
+# The questions every company is asked. `check` links a question to the
+# Requstory check it can confirm or overturn (matched against the check text);
+# `tiers` are the kinds of source that would settle it.
+questions:
+  - {id: offer,      check: "says what it offers",   tiers: [self_published, press],
+     question: "What products and services does {{ name }} offer?"}
+  - {id: audience,   check: "who it is for",         tiers: [self_published, press],
+     question: "Which kinds of customers, companies and teams use {{ name }} products?"}
+  - {id: pricing,    check: "prices",                tiers: [self_published],
+     question: "Does {{ name }} publish its pricing and plans?"}
+  - {id: contact,    check: "contact page or email", tiers: [self_published],
+     question: "What email address or contact page does {{ name }} publish for customers?"}
+  - {id: phone,      check: "phone number",          tiers: [self_published],
+     question: "What telephone number does {{ name }} publish?"}
+  - {id: support,    check: "help pages",            tiers: [self_published, community],
+     question: "How does {{ name }} provide customer support and help?"}
+  - {id: complaints, check: "complaints",            tiers: [self_published, community],
+     question: "How does {{ name }} handle complaints?"}
+  - {id: legal,      check: null,                    tiers: [official_record],
+     question: "What is the registered legal name, company number and jurisdiction of {{ name }}?"}
+  - {id: office,     check: null,                    tiers: [official_record],
+     question: "What is the registered office address of {{ name }}?"}
+  - {id: founded,    check: null,                    tiers: [official_record],
+     question: "On what date was {{ name }} incorporated or founded as a company?"}
+  - {id: parent,     check: null,                    tiers: [official_record, press],
+     question: "Who owns {{ name }}, and what is its parent company?"}
+  - {id: officers,   check: null,                    tiers: [official_record],
+     question: "Who are the directors and officers of {{ name }}?"}
+  - {id: news,       check: null,                    tiers: [press],
+     question: "What has been reported in the news about {{ name }} recently?"}
+  - {id: incidents,  check: null,                    tiers: [press, community],
+     question: "Has {{ name }} had any security incidents, outages, layoffs or legal disputes reported?"}
+  - {id: users,      check: "reviews or testimonials", tiers: [community, review],
+     question: "What do users and developers say about {{ name }}?"}
+  - {id: security,   check: null,                    tiers: [self_published],
+     question: "What does {{ name }} say about security, privacy and compliance?"}

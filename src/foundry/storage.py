@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS sources (
     uri            TEXT NOT NULL,
     title          TEXT NOT NULL,
     publisher      TEXT NOT NULL,
-    source_type    TEXT NOT NULL,          -- regulatory|standard|investigation|academic|industry|dataset|expert
+    source_type    TEXT NOT NULL,          -- one of ingest.pipeline.SOURCE_TYPES
     authority      INTEGER NOT NULL,       -- 1 (weak) .. 5 (primary authority)
     published_at   TEXT,
     retrieved_at   TEXT,
