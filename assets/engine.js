@@ -442,11 +442,16 @@ function termWeights(questionTerms, passageTermSets) {
   return w;
 }
 
+/* Words that refer to the asking, not to what is asked about ("according to the
+ * sources held here"). Ignored by gate 4 only. Mirrors text.QUESTION_FRAME. */
+const QUESTION_FRAME = new Set(["according", "source", "sources", "held"]);
+
 /* Gate 4: does the evidence mention what the question is ABOUT? A term absent
  * from every passage carries the most weight, because it is the part of the
  * question the corpus cannot speak to. */
 function coversTheSubject(corpus, question, evidence) {
-  const terms = contentTerms(question);
+  const frame = contentTerms([...QUESTION_FRAME].join(" "));
+  const terms = new Set([...contentTerms(question)].filter((t) => !frame.has(t)));
   if (!terms.size || !evidence.length) return { ok: true, missing: [], share: 0 };
   const passages = evidence.map((e) => contentTerms(e.text));
   const w = termWeights(terms, passages);
@@ -881,7 +886,7 @@ function ask(index, question) {
 }
 
 const API = {
-  STOPWORDS, tokenize, depossess, stem, contentTerms, coverage, sentences,
+  STOPWORDS, QUESTION_FRAME, tokenize, depossess, stem, contentTerms, coverage, sentences,
   numbersWithUnits, canonicalUnit, buildIndex, search, retrieve, ask,
   scopeCheck, specificEnough, coversTheSubject, answersTheQuestion,
   reproductionRefused,

@@ -75,7 +75,7 @@
   <div class="wrap">
     <strong><a href="/knowledge-foundry/" style="text-decoration:none;color:inherit">Knowledge Foundry</a></strong>
     <span class="muted small">specialist knowledge systems you are invited to break</span>
-    <span class="tag" style="margin-left:auto">snapshot · 2026-10-24T11:47</span>
+    <span class="tag" style="margin-left:auto">snapshot · 2026-10-24T15:55</span>
   </div>
 </header>
 <main class="wrap">
@@ -89,10 +89,10 @@
   <a href="/knowledge-foundry/k/kb-001-battery-failure/challenges/">Challenges</a>
 </nav>
 <p>
-  Run <code>run_115109deac2b5695</code> against
+  Run <code>run_0a2f47145e94cb98</code> against
   <code>v0.2.0</code>:
-  <strong>80 / 103</strong>
-  passed (78%).
+  <strong>81 / 103</strong>
+  passed (79%).
 <span class="pass">Gate: PASS</span>
 </p>
 
@@ -104,7 +104,7 @@
   <tr><td>citation</td><td>4 / 5</td><td>80%</td></tr>
   <tr><td>multi_document</td><td>4 / 5</td><td>80%</td></tr>
   <tr><td>reasoning</td><td>4 / 5</td><td>80%</td></tr>
-  <tr><td>temporal</td><td>1 / 5</td><td>20%</td></tr>
+  <tr><td>temporal</td><td>2 / 5</td><td>40%</td></tr>
   <tr><td>ambiguous</td><td>3 / 5</td><td>60%</td></tr>
   <tr><td>unanswerable</td><td>11 / 13</td><td>85%</td></tr>
   <tr><td>out_of_scope</td><td>6 / 7</td><td>86%</td></tr>
@@ -116,19 +116,19 @@
   <tr><th>Metric</th><th>Value</th></tr>
   <tr><td>retrieval_precision</td><td>0.413</td></tr>
   <tr><td>retrieval_recall</td><td>0.949</td></tr>
-  <tr><td>answer_correctness</td><td>0.838</td></tr>
+  <tr><td>answer_correctness</td><td>0.844</td></tr>
   <tr><td>citation_validity</td><td>1.000</td></tr>
-  <tr><td>citation_relevance</td><td>0.756</td></tr>
+  <tr><td>citation_relevance</td><td>0.761</td></tr>
   <tr><td>unsupported_claim_rate</td><td>0.000</td></tr>
   <tr><td>hallucination_rate</td><td>0.000</td></tr>
-  <tr><td>abstention_correctness</td><td>0.812</td></tr>
+  <tr><td>abstention_correctness</td><td>0.825</td></tr>
   <tr><td>source_coverage</td><td>0.586</td></tr>
   <tr><td>contradiction_rate</td><td>0.000</td></tr>
-  <tr><td>corpus_freshness_days</td><td>35.620</td></tr>
-  <tr><td>regression_rate</td><td>0.013</td></tr>
+  <tr><td>corpus_freshness_days</td><td>35.793</td></tr>
+  <tr><td>regression_rate</td><td>0.000</td></tr>
 </table>
 
-<h2>Questions it currently fails (23)</h2>
+<h2>Questions it currently fails (22)</h2>
 <p class="small muted">
   Published, not hidden. A knowledge system that only shows its passes is asking
   to be trusted rather than tested.
@@ -225,13 +225,6 @@ abstained: insufficient_evidence<br>none of [&#39;precede&#39;, &#39;earlier&#39
     <td class="small">What is the most recent edition of UL 9540A referred to in the sources?</td>
     <td class="small fail">
 none of [&#39;6th&#39;, &#39;sixth&#39;, &#39;2025&#39;] present<br>    </td>
-  </tr>
-  <tr>
-    <td class="small"><code>bf-temporal-002</code></td>
-    <td class="small">temporal</td>
-    <td class="small">What changed in the 2026 edition of NFPA 855 according to the sources held here?</td>
-    <td class="small fail">
-none of [&#39;large-scale fire testing&#39;, &#39;large scale&#39;, &#39;revisions&#39;] present<br>    </td>
   </tr>
   <tr>
     <td class="small"><code>bf-temporal-003</code></td>
