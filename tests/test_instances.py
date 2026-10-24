@@ -193,3 +193,136 @@ def test_verdicts_say_who_supports_a_claim(tmp_path, monkeypatch):
         # One word found in a press item corroborates nothing.
         "Reporters": "not_found",
     }
+
+
+def test_a_source_removed_from_the_register_stops_answering(tmp_path, monkeypatch):
+    """The first pilot run indexed a wrong-company record; later runs dropped it
+    from the register, and it stayed in the store, citable, until this rule."""
+    filler = " The company was founded to help teams understand their own workflows better." * 4
+    keep = _doc("site", "self_published", "Our session replay helps product teams." + filler)
+    wrong = _doc("wrong", "official_record", "Legal address: Somewhere else entirely." + filler)
+    store = _store_with(tmp_path, monkeypatch, [keep, wrong])
+    store.close()
+    ka = tmp_path / "co-test"
+    (ka / "sources.yaml").write_text(yaml.safe_dump({"sources": [keep.as_source()]}))
+    from foundry.ingest import ingest_knowledge_area
+    with Store("co-test") as store:
+        report = ingest_knowledge_area(Manifest.load(ka), store)
+        assert report.retired == ["wrong"]
+        assert [r["id"] for r in store.sources()] == ["site"]
+        assert not store.conn.execute("SELECT 1 FROM chunks WHERE source_id = 'wrong'").fetchall()
+
+
+def test_changed_inline_content_is_reindexed_however_recent(tmp_path, monkeypatch):
+    filler = " The company was founded to help teams understand their own workflows better." * 4
+    store = _store_with(tmp_path, monkeypatch, [_doc("site", "self_published", "Version one." + filler)])
+    store.close()
+    ka = tmp_path / "co-test"
+    changed = _doc("site", "self_published", "Version two of the page." + filler)
+    (ka / "sources.yaml").write_text(yaml.safe_dump({"sources": [changed.as_source()]}))
+    from foundry.ingest import ingest_knowledge_area
+    with Store("co-test") as store:
+        ingest_knowledge_area(Manifest.load(ka), store)
+        text = store.conn.execute("SELECT text FROM documents WHERE source_id = 'site'").fetchone()["text"]
+    assert "Version two" in text
+
+
+def test_identity_questions_are_answered_from_register_fields(tmp_path, monkeypatch):
+    from foundry.records import answer_from_fields
+    filler = "\nNature of business (SIC): software." + " Padding to clear the minimum length." * 6
+    store = _store_with(tmp_path, monkeypatch, [
+        _doc("reg", "official_record",
+             "Record for ACME LTD.\n\nLegal name: ACME LTD\nRegistered office address: 1 Long Street\n"
+             "Current officer: SMITH, Jane, Director\nCurrent officer: JONES, Bob, Secretary" + filler),
+        _doc("site", "self_published", "Our registered office address is a privacy matter." + filler),
+    ])
+    with store:
+        office = answer_from_fields(store, "co-test", "Where is the registered office?",
+                                    ["Registered office address"])
+        officers = answer_from_fields(store, "co-test", "Who are the officers?", ["Current officer"])
+        nothing = answer_from_fields(store, "co-test", "Parent?", ["Ultimate parent legal name"])
+    assert "1 Long Street" in office.answer
+    assert [s["source_type"] for s in office.sources] == ["official_record"]  # never the site
+    assert "SMITH, Jane, Director; JONES, Bob, Secretary" in officers.answer
+    assert nothing is None  # falls back to retrieval
+
+
+def test_corroboration_needs_one_sentence_naming_the_subject(tmp_path, monkeypatch):
+    """A job board listing Acme among many employers mentions both, states neither."""
+    filler = " The company was founded to help teams understand their own workflows better." * 4
+    store = _store_with(tmp_path, monkeypatch, [
+        _doc("site", "self_published", "Acme builds data pipelines for retailers." + filler),
+        _doc("board", "community",
+             "Hiring now: Acme, Initech and others. Initech builds data pipelines for banks." + filler),
+    ])
+    with store:
+        [verdict] = verify_claims(store, ["Data pipelines"], subject="Acme")
+    assert verdict.verdict == "self_reported"
+
+
+class _Model:
+    name, model = "fake", "judge-1"
+
+    def __init__(self, answer):
+        self.answer = answer
+
+    def complete(self, system, user, **kwargs):
+        from foundry.llm.base import LLMResponse
+        return LLMResponse(text=self.answer, provider=self.name, model=self.model)
+
+
+def test_a_model_can_veto_a_sentence_and_is_named_when_it_agrees(tmp_path, monkeypatch):
+    filler = " The company was founded to help teams understand their own workflows better." * 4
+    store = _store_with(tmp_path, monkeypatch, [
+        _doc("site", "self_published", "Acme offers session replay." + filler),
+        _doc("news", "press", "Analysts say Acme offers session replay to product teams." + filler),
+    ])
+    with store:
+        [vetoed] = verify_claims(store, ["Session replay"], subject="Acme", entailment=_Model("NO"))
+        [agreed] = verify_claims(store, ["Session replay"], subject="Acme", entailment=_Model("YES"))
+    assert vetoed.verdict == "self_reported"
+    assert agreed.verdict == "corroborated" and "fake:judge-1" in agreed.note
+
+
+def test_a_keyless_provider_is_refused_as_a_verifier(monkeypatch):
+    from foundry.verify import entailment_from_env
+    monkeypatch.setenv("FOUNDRY_VERIFY_PROVIDER", "local_extractive")
+    with pytest.raises(ValueError):
+        entailment_from_env()
+    monkeypatch.delenv("FOUNDRY_VERIFY_PROVIDER")
+    assert entailment_from_env() is None
+
+
+def test_the_subject_confirms_or_rejects_a_held_match(monkeypatch):
+    responses = {
+        "https://register.test/search?q=Acme": {"data": [{"id": "K1", "name": "ACME"},
+                                                         {"id": "K2", "name": "ACME"}]},
+        "https://register.test/K1": {"name": "ACME", "address": ADDRESS},
+        "https://register.test/K2": {"name": "ACME", "address": ADDRESS},
+    }
+    monkeypatch.setattr(collect, "_fetch_text", _fake_fetch(responses))
+    report = CollectReport()
+    collect_register(_register_cfg(max_entities=2), {"name": "Acme", "confirmed": ["reg:K1"],
+                                                     "rejected": ["reg:K2"]}, report, site_text="")
+    entities = report.identity["reg"]["entities"]
+    assert [(e["key"], e["corroborated"], e["via"]) for e in entities] == [
+        ("K1", True, "confirmed by the subject")]
+    assert len(report.documents) == 1
+
+
+def test_a_wire_press_release_is_the_company_speaking(monkeypatch):
+    rss = ("<rss><channel>"
+           "<item><title>Acme launches thing</title><link>https://www.businesswire.com/news/1</link>"
+           "<description>BOSTON--(BUSINESS WIRE)-- Acme, a global leader in things, today announced a thing "
+           "that does more things for more people in more places than any thing before, and will ship "
+           "it to customers in every region by the end of the year.</description></item>"
+           "<item><title>Acme criticised by analysts</title><link>https://news.example.com/2</link>"
+           "<description>Analysts said Acme's new thing does fewer things than promised, according to a "
+           "review published this week by an independent research firm that tested it for a month "
+           "against three competing products.</description></item>"
+           "</channel></rss>")
+    monkeypatch.setattr(collect, "_fetch_text", lambda uri, retries=1: (rss.encode(), "application/rss+xml", uri))
+    cfg = next(c for c in TEMPLATE_COLLECTORS["collectors"] if c["id"] == "news")
+    report = CollectReport()
+    collect.collect_feed(cfg, {"name": "Acme"}, report)
+    assert [d.source_type for d in report.documents] == ["self_published", "press"]

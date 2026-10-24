@@ -1,6 +1,8 @@
 # The questions every company is asked. `check` links a question to the
 # Requstory check it can confirm or overturn (matched against the check text);
-# `tiers` are the kinds of source that would settle it.
+# `tiers` are the kinds of source that would settle it. `fields` names register
+# fields that answer it outright; when a confirmed register record carries any of
+# them, the answer is read from the record instead of retrieved from text.
 questions:
   - {id: offer,      check: "says what it offers",   tiers: [self_published, press],
      question: "What products and services does {{ name }} offer?"}
@@ -17,15 +19,24 @@ questions:
   - {id: complaints, check: "complaints",            tiers: [self_published, community],
      question: "How does {{ name }} handle complaints?"}
   - {id: legal,      check: null,                    tiers: [official_record],
+     fields: [Legal name, Registrant name, Company number, Registered as, Legal entity identifier,
+              Jurisdiction, State of incorporation, Tickers, Exchanges],
      question: "What is the registered legal name, company number and jurisdiction of {{ name }}?"}
   - {id: office,     check: null,                    tiers: [official_record],
+     fields: [Registered office address, Legal address, Business address, Headquarters address],
      question: "What is the registered office address of {{ name }}?"}
   - {id: founded,    check: null,                    tiers: [official_record],
+     fields: [Incorporated on, Incorporated (creation date)],
      question: "On what date was {{ name }} incorporated or founded as a company?"}
   - {id: parent,     check: null,                    tiers: [official_record, press],
+     fields: [Ultimate parent legal name, Ultimate parent jurisdiction],
      question: "Who owns {{ name }}, and what is its parent company?"}
   - {id: officers,   check: null,                    tiers: [official_record],
+     fields: [Current officer],
      question: "Who are the directors and officers of {{ name }}?"}
+  - {id: status,     check: null,                    tiers: [official_record],
+     fields: [Company status, Entity status, Dissolved on, Most recent filing (form), Most recent filing (date)],
+     question: "Is {{ name }} an active company, and is it still filing?"}
   - {id: news,       check: null,                    tiers: [press],
      question: "What has been reported in the news about {{ name }} recently?"}
   - {id: incidents,  check: null,                    tiers: [press, community],

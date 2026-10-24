@@ -17,10 +17,36 @@ ROLE_WORDS = re.compile(r"^(sales|support|help|contact|info|hello|hi|privacy|sec
                         r"customer|service|partners|investors|ir|accounts)", re.I)
 
 
-def slim(company: dict) -> dict:
+PUBLIC_TYPES = {"official_record", "self_published"}
+WITHHELD = "Shown to the company once it has claimed its page (rests on press or user sources)."
+
+
+def public_view(claim: dict) -> dict:
+    """What anyone may see of a checked line: the same rule as the TypeScript viewOf."""
+    support = [s for s in claim.get("support", []) if s["source_type"] in PUBLIC_TYPES]
+    verdict = claim["verdict"]
+    if verdict == "corroborated" and not any(s["source_type"] != "self_published" for s in support):
+        verdict = "self_reported" if support else "not_found"
+    return {**claim, "verdict": verdict, "support": support,
+            "withheld": verdict != claim["verdict"],
+            "note": claim.get("note", "") if verdict == claim["verdict"] else
+            "independent support exists; shown to the company once it has claimed its page"}
+
+
+def claim_row(c: dict) -> dict:
+    return {"section": c["section"], "text": c["text"], "requstory": c["requstory"],
+            "verdict": c["verdict"], "note": c.get("note", ""), "withheld": c.get("withheld", False),
+            "support": [{"type": s["source_type"], "title": s["title"], "uri": s["uri"],
+                         "quote": s["quote"]} for s in c.get("support", [])[:2]]}
+
+
+def slim(company: dict, public: bool = False) -> dict:
     site = company["facts"].get("site", {})
     def answer(a: dict) -> dict:
         cited = [s for s in a.get("sources", []) if s.get("cited")]
+        if public and any(s["source_type"] not in PUBLIC_TYPES for s in cited):
+            return {"topic": a["topic"], "question": a["question"], "status": "withheld",
+                    "answer": WITHHELD, "types": [], "source": None, "ms": 0}
         return {
             "topic": a["topic"], "question": a["question"], "status": a["status"],
             "answer": re.sub(r"\s+", " ", a["answer"])[:420],
@@ -57,11 +83,7 @@ def slim(company: dict) -> dict:
                        "failed": [r["id"] for r in company["evaluation"]["results"] if not r["passed"]]},
         "checks": [{"status": c["status"], "text": c["text"], "foundry": c["foundry"],
                     "agrees": c["agrees"]} for c in company["checks"]],
-        "claims": [{"section": c["section"], "text": c["text"], "requstory": c["requstory"],
-                    "verdict": c["verdict"], "note": c.get("note", ""),
-                    "support": [{"type": s["source_type"], "title": s["title"], "uri": s["uri"],
-                                 "quote": s["quote"]} for s in c.get("support", [])[:2]]}
-                   for c in company["claims"]],
+        "claims": [claim_row(public_view(c) if public else c) for c in company["claims"]],
         "answers": [answer(a) for a in company["answers"].values()],
         "licences": sorted({s["licence"] for s in company["sources"]}),
     }
@@ -190,9 +212,14 @@ STATUS = {
     "out_of_scope": ("muted", "Declined: out of scope"),
     "unsupported": ("warn", "Withheld: failed grounding"),
     "irrelevant": ("warn", "Withheld: off-topic"),
+    "withheld": ("muted", "Not shown publicly"),
 }
 REGISTERS = [("uk-register", "Companies House (UK)"), ("lei-register", "GLEIF (global LEI)"),
              ("us-filings", "SEC EDGAR (US)")]
+VIEW_NOTE = ("<p class=\"card small\"><b>Public view.</b> Register records and each company's own site are shown in "
+             "full. Evidence from the press and from user discussion is withheld, as Requstory will withhold it "
+             "from everyone except the company, once it has claimed its page; verdicts that rested on it are shown "
+             "at the level the public evidence supports.</p>")
 FLOW = [
     "A company maps its site on Requstory and asks for a knowledge foundry",
     "Requstory calls the foundry with domain + confirmed trading name",
@@ -339,7 +366,8 @@ def identity_row(c: dict) -> str:
     return f'<tr><td><b>{e(c["name"])}</b><br><span class="muted small">{where}</span></td>{cells}</tr>'
 
 
-def render(companies: list[dict], industry: str, generated: str, limits: str) -> str:
+def render(companies: list[dict], industry: str, generated: str, limits: str,
+           public: bool = False) -> str:
     claims = [x for c in companies for x in c["claims"]]
     count = lambda verdict: sum(1 for x in claims if x["verdict"] == verdict)  # noqa: E731
     comparable = [x for c in companies for x in c["checks"] if x["agrees"] is not None]
@@ -355,7 +383,9 @@ def render(companies: list[dict], industry: str, generated: str, limits: str) ->
         ("Legal entity confirmed", f"{confirmed}/{len(companies)}",
          "by a register the company's own site corroborates"),
         ("Map lines checked", len(claims),
-         f'{pct(count("corroborated"), len(claims))}% marked corroborated, under half of which hold up when read (see below)'),
+         (f'{sum(1 for x in claims if x["withheld"])} corroborated by press or users; that evidence '
+          'is shown to the company once claimed' if public else
+          f'{count("corroborated")} corroborated by a sentence naming the company; all hold up when read')),
         ("Requstory gaps overturned", f"{len(overturned)}/{len(gaps)}",
          'rule-checkable "not found" checks where the evidence exists'),
         ("Time and cost", f"{seconds} s",
@@ -368,8 +398,9 @@ def render(companies: list[dict], industry: str, generated: str, limits: str) ->
 <h1>A knowledge foundry per company: 10-company pilot</h1>
 <p class="lede">Ten Software &amp; SaaS companies from Requstory's directory. For each one, a company knowledge area was
 created on request, filled from four kinds of source, and every line of Requstory's published map was checked against it.
-No model was called: everything here is retrieval, rules and extraction.</p>
+No model was called: everything here is register fields, rules, retrieval and extraction.</p>
 <p class="muted small">Run {e(generated)} · {e(industry)} · map snapshots from requstory.com</p>
+{VIEW_NOTE if public else ""}
 <section class="tiles">{"".join(f'<div class="card tile"><div class="k">{e(k)}</div><div class="v">{e(v)}</div><div class="d">{e(d)}</div></div>' for k, v, d in tiles)}</section>
 
 <h2>Requstory's map, line by line</h2>
@@ -405,16 +436,19 @@ foundry's answer, or its refusal.</p>
 <h2>How it would plug into Requstory</h2>
 <div class="flow">{"".join(f"<div>{e(s)}</div>" for s in FLOW)}</div>
 <p class="muted small" style="margin-top:10px">Third-party findings go only to the company, once it has claimed its page.
-Nothing here is published, and company knowledge areas are never committed to the repository.</p>
+Company knowledge areas are never committed to the repository.</p>
 """
 
 
 def main() -> int:
     source, target = Path(sys.argv[1]), Path(sys.argv[2])
+    # --public: the view anyone may see. Press and user evidence is withheld,
+    # as Requstory will withhold it from everyone but the claimed company.
+    public = "--public" in sys.argv[3:]
     data = json.loads(source.read_text())
-    companies = [slim(v) for v in data["companies"].values()]
+    companies = [slim(v, public) for v in data["companies"].values()]
     limits = Path(__file__).with_name("limits.html").read_text(encoding="utf-8")
-    body = render(companies, data["industry"], date.today().isoformat(), limits)
+    body = render(companies, data["industry"], date.today().isoformat(), limits, public)
     target.write_text(PAGE.replace("__BODY__", body), encoding="utf-8")
     print(f"wrote {target} ({target.stat().st_size // 1024} KB)")
     return 0

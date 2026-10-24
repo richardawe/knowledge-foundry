@@ -25,9 +25,10 @@ from pathlib import Path
 import yaml
 
 from foundry.manifest import Manifest
+from foundry.records import answer_from_fields
 from foundry.specialist import Specialist
 from foundry.storage import Store
-from foundry.verify import verify_claims
+from foundry.verify import entailment_from_env, verify_claims
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -147,11 +148,14 @@ def research_company(company: dict, rq_dir: Path, skip_collect: bool) -> dict:
         answers = {}
         for item in bank:
             t0 = time.monotonic()
-            answer = specialist.ask(item["question"]).as_dict()
+            fielded = (answer_from_fields(store, manifest.id, item["question"], item["fields"])
+                       if item.get("fields") else None)
+            answer = (fielded or specialist.ask(item["question"])).as_dict()
             answer["topic"], answer["check"], answer["tiers"] = item["id"], item["check"], item["tiers"]
             answer["elapsed_ms"] = int((time.monotonic() - t0) * 1000)
             answers[item["id"]] = answer
-        verdicts = verify_claims(store, [c["text"] for c in claims], subject=name)
+        verdicts = verify_claims(store, [c["text"] for c in claims], subject=name,
+                                 entailment=entailment_from_env())
         sources = [dict(row) for row in store.sources()]
 
     for claim, verdict in zip(claims, verdicts):

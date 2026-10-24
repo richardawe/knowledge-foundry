@@ -28,6 +28,14 @@ collectors:
     unwrap_param: url
     require_mention: name
     take: 12
+    # Press releases are the company's own voice, not independent reporting.
+    self_published_hosts: [businesswire.com, prnewswire.com, globenewswire.com, accessnewswire.com,
+                           einpresswire.com, newswire.com, prweb.com]
+    # Matched against the link and the text: syndicated releases keep the wire
+    # in their URL (".../prnews.pressre/article/accesswire...") or dateline.
+    self_published_markers: ['\(BUSINESS ?WIRE\)', '/PRNewswire/', 'GLOBE ?NEWSWIRE', 'ACCESS ?Newswire',
+                             'accesswire', 'EINPresswire', 'PRWeb', 'businesswire', 'prnewswire',
+                             'globenewswire', 'prnews\.', '/press-?release']
 
   - id: hn
     kind: json_items
@@ -61,8 +69,26 @@ collectors:
     legal_form_words: [ltd, limited, plc, llp, the, uk, holdings, holding, group]
     legal_form_expansions: {ltd: limited}
     detail:
-      - {label: "Company overview", url: "https://find-and-update.company-information.service.gov.uk/company/{key}"}
-      - {label: "Officers", url: "https://find-and-update.company-information.service.gov.uk/company/{key}/officers"}
+      - label: "Company overview"
+        url: "https://find-and-update.company-information.service.gov.uk/company/{key}"
+        fields:
+          - {label: "Legal name", pattern: '\n# ([^\n]+)'}
+          - {label: "Company number", pattern: 'Company number\s+([A-Z0-9]{8})'}
+          - {label: "Registered office address", pattern: 'Registered office address\s+(.+?)\s+Company status'}
+          - {label: "Company status", pattern: 'Company status\s+(.+?)\s+Company type'}
+          - {label: "Company type", pattern: 'Company type\s+(.+?)\s+(?:Incorporated on|Dissolved on)'}
+          - {label: "Incorporated on", pattern: 'Incorporated on\s+(\d{1,2} \w+ \d{4})'}
+          - {label: "Dissolved on", pattern: 'Dissolved on\s+(\d{1,2} \w+ \d{4})'}
+          - {label: "Nature of business (SIC)", pattern: 'Nature of business \(SIC\)\s+(.+?)(?:\n\n|$)'}
+      # Officers are public record; only names and roles are kept, never addresses.
+      - label: "Officers"
+        url: "https://find-and-update.company-information.service.gov.uk/company/{key}/officers"
+        records:
+          label: "Current officer"
+          split: 'class="appointment-'
+          keep_if: 'status-tag[^>]*>\s*Active'
+          value: 'officer-name-\d+">\s*<a[^>]*>([^<]+)</a>.*?officer-role-\d+"[^>]*>\s*([^<]+?)\s*</dd>'
+          none: "no current officers listed"
 
   - id: lei-register
     kind: register
@@ -90,8 +116,8 @@ collectors:
           - {label: "Legal entity identifier", path: data.attributes.lei}
           - {label: "Registered as", path: data.attributes.entity.registeredAs}
           - {label: "Jurisdiction", path: data.attributes.entity.jurisdiction}
-          - {label: "Legal address", path: data.attributes.entity.legalAddress}
-          - {label: "Headquarters address", path: data.attributes.entity.headquartersAddress}
+          - {label: "Legal address", path: data.attributes.entity.legalAddress, skip: [language]}
+          - {label: "Headquarters address", path: data.attributes.entity.headquartersAddress, skip: [language]}
           - {label: "Entity status", path: data.attributes.entity.status}
           - {label: "Incorporated (creation date)", path: data.attributes.entity.creationDate}
           - {label: "Successor entity", path: data.attributes.entity.successorEntity.name}
@@ -99,12 +125,12 @@ collectors:
           - {label: "Record last updated", path: data.attributes.registration.lastUpdateDate}
       - label: "Ultimate parent"
         url: "https://api.gleif.org/api/v1/lei-records/{key}/ultimate-parent"
-        absent_means: "No ultimate parent entity is reported in the LEI register."
+        absent_means: "Ultimate parent legal name: none reported in the LEI register."
         keep:
           - {label: "Ultimate parent legal name", path: data.attributes.entity.legalName.name}
           - {label: "Ultimate parent LEI", path: data.attributes.lei}
           - {label: "Ultimate parent jurisdiction", path: data.attributes.entity.jurisdiction}
-          - {label: "Ultimate parent address", path: data.attributes.entity.legalAddress}
+          - {label: "Ultimate parent address", path: data.attributes.entity.legalAddress, skip: [language]}
 
   - id: us-filings
     kind: register
@@ -118,10 +144,12 @@ collectors:
     format: json
     search: "https://efts.sec.gov/LATEST/search-index?keysTyped={name_q}"
     candidates: {items: hits.hits, key: _id, name: _source.entity}
+    name_clean: '\s*\([A-Z0-9., -]+\)\s*$|\s*/[A-Z]{2}/?\s*$'   # "NVIDIA CORP (NVDA)", "... /DE/"
     legal_form_words: [inc, corp, corporation, co, the, holding, holdings, ltd, plc]
+    legal_form_expansions: {corp: corporation}
     detail:
       - label: "SEC registrant record"
-        url: "https://data.sec.gov/submissions/CIK{key}.json"
+        url: "https://data.sec.gov/submissions/CIK{key:0>10}.json"
         keep:
           - {label: "Registrant name", path: name}
           - {label: "Tickers", path: tickers}
@@ -131,6 +159,9 @@ collectors:
           - {label: "Former names", path: formerNames}
           - {label: "Business address", path: addresses.business}
           - {label: "Website", path: website}
+          - {label: "Most recent filing (form)", path: filings.recent.form.0}
+          - {label: "Most recent filing (date)", path: filings.recent.filingDate.0}
+          - {label: "Most recent filing (description)", path: filings.recent.primaryDocDescription.0}
 
 # Legal names the company's own pages declare, searched in every register
 # alongside the trading name. Only sentences with a registration cue count.

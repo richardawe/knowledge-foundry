@@ -105,14 +105,42 @@ source types were added: `official_record self_published press review community`
   matched a Belgian "STRIPE" to Stripe, Inc. that way.
 * **An unreachable register is `failed`, not `unresolved`.** Companies House
   returned 502s mid-run and they were first misreported as "no match".
-* SEC EDGAR needs `FOUNDRY_CONTACT_EMAIL` (it refuses UAs without one). Not set,
-  and not to be invented — ask the user.
+* SEC EDGAR needs `FOUNDRY_CONTACT_EMAIL`, and the UA must be exactly
+  "Name email" — a URL beside the address gets refused. Use the user's own
+  address (they gave it in chat); set it at run time, **never commit it**
+  (Actions: a repository variable).
+* **Identity questions are answered from register fields** (`records.py`), not
+  retrieval: registers become `Label: value` lines at collection, and
+  `research.yaml` names the fields per question. Retrieval answered "registered
+  office" from a privacy policy while the register record sat in the corpus.
+* **Corroboration is a sentence, not a passage** (`verify.stating_sentence`): one
+  sentence must name the company and state the claim. Took precision from 4/11
+  to 3/3 in the pilot, at the cost of one genuine miss. An optional model check
+  (`FOUNDRY_VERIFY_PROVIDER/MODEL`) can veto candidates; keyless providers refused.
+* The subject settles identity: request params `confirmed` / `rejected` take
+  `"register:key"` entries.
 * Trustpilot, G2, Product Hunt, Reddit, GitHub return 403 to this container;
   App Store and Wikipedia disallow the foundry's UA in robots.txt. Bing News RSS
   forbids commercial use — fine for the pilot, not for production.
 
 Pilot: `integrations/requstory/` (`fetch_maps.js` snapshots Requstory's pages,
-`research.py` runs all ten, `report.py` renders `companies/pilot-report.html`).
+`research.py` runs all ten, `report.py` renders `companies/pilot-report.html`;
+`--public` renders the view anyone may see, committed as `reports/` and shipped by
+`export` on every deploy).
+
+**Requstory integration** is `foundry research request.json` / `foundry
+serve-research` (contract `foundry.research/v1`, `src/foundry/research.py`) plus
+`integrations/requstory/dropin/`, the folder that goes into Requstory's repo
+(TS types, client, adapter with `viewOf`, JSON Schemas, compose). Every evidence
+item carries `visibility`: `public` (registers, own site) or `claimant_only`
+(press, reviews, community). The Dockerfile builds the service; it has **not**
+been built here (no Docker daemon in this container).
+
+**Fixed while building it, affects every knowledge area:** a build skipped inline
+sources as "fresh" without comparing content, and never removed sources taken
+out of the register. A wrong-company register record (a Belgian "STRIPE") stayed
+indexed and citable after it was held out. Inline sources are now always
+compared, and unregistered sources are retired (`IngestReport.retired`).
 
 ## Invariants — do not weaken these
 
@@ -149,7 +177,7 @@ python -m foundry.cli apply <ka>         # validate + score queued replies
 python -m foundry.cli deploy --base-url /knowledge-foundry
 python -m foundry.cli doctor
 python -m foundry.cli intake --body-file b.md --challenge-id ch_issue_1   # public ask path
-python -m pytest -q                      # 358 tests (parity needs node)
+python -m pytest -q                      # ~390 tests (parity needs node)
 ```
 
 ## Current state

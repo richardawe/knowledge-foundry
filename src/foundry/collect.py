@@ -135,11 +135,11 @@ def _dig(node: Any, path: str) -> Any:
     return node
 
 
-def _flat(value: Any) -> str:
+def _flat(value: Any, skip: frozenset[str] = frozenset()) -> str:
     if value is None:
         return ""
     if isinstance(value, dict):
-        return ", ".join(_flat(v) for v in value.values() if _flat(v))
+        return ", ".join(_flat(v, skip) for k, v in value.items() if k not in skip and _flat(v, skip))
     if isinstance(value, list):
         return ", ".join(_flat(v) for v in value if _flat(v))
     return str(value).strip()
@@ -398,9 +398,16 @@ def collect_feed(cfg: dict, params: dict, report: CollectReport) -> None:
             report.skipped.append({"collector": cfg["id"], "uri": link, "reason": "item too short"})
             continue
         taken += 1
+        item_base = dict(base)
+        # A press release is the subject speaking, whoever carries it: an item
+        # on a wire service, or one bearing a wire's dateline, is reclassified.
+        if (publisher in set(cfg.get("self_published_hosts", []))
+                or any(re.search(m, f"{link}\n{text}", re.I)
+                       for m in cfg.get("self_published_markers", []))):
+            item_base.update(source_type="self_published", tier="self_published")
         report.documents.append(Document(
             id=f"{cfg['id']}-{taken:02d}", title=title, uri=link, text=text,
-            publisher=publisher, published_at=when, **base))
+            publisher=publisher, published_at=when, **item_base))
 
 
 def collect_json_items(cfg: dict, params: dict, report: CollectReport) -> None:
@@ -450,9 +457,41 @@ def _candidates(cfg: dict, content: bytes) -> list[dict]:
 def _render_json(data: Any, keep: list[dict]) -> str:
     lines = []
     for spec in keep:
-        value = _flat(_dig(data, spec["path"]))
+        value = _flat(_dig(data, spec["path"]), frozenset(spec.get("skip", [])))
         if value:
             lines.append(f"{spec['label']}: {value}")
+    return "\n".join(lines)
+
+
+def _render_page(text: str, markup: str, detail: dict) -> str:
+    """Turn a register's web page into ``Label: value`` lines, dropping the page furniture.
+
+    ``fields`` are single values found by pattern in the page text. ``records``
+    are repeated blocks (one per officer, say), read from the markup because
+    text extraction drops the labels that say which blocks are current: the
+    markup is split, blocks are kept or dropped by pattern, and each kept block
+    is reduced to the groups of ``value``.
+    """
+    flat = re.sub(r"[ \t]+", " ", text)
+    lines = []
+    for spec in detail.get("fields", []):
+        match = re.search(spec["pattern"], flat, re.S)
+        if match:
+            lines.append(f"{spec['label']}: {' '.join(match.group(1).split())}")
+    spec = detail.get("records")
+    if spec:
+        found = 0
+        for block in re.split(spec["split"], markup):
+            if not re.search(spec["keep_if"], block) or (
+                    spec.get("drop_if") and re.search(spec["drop_if"], block)):
+                continue
+            match = re.search(spec["value"], block, re.S)
+            if match:
+                lines.append(f"{spec['label']}: " + ", ".join(
+                    " ".join(_strip_html(g).split()) for g in match.groups() if g))
+                found += 1
+        if not found and spec.get("none"):
+            lines.append(f"{spec['label']}: {spec['none']}")
     return "\n".join(lines)
 
 
@@ -489,7 +528,9 @@ def collect_register(cfg: dict, params: dict, report: CollectReport, site_text: 
         wanted = normalise_name(search_name, drop)
         seen = []
         for candidate in candidates[: int(cfg.get("consider", 20))]:
-            name = re.sub(clean, "", candidate["name"]) if clean else candidate["name"]
+            name = candidate["name"]
+            while clean and re.sub(clean, "", name) != name:  # suffixes can stack: "/MA (PRGS)"
+                name = re.sub(clean, "", name)
             match = bool(wanted) and normalise_name(name, drop) == wanted
             seen.append({"key": candidate["key"], "name": candidate["name"], "match": match})
             if match and candidate["key"] not in {a["key"] for a in accepted}:
@@ -510,17 +551,28 @@ def collect_register(cfg: dict, params: dict, report: CollectReport, site_text: 
         record["also_matched"] = accepted[int(cfg.get("max_entities", 1)):]
         accepted = accepted[: int(cfg.get("max_entities", 1))]
 
+    # The subject's own word settles identity both ways: "register:key" entries
+    # it confirmed are used, ones it rejected are dropped before anything else.
+    confirmed = {str(k) for k in params.get("confirmed") or []}
+    rejected = {str(k) for k in params.get("rejected") or []}
+    accepted = [a for a in accepted if f"{cfg['id']}:{a['key']}" not in rejected]
+    if not accepted:
+        record.update(status="unresolved", reason="every match was rejected by the subject")
+        return
+
     lowered_site = site_text.lower()
     base = _base(cfg, report)
     entities = []
     for entity in accepted:
+        if f"{cfg['id']}:{entity['key']}" in confirmed:
+            entity["via"] = "confirmed by the subject"
         expanded = entity["name"].lower()
         for short, full in (cfg.get("legal_form_expansions") or {}).items():
             expanded = re.sub(rf"\b{re.escape(short)}\b\.?", full, expanded)
         # A bare trading name on the site corroborates nothing -- the site says
         # its own name everywhere. Only a name carrying its legal form does.
         has_form = normalise_name(entity["name"], drop) != normalise_name(entity["name"], set())
-        corroborated = (entity["via"] == "declared on the site"
+        corroborated = (entity["via"] in ("declared on the site", "confirmed by the subject")
                         or entity["key"].lower() in lowered_site
                         or (has_form and (entity["name"].lower() in lowered_site
                                           or expanded in lowered_site)))
@@ -547,10 +599,17 @@ def collect_register(cfg: dict, params: dict, report: CollectReport, site_text: 
             else:
                 if detail.get("keep"):
                     text = _render_json(json.loads(content), detail["keep"])
+                elif detail.get("fields") or detail.get("records"):
+                    markup = " ".join(content.decode("utf-8", "replace").split())
+                    text = _render_page(extract(content, ctype, final).text, markup, detail)
                 else:
                     text = extract(content, ctype, final).text
-                text = f"{detail.get('label', 'Record')} for {entity['name']} ({entity['key']}) " \
-                       f"from {cfg.get('publisher', cfg['id'])}.\n\n{text}"
+                # Where and when, in the record itself: a compact record of
+                # labelled fields is otherwise short enough to be mistaken for a
+                # failed extraction, and the lookup is worth stating anyway.
+                text = (f"{detail.get('label', 'Record')} for {entity['name']} ({entity['key']}) "
+                        f"from {cfg.get('publisher', cfg['id'])}.\n\n{text}\n\n"
+                        f"Looked up at {uri} on {datetime.now(timezone.utc).date().isoformat()}.")
             if len(text) < MIN_DOCUMENT_CHARS:
                 report.skipped.append({"collector": cfg["id"], "uri": uri, "reason": "record too short"})
                 continue

@@ -481,3 +481,16 @@ def test_disagreeing_still_leaves_the_page_for_the_durable_path(site):
     client = (out / "assets/ask.js").read_text()
     assert "issues/new?template=ask.yml" in client
     assert "knowledge-area=" in client
+
+
+def test_committed_reports_ship_with_every_export(built, tmp_path):
+    """The site is rebuilt from nothing on each deploy; a report must come from the repo."""
+    from foundry import paths
+
+    manifest, _store = built
+    reports = paths.repo_root() / "reports"
+    reports.mkdir(exist_ok=True)
+    (reports / "pilot.html").write_text("<!doctype html><title>Pilot</title>", encoding="utf-8")
+    out = tmp_path / "site"
+    export_site(out, knowledge_areas=[manifest.id])
+    assert (out / "reports" / "pilot.html").read_text(encoding="utf-8").startswith("<!doctype html>")

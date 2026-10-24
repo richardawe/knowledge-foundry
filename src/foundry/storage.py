@@ -376,6 +376,13 @@ class Store:
                 (doc_id, source_id, title, text, len(text), extractor, utcnow(), content_sha256),
             )
 
+    def remove_source(self, source_id: str) -> None:
+        """Delete a source and everything derived from it (documents, chunks, embeddings, claims)."""
+        with self.transaction() as conn:
+            for row in conn.execute("SELECT id FROM documents WHERE source_id = ?", (source_id,)).fetchall():
+                self._delete_chunk_fts_for_document(row["id"])
+            conn.execute("DELETE FROM sources WHERE id = ?", (source_id,))
+
     def _delete_chunk_fts_for_document(self, doc_id: str) -> None:
         rows = self.conn.execute(
             "SELECT rowid, text, section FROM chunks WHERE document_id = ?", (doc_id,)

@@ -343,6 +343,27 @@ which is the only usage-scaled cost and is optional, because the default
 provider runs locally. Adding the tenth knowledge area adds a SQLite file, not a
 server. See [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
+## Knowledge areas per company, on request
+
+A template (`templates/company/`) renders one knowledge area per company when
+asked, never on a schedule. Its sources are collected rather than listed: the
+company's own site, public registers (Companies House, GLEIF, SEC EDGAR), press
+and user discussion, each labelled by who is speaking. Claims made elsewhere (a
+drafted company map, an LLM's summary) are then verified line by line:
+corroborated, self-reported, present only as a label, or not found.
+
+```
+foundry research request.json --out result.json     # one company, JSON in and out
+foundry serve-research                               # the same, as an HTTP job service
+```
+
+The contract is `foundry.research/v1` (`src/foundry/research.py`). The first
+consumer is Requstory's research phase; the folder that goes into its repository
+is `integrations/requstory/dropin/`. The pilot over ten companies is published at
+[`reports/requstory-pilot.html`](https://richardawe.github.io/knowledge-foundry/reports/requstory-pilot.html),
+in its public view: evidence from the press and from users is shown only to the
+company concerned, once it has claimed its page.
+
 ## Honest status
 
 This is a working MVP, not a finished product.

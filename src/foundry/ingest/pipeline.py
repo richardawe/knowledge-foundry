@@ -62,6 +62,7 @@ class IngestReport:
     chunks: int = 0
     claims: int = 0
     failures: list[dict] = field(default_factory=list)
+    retired: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict:
         return {
@@ -76,6 +77,7 @@ class IngestReport:
             "indexed": self.indexed,
             "documents": self.documents,
             "chunks": self.chunks,
+            "retired": self.retired,
             "claims": self.claims,
             "failures": self.failures,
         }
@@ -238,7 +240,11 @@ def ingest_source(
     store.upsert_source(source)
     report.registered += 1
 
-    if not force and not _needs_refresh(existing, refresh_days):
+    # Inline content is the register itself: re-reading it costs nothing, and
+    # the content-hash check below still skips it when nothing changed. Treating
+    # it as "fresh" by age let a re-collected register keep yesterday's text.
+    inline = spec.get("content") is not None
+    if not force and not inline and not _needs_refresh(existing, refresh_days):
         report.skipped_fresh += 1
         return
 
@@ -362,6 +368,14 @@ def ingest_knowledge_area(
                 store, manifest, spec, report,
                 force=force, rebuild=rebuild, offline=offline,
             )
+        if not only:
+            # A source taken out of the register must stop answering. Without
+            # this, a record withdrawn as wrong stays indexed and citable.
+            registered = {spec["id"] for spec in specs}
+            for row in store.sources():
+                if row["id"] not in registered:
+                    store.remove_source(row["id"])
+                    report.retired.append(row["id"])
         load_ontology(manifest, store)
         report.finished_at = utcnow()
         store.set_meta("last_ingest", report.finished_at)

@@ -25,6 +25,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .browser_index import render_browser_index
+from . import paths
 from .manifest import Manifest, list_knowledge_areas
 from .storage import Store
 
@@ -174,6 +175,14 @@ def export_site(
     for asset in sorted(STATIC_DIR.glob("*")):
         if asset.is_file():
             write(f"assets/{asset.name}", asset.read_bytes())
+
+    # Reports committed under reports/ (a pilot write-up, say) ship with every
+    # deploy. The site is rebuilt from nothing each time, so a page added to
+    # gh-pages by hand would not survive the next export.
+    reports = paths.repo_root() / "reports"
+    if reports.is_dir():
+        for page in sorted(reports.glob("*.html")):
+            write(f"reports/{page.name}", page.read_bytes())
 
     for ka_id in manifests:
         base = f"k/{ka_id}"

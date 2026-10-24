@@ -1,0 +1,19 @@
+# Knowledge Foundry research service, next to Requstory's workers.
+# Build context is a knowledge-foundry checkout (git submodule, or clone in CI).
+services:
+  foundry:
+    build: ${FOUNDRY_SRC:-./vendor/knowledge-foundry}
+    environment:
+      FOUNDRY_API_TOKEN: ${FOUNDRY_API_TOKEN:?set a token}
+      FOUNDRY_CONTACT_EMAIL: ${FOUNDRY_CONTACT_EMAIL:-}
+      FOUNDRY_VERIFY_PROVIDER: ${FOUNDRY_VERIFY_PROVIDER:-}
+      FOUNDRY_VERIFY_MODEL: ${FOUNDRY_VERIFY_MODEL:-}
+    volumes:
+      - foundry-data:/data      # company knowledge areas: third-party findings, keep private
+    ports:
+      - "127.0.0.1:8100:8100"   # reachable from the host only; put workers on the same network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8100/v1/health')"]
+      interval: 30s
+volumes:
+  foundry-data:

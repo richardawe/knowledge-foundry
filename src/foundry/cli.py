@@ -136,6 +136,9 @@ def cmd_build(args) -> int:
         )
         for failure in ingest.failures:
             print(f"  FAILED {failure['source']}: {failure['error']}")
+        if ingest.retired:
+            print(f"  retired {len(ingest.retired)} source(s) no longer in the register: "
+                  + ", ".join(ingest.retired))
     return 1 if ingest.failures and args.strict else 0
 
 
@@ -469,19 +472,54 @@ def cmd_collect(args) -> int:
 
 def cmd_verify(args) -> int:
     """Check claims made elsewhere against the corpus, one verdict per claim."""
-    from .verify import verify_claims
+    from .verify import entailment_from_env, verify_claims
 
     manifest = _load(args.knowledge_area)
     claims = [line.strip() for line in Path(args.claims_file).read_text(encoding="utf-8").splitlines()
               if line.strip()]
     with _store(manifest) as store:
-        verdicts = verify_claims(store, claims, subject=args.subject)
+        verdicts = verify_claims(store, claims, subject=args.subject,
+                                 entailment=entailment_from_env())
     if args.json:
         _emit({"knowledge_area": manifest.id, "verdicts": [v.as_dict() for v in verdicts]}, True)
         return 0
     for verdict in verdicts:
         where = ", ".join(sorted({s.source_type for s in verdict.support})) or "-"
         print(f"{verdict.verdict:14} {where:28} {verdict.claim}")
+    return 0
+
+
+def cmd_research(args) -> int:
+    """Run one research request (contract foundry.research/v1) from a JSON file."""
+    from .research import ResearchError, run
+
+    request = json.loads(Path(args.request).read_text(encoding="utf-8"))
+    try:
+        result = run(request)
+    except ResearchError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    text = json.dumps(result, indent=1, ensure_ascii=False)
+    if args.out:
+        Path(args.out).write_text(text, encoding="utf-8")
+        verdicts: dict[str, int] = {}
+        for claim in result["claims"]:
+            verdicts[claim["verdict"]] = verdicts.get(claim["verdict"], 0) + 1
+        print(f"{result['knowledge_area']}: {sum(result['sources']['counts'].values())} sources, "
+              f"{len(result['claims'])} claims {verdicts}, {sum(result['seconds'].values()):.0f}s -> {args.out}")
+    else:
+        print(text)
+    return 0
+
+
+def cmd_serve_research(args) -> int:
+    from .research import ResearchError, serve
+
+    try:
+        serve(args.host, args.port)
+    except ResearchError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
     return 0
 
 
@@ -655,6 +693,16 @@ def build_parser() -> argparse.ArgumentParser:
     verify.add_argument("claims_file", help="one claim per line")
     verify.add_argument("--subject", help="name third-party support must mention to count")
     verify.set_defaults(func=cmd_verify)
+
+    research = sub.add_parser("research", help="research one instance on request (JSON in, JSON out)")
+    research.add_argument("request", help="request JSON file (contract foundry.research/v1)")
+    research.add_argument("--out", help="write the result here instead of stdout")
+    research.set_defaults(func=cmd_research)
+
+    serve_research = sub.add_parser("serve-research", help="the research call as an HTTP job service")
+    serve_research.add_argument("--host", default="127.0.0.1")
+    serve_research.add_argument("--port", type=int, default=8100)
+    serve_research.set_defaults(func=cmd_serve_research)
 
     doctor = sub.add_parser("doctor", help="diagnose the model, corpus and server on this machine")
     doctor.add_argument("--knowledge-area", help="comma-separated ids; default is all")

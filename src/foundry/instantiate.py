@@ -8,6 +8,7 @@ nothing under ``src/foundry/`` learns what the instance is.
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 from datetime import date
@@ -48,7 +49,10 @@ def instantiate(name: str, params: dict, force: bool = False) -> Path:
         raise ManifestError(f"template {name!r} produced an invalid id {ka_id!r}")
     context["id"] = ka_id
 
-    target = repo_root() / spec.get("into", "instances") / ka_id
+    # FOUNDRY_INSTANCES moves instances out of the code tree (a container's
+    # data volume, say): they hold collected material, not configuration.
+    base = os.environ.get("FOUNDRY_INSTANCES")
+    target = (Path(base) if base else repo_root() / spec.get("into", "instances")) / ka_id
     if target.exists():
         if not force:
             raise ManifestError(f"{target} already exists; pass force to re-render it")

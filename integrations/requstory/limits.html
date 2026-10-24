@@ -1,30 +1,17 @@
-<h3 style="margin-top:0">The answers are the weak part</h3>
+<h3 style="margin-top:0">What changed since the first run</h3>
 <ul class="tight">
-<li><b>Grounded, but often not responsive.</b> 84 of the 160 research questions were answered; reading every one by hand, about <b>33 are on-topic and useful</b>. The rest are real, correctly cited sentences that answer a nearby question ("How does Stripe provide support?" → a privacy-policy sentence). No fabricated facts, but zero hallucination does not mean useful. The other 76 questions were declined, which is correct when the evidence is thin and over-cautious when it isn't.</li>
-<li><b>The answers barely use anything but the company's site.</b> Only 7 of 84 answers cite a register, the press or users. <b>Register data is collected but not used well.</b> NVIDIA's LEI record holds its headquarters address, yet "registered office" was answered from the privacy policy. Retrieval does not yet favour an official record for a question only an official record can settle.</li>
-<li>These answers come from the no-model extractive path. A model would phrase them better, but the fix here is mostly structural: answer identity questions (legal name, number, office, parent) straight from the register fields rather than by text retrieval.</li>
+<li><b>Identity questions are read from register fields.</b> 44 answers (legal name, number, office, incorporation, parent, officers, status) now come straight from Companies House, GLEIF and SEC records, each cited to its record. Checked by hand, they are correct and specific: The Trade Desk's LEI record shows its 2024 move from Delaware to Nevada; Cvent's last SEC filing is a 15-12B deregistration from December 2016, when it went private. Before, retrieval answered "registered office" from privacy policies.</li>
+<li><b>Corroboration is now a sentence, not a passage.</b> One sentence must name the company and state the claim. 3 lines are corroborated and all 3 hold up on reading (PostHog product analytics and session replay, Progress's Agentic RAG); before, 4 of 11 did. The rule now misses one genuine case (Beamery's Skills Intelligence). A model check can be switched on to recover such misses; none was configured for this run.</li>
+<li><b>Press releases are the company speaking.</b> 24 press items were wire-service releases (Business Wire, PR Newswire and similar) and now count as the company's own voice, not as independent press. The 3 corroborations that remain rest on VentureBeat, Gigazine and Yahoo Finance. A release reposted by a finance portal without any wire marker (Yahoo carries many) is still counted as press; the rule catches those whose link or dateline names the wire.</li>
+<li><b>SEC EDGAR now runs</b> with a declared contact address, and resolved NVIDIA, Progress, Cvent and Brandwatch's US entity (Crimson Hexagon, which Brandwatch's site names as its registered US company).</li>
+<li><b>A bug that mattered:</b> rebuilding a company never removed sources taken out of its register. The wrong-company "STRIPE" record held back on the second run was still indexed and citable until this run. Removed sources are now retired from the index, for every knowledge area.</li>
 </ul>
-<h3>Corroboration by word overlap is not reliable enough</h3>
+<h3>Still weak</h3>
 <ul class="tight">
-<li>11 of 173 map lines are marked corroborated. Read one by one: <b>4 are genuine</b> independent support (PostHog session replay and product analytics, Progress's Agentic RAG, Beamery's Skills Intelligence), <b>2 are PostHog's own job posts</b> on Hacker News (the company speaking, on someone else's site), and <b>5 are coincidental</b> word overlap, such as a Northrop Grumman job ad that mentions NVIDIA hardware.</li>
-<li>Three earlier versions were worse, and each fix is now a rule with a test: third-party text must name the company; a one-word claim ("Finance") can't be corroborated; publisher hostnames ("finance.yahoo.com") are kept out of the matched text.</li>
-<li>What is left needs claim-level matching (does this passage <i>say</i> the claim, not just share its words). That needs a small model or an entailment check per candidate passage, a few cents per company, not a better word list.</li>
-</ul>
-<h3>"Not found" usually means the foundry could not see it</h3>
-<ul class="tight">
-<li>52 of 173 map lines were not found. Most are the foundry's blind spots, not Requstory errors: Requstory's summaries come from page meta descriptions (dropped by the text extractor), and product names like Cvent's "Manage transient RFPs" sit in menus rendered by JavaScript, while the foundry crawls plain HTML. A rendering crawler (Requstory already has one) would close most of this.</li>
-<li>The verdicts the pilot can stand behind are the positive ones: <i>corroborated</i>, <i>self-reported</i> and <i>label only</i>.</li>
-</ul>
-<h3>Sources that were not available</h3>
-<ul class="tight">
-<li><b>Reviews: none.</b> Trustpilot, G2, Product Hunt and Reddit refused automated access (HTTP 403); the App Store disallows it in robots.txt. "What users say" is Hacker News comments only, which suits developer tools and barely exists for Preservica or Beamery (2 items each). Real review coverage needs a licensed review-data feed.</li>
-<li><b>SEC EDGAR: not run.</b> It refuses automated clients unless the user-agent includes a contact email. The collector supports this through <code>FOUNDRY_CONTACT_EMAIL</code>; no address was invented for it.</li>
-<li><b>Press is headline plus snippet</b>, from Bing News RSS, whose terms allow personal, non-commercial use only. Fine for a pilot, not for a product: production needs a licensed news API.</li>
-<li>Companies House returned HTTP 502 during one run; the collector now retries once and reports "register unreachable" rather than "no match".</li>
-</ul>
-<h3>What was caught, and what is still held</h3>
-<ul class="tight">
-<li>An early version of the identity rule matched a <b>Belgian entity called "STRIPE"</b> to Stripe, Inc., on the strength of the word "Stripe" appearing on stripe.com. A bare trading name now corroborates nothing, and name-only matches are held out of the corpus. Stripe, IDERA and three UK subsidiaries are held, awaiting confirmation.</li>
-<li>Behaviour suite: 57/60. The three failures are the same question ("employees in 1850") answered instead of declined, for PostHog, NVIDIA and Beamery.</li>
-<li>Phone detection first matched procurement-clause numbers like "252.227-7014". It now needs a <code>tel:</code> link or a phone cue word; a missed number is possible, but a junk number is not.</li>
+<li><b>Open questions.</b> "What do users say", "how does it handle complaints" and the like are still answered by extracting sentences; about a third of those answers are on-topic. 61 of 170 questions were declined.</li>
+<li><b>"Incorporated" means this legal entity.</b> GLEIF's creation date is the date of the entity on record: Progress Software shows 2015, when it reincorporated in Delaware, not 1981.</li>
+<li><b>"Not found" usually means the foundry could not see it.</b> 52 of 173 map lines. Requstory reads page descriptions and menus built by JavaScript; the foundry crawls plain HTML.</li>
+<li><b>Reviews: none.</b> Trustpilot, G2, Product Hunt and Reddit refuse automated access; the App Store disallows it. User voices are Hacker News comments only.</li>
+<li><b>Press licensing.</b> Press items come from Bing News RSS, which permits personal, non-commercial use only. Production needs a licensed news feed.</li>
+<li>Behaviour suite: 57/60. The three failures are one question ("employees in 1850") answered instead of declined.</li>
 </ul>

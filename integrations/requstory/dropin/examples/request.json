@@ -1,0 +1,10 @@
+{
+  "contract": "foundry.research/v1",
+  "template": "company",
+  "params": {"domain": "preservica.com", "name": "Preservica"},
+  "claims": [
+    {"id": "summary", "text": "Preservica provides active digital preservation software", "section": "Summary", "origin": "from the website"},
+    {"id": "unit:1:0", "text": "Digital preservation", "section": "Products & services", "origin": "found on the website"},
+    {"id": "unit:2:0", "text": "Customer success", "section": "Customer-facing", "origin": "typical for the industry; not confirmed"}
+  ]
+}

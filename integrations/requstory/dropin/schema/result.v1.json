@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "foundry.research/v1/result",
+  "title": "Foundry research result",
+  "type": "object",
+  "required": ["contract", "knowledge_area", "identity", "registers", "site", "claims", "answers", "sources", "provenance"],
+  "$defs": {
+    "visibility": {"enum": ["public", "claimant_only"],
+                   "description": "public: registers and the company's own site. claimant_only: press, reviews, community; shown only to the company once it has claimed its page."},
+    "sourceType": {"enum": ["official_record", "self_published", "press", "review", "community"]},
+    "support": {
+      "type": "object",
+      "required": ["source_type", "uri", "quote", "visibility"],
+      "properties": {
+        "source_id": {"type": "string"}, "source_type": {"$ref": "#/$defs/sourceType"},
+        "title": {"type": "string"}, "uri": {"type": "string"}, "quote": {"type": "string"},
+        "support": {"type": "number"}, "visibility": {"$ref": "#/$defs/visibility"}
+      }
+    }
+  },
+  "properties": {
+    "contract": {"const": "foundry.research/v1"},
+    "knowledge_area": {"type": "string"},
+    "identity": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": {"enum": ["resolved", "pending_confirmation", "unresolved", "failed", "not_run"]},
+          "entities": {"type": "array", "items": {
+            "type": "object", "required": ["name", "key", "corroborated", "via"],
+            "properties": {"name": {"type": "string"}, "key": {"type": "string"},
+                           "corroborated": {"type": "boolean"},
+                           "via": {"enum": ["trading name", "declared on the site", "confirmed by the subject"]}}}}
+        }
+      }
+    },
+    "registers": {"type": "array", "items": {"type": "object", "required": ["publisher", "uri", "fields"],
+      "properties": {"fields": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+                     "visibility": {"const": "public"}}}},
+    "claims": {"type": "array", "items": {
+      "type": "object", "required": ["id", "text", "verdict", "support"],
+      "properties": {
+        "verdict": {"enum": ["corroborated", "self_reported", "label_only", "not_found"]},
+        "note": {"type": "string"},
+        "support": {"type": "array", "items": {"$ref": "#/$defs/support"}}
+      }}},
+    "answers": {"type": "array", "items": {
+      "type": "object", "required": ["id", "question", "status", "answer", "produced_by", "visibility"],
+      "properties": {
+        "status": {"enum": ["answered", "insufficient_evidence", "out_of_scope", "ambiguous", "unsupported", "irrelevant"]},
+        "produced_by": {"type": "string"},
+        "visibility": {"$ref": "#/$defs/visibility"}
+      }}},
+    "provenance": {"type": "object", "required": ["verifier", "answers"]}
+  }
+}

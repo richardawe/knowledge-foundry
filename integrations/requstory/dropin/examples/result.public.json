@@ -1,0 +1,745 @@
+{
+ "_note": "Public view of a real run (Preservica): claimant_only evidence removed, as viewOf() would.",
+ "contract": "foundry.research/v1",
+ "knowledge_area": "co-preservica-com",
+ "params": {
+  "domain": "preservica.com",
+  "name": "Preservica"
+ },
+ "started_at": "2026-10-24T11:37:01+00:00",
+ "finished_at": "2026-10-24T11:37:55+00:00",
+ "seconds": {
+  "collect": 52.4,
+  "build": 0.9,
+  "answer": 0.2,
+  "verify": 0.0
+ },
+ "identity": {
+  "uk-register": {
+   "register": "Companies House (UK)",
+   "queries": [
+    {
+     "name": "Preservica",
+     "why": "trading name",
+     "query": "https://find-and-update.company-information.service.gov.uk/search/companies?q=Preservica",
+     "candidates_seen": [
+      {
+       "key": "07998621",
+       "name": "PRESERVICA LTD",
+       "match": true
+      }
+     ]
+    },
+    {
+     "name": "Preservica Limited",
+     "why": "declared on the site",
+     "query": "https://find-and-update.company-information.service.gov.uk/search/companies?q=Preservica%20Limited",
+     "candidates_seen": [
+      {
+       "key": "07998621",
+       "name": "PRESERVICA LTD",
+       "match": true
+      }
+     ]
+    },
+    {
+     "name": "Preservica Ltd",
+     "why": "declared on the site",
+     "query": "https://find-and-update.company-information.service.gov.uk/search/companies?q=Preservica%20Ltd",
+     "candidates_seen": [
+      {
+       "key": "07998621",
+       "name": "PRESERVICA LTD",
+       "match": true
+      }
+     ]
+    }
+   ],
+   "status": "resolved",
+   "entities": [
+    {
+     "key": "07998621",
+     "name": "PRESERVICA LTD",
+     "via": "trading name",
+     "corroborated": true
+    }
+   ]
+  },
+  "lei-register": {
+   "register": "GLEIF (Global Legal Entity Identifier Foundation)",
+   "queries": [
+    {
+     "name": "Preservica",
+     "why": "trading name",
+     "query": "https://api.gleif.org/api/v1/fuzzycompletions?field=entity.legalName&q=Preservica",
+     "candidates_seen": [
+      {
+       "key": "6488ICJ90CX27X89I541",
+       "name": "PRESERVICA LTD",
+       "match": true
+      },
+      {
+       "key": "549300UV0KNQKDVKGR52",
+       "name": "Preservia Holding AB",
+       "match": false
+      },
+      {
+       "key": "5493003SVXZLNVHTJ685",
+       "name": "Preservia Hyresfastigheter AB (publ)",
+       "match": false
+      }
+     ]
+    },
+    {
+     "name": "Preservica Limited",
+     "why": "declared on the site",
+     "query": "https://api.gleif.org/api/v1/fuzzycompletions?field=entity.legalName&q=Preservica%20Limited",
+     "candidates_seen": []
+    },
+    {
+     "name": "Preservica Ltd",
+     "why": "declared on the site",
+     "query": "https://api.gleif.org/api/v1/fuzzycompletions?field=entity.legalName&q=Preservica%20Ltd",
+     "candidates_seen": [
+      {
+       "key": "6488ICJ90CX27X89I541",
+       "name": "PRESERVICA LTD",
+       "match": true
+      }
+     ]
+    }
+   ],
+   "status": "resolved",
+   "entities": [
+    {
+     "key": "6488ICJ90CX27X89I541",
+     "name": "PRESERVICA LTD",
+     "via": "trading name",
+     "corroborated": true
+    }
+   ]
+  },
+  "us-filings": {
+   "register": "US SEC EDGAR",
+   "queries": [
+    {
+     "name": "Preservica",
+     "why": "trading name",
+     "query": "https://efts.sec.gov/LATEST/search-index?keysTyped=Preservica",
+     "candidates_seen": []
+    },
+    {
+     "name": "Preservica Limited",
+     "why": "declared on the site",
+     "query": "https://efts.sec.gov/LATEST/search-index?keysTyped=Preservica%20Limited",
+     "candidates_seen": []
+    },
+    {
+     "name": "Preservica Ltd",
+     "why": "declared on the site",
+     "query": "https://efts.sec.gov/LATEST/search-index?keysTyped=Preservica%20Ltd",
+     "candidates_seen": []
+    }
+   ],
+   "status": "unresolved",
+   "reason": "no candidate's name matched 'Preservica' or 'Preservica Limited' or 'Preservica Ltd'"
+  }
+ },
+ "registers": [
+  {
+   "publisher": "GLEIF (Global Legal Entity Identifier Foundation)",
+   "uri": "https://api.gleif.org/api/v1/lei-records/6488ICJ90CX27X89I541",
+   "title": "Legal entity record: PRESERVICA LTD",
+   "fields": {
+    "Legal name": [
+     "PRESERVICA LTD"
+    ],
+    "Legal entity identifier": [
+     "6488ICJ90CX27X89I541"
+    ],
+    "Registered as": [
+     "07998621"
+    ],
+    "Jurisdiction": [
+     "GB"
+    ],
+    "Legal address": [
+     "32 The Quadrant, Abingdon Science Park, Abingdon, GB, OX14 3YS"
+    ],
+    "Headquarters address": [
+     "32 The Quadrant, Abingdon Science Park, Abingdon, GB, OX14 3YS"
+    ],
+    "Entity status": [
+     "ACTIVE"
+    ],
+    "Incorporated (creation date)": [
+     "2012-03-19T23:00:00Z"
+    ],
+    "Registration status": [
+     "ISSUED"
+    ],
+    "Record last updated": [
+     "2025-12-24T01:21:28Z"
+    ]
+   },
+   "visibility": "public"
+  },
+  {
+   "publisher": "GLEIF (Global Legal Entity Identifier Foundation)",
+   "uri": "https://api.gleif.org/api/v1/lei-records/6488ICJ90CX27X89I541/ultimate-parent",
+   "title": "Ultimate parent: PRESERVICA LTD",
+   "fields": {
+    "Ultimate parent legal name": [
+     "none reported in the LEI register."
+    ]
+   },
+   "visibility": "public"
+  },
+  {
+   "publisher": "Companies House (UK)",
+   "uri": "https://find-and-update.company-information.service.gov.uk/company/07998621",
+   "title": "Company overview: PRESERVICA LTD",
+   "fields": {
+    "Legal name": [
+     "PRESERVICA LTD"
+    ],
+    "Company number": [
+     "07998621"
+    ],
+    "Registered office address": [
+     "32 The Quadrant, Abingdon Science Park, Abingdon, Oxon, United Kingdom, OX14 3YS"
+    ],
+    "Company status": [
+     "Active"
+    ],
+    "Company type": [
+     "Private limited Company"
+    ],
+    "Incorporated on": [
+     "20 March 2012"
+    ],
+    "Nature of business (SIC)": [
+     "62012 - Business and domestic software development"
+    ]
+   },
+   "visibility": "public"
+  },
+  {
+   "publisher": "Companies House (UK)",
+   "uri": "https://find-and-update.company-information.service.gov.uk/company/07998621/officers",
+   "title": "Officers: PRESERVICA LTD",
+   "fields": {
+    "Current officer": [
+     "ELLIOTT, Stephanie, Dr, Secretary",
+     "HOPE, Trevor Michael, Director",
+     "QUINN, Michael William, Director",
+     "SHACKLETON, John, Director",
+     "SURDAN, Kenneth, Director",
+     "TILBURY, Jonathan Fitzgerald, Director"
+    ]
+   },
+   "visibility": "public"
+  }
+ ],
+ "site": {
+  "domain": "preservica.com",
+  "redirected_from": null,
+  "pages_read": 25,
+  "page_uris": [
+   "https://preservica.com/",
+   "https://preservica.com/automated-retention-and-legal-hold",
+   "https://preservica.com/pricing",
+   "https://preservica.com/trust-center",
+   "https://preservica.com/resources/blogs-and-news/introducing-preservicas-ciso-assurance-series-ai-security-and-data-privacy",
+   "https://preservica.com/resources/white-papers/preservica-ai-security-privacy-and-trust-overview",
+   "https://website-assets.preservica.com/production/resources/CISO-Assurance-Series-Preservica-AI-%E2%80%93-Security-Privacy-and-Trust-Overview_v5.4.pdf?dm=1790671607",
+   "https://preservica.com/about",
+   "https://preservica.com/careers",
+   "https://preservica.com/management-team",
+   "https://preservica.com/support",
+   "https://preservica.com/contact",
+   "https://preservica.com/security",
+   "https://preservica.com/terms-conditions",
+   "https://preservica.com/privacy-notice",
+   "https://preservica.com/supporting-hipaa-compliance-with-preservica",
+   "https://preservica.com/features/admin-and-security",
+   "https://community.preservica.com/",
+   "https://community.preservica.com/security-197/preservica-security-testing-overview-3088",
+   "https://community.preservica.com/about-preservica-135",
+   "https://community.preservica.com/learn-about-the-preservica-academy-132",
+   "https://community.preservica.com/security-197",
+   "https://community.preservica.com/security-197/preservica-ai-security-privacy-and-trust-overview-2933",
+   "https://community.preservica.com/ask-the-community-89",
+   "https://community.preservica.com/starter-editions-2/starter-plus-and-integrated-ai-features-access-3141"
+  ],
+  "emails": [
+   {
+    "value": "info@preservica.com",
+    "found_on": "https://website-assets.preservica.com/production/resources/CISO-Assurance-Series-Preservica-AI-%E2%80%93-Security-Privacy-and-Trust-Overview_v5.4.pdf?dm=1790671607"
+   }
+  ],
+  "phones": [
+   {
+    "value": "+1 617 294 6676",
+    "found_on": "https://preservica.com/contact"
+   },
+   {
+    "value": "0303 123 1113",
+    "found_on": "https://preservica.com/privacy-notice"
+   },
+   {
+    "value": "+44 (0)1235 428 900",
+    "found_on": "https://preservica.com/contact"
+   }
+  ],
+  "probes": {
+   "/robots.txt": {
+    "present": true,
+    "detail": "12 lines",
+    "uri": "https://preservica.com/robots.txt"
+   },
+   "/sitemap.xml": {
+    "present": true,
+    "detail": "1 lines",
+    "uri": "https://preservica.com/sitemaps-1-sitemap.xml"
+   },
+   "/llms.txt": {
+    "present": false,
+    "detail": "HTTP 404 fetching https://preservica.com/llms.txt"
+   }
+  },
+  "declared_names": [
+   "Preservica Limited",
+   "Preservica Ltd"
+  ]
+ },
+ "claims": [
+  {
+   "id": "summary",
+   "section": "Summary",
+   "origin": "from the website",
+   "text": "Preservica provides active digital preservation software",
+   "verdict": "self_reported",
+   "note": "",
+   "support": [
+    {
+     "source_id": "site-13",
+     "source_type": "self_published",
+     "title": "Security | Preservica",
+     "uri": "https://preservica.com/security",
+     "support": 1.0,
+     "quote": "Preservica’s standard-based (ISO 14721, OAIS) Active Digital Preservation solution is used by leading businesses, archives, libraries, museums and government organizations globally to safeguard valuable digital records and information, for ",
+     "unconfirmed_identity": false,
+     "visibility": "public"
+    },
+    {
+     "source_id": "site-01",
+     "source_type": "self_published",
+     "title": "Digital Preservation Software | Preservica",
+     "uri": "https://preservica.com/",
+     "support": 0.833,
+     "quote": "Digital Preservation software: Protecting your assets",
+     "unconfirmed_identity": false,
+     "visibility": "public"
+    },
+    {
+     "source_id": "site-15",
+     "source_type": "self_published",
+     "title": "Privacy notice | Preservica",
+     "uri": "https://preservica.com/privacy-notice",
+     "support": 0.833,
+     "quote": "our Customers and external submitters of content to our Customer’s archive, when you use Preservica Cloud based software (the “Services”) or the website via which the Services are provided (the ” Site”).",
+     "unconfirmed_identity": false,
+     "visibility": "public"
+    }
+   ]
+  },
+  {
+   "id": "unit:1:0",
+   "section": "Products & services",
+   "origin": "found on the website",
+   "text": "Digital preservation",
+   "verdict": "self_reported",
+   "note": "independent support withheld from the public view",
+   "support": [
+    {
+     "source_id": "site-03",
+     "source_type": "self_published",
+     "title": "Pricing | Preservica",
+     "uri": "https://preservica.com/pricing",
+     "support": 1.0,
+     "quote": "Trusted Digital Preservation aligned to NDSA & OAIS",
+     "unconfirmed_identity": false,
+     "visibility": "public"
+    }
+   ]
+  },
+  {
+   "id": "unit:2:0",
+   "section": "Customer-facing",
+   "origin": "typical for the industry; not confirmed",
+   "text": "Customer success",
+   "verdict": "self_reported",
+   "note": "",
+   "support": [
+    {
+     "source_id": "site-11",
+     "source_type": "self_published",
+     "title": "Support | Preservica",
+     "uri": "https://preservica.com/support",
+     "support": 1.0,
+     "quote": "Designed for Preservica Enterprise Private Cloud and on-Premise customers, this highly personalized service is designed to accelerate time to value and achieve faster success for your digital archiving and preservation program or projects.",
+     "unconfirmed_identity": false,
+     "visibility": "public"
+    },
+    {
+     "source_id": "site-10",
+     "source_type": "self_published",
+     "title": "Management team | Preservica",
+     "uri": "https://preservica.com/management-team",
+     "support": 1.0,
+     "quote": "VP of Customer Success",
+     "unconfirmed_identity": false,
+     "visibility": "public"
+    }
+   ]
+  }
+ ],
+ "answers": [
+  {
+   "id": "offer",
+   "question": "What products and services does Preservica offer?",
+   "status": "insufficient_evidence",
+   "answer": "The available evidence is not sufficient to answer this question.",
+   "produced_by": "local_extractive",
+   "sources": [],
+   "visibility": "public"
+  },
+  {
+   "id": "audience",
+   "question": "Which kinds of customers, companies and teams use Preservica products?",
+   "status": "answered",
+   "answer": "Phil works closely with our customers, partners and engineering teams to accelerate and deliver Preservica’s product and technology strategy. [2]",
+   "produced_by": "local_extractive",
+   "sources": [
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/management-team",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "pricing",
+   "question": "Does Preservica publish its pricing and plans?",
+   "status": "insufficient_evidence",
+   "answer": "This knowledge area has nothing on: plan, publish. Passages were retrieved that share the question's general vocabulary, but none of them mentions what was actually asked about, so any answer built from them would be about something else. Rather than return that, the system is declining and naming the gap.",
+   "produced_by": "unknown",
+   "sources": [],
+   "visibility": "public"
+  },
+  {
+   "id": "contact",
+   "question": "What email address or contact page does Preservica publish for customers?",
+   "status": "answered",
+   "answer": "Contact Data: includes business address, email address, social media handles, and telephone numbers. [7]",
+   "produced_by": "local_extractive",
+   "sources": [
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/privacy-notice",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "phone",
+   "question": "What telephone number does Preservica publish?",
+   "status": "answered",
+   "answer": "The Proficio record number needs to be added as the Preservica identifier (not in DC, but in the main metadata section of the asset. [1] Preservica Ltd in England and Wales under company number 7998621. [6]",
+   "produced_by": "local_extractive",
+   "sources": [
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://community.preservica.com/ask-the-community-89",
+     "visibility": "public"
+    },
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/privacy-notice",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "support",
+   "question": "How does Preservica provide customer support and help?",
+   "status": "answered",
+   "answer": "Preservica can provide configuration support through Professional Services where required. [1] Preservica's goal is to add AI features in a way that makes them easy and intuitive to use, focusing on the value they provide archivists and record managers. [5] Preservica's AI features only use data you choose to provide to them explicitly. [5]",
+   "produced_by": "local_extractive",
+   "sources": [
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://website-assets.preservica.com/production/resources/CISO-Assurance-Series-Preservica-AI-%E2%80%93-Security-Privacy-and-Trust-Overview_v5.4.pdf?dm=1790671607",
+     "visibility": "public"
+    },
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/pricing",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "complaints",
+   "question": "How does Preservica handle complaints?",
+   "status": "answered",
+   "answer": "If you are unhappy with how we have collected, used, or handled your personal data, you have the right to make a complaint directly to us. [6] With it, we’re changing the way commercial and cultural organizations handle long-term digital information by protecting fragile digital content. [7] We protect data obtained from third parties in the same way as we handle data we receive directly. [8]",
+   "produced_by": "local_extractive",
+   "sources": [
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/privacy-notice",
+     "visibility": "public"
+    },
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/careers",
+     "visibility": "public"
+    },
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/privacy-notice",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "legal",
+   "question": "What is the registered legal name, company number and jurisdiction of Preservica?",
+   "status": "answered",
+   "answer": "GLEIF (Global Legal Entity Identifier Foundation) records Legal name: PRESERVICA LTD. Registered as: 07998621. Legal entity identifier: 6488ICJ90CX27X89I541. Jurisdiction: GB. [1]\nCompanies House (UK) records Legal name: PRESERVICA LTD. Company number: 07998621. [2]",
+   "produced_by": "register_fields",
+   "sources": [
+    {
+     "source_type": "official_record",
+     "title": "Legal entity record: PRESERVICA LTD",
+     "uri": "https://api.gleif.org/api/v1/lei-records/6488ICJ90CX27X89I541",
+     "visibility": "public"
+    },
+    {
+     "source_type": "official_record",
+     "title": "Company overview: PRESERVICA LTD",
+     "uri": "https://find-and-update.company-information.service.gov.uk/company/07998621",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "office",
+   "question": "What is the registered office address of Preservica?",
+   "status": "answered",
+   "answer": "GLEIF (Global Legal Entity Identifier Foundation) records Legal address: 32 The Quadrant, Abingdon Science Park, Abingdon, GB, OX14 3YS. Headquarters address: 32 The Quadrant, Abingdon Science Park, Abingdon, GB, OX14 3YS. [1]\nCompanies House (UK) records Registered office address: 32 The Quadrant, Abingdon Science Park, Abingdon, Oxon, United Kingdom, OX14 3YS. [2]",
+   "produced_by": "register_fields",
+   "sources": [
+    {
+     "source_type": "official_record",
+     "title": "Legal entity record: PRESERVICA LTD",
+     "uri": "https://api.gleif.org/api/v1/lei-records/6488ICJ90CX27X89I541",
+     "visibility": "public"
+    },
+    {
+     "source_type": "official_record",
+     "title": "Company overview: PRESERVICA LTD",
+     "uri": "https://find-and-update.company-information.service.gov.uk/company/07998621",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "founded",
+   "question": "On what date was Preservica incorporated or founded as a company?",
+   "status": "answered",
+   "answer": "GLEIF (Global Legal Entity Identifier Foundation) records Incorporated (creation date): 2012-03-19T23:00:00Z. [1]\nCompanies House (UK) records Incorporated on: 20 March 2012. [2]",
+   "produced_by": "register_fields",
+   "sources": [
+    {
+     "source_type": "official_record",
+     "title": "Legal entity record: PRESERVICA LTD",
+     "uri": "https://api.gleif.org/api/v1/lei-records/6488ICJ90CX27X89I541",
+     "visibility": "public"
+    },
+    {
+     "source_type": "official_record",
+     "title": "Company overview: PRESERVICA LTD",
+     "uri": "https://find-and-update.company-information.service.gov.uk/company/07998621",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "parent",
+   "question": "Who owns Preservica, and what is its parent company?",
+   "status": "answered",
+   "answer": "GLEIF (Global Legal Entity Identifier Foundation) records Ultimate parent legal name: none reported in the LEI register. [1]",
+   "produced_by": "register_fields",
+   "sources": [
+    {
+     "source_type": "official_record",
+     "title": "Ultimate parent: PRESERVICA LTD",
+     "uri": "https://api.gleif.org/api/v1/lei-records/6488ICJ90CX27X89I541/ultimate-parent",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "officers",
+   "question": "Who are the directors and officers of Preservica?",
+   "status": "answered",
+   "answer": "Companies House (UK) records Current officer: ELLIOTT, Stephanie, Dr, Secretary; HOPE, Trevor Michael, Director; QUINN, Michael William, Director; SHACKLETON, John, Director; SURDAN, Kenneth, Director; TILBURY, Jonathan Fitzgerald, Director. [1]",
+   "produced_by": "register_fields",
+   "sources": [
+    {
+     "source_type": "official_record",
+     "title": "Officers: PRESERVICA LTD",
+     "uri": "https://find-and-update.company-information.service.gov.uk/company/07998621/officers",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "status",
+   "question": "Is Preservica an active company, and is it still filing?",
+   "status": "answered",
+   "answer": "GLEIF (Global Legal Entity Identifier Foundation) records Entity status: ACTIVE. [1]\nCompanies House (UK) records Company status: Active. [2]",
+   "produced_by": "register_fields",
+   "sources": [
+    {
+     "source_type": "official_record",
+     "title": "Legal entity record: PRESERVICA LTD",
+     "uri": "https://api.gleif.org/api/v1/lei-records/6488ICJ90CX27X89I541",
+     "visibility": "public"
+    },
+    {
+     "source_type": "official_record",
+     "title": "Company overview: PRESERVICA LTD",
+     "uri": "https://find-and-update.company-information.service.gov.uk/company/07998621",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  },
+  {
+   "id": "news",
+   "question": "What has been reported in the news about Preservica recently?",
+   "status": "insufficient_evidence",
+   "answer": "This knowledge area has nothing on: recently, report. Passages were retrieved that share the question's general vocabulary, but none of them mentions what was actually asked about, so any answer built from them would be about something else. Rather than return that, the system is declining and naming the gap.",
+   "produced_by": "unknown",
+   "sources": [],
+   "visibility": "public"
+  },
+  {
+   "id": "incidents",
+   "question": "Has Preservica had any security incidents, outages, layoffs or legal disputes reported?",
+   "status": "insufficient_evidence",
+   "answer": "The available evidence is not sufficient to answer this question.",
+   "produced_by": "local_extractive",
+   "sources": [],
+   "visibility": "public"
+  },
+  {
+   "id": "users",
+   "question": "What do users and developers say about Preservica?",
+   "status": "insufficient_evidence",
+   "answer": "This knowledge area has nothing on: say, user. Passages were retrieved that share the question's general vocabulary, but none of them mentions what was actually asked about, so any answer built from them would be about something else. Rather than return that, the system is declining and naming the gap.",
+   "produced_by": "unknown",
+   "sources": [],
+   "visibility": "public"
+  },
+  {
+   "id": "security",
+   "question": "What does Preservica say about security, privacy and compliance?",
+   "status": "answered",
+   "answer": "Together, these briefings provide a clear view into how Preservica supports secure Digital Preservation, while addressing key aspects of enterprise security, data privacy and compliance. [1] Preservica's HIPAA Security and Privacy safeguards have been independently assessed for the management and storage of ePHI – subject to the customer and Preservica signing a BAA. [3] The Preservica CISO Assurance Series provides concise, factual briefings intended to support customer Legal, Privacy, Information Security, and Risk stakeholders when evaluating specific aspects of the Preservica platform. [6] Confirmation of the assessment of Preservica’s HIPAA compliance program by independent cyber security firm. [8]",
+   "produced_by": "local_extractive",
+   "sources": [
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/resources/blogs-and-news/introducing-preservicas-ciso-assurance-series-ai-security-and-data-privacy",
+     "visibility": "public"
+    },
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/trust-center",
+     "visibility": "public"
+    },
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/resources/white-papers/preservica-ai-security-privacy-and-trust-overview",
+     "visibility": "public"
+    },
+    {
+     "source_type": "self_published",
+     "title": "",
+     "uri": "https://preservica.com/supporting-hipaa-compliance-with-preservica",
+     "visibility": "public"
+    }
+   ],
+   "visibility": "public"
+  }
+ ],
+ "sources": {
+  "counts": {
+   "official_record": 4,
+   "self_published": 34,
+   "press": 2,
+   "community": 2
+  },
+  "licences": [
+   "Bing News RSS: personal, non-commercial use only. Pilot use; needs a licensed feed in production.",
+   "CC0 1.0",
+   "Open Government Licence v3.0",
+   "Publisher's own site; quoted for verification only",
+   "User comments via the HN Algolia API; attributed, quoted for verification only"
+  ],
+  "retired": [],
+  "skipped": [
+   {
+    "collector": "site",
+    "uri": "https://community.preservica.com/topic/trackAttachment?file_uuid=a36820f8-d2b6-4d38-ba86-d68f97a1442d&redirect=1",
+    "reason": "redirected off-site to https://attachments-us-west-2.insided.com/a36820f8-d2b6-4d38-ba86-d68f97a1442d/CISO-Assurance-Series-Preservica-AI-%E2%80%93-Security-Privacy-and-Trust-Overview_v5.1-PUBLIC.pdf?Expires=1792845452&Signature=cz9IERnFeCK3hwQ81ifvjFBFx~EQlV~iR0JVjqldpewKD8dMBufOZ8ZBpS1m5q5E7J20g8Tg40UFHvw-FSEzqJo~lPHSpGbmslYUGuYUgGwbxJ0Mp0m2qNT8m0TmLeTVQTUqZaIBnqYcNhoEEX~p57-JFMZZeQR4l9LBaZ8HISq8ka7yhDeNSIy3g-3xS8WOKc3MUne5fAyZZMrvlXOC56oQjtpApzWXGHmcsQZNmOKVsgosoVPp~07jNeEZg3SFgljQGGBa6sqL~mgPuRk67C0M5OyErrMeux65oZiavUwzDanLBsUEV9DrUrwLw1AIOR0RTxtcxhOXOrrCRnF9Kg__&Key-Pair-Id=APKAJODP2KXSV47YM4AA"
+   },
+   {
+    "collector": "site",
+    "uri": "https://community.preservica.com/preservica-announcements-87",
+    "reason": "HTTP 403 fetching https://community.preservica.com/preservica-announcements-87"
+   }
+  ]
+ },
+ "provenance": {
+  "verifier": "sentence rule",
+  "answers": "register fields first, then retrieval and extraction"
+ }
+}

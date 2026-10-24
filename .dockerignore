@@ -1,0 +1,7 @@
+.git
+var
+companies
+site
+.gh-pages-worktree
+**/__pycache__
+*.egg-info

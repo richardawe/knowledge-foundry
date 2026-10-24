@@ -85,8 +85,81 @@ def threshold_for(terms: set[str]) -> float:
     return 1.0 if len(terms) <= 3 else 0.6
 
 
+def _words(text: str) -> str:
+    return " " + " ".join(re.findall(r"[a-z0-9]+", text.lower())) + " "
+
+
+def _sentences(text: str) -> list[str]:
+    return [p.strip() for p in re.split(r"(?<=[.!?])\s+|\n+|\s+\|\s+", text) if p.strip()]
+
+
+def stating_sentence(text: str, claim: str, terms: set[str], subject: str | None) -> str | None:
+    """The sentence of ``text`` that states ``claim`` about ``subject``, if there is one.
+
+    Corroboration is a property of a sentence, not of a passage: a passage that
+    mentions the subject in one place and the claim's words in another (a job ad
+    listing many employers, a news roundup) states nothing about the subject. A
+    short claim must appear as a phrase; a longer one must have most of its
+    content in the sentence. Either way the sentence must name the subject.
+    """
+    phrase = _words(claim)
+    for sentence in _sentences(text):
+        if subject and _words(subject) not in _words(sentence):
+            continue
+        if len(terms) <= 3:
+            if phrase in _words(sentence):
+                return sentence
+        elif coverage(terms, content_terms(sentence)) >= 0.6:
+            return sentence
+    return None
+
+
+ENTAILMENT_SYSTEM = (
+    "You check whether a passage states a claim. Answer with exactly one word: "
+    "YES if the passage itself states the claim about the named company, NO otherwise. "
+    "Mentioning the same words is not stating the claim."
+)
+
+
+def model_confirms(provider, subject: str | None, claim: str, sentence: str) -> tuple[bool, str]:
+    """Ask a model whether the sentence states the claim. Any failure counts as no."""
+    about = f" about {subject}" if subject else ""
+    response = provider.complete(
+        ENTAILMENT_SYSTEM,
+        f"Claim{about}: {claim}\n\nPassage: {sentence}\n\nDoes the passage state the claim?",
+        temperature=0.0, max_tokens=3)
+    if response.error:
+        return False, f"model error: {response.error}"
+    return response.text.strip().upper().startswith("YES"), f"{response.provider}:{response.model}"
+
+
+def entailment_from_env():
+    """The model for the entailment check, from ``FOUNDRY_VERIFY_PROVIDER`` / ``_MODEL``.
+
+    Returns ``None`` when unset. A keyless provider is refused outright: it
+    would answer every check without reading anything, and its "YES" would be
+    recorded as a model's judgement.
+    """
+    import os
+
+    from .llm import get_provider
+
+    name = os.environ.get("FOUNDRY_VERIFY_PROVIDER")
+    if not name:
+        return None
+    if name in ("local_extractive", "scripted"):
+        raise ValueError(f"FOUNDRY_VERIFY_PROVIDER={name!r} calls no model; refusing it as a verifier")
+    return get_provider(name, os.environ.get("FOUNDRY_VERIFY_MODEL"))
+
+
 def verify_claims(store: Store, claims: list[str], max_support: int = 3,
-                  subject: str | None = None) -> list[Verdict]:
+                  subject: str | None = None, entailment=None) -> list[Verdict]:
+    """One verdict per claim.
+
+    ``entailment`` is an optional model provider. Without one, corroboration
+    rests on the sentence rule alone; with one, each candidate sentence must
+    also be confirmed by the model, and the verdict says which model.
+    """
     rows = store.chunks_with_provenance([row["id"] for row in store.chunks()])
     unconfirmed = {
         row["id"] for row in store.sources()
@@ -119,13 +192,26 @@ def verify_claims(store: Store, claims: list[str], max_support: int = 3,
                     quote=_quote(row["text"], terms),
                     unconfirmed_identity=row["source_id"] in unconfirmed)
         supports = sorted(best.values(), key=lambda s: (s.source_type in SELF_TYPES, -s.support))
-        independent = [s for s in supports if s.source_type not in SELF_TYPES]
         own = [s for s in supports if s.source_type in SELF_TYPES]
+        independent, checked_by = [], "sentence rule"
+        for candidate in (s for s in supports if s.source_type not in SELF_TYPES):
+            text = "\n".join(r["text"] for r, _ in chunks if r["source_id"] == candidate.source_id)
+            sentence = stating_sentence(text, claim, terms, subject)
+            if sentence is None:
+                continue
+            if entailment is not None:
+                confirmed, by = model_confirms(entailment, subject, claim, sentence)
+                checked_by = f"sentence rule + {by}"
+                if not confirmed:
+                    continue
+            candidate.quote = sentence[:240]
+            independent.append(candidate)
 
         # A one-word claim ("Finance", "Research") is in nearly every article;
         # finding the word elsewhere corroborates nothing.
         if independent and len(terms) > 1:
-            verdicts.append(Verdict(claim, "corroborated", independent[:max_support] + own[:1]))
+            verdicts.append(Verdict(claim, "corroborated", independent[:max_support] + own[:1],
+                                    note=f"checked by {checked_by}"))
             continue
         if not own:
             note = "a single word, found only in third-party sources" if independent else ""
