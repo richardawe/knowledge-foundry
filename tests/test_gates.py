@@ -67,6 +67,37 @@ def test_a_question_the_corpus_covers_is_not_refused(built):
     assert share < manifest.specialist.max_missing_subject_weight
 
 
+def test_the_readers_phrase_for_the_corpus_is_not_a_missing_subject(built):
+    """bf-temporal-002 was declined for having "nothing on: accord, sourc, held"
+    -- the words of "according to the sources held here", which no corpus contains."""
+    manifest, store = built
+    specialist = Specialist(manifest, store)
+
+    plain = "At what core temperature does widget overheating begin?"
+    framed = plain[:-1] + " according to the sources held here?"
+    ok, missing, _share = specialist.covers_the_subject(
+        framed, specialist.retriever.retrieve(framed).evidence)
+    assert ok
+    assert not {"accord", "sourc", "held"} & set(missing)
+
+    # The frame words are ignored; a genuinely absent subject still is not.
+    absent = "What is the resale value of a widget in Lagos according to the sources held here?"
+    ok, missing, _share = specialist.covers_the_subject(
+        absent, specialist.retriever.retrieve(absent).evidence)
+    assert not ok and "lago" in missing
+
+
+def test_the_question_frame_is_the_same_in_python_and_the_browser():
+    import re
+
+    from foundry import paths
+    from foundry.text import QUESTION_FRAME
+
+    engine = (paths.repo_root() / "src" / "foundry" / "web" / "static" / "engine.js").read_text()
+    declared = re.search(r"const QUESTION_FRAME = new Set\(\[([^\]]*)\]\)", engine).group(1)
+    assert set(re.findall(r'"([^"]+)"', declared)) == set(QUESTION_FRAME)
+
+
 def test_the_subject_gate_can_be_stood_down_by_the_manifest(built):
     manifest, store = built
     manifest.specialist.max_missing_subject_weight = 1.0

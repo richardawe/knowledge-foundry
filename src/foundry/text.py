@@ -10,6 +10,13 @@ from __future__ import annotations
 import re
 import unicodedata
 
+# Words that refer to the asking, not to what is asked about: "according to the
+# sources held here". They are ordinary content words, so they stay in every
+# other comparison; only the subject-coverage gate ignores them, because a corpus
+# never contains the reader's phrase for itself, and counting it as a missing
+# subject declines answerable questions. Mirrored in web/static/engine.js.
+QUESTION_FRAME = frozenset({"according", "source", "sources", "held"})
+
 # Words that carry no discriminative content. Small and deliberate: an
 # aggressive stop list hurts technical domains, where "state of charge" and
 # "end of life" are terms of art built almost entirely from stop words.

@@ -32,7 +32,7 @@ from ..manifest import Manifest
 from ..retrieval import HybridRetriever, load_embedder
 from ..retrieval.base import Evidence
 from ..storage import Store
-from ..text import content_terms, coverage
+from ..text import QUESTION_FRAME, content_terms, coverage
 from . import prompts
 from .answer import (
     AMBIGUOUS,
@@ -285,7 +285,7 @@ class Specialist:
         rephrase if it was wording, and names exactly what the corpus would
         need to acquire if it was not.
         """
-        terms = content_terms(question)
+        terms = content_terms(question) - content_terms(" ".join(QUESTION_FRAME))
         if not terms or not evidence:
             return True, [], 0.0
 
