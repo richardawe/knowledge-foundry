@@ -1,6 +1,6 @@
 {
   "version": "v0.2.0",
-  "published_at": "2026-11-17T11:20:15+00:00",
+  "published_at": "2026-11-18T10:53:37+00:00",
   "created_at": "2026-10-24T15:55:32+00:00",
   "manifest_sha": "b0911b58844bdea7",
   "corpus_sha": "23fde09d0160b984",
@@ -17,7 +17,7 @@
     "indexed_sources": 29
   },
   "evaluation": {
-    "run_id": "run_5fcea29548502115",
+    "run_id": "run_6a5d7640dd16d9bb",
     "passed": true,
     "total": 103,
     "passed_count": 81,
@@ -33,7 +33,7 @@
       "abstention_correctness": 0.825,
       "source_coverage": 0.5862,
       "contradiction_rate": 0.0,
-      "corpus_freshness_days": 59.6019,
+      "corpus_freshness_days": 60.5834,
       "regression_rate": 0.0
     },
     "by_type": {
